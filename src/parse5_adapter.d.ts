@@ -69,10 +69,6 @@ export declare class Parse5DomAdapter extends DomAdapter {
     removeClass(element: any, className: string): void;
     hasClass(element: any, className: string): boolean;
     hasStyle(element: any, styleName: string, styleValue?: string): boolean;
-    /** @internal */
-    _readStyleAttribute(element: any): {};
-    /** @internal */
-    _writeStyleAttribute(element: any, styleMap: any): void;
     setStyle(element: any, styleName: string, styleValue: string): void;
     removeStyle(element: any, styleName: string): void;
     getStyle(element: any, styleName: string): string;
@@ -102,8 +98,6 @@ export declare class Parse5DomAdapter extends DomAdapter {
     adoptNode(node: any): any;
     getHref(el: any): string;
     resolveAndSetHref(el: any, baseUrl: string, href: string): void;
-    /** @internal */
-    _buildRules(parsedRules: any, css?: any): any[];
     supportsDOMEvents(): boolean;
     supportsNativeShadowDOM(): boolean;
     getGlobalEventTarget(target: string): any;

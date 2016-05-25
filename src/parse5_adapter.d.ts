@@ -112,6 +112,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     setGlobalVar(path: string, value: any): void;
     requestAnimationFrame(callback: any): number;
     cancelAnimationFrame(id: number): void;
+    supportsWebAnimation(): boolean;
     performanceNow(): number;
     getAnimationPrefix(): string;
     getTransitionEnd(): string;

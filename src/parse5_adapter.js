@@ -567,6 +567,7 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { lang_1.setValueOnPath(lang_1.global, path, value); };
     Parse5DomAdapter.prototype.requestAnimationFrame = function (callback) { return setTimeout(callback, 0); };
     Parse5DomAdapter.prototype.cancelAnimationFrame = function (id) { clearTimeout(id); };
+    Parse5DomAdapter.prototype.supportsWebAnimation = function () { return true; };
     Parse5DomAdapter.prototype.performanceNow = function () { return lang_1.DateWrapper.toMillis(lang_1.DateWrapper.now()); };
     Parse5DomAdapter.prototype.getAnimationPrefix = function () { return ''; };
     Parse5DomAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };

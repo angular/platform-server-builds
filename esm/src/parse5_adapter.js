@@ -547,6 +547,7 @@ export class Parse5DomAdapter extends DomAdapter {
     setGlobalVar(path, value) { setValueOnPath(global, path, value); }
     requestAnimationFrame(callback) { return setTimeout(callback, 0); }
     cancelAnimationFrame(id) { clearTimeout(id); }
+    supportsWebAnimation() { return true; }
     performanceNow() { return DateWrapper.toMillis(DateWrapper.now()); }
     getAnimationPrefix() { return ''; }
     getTransitionEnd() { return 'transitionend'; }

@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "2.0.0-c2997fb",
+  "version": "2.0.0-0b6967f",
   "description": "",
   "main": "index.js",
   "jsnext:main": "esm/index.js",
@@ -8,10 +8,10 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "2.0.0-c2997fb",
-    "@angular/common": "2.0.0-c2997fb",
-    "@angular/compiler": "2.0.0-c2997fb",
-    "@angular/platform-browser": "2.0.0-c2997fb"
+    "@angular/core": "2.0.0-0b6967f",
+    "@angular/common": "2.0.0-0b6967f",
+    "@angular/compiler": "2.0.0-0b6967f",
+    "@angular/platform-browser": "2.0.0-0b6967f"
   },
   "dependencies": {
     "parse5": "1.3.2"

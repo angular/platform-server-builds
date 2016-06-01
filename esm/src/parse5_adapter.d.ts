@@ -121,4 +121,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     parse(templateHtml: string): void;
     invoke(el: Element, methodName: string, args: any[]): any;
     getEventKey(event: any): string;
+    supportsCookies(): boolean;
+    getCookie(name: string): string;
+    setCookie(name: string, value: string): void;
 }

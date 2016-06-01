@@ -576,6 +576,9 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.parse = function (templateHtml) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.invoke = function (el, methodName, args) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.getEventKey = function (event) { throw new Error('not implemented'); };
+    Parse5DomAdapter.prototype.supportsCookies = function () { return false; };
+    Parse5DomAdapter.prototype.getCookie = function (name) { throw new Error('not implemented'); };
+    Parse5DomAdapter.prototype.setCookie = function (name, value) { throw new Error('not implemented'); };
     return Parse5DomAdapter;
 }(platform_browser_private_1.DomAdapter));
 exports.Parse5DomAdapter = Parse5DomAdapter;

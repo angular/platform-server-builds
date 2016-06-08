@@ -22,7 +22,7 @@ var _attrToPropMap = {
 };
 var defDoc = null;
 var mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
-function _notImplemented(methodName) {
+function _notImplemented(methodName /** TODO #9100 */) {
     return new exceptions_1.BaseException('This method is not implemented in Parse5DomAdapter: ' + methodName);
 }
 /* tslint:disable:requireParameterType */
@@ -37,7 +37,7 @@ var Parse5DomAdapter = (function (_super) {
         treeAdapter = parser.treeAdapter;
         platform_browser_private_1.setRootDomAdapter(new Parse5DomAdapter());
     };
-    Parse5DomAdapter.prototype.hasProperty = function (element, name) {
+    Parse5DomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) {
         return _HTMLElementPropertyList.indexOf(name) > -1;
     };
     // TODO(tbosch): don't even call this method when we run the tests on server side
@@ -56,9 +56,9 @@ var Parse5DomAdapter = (function (_super) {
     // TODO(tbosch): don't even call this method when we run the tests on server side
     // by not using the DomRenderer in tests. Keeping this for now to make tests happy...
     Parse5DomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
-    Parse5DomAdapter.prototype.logError = function (error) { console.error(error); };
-    Parse5DomAdapter.prototype.log = function (error) { console.log(error); };
-    Parse5DomAdapter.prototype.logGroup = function (error) { console.error(error); };
+    Parse5DomAdapter.prototype.logError = function (error /** TODO #9100 */) { console.error(error); };
+    Parse5DomAdapter.prototype.log = function (error /** TODO #9100 */) { console.log(error); };
+    Parse5DomAdapter.prototype.logGroup = function (error /** TODO #9100 */) { console.error(error); };
     Parse5DomAdapter.prototype.logGroupEnd = function () { };
     Parse5DomAdapter.prototype.getXHR = function () { return compiler_1.XHR; };
     Object.defineProperty(Parse5DomAdapter.prototype, "attrToPropMap", {
@@ -66,12 +66,12 @@ var Parse5DomAdapter = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Parse5DomAdapter.prototype.query = function (selector) { throw _notImplemented('query'); };
-    Parse5DomAdapter.prototype.querySelector = function (el, selector) { return this.querySelectorAll(el, selector)[0]; };
-    Parse5DomAdapter.prototype.querySelectorAll = function (el, selector) {
+    Parse5DomAdapter.prototype.query = function (selector /** TODO #9100 */) { throw _notImplemented('query'); };
+    Parse5DomAdapter.prototype.querySelector = function (el /** TODO #9100 */, selector) { return this.querySelectorAll(el, selector)[0]; };
+    Parse5DomAdapter.prototype.querySelectorAll = function (el /** TODO #9100 */, selector) {
         var _this = this;
         var res = [];
-        var _recursive = function (result, node, selector, matcher) {
+        var _recursive = function (result /** TODO #9100 */, node /** TODO #9100 */, selector /** TODO #9100 */, matcher /** TODO #9100 */) {
             var cNodes = node.childNodes;
             if (cNodes && cNodes.length > 0) {
                 for (var i = 0; i < cNodes.length; i++) {
@@ -88,7 +88,7 @@ var Parse5DomAdapter = (function (_super) {
         _recursive(res, el, selector, matcher);
         return res;
     };
-    Parse5DomAdapter.prototype.elementMatches = function (node, selector, matcher) {
+    Parse5DomAdapter.prototype.elementMatches = function (node /** TODO #9100 */, selector, matcher) {
         if (matcher === void 0) { matcher = null; }
         if (this.isElementNode(node) && selector === '*') {
             return true;
@@ -114,11 +114,11 @@ var Parse5DomAdapter = (function (_super) {
             for (var i = 0; i < classList.length; i++) {
                 cssSelector.addClassName(classList[i]);
             }
-            matcher.match(cssSelector, function (selector, cb) { result = true; });
+            matcher.match(cssSelector, function (selector /** TODO #9100 */, cb /** TODO #9100 */) { result = true; });
         }
         return result;
     };
-    Parse5DomAdapter.prototype.on = function (el, evt, listener) {
+    Parse5DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         var listenersMap = el._eventListenersMap;
         if (lang_1.isBlank(listenersMap)) {
             var listenersMap = collection_1.StringMapWrapper.create();
@@ -131,13 +131,13 @@ var Parse5DomAdapter = (function (_super) {
         listeners.push(listener);
         collection_1.StringMapWrapper.set(listenersMap, evt, listeners);
     };
-    Parse5DomAdapter.prototype.onAndCancel = function (el, evt, listener) {
+    Parse5DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         this.on(el, evt, listener);
         return function () {
             collection_1.ListWrapper.remove(collection_1.StringMapWrapper.get(el._eventListenersMap, evt), listener);
         };
     };
-    Parse5DomAdapter.prototype.dispatchEvent = function (el, evt) {
+    Parse5DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt /** TODO #9100 */) {
         if (lang_1.isBlank(evt.target)) {
             evt.target = el;
         }
@@ -156,7 +156,7 @@ var Parse5DomAdapter = (function (_super) {
             this.dispatchEvent(el._window, evt);
         }
     };
-    Parse5DomAdapter.prototype.createMouseEvent = function (eventType) { return this.createEvent(eventType); };
+    Parse5DomAdapter.prototype.createMouseEvent = function (eventType /** TODO #9100 */) { return this.createEvent(eventType); };
     Parse5DomAdapter.prototype.createEvent = function (eventType) {
         var evt = {
             type: eventType,
@@ -165,26 +165,26 @@ var Parse5DomAdapter = (function (_super) {
         };
         return evt;
     };
-    Parse5DomAdapter.prototype.preventDefault = function (evt) { evt.returnValue = false; };
-    Parse5DomAdapter.prototype.isPrevented = function (evt) { return lang_1.isPresent(evt.returnValue) && !evt.returnValue; };
-    Parse5DomAdapter.prototype.getInnerHTML = function (el) { return serializer.serialize(this.templateAwareRoot(el)); };
-    Parse5DomAdapter.prototype.getTemplateContent = function (el) {
+    Parse5DomAdapter.prototype.preventDefault = function (evt /** TODO #9100 */) { evt.returnValue = false; };
+    Parse5DomAdapter.prototype.isPrevented = function (evt /** TODO #9100 */) { return lang_1.isPresent(evt.returnValue) && !evt.returnValue; };
+    Parse5DomAdapter.prototype.getInnerHTML = function (el /** TODO #9100 */) { return serializer.serialize(this.templateAwareRoot(el)); };
+    Parse5DomAdapter.prototype.getTemplateContent = function (el /** TODO #9100 */) {
         return null; // no <template> support in parse5.
     };
-    Parse5DomAdapter.prototype.getOuterHTML = function (el) {
+    Parse5DomAdapter.prototype.getOuterHTML = function (el /** TODO #9100 */) {
         serializer.html = '';
         serializer._serializeElement(el);
         return serializer.html;
     };
-    Parse5DomAdapter.prototype.nodeName = function (node) { return node.tagName; };
-    Parse5DomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
+    Parse5DomAdapter.prototype.nodeName = function (node /** TODO #9100 */) { return node.tagName; };
+    Parse5DomAdapter.prototype.nodeValue = function (node /** TODO #9100 */) { return node.nodeValue; };
     Parse5DomAdapter.prototype.type = function (node) { throw _notImplemented('type'); };
-    Parse5DomAdapter.prototype.content = function (node) { return node.childNodes[0]; };
-    Parse5DomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
-    Parse5DomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
-    Parse5DomAdapter.prototype.parentElement = function (el) { return el.parent; };
-    Parse5DomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
-    Parse5DomAdapter.prototype.childNodesAsList = function (el) {
+    Parse5DomAdapter.prototype.content = function (node /** TODO #9100 */) { return node.childNodes[0]; };
+    Parse5DomAdapter.prototype.firstChild = function (el /** TODO #9100 */) { return el.firstChild; };
+    Parse5DomAdapter.prototype.nextSibling = function (el /** TODO #9100 */) { return el.nextSibling; };
+    Parse5DomAdapter.prototype.parentElement = function (el /** TODO #9100 */) { return el.parent; };
+    Parse5DomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
+    Parse5DomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
         var childNodes = el.childNodes;
         var res = collection_1.ListWrapper.createFixedSize(childNodes.length);
         for (var i = 0; i < childNodes.length; i++) {
@@ -192,21 +192,21 @@ var Parse5DomAdapter = (function (_super) {
         }
         return res;
     };
-    Parse5DomAdapter.prototype.clearNodes = function (el) {
+    Parse5DomAdapter.prototype.clearNodes = function (el /** TODO #9100 */) {
         while (el.childNodes.length > 0) {
             this.remove(el.childNodes[0]);
         }
     };
-    Parse5DomAdapter.prototype.appendChild = function (el, node) {
+    Parse5DomAdapter.prototype.appendChild = function (el /** TODO #9100 */, node /** TODO #9100 */) {
         this.remove(node);
         treeAdapter.appendChild(this.templateAwareRoot(el), node);
     };
-    Parse5DomAdapter.prototype.removeChild = function (el, node) {
+    Parse5DomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node /** TODO #9100 */) {
         if (collection_1.ListWrapper.contains(el.childNodes, node)) {
             this.remove(node);
         }
     };
-    Parse5DomAdapter.prototype.remove = function (el) {
+    Parse5DomAdapter.prototype.remove = function (el /** TODO #9100 */) {
         var parent = el.parent;
         if (parent) {
             var index = parent.childNodes.indexOf(el);
@@ -225,15 +225,15 @@ var Parse5DomAdapter = (function (_super) {
         el.parent = null;
         return el;
     };
-    Parse5DomAdapter.prototype.insertBefore = function (el, node) {
+    Parse5DomAdapter.prototype.insertBefore = function (el /** TODO #9100 */, node /** TODO #9100 */) {
         this.remove(node);
         treeAdapter.insertBefore(el.parent, node, el);
     };
-    Parse5DomAdapter.prototype.insertAllBefore = function (el, nodes) {
+    Parse5DomAdapter.prototype.insertAllBefore = function (el /** TODO #9100 */, nodes /** TODO #9100 */) {
         var _this = this;
-        nodes.forEach(function (n) { return _this.insertBefore(el, n); });
+        nodes.forEach(function (n /** TODO #9100 */) { return _this.insertBefore(el, n); });
     };
-    Parse5DomAdapter.prototype.insertAfter = function (el, node) {
+    Parse5DomAdapter.prototype.insertAfter = function (el /** TODO #9100 */, node /** TODO #9100 */) {
         if (el.nextSibling) {
             this.insertBefore(el.nextSibling, node);
         }
@@ -241,14 +241,14 @@ var Parse5DomAdapter = (function (_super) {
             this.appendChild(el.parent, node);
         }
     };
-    Parse5DomAdapter.prototype.setInnerHTML = function (el, value) {
+    Parse5DomAdapter.prototype.setInnerHTML = function (el /** TODO #9100 */, value /** TODO #9100 */) {
         this.clearNodes(el);
         var content = parser.parseFragment(value);
         for (var i = 0; i < content.childNodes.length; i++) {
             treeAdapter.appendChild(el, content.childNodes[i]);
         }
     };
-    Parse5DomAdapter.prototype.getText = function (el, isRecursive) {
+    Parse5DomAdapter.prototype.getText = function (el /** TODO #9100 */, isRecursive) {
         if (this.isTextNode(el)) {
             return el.data;
         }
@@ -268,7 +268,7 @@ var Parse5DomAdapter = (function (_super) {
             return textContent;
         }
     };
-    Parse5DomAdapter.prototype.setText = function (el, value) {
+    Parse5DomAdapter.prototype.setText = function (el /** TODO #9100 */, value) {
         if (this.isTextNode(el) || this.isCommentNode(el)) {
             el.data = value;
         }
@@ -278,21 +278,21 @@ var Parse5DomAdapter = (function (_super) {
                 treeAdapter.insertText(el, value);
         }
     };
-    Parse5DomAdapter.prototype.getValue = function (el) { return el.value; };
-    Parse5DomAdapter.prototype.setValue = function (el, value) { el.value = value; };
-    Parse5DomAdapter.prototype.getChecked = function (el) { return el.checked; };
-    Parse5DomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
+    Parse5DomAdapter.prototype.getValue = function (el /** TODO #9100 */) { return el.value; };
+    Parse5DomAdapter.prototype.setValue = function (el /** TODO #9100 */, value) { el.value = value; };
+    Parse5DomAdapter.prototype.getChecked = function (el /** TODO #9100 */) { return el.checked; };
+    Parse5DomAdapter.prototype.setChecked = function (el /** TODO #9100 */, value) { el.checked = value; };
     Parse5DomAdapter.prototype.createComment = function (text) { return treeAdapter.createCommentNode(text); };
-    Parse5DomAdapter.prototype.createTemplate = function (html) {
+    Parse5DomAdapter.prototype.createTemplate = function (html /** TODO #9100 */) {
         var template = treeAdapter.createElement("template", 'http://www.w3.org/1999/xhtml', []);
         var content = parser.parseFragment(html);
         treeAdapter.appendChild(template, content);
         return template;
     };
-    Parse5DomAdapter.prototype.createElement = function (tagName) {
+    Parse5DomAdapter.prototype.createElement = function (tagName /** TODO #9100 */) {
         return treeAdapter.createElement(tagName, 'http://www.w3.org/1999/xhtml', []);
     };
-    Parse5DomAdapter.prototype.createElementNS = function (ns, tagName) { return treeAdapter.createElement(tagName, ns, []); };
+    Parse5DomAdapter.prototype.createElementNS = function (ns /** TODO #9100 */, tagName /** TODO #9100 */) { return treeAdapter.createElement(tagName, ns, []); };
     Parse5DomAdapter.prototype.createTextNode = function (text) {
         var t = this.createComment(text);
         t.type = 'text';
@@ -306,16 +306,16 @@ var Parse5DomAdapter = (function (_super) {
         this.setText(style, css);
         return style;
     };
-    Parse5DomAdapter.prototype.createShadowRoot = function (el) {
+    Parse5DomAdapter.prototype.createShadowRoot = function (el /** TODO #9100 */) {
         el.shadowRoot = treeAdapter.createDocumentFragment();
         el.shadowRoot.parent = el;
         return el.shadowRoot;
     };
-    Parse5DomAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
-    Parse5DomAdapter.prototype.getHost = function (el) { return el.host; };
+    Parse5DomAdapter.prototype.getShadowRoot = function (el /** TODO #9100 */) { return el.shadowRoot; };
+    Parse5DomAdapter.prototype.getHost = function (el /** TODO #9100 */) { return el.host; };
     Parse5DomAdapter.prototype.getDistributedNodes = function (el) { throw _notImplemented('getDistributedNodes'); };
     Parse5DomAdapter.prototype.clone = function (node) {
-        var _recursive = function (node) {
+        var _recursive = function (node /** TODO #9100 */) {
             var nodeClone = Object.create(Object.getPrototypeOf(node));
             for (var prop in node) {
                 var desc = Object.getOwnPropertyDescriptor(node, prop);
@@ -354,13 +354,13 @@ var Parse5DomAdapter = (function (_super) {
         };
         return _recursive(node);
     };
-    Parse5DomAdapter.prototype.getElementsByClassName = function (element, name) {
+    Parse5DomAdapter.prototype.getElementsByClassName = function (element /** TODO #9100 */, name) {
         return this.querySelectorAll(element, "." + name);
     };
     Parse5DomAdapter.prototype.getElementsByTagName = function (element, name) {
         throw _notImplemented('getElementsByTagName');
     };
-    Parse5DomAdapter.prototype.classList = function (element) {
+    Parse5DomAdapter.prototype.classList = function (element /** TODO #9100 */) {
         var classAttrValue = null;
         var attributes = element.attribs;
         if (attributes && attributes.hasOwnProperty("class")) {
@@ -368,7 +368,7 @@ var Parse5DomAdapter = (function (_super) {
         }
         return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
     };
-    Parse5DomAdapter.prototype.addClass = function (element, className) {
+    Parse5DomAdapter.prototype.addClass = function (element /** TODO #9100 */, className) {
         var classList = this.classList(element);
         var index = classList.indexOf(className);
         if (index == -1) {
@@ -376,7 +376,7 @@ var Parse5DomAdapter = (function (_super) {
             element.attribs["class"] = element.className = classList.join(" ");
         }
     };
-    Parse5DomAdapter.prototype.removeClass = function (element, className) {
+    Parse5DomAdapter.prototype.removeClass = function (element /** TODO #9100 */, className) {
         var classList = this.classList(element);
         var index = classList.indexOf(className);
         if (index > -1) {
@@ -384,16 +384,16 @@ var Parse5DomAdapter = (function (_super) {
             element.attribs["class"] = element.className = classList.join(" ");
         }
     };
-    Parse5DomAdapter.prototype.hasClass = function (element, className) {
+    Parse5DomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) {
         return collection_1.ListWrapper.contains(this.classList(element), className);
     };
-    Parse5DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
+    Parse5DomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) {
         if (styleValue === void 0) { styleValue = null; }
         var value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
     };
     /** @internal */
-    Parse5DomAdapter.prototype._readStyleAttribute = function (element) {
+    Parse5DomAdapter.prototype._readStyleAttribute = function (element /** TODO #9100 */) {
         var styleMap = {};
         var attributes = element.attribs;
         if (attributes && attributes.hasOwnProperty("style")) {
@@ -409,7 +409,7 @@ var Parse5DomAdapter = (function (_super) {
         return styleMap;
     };
     /** @internal */
-    Parse5DomAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
+    Parse5DomAdapter.prototype._writeStyleAttribute = function (element /** TODO #9100 */, styleMap /** TODO #9100 */) {
         var styleAttrValue = "";
         for (var key in styleMap) {
             var newValue = styleMap[key];
@@ -419,18 +419,18 @@ var Parse5DomAdapter = (function (_super) {
         }
         element.attribs["style"] = styleAttrValue;
     };
-    Parse5DomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
+    Parse5DomAdapter.prototype.setStyle = function (element /** TODO #9100 */, styleName, styleValue) {
         var styleMap = this._readStyleAttribute(element);
         styleMap[styleName] = styleValue;
         this._writeStyleAttribute(element, styleMap);
     };
-    Parse5DomAdapter.prototype.removeStyle = function (element, styleName) { this.setStyle(element, styleName, null); };
-    Parse5DomAdapter.prototype.getStyle = function (element, styleName) {
+    Parse5DomAdapter.prototype.removeStyle = function (element /** TODO #9100 */, styleName) { this.setStyle(element, styleName, null); };
+    Parse5DomAdapter.prototype.getStyle = function (element /** TODO #9100 */, styleName) {
         var styleMap = this._readStyleAttribute(element);
         return styleMap.hasOwnProperty(styleName) ? styleMap[styleName] : "";
     };
-    Parse5DomAdapter.prototype.tagName = function (element) { return element.tagName == "style" ? "STYLE" : element.tagName; };
-    Parse5DomAdapter.prototype.attributeMap = function (element) {
+    Parse5DomAdapter.prototype.tagName = function (element /** TODO #9100 */) { return element.tagName == "style" ? "STYLE" : element.tagName; };
+    Parse5DomAdapter.prototype.attributeMap = function (element /** TODO #9100 */) {
         var res = new Map();
         var elAttrs = treeAdapter.getAttrList(element);
         for (var i = 0; i < elAttrs.length; i++) {
@@ -439,17 +439,17 @@ var Parse5DomAdapter = (function (_super) {
         }
         return res;
     };
-    Parse5DomAdapter.prototype.hasAttribute = function (element, attribute) {
+    Parse5DomAdapter.prototype.hasAttribute = function (element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute);
     };
-    Parse5DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
-    Parse5DomAdapter.prototype.getAttribute = function (element, attribute) {
+    Parse5DomAdapter.prototype.hasAttributeNS = function (element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.getAttribute = function (element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute) ?
             element.attribs[attribute] :
             null;
     };
-    Parse5DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
-    Parse5DomAdapter.prototype.setAttribute = function (element, attribute, value) {
+    Parse5DomAdapter.prototype.getAttributeNS = function (element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.setAttribute = function (element /** TODO #9100 */, attribute, value) {
         if (attribute) {
             element.attribs[attribute] = value;
             if (attribute === 'class') {
@@ -457,14 +457,14 @@ var Parse5DomAdapter = (function (_super) {
             }
         }
     };
-    Parse5DomAdapter.prototype.setAttributeNS = function (element, ns, attribute, value) { throw 'not implemented'; };
-    Parse5DomAdapter.prototype.removeAttribute = function (element, attribute) {
+    Parse5DomAdapter.prototype.setAttributeNS = function (element /** TODO #9100 */, ns, attribute, value) { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) {
         if (attribute) {
             collection_1.StringMapWrapper.delete(element.attribs, attribute);
         }
     };
-    Parse5DomAdapter.prototype.removeAttributeNS = function (element, ns, name) { throw 'not implemented'; };
-    Parse5DomAdapter.prototype.templateAwareRoot = function (el) { return this.isTemplateElement(el) ? this.content(el) : el; };
+    Parse5DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.templateAwareRoot = function (el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; };
     Parse5DomAdapter.prototype.createHtmlDocument = function () {
         var newDoc = treeAdapter.createDocument();
         newDoc.title = "fake title";
@@ -483,21 +483,21 @@ var Parse5DomAdapter = (function (_super) {
         }
         return defDoc;
     };
-    Parse5DomAdapter.prototype.getBoundingClientRect = function (el) { return { left: 0, top: 0, width: 0, height: 0 }; };
+    Parse5DomAdapter.prototype.getBoundingClientRect = function (el /** TODO #9100 */) { return { left: 0, top: 0, width: 0, height: 0 }; };
     Parse5DomAdapter.prototype.getTitle = function () { return this.defaultDoc().title || ""; };
     Parse5DomAdapter.prototype.setTitle = function (newTitle) { this.defaultDoc().title = newTitle; };
     Parse5DomAdapter.prototype.isTemplateElement = function (el) {
         return this.isElementNode(el) && this.tagName(el) === "template";
     };
-    Parse5DomAdapter.prototype.isTextNode = function (node) { return treeAdapter.isTextNode(node); };
-    Parse5DomAdapter.prototype.isCommentNode = function (node) { return treeAdapter.isCommentNode(node); };
-    Parse5DomAdapter.prototype.isElementNode = function (node) { return node ? treeAdapter.isElementNode(node) : false; };
-    Parse5DomAdapter.prototype.hasShadowRoot = function (node) { return lang_1.isPresent(node.shadowRoot); };
-    Parse5DomAdapter.prototype.isShadowRoot = function (node) { return this.getShadowRoot(node) == node; };
-    Parse5DomAdapter.prototype.importIntoDoc = function (node) { return this.clone(node); };
-    Parse5DomAdapter.prototype.adoptNode = function (node) { return node; };
-    Parse5DomAdapter.prototype.getHref = function (el) { return el.href; };
-    Parse5DomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
+    Parse5DomAdapter.prototype.isTextNode = function (node /** TODO #9100 */) { return treeAdapter.isTextNode(node); };
+    Parse5DomAdapter.prototype.isCommentNode = function (node /** TODO #9100 */) { return treeAdapter.isCommentNode(node); };
+    Parse5DomAdapter.prototype.isElementNode = function (node /** TODO #9100 */) { return node ? treeAdapter.isElementNode(node) : false; };
+    Parse5DomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { return lang_1.isPresent(node.shadowRoot); };
+    Parse5DomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { return this.getShadowRoot(node) == node; };
+    Parse5DomAdapter.prototype.importIntoDoc = function (node /** TODO #9100 */) { return this.clone(node); };
+    Parse5DomAdapter.prototype.adoptNode = function (node /** TODO #9100 */) { return node; };
+    Parse5DomAdapter.prototype.getHref = function (el /** TODO #9100 */) { return el.href; };
+    Parse5DomAdapter.prototype.resolveAndSetHref = function (el /** TODO #9100 */, baseUrl, href) {
         if (href == null) {
             el.href = baseUrl;
         }
@@ -506,7 +506,7 @@ var Parse5DomAdapter = (function (_super) {
         }
     };
     /** @internal */
-    Parse5DomAdapter.prototype._buildRules = function (parsedRules, css) {
+    Parse5DomAdapter.prototype._buildRules = function (parsedRules /** TODO #9100 */, css /** TODO #9100 */) {
         var rules = [];
         for (var i = 0; i < parsedRules.length; i++) {
             var parsedRule = parsedRules[i];
@@ -560,22 +560,22 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.getHistory = function () { throw 'not implemented'; };
     Parse5DomAdapter.prototype.getLocation = function () { throw 'not implemented'; };
     Parse5DomAdapter.prototype.getUserAgent = function () { return "Fake user agent"; };
-    Parse5DomAdapter.prototype.getData = function (el, name) { return this.getAttribute(el, 'data-' + name); };
-    Parse5DomAdapter.prototype.getComputedStyle = function (el) { throw 'not implemented'; };
-    Parse5DomAdapter.prototype.setData = function (el, name, value) { this.setAttribute(el, 'data-' + name, value); };
+    Parse5DomAdapter.prototype.getData = function (el /** TODO #9100 */, name) { return this.getAttribute(el, 'data-' + name); };
+    Parse5DomAdapter.prototype.getComputedStyle = function (el /** TODO #9100 */) { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.setData = function (el /** TODO #9100 */, name, value) { this.setAttribute(el, 'data-' + name, value); };
     // TODO(tbosch): move this into a separate environment class once we have it
     Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { lang_1.setValueOnPath(lang_1.global, path, value); };
-    Parse5DomAdapter.prototype.requestAnimationFrame = function (callback) { return setTimeout(callback, 0); };
+    Parse5DomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { return setTimeout(callback, 0); };
     Parse5DomAdapter.prototype.cancelAnimationFrame = function (id) { clearTimeout(id); };
     Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
     Parse5DomAdapter.prototype.performanceNow = function () { return lang_1.DateWrapper.toMillis(lang_1.DateWrapper.now()); };
     Parse5DomAdapter.prototype.getAnimationPrefix = function () { return ''; };
     Parse5DomAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };
     Parse5DomAdapter.prototype.supportsAnimation = function () { return true; };
-    Parse5DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { throw new Error('not implemented'); };
+    Parse5DomAdapter.prototype.replaceChild = function (el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode /** TODO #9100 */) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.parse = function (templateHtml) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.invoke = function (el, methodName, args) { throw new Error('not implemented'); };
-    Parse5DomAdapter.prototype.getEventKey = function (event) { throw new Error('not implemented'); };
+    Parse5DomAdapter.prototype.getEventKey = function (event /** TODO #9100 */) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.supportsCookies = function () { return false; };
     Parse5DomAdapter.prototype.getCookie = function (name) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.setCookie = function (name, value) { throw new Error('not implemented'); };

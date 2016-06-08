@@ -16,7 +16,7 @@ var _attrToPropMap = {
 };
 var defDoc = null;
 var mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
-function _notImplemented(methodName) {
+function _notImplemented(methodName /** TODO #9100 */) {
     return new BaseException('This method is not implemented in Parse5DomAdapter: ' + methodName);
 }
 /* tslint:disable:requireParameterType */
@@ -27,7 +27,7 @@ export class Parse5DomAdapter extends DomAdapter {
         treeAdapter = parser.treeAdapter;
         setRootDomAdapter(new Parse5DomAdapter());
     }
-    hasProperty(element, name) {
+    hasProperty(element /** TODO #9100 */, name) {
         return _HTMLElementPropertyList.indexOf(name) > -1;
     }
     // TODO(tbosch): don't even call this method when we run the tests on server side
@@ -46,17 +46,17 @@ export class Parse5DomAdapter extends DomAdapter {
     // TODO(tbosch): don't even call this method when we run the tests on server side
     // by not using the DomRenderer in tests. Keeping this for now to make tests happy...
     getProperty(el, name) { return el[name]; }
-    logError(error) { console.error(error); }
-    log(error) { console.log(error); }
-    logGroup(error) { console.error(error); }
+    logError(error /** TODO #9100 */) { console.error(error); }
+    log(error /** TODO #9100 */) { console.log(error); }
+    logGroup(error /** TODO #9100 */) { console.error(error); }
     logGroupEnd() { }
     getXHR() { return XHR; }
     get attrToPropMap() { return _attrToPropMap; }
-    query(selector) { throw _notImplemented('query'); }
-    querySelector(el, selector) { return this.querySelectorAll(el, selector)[0]; }
-    querySelectorAll(el, selector) {
+    query(selector /** TODO #9100 */) { throw _notImplemented('query'); }
+    querySelector(el /** TODO #9100 */, selector) { return this.querySelectorAll(el, selector)[0]; }
+    querySelectorAll(el /** TODO #9100 */, selector) {
         var res = [];
-        var _recursive = (result, node, selector, matcher) => {
+        var _recursive = (result /** TODO #9100 */, node /** TODO #9100 */, selector /** TODO #9100 */, matcher /** TODO #9100 */) => {
             var cNodes = node.childNodes;
             if (cNodes && cNodes.length > 0) {
                 for (var i = 0; i < cNodes.length; i++) {
@@ -73,7 +73,7 @@ export class Parse5DomAdapter extends DomAdapter {
         _recursive(res, el, selector, matcher);
         return res;
     }
-    elementMatches(node, selector, matcher = null) {
+    elementMatches(node /** TODO #9100 */, selector, matcher = null) {
         if (this.isElementNode(node) && selector === '*') {
             return true;
         }
@@ -98,11 +98,11 @@ export class Parse5DomAdapter extends DomAdapter {
             for (var i = 0; i < classList.length; i++) {
                 cssSelector.addClassName(classList[i]);
             }
-            matcher.match(cssSelector, function (selector, cb) { result = true; });
+            matcher.match(cssSelector, function (selector /** TODO #9100 */, cb /** TODO #9100 */) { result = true; });
         }
         return result;
     }
-    on(el, evt, listener) {
+    on(el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         var listenersMap = el._eventListenersMap;
         if (isBlank(listenersMap)) {
             var listenersMap = StringMapWrapper.create();
@@ -115,13 +115,13 @@ export class Parse5DomAdapter extends DomAdapter {
         listeners.push(listener);
         StringMapWrapper.set(listenersMap, evt, listeners);
     }
-    onAndCancel(el, evt, listener) {
+    onAndCancel(el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         this.on(el, evt, listener);
         return () => {
             ListWrapper.remove(StringMapWrapper.get(el._eventListenersMap, evt), listener);
         };
     }
-    dispatchEvent(el, evt) {
+    dispatchEvent(el /** TODO #9100 */, evt /** TODO #9100 */) {
         if (isBlank(evt.target)) {
             evt.target = el;
         }
@@ -140,7 +140,7 @@ export class Parse5DomAdapter extends DomAdapter {
             this.dispatchEvent(el._window, evt);
         }
     }
-    createMouseEvent(eventType) { return this.createEvent(eventType); }
+    createMouseEvent(eventType /** TODO #9100 */) { return this.createEvent(eventType); }
     createEvent(eventType) {
         var evt = {
             type: eventType,
@@ -149,26 +149,26 @@ export class Parse5DomAdapter extends DomAdapter {
         };
         return evt;
     }
-    preventDefault(evt) { evt.returnValue = false; }
-    isPrevented(evt) { return isPresent(evt.returnValue) && !evt.returnValue; }
-    getInnerHTML(el) { return serializer.serialize(this.templateAwareRoot(el)); }
-    getTemplateContent(el) {
+    preventDefault(evt /** TODO #9100 */) { evt.returnValue = false; }
+    isPrevented(evt /** TODO #9100 */) { return isPresent(evt.returnValue) && !evt.returnValue; }
+    getInnerHTML(el /** TODO #9100 */) { return serializer.serialize(this.templateAwareRoot(el)); }
+    getTemplateContent(el /** TODO #9100 */) {
         return null; // no <template> support in parse5.
     }
-    getOuterHTML(el) {
+    getOuterHTML(el /** TODO #9100 */) {
         serializer.html = '';
         serializer._serializeElement(el);
         return serializer.html;
     }
-    nodeName(node) { return node.tagName; }
-    nodeValue(node) { return node.nodeValue; }
+    nodeName(node /** TODO #9100 */) { return node.tagName; }
+    nodeValue(node /** TODO #9100 */) { return node.nodeValue; }
     type(node) { throw _notImplemented('type'); }
-    content(node) { return node.childNodes[0]; }
-    firstChild(el) { return el.firstChild; }
-    nextSibling(el) { return el.nextSibling; }
-    parentElement(el) { return el.parent; }
-    childNodes(el) { return el.childNodes; }
-    childNodesAsList(el) {
+    content(node /** TODO #9100 */) { return node.childNodes[0]; }
+    firstChild(el /** TODO #9100 */) { return el.firstChild; }
+    nextSibling(el /** TODO #9100 */) { return el.nextSibling; }
+    parentElement(el /** TODO #9100 */) { return el.parent; }
+    childNodes(el /** TODO #9100 */) { return el.childNodes; }
+    childNodesAsList(el /** TODO #9100 */) {
         var childNodes = el.childNodes;
         var res = ListWrapper.createFixedSize(childNodes.length);
         for (var i = 0; i < childNodes.length; i++) {
@@ -176,21 +176,21 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         return res;
     }
-    clearNodes(el) {
+    clearNodes(el /** TODO #9100 */) {
         while (el.childNodes.length > 0) {
             this.remove(el.childNodes[0]);
         }
     }
-    appendChild(el, node) {
+    appendChild(el /** TODO #9100 */, node /** TODO #9100 */) {
         this.remove(node);
         treeAdapter.appendChild(this.templateAwareRoot(el), node);
     }
-    removeChild(el, node) {
+    removeChild(el /** TODO #9100 */, node /** TODO #9100 */) {
         if (ListWrapper.contains(el.childNodes, node)) {
             this.remove(node);
         }
     }
-    remove(el) {
+    remove(el /** TODO #9100 */) {
         var parent = el.parent;
         if (parent) {
             var index = parent.childNodes.indexOf(el);
@@ -209,12 +209,12 @@ export class Parse5DomAdapter extends DomAdapter {
         el.parent = null;
         return el;
     }
-    insertBefore(el, node) {
+    insertBefore(el /** TODO #9100 */, node /** TODO #9100 */) {
         this.remove(node);
         treeAdapter.insertBefore(el.parent, node, el);
     }
-    insertAllBefore(el, nodes) { nodes.forEach(n => this.insertBefore(el, n)); }
-    insertAfter(el, node) {
+    insertAllBefore(el /** TODO #9100 */, nodes /** TODO #9100 */) { nodes.forEach((n /** TODO #9100 */) => this.insertBefore(el, n)); }
+    insertAfter(el /** TODO #9100 */, node /** TODO #9100 */) {
         if (el.nextSibling) {
             this.insertBefore(el.nextSibling, node);
         }
@@ -222,14 +222,14 @@ export class Parse5DomAdapter extends DomAdapter {
             this.appendChild(el.parent, node);
         }
     }
-    setInnerHTML(el, value) {
+    setInnerHTML(el /** TODO #9100 */, value /** TODO #9100 */) {
         this.clearNodes(el);
         var content = parser.parseFragment(value);
         for (var i = 0; i < content.childNodes.length; i++) {
             treeAdapter.appendChild(el, content.childNodes[i]);
         }
     }
-    getText(el, isRecursive) {
+    getText(el /** TODO #9100 */, isRecursive) {
         if (this.isTextNode(el)) {
             return el.data;
         }
@@ -249,7 +249,7 @@ export class Parse5DomAdapter extends DomAdapter {
             return textContent;
         }
     }
-    setText(el, value) {
+    setText(el /** TODO #9100 */, value) {
         if (this.isTextNode(el) || this.isCommentNode(el)) {
             el.data = value;
         }
@@ -259,21 +259,21 @@ export class Parse5DomAdapter extends DomAdapter {
                 treeAdapter.insertText(el, value);
         }
     }
-    getValue(el) { return el.value; }
-    setValue(el, value) { el.value = value; }
-    getChecked(el) { return el.checked; }
-    setChecked(el, value) { el.checked = value; }
+    getValue(el /** TODO #9100 */) { return el.value; }
+    setValue(el /** TODO #9100 */, value) { el.value = value; }
+    getChecked(el /** TODO #9100 */) { return el.checked; }
+    setChecked(el /** TODO #9100 */, value) { el.checked = value; }
     createComment(text) { return treeAdapter.createCommentNode(text); }
-    createTemplate(html) {
+    createTemplate(html /** TODO #9100 */) {
         var template = treeAdapter.createElement("template", 'http://www.w3.org/1999/xhtml', []);
         var content = parser.parseFragment(html);
         treeAdapter.appendChild(template, content);
         return template;
     }
-    createElement(tagName) {
+    createElement(tagName /** TODO #9100 */) {
         return treeAdapter.createElement(tagName, 'http://www.w3.org/1999/xhtml', []);
     }
-    createElementNS(ns, tagName) { return treeAdapter.createElement(tagName, ns, []); }
+    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */) { return treeAdapter.createElement(tagName, ns, []); }
     createTextNode(text) {
         var t = this.createComment(text);
         t.type = 'text';
@@ -287,16 +287,16 @@ export class Parse5DomAdapter extends DomAdapter {
         this.setText(style, css);
         return style;
     }
-    createShadowRoot(el) {
+    createShadowRoot(el /** TODO #9100 */) {
         el.shadowRoot = treeAdapter.createDocumentFragment();
         el.shadowRoot.parent = el;
         return el.shadowRoot;
     }
-    getShadowRoot(el) { return el.shadowRoot; }
-    getHost(el) { return el.host; }
+    getShadowRoot(el /** TODO #9100 */) { return el.shadowRoot; }
+    getHost(el /** TODO #9100 */) { return el.host; }
     getDistributedNodes(el) { throw _notImplemented('getDistributedNodes'); }
     clone(node) {
-        var _recursive = (node) => {
+        var _recursive = (node /** TODO #9100 */) => {
             var nodeClone = Object.create(Object.getPrototypeOf(node));
             for (var prop in node) {
                 var desc = Object.getOwnPropertyDescriptor(node, prop);
@@ -335,13 +335,13 @@ export class Parse5DomAdapter extends DomAdapter {
         };
         return _recursive(node);
     }
-    getElementsByClassName(element, name) {
+    getElementsByClassName(element /** TODO #9100 */, name) {
         return this.querySelectorAll(element, "." + name);
     }
     getElementsByTagName(element, name) {
         throw _notImplemented('getElementsByTagName');
     }
-    classList(element) {
+    classList(element /** TODO #9100 */) {
         var classAttrValue = null;
         var attributes = element.attribs;
         if (attributes && attributes.hasOwnProperty("class")) {
@@ -349,7 +349,7 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
     }
-    addClass(element, className) {
+    addClass(element /** TODO #9100 */, className) {
         var classList = this.classList(element);
         var index = classList.indexOf(className);
         if (index == -1) {
@@ -357,7 +357,7 @@ export class Parse5DomAdapter extends DomAdapter {
             element.attribs["class"] = element.className = classList.join(" ");
         }
     }
-    removeClass(element, className) {
+    removeClass(element /** TODO #9100 */, className) {
         var classList = this.classList(element);
         var index = classList.indexOf(className);
         if (index > -1) {
@@ -365,15 +365,15 @@ export class Parse5DomAdapter extends DomAdapter {
             element.attribs["class"] = element.className = classList.join(" ");
         }
     }
-    hasClass(element, className) {
+    hasClass(element /** TODO #9100 */, className) {
         return ListWrapper.contains(this.classList(element), className);
     }
-    hasStyle(element, styleName, styleValue = null) {
+    hasStyle(element /** TODO #9100 */, styleName, styleValue = null) {
         var value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
     }
     /** @internal */
-    _readStyleAttribute(element) {
+    _readStyleAttribute(element /** TODO #9100 */) {
         var styleMap = {};
         var attributes = element.attribs;
         if (attributes && attributes.hasOwnProperty("style")) {
@@ -389,7 +389,7 @@ export class Parse5DomAdapter extends DomAdapter {
         return styleMap;
     }
     /** @internal */
-    _writeStyleAttribute(element, styleMap) {
+    _writeStyleAttribute(element /** TODO #9100 */, styleMap /** TODO #9100 */) {
         var styleAttrValue = "";
         for (var key in styleMap) {
             var newValue = styleMap[key];
@@ -399,18 +399,18 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         element.attribs["style"] = styleAttrValue;
     }
-    setStyle(element, styleName, styleValue) {
+    setStyle(element /** TODO #9100 */, styleName, styleValue) {
         var styleMap = this._readStyleAttribute(element);
         styleMap[styleName] = styleValue;
         this._writeStyleAttribute(element, styleMap);
     }
-    removeStyle(element, styleName) { this.setStyle(element, styleName, null); }
-    getStyle(element, styleName) {
+    removeStyle(element /** TODO #9100 */, styleName) { this.setStyle(element, styleName, null); }
+    getStyle(element /** TODO #9100 */, styleName) {
         var styleMap = this._readStyleAttribute(element);
         return styleMap.hasOwnProperty(styleName) ? styleMap[styleName] : "";
     }
-    tagName(element) { return element.tagName == "style" ? "STYLE" : element.tagName; }
-    attributeMap(element) {
+    tagName(element /** TODO #9100 */) { return element.tagName == "style" ? "STYLE" : element.tagName; }
+    attributeMap(element /** TODO #9100 */) {
         var res = new Map();
         var elAttrs = treeAdapter.getAttrList(element);
         for (var i = 0; i < elAttrs.length; i++) {
@@ -419,17 +419,17 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         return res;
     }
-    hasAttribute(element, attribute) {
+    hasAttribute(element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute);
     }
-    hasAttributeNS(element, ns, attribute) { throw 'not implemented'; }
-    getAttribute(element, attribute) {
+    hasAttributeNS(element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; }
+    getAttribute(element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute) ?
             element.attribs[attribute] :
             null;
     }
-    getAttributeNS(element, ns, attribute) { throw 'not implemented'; }
-    setAttribute(element, attribute, value) {
+    getAttributeNS(element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; }
+    setAttribute(element /** TODO #9100 */, attribute, value) {
         if (attribute) {
             element.attribs[attribute] = value;
             if (attribute === 'class') {
@@ -437,14 +437,14 @@ export class Parse5DomAdapter extends DomAdapter {
             }
         }
     }
-    setAttributeNS(element, ns, attribute, value) { throw 'not implemented'; }
-    removeAttribute(element, attribute) {
+    setAttributeNS(element /** TODO #9100 */, ns, attribute, value) { throw 'not implemented'; }
+    removeAttribute(element /** TODO #9100 */, attribute) {
         if (attribute) {
             StringMapWrapper.delete(element.attribs, attribute);
         }
     }
-    removeAttributeNS(element, ns, name) { throw 'not implemented'; }
-    templateAwareRoot(el) { return this.isTemplateElement(el) ? this.content(el) : el; }
+    removeAttributeNS(element /** TODO #9100 */, ns, name) { throw 'not implemented'; }
+    templateAwareRoot(el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; }
     createHtmlDocument() {
         var newDoc = treeAdapter.createDocument();
         newDoc.title = "fake title";
@@ -463,21 +463,21 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         return defDoc;
     }
-    getBoundingClientRect(el) { return { left: 0, top: 0, width: 0, height: 0 }; }
+    getBoundingClientRect(el /** TODO #9100 */) { return { left: 0, top: 0, width: 0, height: 0 }; }
     getTitle() { return this.defaultDoc().title || ""; }
     setTitle(newTitle) { this.defaultDoc().title = newTitle; }
     isTemplateElement(el) {
         return this.isElementNode(el) && this.tagName(el) === "template";
     }
-    isTextNode(node) { return treeAdapter.isTextNode(node); }
-    isCommentNode(node) { return treeAdapter.isCommentNode(node); }
-    isElementNode(node) { return node ? treeAdapter.isElementNode(node) : false; }
-    hasShadowRoot(node) { return isPresent(node.shadowRoot); }
-    isShadowRoot(node) { return this.getShadowRoot(node) == node; }
-    importIntoDoc(node) { return this.clone(node); }
-    adoptNode(node) { return node; }
-    getHref(el) { return el.href; }
-    resolveAndSetHref(el, baseUrl, href) {
+    isTextNode(node /** TODO #9100 */) { return treeAdapter.isTextNode(node); }
+    isCommentNode(node /** TODO #9100 */) { return treeAdapter.isCommentNode(node); }
+    isElementNode(node /** TODO #9100 */) { return node ? treeAdapter.isElementNode(node) : false; }
+    hasShadowRoot(node /** TODO #9100 */) { return isPresent(node.shadowRoot); }
+    isShadowRoot(node /** TODO #9100 */) { return this.getShadowRoot(node) == node; }
+    importIntoDoc(node /** TODO #9100 */) { return this.clone(node); }
+    adoptNode(node /** TODO #9100 */) { return node; }
+    getHref(el /** TODO #9100 */) { return el.href; }
+    resolveAndSetHref(el /** TODO #9100 */, baseUrl, href) {
         if (href == null) {
             el.href = baseUrl;
         }
@@ -486,7 +486,7 @@ export class Parse5DomAdapter extends DomAdapter {
         }
     }
     /** @internal */
-    _buildRules(parsedRules, css) {
+    _buildRules(parsedRules /** TODO #9100 */, css /** TODO #9100 */) {
         var rules = [];
         for (var i = 0; i < parsedRules.length; i++) {
             var parsedRule = parsedRules[i];
@@ -540,22 +540,22 @@ export class Parse5DomAdapter extends DomAdapter {
     getHistory() { throw 'not implemented'; }
     getLocation() { throw 'not implemented'; }
     getUserAgent() { return "Fake user agent"; }
-    getData(el, name) { return this.getAttribute(el, 'data-' + name); }
-    getComputedStyle(el) { throw 'not implemented'; }
-    setData(el, name, value) { this.setAttribute(el, 'data-' + name, value); }
+    getData(el /** TODO #9100 */, name) { return this.getAttribute(el, 'data-' + name); }
+    getComputedStyle(el /** TODO #9100 */) { throw 'not implemented'; }
+    setData(el /** TODO #9100 */, name, value) { this.setAttribute(el, 'data-' + name, value); }
     // TODO(tbosch): move this into a separate environment class once we have it
     setGlobalVar(path, value) { setValueOnPath(global, path, value); }
-    requestAnimationFrame(callback) { return setTimeout(callback, 0); }
+    requestAnimationFrame(callback /** TODO #9100 */) { return setTimeout(callback, 0); }
     cancelAnimationFrame(id) { clearTimeout(id); }
     supportsWebAnimation() { return false; }
     performanceNow() { return DateWrapper.toMillis(DateWrapper.now()); }
     getAnimationPrefix() { return ''; }
     getTransitionEnd() { return 'transitionend'; }
     supportsAnimation() { return true; }
-    replaceChild(el, newNode, oldNode) { throw new Error('not implemented'); }
+    replaceChild(el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode /** TODO #9100 */) { throw new Error('not implemented'); }
     parse(templateHtml) { throw new Error('not implemented'); }
     invoke(el, methodName, args) { throw new Error('not implemented'); }
-    getEventKey(event) { throw new Error('not implemented'); }
+    getEventKey(event /** TODO #9100 */) { throw new Error('not implemented'); }
     supportsCookies() { return false; }
     getCookie(name) { throw new Error('not implemented'); }
     setCookie(name, value) { throw new Error('not implemented'); }

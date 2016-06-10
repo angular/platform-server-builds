@@ -37,7 +37,7 @@ export class Parse5DomAdapter extends DomAdapter {
             this.setInnerHTML(el, value);
         }
         else if (name === 'className') {
-            el.attribs["class"] = el.className = value;
+            el.attribs['class'] = el.className = value;
         }
         else {
             el[name] = value;
@@ -53,7 +53,9 @@ export class Parse5DomAdapter extends DomAdapter {
     getXHR() { return XHR; }
     get attrToPropMap() { return _attrToPropMap; }
     query(selector /** TODO #9100 */) { throw _notImplemented('query'); }
-    querySelector(el /** TODO #9100 */, selector) { return this.querySelectorAll(el, selector)[0]; }
+    querySelector(el /** TODO #9100 */, selector) {
+        return this.querySelectorAll(el, selector)[0];
+    }
     querySelectorAll(el /** TODO #9100 */, selector) {
         var res = [];
         var _recursive = (result /** TODO #9100 */, node /** TODO #9100 */, selector /** TODO #9100 */, matcher /** TODO #9100 */) => {
@@ -78,7 +80,7 @@ export class Parse5DomAdapter extends DomAdapter {
             return true;
         }
         var result = false;
-        if (selector && selector.charAt(0) == "#") {
+        if (selector && selector.charAt(0) == '#') {
             result = this.getAttribute(node, 'id') == selector.substring(1);
         }
         else if (selector) {
@@ -150,8 +152,12 @@ export class Parse5DomAdapter extends DomAdapter {
         return evt;
     }
     preventDefault(evt /** TODO #9100 */) { evt.returnValue = false; }
-    isPrevented(evt /** TODO #9100 */) { return isPresent(evt.returnValue) && !evt.returnValue; }
-    getInnerHTML(el /** TODO #9100 */) { return serializer.serialize(this.templateAwareRoot(el)); }
+    isPrevented(evt /** TODO #9100 */) {
+        return isPresent(evt.returnValue) && !evt.returnValue;
+    }
+    getInnerHTML(el /** TODO #9100 */) {
+        return serializer.serialize(this.templateAwareRoot(el));
+    }
     getTemplateContent(el /** TODO #9100 */) {
         return null; // no <template> support in parse5.
     }
@@ -213,7 +219,9 @@ export class Parse5DomAdapter extends DomAdapter {
         this.remove(node);
         treeAdapter.insertBefore(el.parent, node, el);
     }
-    insertAllBefore(el /** TODO #9100 */, nodes /** TODO #9100 */) { nodes.forEach((n /** TODO #9100 */) => this.insertBefore(el, n)); }
+    insertAllBefore(el /** TODO #9100 */, nodes /** TODO #9100 */) {
+        nodes.forEach((n /** TODO #9100 */) => this.insertBefore(el, n));
+    }
     insertAfter(el /** TODO #9100 */, node /** TODO #9100 */) {
         if (el.nextSibling) {
             this.insertBefore(el.nextSibling, node);
@@ -239,10 +247,10 @@ export class Parse5DomAdapter extends DomAdapter {
             return isRecursive ? '' : el.data;
         }
         else if (isBlank(el.childNodes) || el.childNodes.length == 0) {
-            return "";
+            return '';
         }
         else {
-            var textContent = "";
+            var textContent = '';
             for (var i = 0; i < el.childNodes.length; i++) {
                 textContent += this.getText(el.childNodes[i], true);
             }
@@ -265,7 +273,7 @@ export class Parse5DomAdapter extends DomAdapter {
     setChecked(el /** TODO #9100 */, value) { el.checked = value; }
     createComment(text) { return treeAdapter.createCommentNode(text); }
     createTemplate(html /** TODO #9100 */) {
-        var template = treeAdapter.createElement("template", 'http://www.w3.org/1999/xhtml', []);
+        var template = treeAdapter.createElement('template', 'http://www.w3.org/1999/xhtml', []);
         var content = parser.parseFragment(html);
         treeAdapter.appendChild(template, content);
         return template;
@@ -273,14 +281,16 @@ export class Parse5DomAdapter extends DomAdapter {
     createElement(tagName /** TODO #9100 */) {
         return treeAdapter.createElement(tagName, 'http://www.w3.org/1999/xhtml', []);
     }
-    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */) { return treeAdapter.createElement(tagName, ns, []); }
+    createElementNS(ns /** TODO #9100 */, tagName /** TODO #9100 */) {
+        return treeAdapter.createElement(tagName, ns, []);
+    }
     createTextNode(text) {
         var t = this.createComment(text);
         t.type = 'text';
         return t;
     }
     createScriptTag(attrName, attrValue) {
-        return treeAdapter.createElement("script", 'http://www.w3.org/1999/xhtml', [{ name: attrName, value: attrValue }]);
+        return treeAdapter.createElement('script', 'http://www.w3.org/1999/xhtml', [{ name: attrName, value: attrValue }]);
     }
     createStyleElement(css) {
         var style = this.createElement('style');
@@ -336,7 +346,7 @@ export class Parse5DomAdapter extends DomAdapter {
         return _recursive(node);
     }
     getElementsByClassName(element /** TODO #9100 */, name) {
-        return this.querySelectorAll(element, "." + name);
+        return this.querySelectorAll(element, '.' + name);
     }
     getElementsByTagName(element, name) {
         throw _notImplemented('getElementsByTagName');
@@ -344,8 +354,8 @@ export class Parse5DomAdapter extends DomAdapter {
     classList(element /** TODO #9100 */) {
         var classAttrValue = null;
         var attributes = element.attribs;
-        if (attributes && attributes.hasOwnProperty("class")) {
-            classAttrValue = attributes["class"];
+        if (attributes && attributes.hasOwnProperty('class')) {
+            classAttrValue = attributes['class'];
         }
         return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
     }
@@ -354,7 +364,7 @@ export class Parse5DomAdapter extends DomAdapter {
         var index = classList.indexOf(className);
         if (index == -1) {
             classList.push(className);
-            element.attribs["class"] = element.className = classList.join(" ");
+            element.attribs['class'] = element.className = classList.join(' ');
         }
     }
     removeClass(element /** TODO #9100 */, className) {
@@ -362,7 +372,7 @@ export class Parse5DomAdapter extends DomAdapter {
         var index = classList.indexOf(className);
         if (index > -1) {
             classList.splice(index, 1);
-            element.attribs["class"] = element.className = classList.join(" ");
+            element.attribs['class'] = element.className = classList.join(' ');
         }
     }
     hasClass(element /** TODO #9100 */, className) {
@@ -376,8 +386,8 @@ export class Parse5DomAdapter extends DomAdapter {
     _readStyleAttribute(element /** TODO #9100 */) {
         var styleMap = {};
         var attributes = element.attribs;
-        if (attributes && attributes.hasOwnProperty("style")) {
-            var styleAttrValue = attributes["style"];
+        if (attributes && attributes.hasOwnProperty('style')) {
+            var styleAttrValue = attributes['style'];
             var styleList = styleAttrValue.split(/;+/g);
             for (var i = 0; i < styleList.length; i++) {
                 if (styleList[i].length > 0) {
@@ -390,26 +400,30 @@ export class Parse5DomAdapter extends DomAdapter {
     }
     /** @internal */
     _writeStyleAttribute(element /** TODO #9100 */, styleMap /** TODO #9100 */) {
-        var styleAttrValue = "";
+        var styleAttrValue = '';
         for (var key in styleMap) {
             var newValue = styleMap[key];
             if (newValue && newValue.length > 0) {
-                styleAttrValue += key + ":" + styleMap[key] + ";";
+                styleAttrValue += key + ':' + styleMap[key] + ';';
             }
         }
-        element.attribs["style"] = styleAttrValue;
+        element.attribs['style'] = styleAttrValue;
     }
     setStyle(element /** TODO #9100 */, styleName, styleValue) {
         var styleMap = this._readStyleAttribute(element);
         styleMap[styleName] = styleValue;
         this._writeStyleAttribute(element, styleMap);
     }
-    removeStyle(element /** TODO #9100 */, styleName) { this.setStyle(element, styleName, null); }
+    removeStyle(element /** TODO #9100 */, styleName) {
+        this.setStyle(element, styleName, null);
+    }
     getStyle(element /** TODO #9100 */, styleName) {
         var styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? styleMap[styleName] : "";
+        return styleMap.hasOwnProperty(styleName) ? styleMap[styleName] : '';
     }
-    tagName(element /** TODO #9100 */) { return element.tagName == "style" ? "STYLE" : element.tagName; }
+    tagName(element /** TODO #9100 */) {
+        return element.tagName == 'style' ? 'STYLE' : element.tagName;
+    }
     attributeMap(element /** TODO #9100 */) {
         var res = new Map();
         var elAttrs = treeAdapter.getAttrList(element);
@@ -422,13 +436,17 @@ export class Parse5DomAdapter extends DomAdapter {
     hasAttribute(element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute);
     }
-    hasAttributeNS(element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; }
+    hasAttributeNS(element /** TODO #9100 */, ns, attribute) {
+        throw 'not implemented';
+    }
     getAttribute(element /** TODO #9100 */, attribute) {
         return element.attribs && element.attribs.hasOwnProperty(attribute) ?
             element.attribs[attribute] :
             null;
     }
-    getAttributeNS(element /** TODO #9100 */, ns, attribute) { throw 'not implemented'; }
+    getAttributeNS(element /** TODO #9100 */, ns, attribute) {
+        throw 'not implemented';
+    }
     setAttribute(element /** TODO #9100 */, attribute, value) {
         if (attribute) {
             element.attribs[attribute] = value;
@@ -437,24 +455,30 @@ export class Parse5DomAdapter extends DomAdapter {
             }
         }
     }
-    setAttributeNS(element /** TODO #9100 */, ns, attribute, value) { throw 'not implemented'; }
+    setAttributeNS(element /** TODO #9100 */, ns, attribute, value) {
+        throw 'not implemented';
+    }
     removeAttribute(element /** TODO #9100 */, attribute) {
         if (attribute) {
             StringMapWrapper.delete(element.attribs, attribute);
         }
     }
-    removeAttributeNS(element /** TODO #9100 */, ns, name) { throw 'not implemented'; }
-    templateAwareRoot(el /** TODO #9100 */) { return this.isTemplateElement(el) ? this.content(el) : el; }
+    removeAttributeNS(element /** TODO #9100 */, ns, name) {
+        throw 'not implemented';
+    }
+    templateAwareRoot(el /** TODO #9100 */) {
+        return this.isTemplateElement(el) ? this.content(el) : el;
+    }
     createHtmlDocument() {
         var newDoc = treeAdapter.createDocument();
-        newDoc.title = "fake title";
-        var head = treeAdapter.createElement("head", null, []);
-        var body = treeAdapter.createElement("body", 'http://www.w3.org/1999/xhtml', []);
+        newDoc.title = 'fake title';
+        var head = treeAdapter.createElement('head', null, []);
+        var body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
         this.appendChild(newDoc, head);
         this.appendChild(newDoc, body);
-        StringMapWrapper.set(newDoc, "head", head);
-        StringMapWrapper.set(newDoc, "body", body);
-        StringMapWrapper.set(newDoc, "_window", StringMapWrapper.create());
+        StringMapWrapper.set(newDoc, 'head', head);
+        StringMapWrapper.set(newDoc, 'body', body);
+        StringMapWrapper.set(newDoc, '_window', StringMapWrapper.create());
         return newDoc;
     }
     defaultDoc() {
@@ -463,15 +487,19 @@ export class Parse5DomAdapter extends DomAdapter {
         }
         return defDoc;
     }
-    getBoundingClientRect(el /** TODO #9100 */) { return { left: 0, top: 0, width: 0, height: 0 }; }
-    getTitle() { return this.defaultDoc().title || ""; }
+    getBoundingClientRect(el /** TODO #9100 */) {
+        return { left: 0, top: 0, width: 0, height: 0 };
+    }
+    getTitle() { return this.defaultDoc().title || ''; }
     setTitle(newTitle) { this.defaultDoc().title = newTitle; }
     isTemplateElement(el) {
-        return this.isElementNode(el) && this.tagName(el) === "template";
+        return this.isElementNode(el) && this.tagName(el) === 'template';
     }
     isTextNode(node /** TODO #9100 */) { return treeAdapter.isTextNode(node); }
     isCommentNode(node /** TODO #9100 */) { return treeAdapter.isCommentNode(node); }
-    isElementNode(node /** TODO #9100 */) { return node ? treeAdapter.isElementNode(node) : false; }
+    isElementNode(node /** TODO #9100 */) {
+        return node ? treeAdapter.isElementNode(node) : false;
+    }
     hasShadowRoot(node /** TODO #9100 */) { return isPresent(node.shadowRoot); }
     isShadowRoot(node /** TODO #9100 */) { return this.getShadowRoot(node) == node; }
     importIntoDoc(node /** TODO #9100 */) { return this.clone(node); }
@@ -491,31 +519,31 @@ export class Parse5DomAdapter extends DomAdapter {
         for (var i = 0; i < parsedRules.length; i++) {
             var parsedRule = parsedRules[i];
             var rule = StringMapWrapper.create();
-            StringMapWrapper.set(rule, "cssText", css);
-            StringMapWrapper.set(rule, "style", { content: "", cssText: "" });
-            if (parsedRule.type == "rule") {
-                StringMapWrapper.set(rule, "type", 1);
-                StringMapWrapper.set(rule, "selectorText", parsedRule.selectors.join(", ")
-                    .replace(/\s{2,}/g, " ")
-                    .replace(/\s*~\s*/g, " ~ ")
-                    .replace(/\s*\+\s*/g, " + ")
-                    .replace(/\s*>\s*/g, " > ")
+            StringMapWrapper.set(rule, 'cssText', css);
+            StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
+            if (parsedRule.type == 'rule') {
+                StringMapWrapper.set(rule, 'type', 1);
+                StringMapWrapper.set(rule, 'selectorText', parsedRule.selectors.join(', ')
+                    .replace(/\s{2,}/g, ' ')
+                    .replace(/\s*~\s*/g, ' ~ ')
+                    .replace(/\s*\+\s*/g, ' + ')
+                    .replace(/\s*>\s*/g, ' > ')
                     .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
                 if (isBlank(parsedRule.declarations)) {
                     continue;
                 }
                 for (var j = 0; j < parsedRule.declarations.length; j++) {
                     var declaration = parsedRule.declarations[j];
-                    StringMapWrapper.set(StringMapWrapper.get(rule, "style"), declaration.property, declaration.value);
-                    StringMapWrapper.get(rule, "style").cssText +=
-                        declaration.property + ": " + declaration.value + ";";
+                    StringMapWrapper.set(StringMapWrapper.get(rule, 'style'), declaration.property, declaration.value);
+                    StringMapWrapper.get(rule, 'style').cssText +=
+                        declaration.property + ': ' + declaration.value + ';';
                 }
             }
-            else if (parsedRule.type == "media") {
-                StringMapWrapper.set(rule, "type", 4);
-                StringMapWrapper.set(rule, "media", { mediaText: parsedRule.media });
+            else if (parsedRule.type == 'media') {
+                StringMapWrapper.set(rule, 'type', 4);
+                StringMapWrapper.set(rule, 'media', { mediaText: parsedRule.media });
                 if (parsedRule.rules) {
-                    StringMapWrapper.set(rule, "cssRules", this._buildRules(parsedRule.rules));
+                    StringMapWrapper.set(rule, 'cssRules', this._buildRules(parsedRule.rules));
                 }
             }
             rules.push(rule);
@@ -525,13 +553,13 @@ export class Parse5DomAdapter extends DomAdapter {
     supportsDOMEvents() { return false; }
     supportsNativeShadowDOM() { return false; }
     getGlobalEventTarget(target) {
-        if (target == "window") {
+        if (target == 'window') {
             return this.defaultDoc()._window;
         }
-        else if (target == "document") {
+        else if (target == 'document') {
             return this.defaultDoc();
         }
-        else if (target == "body") {
+        else if (target == 'body') {
             return this.defaultDoc().body;
         }
     }
@@ -539,10 +567,14 @@ export class Parse5DomAdapter extends DomAdapter {
     resetBaseElement() { throw 'not implemented'; }
     getHistory() { throw 'not implemented'; }
     getLocation() { throw 'not implemented'; }
-    getUserAgent() { return "Fake user agent"; }
-    getData(el /** TODO #9100 */, name) { return this.getAttribute(el, 'data-' + name); }
+    getUserAgent() { return 'Fake user agent'; }
+    getData(el /** TODO #9100 */, name) {
+        return this.getAttribute(el, 'data-' + name);
+    }
     getComputedStyle(el /** TODO #9100 */) { throw 'not implemented'; }
-    setData(el /** TODO #9100 */, name, value) { this.setAttribute(el, 'data-' + name, value); }
+    setData(el /** TODO #9100 */, name, value) {
+        this.setAttribute(el, 'data-' + name, value);
+    }
     // TODO(tbosch): move this into a separate environment class once we have it
     setGlobalVar(path, value) { setValueOnPath(global, path, value); }
     requestAnimationFrame(callback /** TODO #9100 */) { return setTimeout(callback, 0); }
@@ -552,7 +584,9 @@ export class Parse5DomAdapter extends DomAdapter {
     getAnimationPrefix() { return ''; }
     getTransitionEnd() { return 'transitionend'; }
     supportsAnimation() { return true; }
-    replaceChild(el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode /** TODO #9100 */) { throw new Error('not implemented'); }
+    replaceChild(el /** TODO #9100 */, newNode /** TODO #9100 */, oldNode /** TODO #9100 */) {
+        throw new Error('not implemented');
+    }
     parse(templateHtml) { throw new Error('not implemented'); }
     invoke(el, methodName, args) { throw new Error('not implemented'); }
     getEventKey(event /** TODO #9100 */) { throw new Error('not implemented'); }
@@ -563,187 +597,187 @@ export class Parse5DomAdapter extends DomAdapter {
 }
 // TODO: build a proper list, this one is all the keys of a HTMLInputElement
 var _HTMLElementPropertyList = [
-    "webkitEntries",
-    "incremental",
-    "webkitdirectory",
-    "selectionDirection",
-    "selectionEnd",
-    "selectionStart",
-    "labels",
-    "validationMessage",
-    "validity",
-    "willValidate",
-    "width",
-    "valueAsNumber",
-    "valueAsDate",
-    "value",
-    "useMap",
-    "defaultValue",
-    "type",
-    "step",
-    "src",
-    "size",
-    "required",
-    "readOnly",
-    "placeholder",
-    "pattern",
-    "name",
-    "multiple",
-    "min",
-    "minLength",
-    "maxLength",
-    "max",
-    "list",
-    "indeterminate",
-    "height",
-    "formTarget",
-    "formNoValidate",
-    "formMethod",
-    "formEnctype",
-    "formAction",
-    "files",
-    "form",
-    "disabled",
-    "dirName",
-    "checked",
-    "defaultChecked",
-    "autofocus",
-    "autocomplete",
-    "alt",
-    "align",
-    "accept",
-    "onautocompleteerror",
-    "onautocomplete",
-    "onwaiting",
-    "onvolumechange",
-    "ontoggle",
-    "ontimeupdate",
-    "onsuspend",
-    "onsubmit",
-    "onstalled",
-    "onshow",
-    "onselect",
-    "onseeking",
-    "onseeked",
-    "onscroll",
-    "onresize",
-    "onreset",
-    "onratechange",
-    "onprogress",
-    "onplaying",
-    "onplay",
-    "onpause",
-    "onmousewheel",
-    "onmouseup",
-    "onmouseover",
-    "onmouseout",
-    "onmousemove",
-    "onmouseleave",
-    "onmouseenter",
-    "onmousedown",
-    "onloadstart",
-    "onloadedmetadata",
-    "onloadeddata",
-    "onload",
-    "onkeyup",
-    "onkeypress",
-    "onkeydown",
-    "oninvalid",
-    "oninput",
-    "onfocus",
-    "onerror",
-    "onended",
-    "onemptied",
-    "ondurationchange",
-    "ondrop",
-    "ondragstart",
-    "ondragover",
-    "ondragleave",
-    "ondragenter",
-    "ondragend",
-    "ondrag",
-    "ondblclick",
-    "oncuechange",
-    "oncontextmenu",
-    "onclose",
-    "onclick",
-    "onchange",
-    "oncanplaythrough",
-    "oncanplay",
-    "oncancel",
-    "onblur",
-    "onabort",
-    "spellcheck",
-    "isContentEditable",
-    "contentEditable",
-    "outerText",
-    "innerText",
-    "accessKey",
-    "hidden",
-    "webkitdropzone",
-    "draggable",
-    "tabIndex",
-    "dir",
-    "translate",
-    "lang",
-    "title",
-    "childElementCount",
-    "lastElementChild",
-    "firstElementChild",
-    "children",
-    "onwebkitfullscreenerror",
-    "onwebkitfullscreenchange",
-    "nextElementSibling",
-    "previousElementSibling",
-    "onwheel",
-    "onselectstart",
-    "onsearch",
-    "onpaste",
-    "oncut",
-    "oncopy",
-    "onbeforepaste",
-    "onbeforecut",
-    "onbeforecopy",
-    "shadowRoot",
-    "dataset",
-    "classList",
-    "className",
-    "outerHTML",
-    "innerHTML",
-    "scrollHeight",
-    "scrollWidth",
-    "scrollTop",
-    "scrollLeft",
-    "clientHeight",
-    "clientWidth",
-    "clientTop",
-    "clientLeft",
-    "offsetParent",
-    "offsetHeight",
-    "offsetWidth",
-    "offsetTop",
-    "offsetLeft",
-    "localName",
-    "prefix",
-    "namespaceURI",
-    "id",
-    "style",
-    "attributes",
-    "tagName",
-    "parentElement",
-    "textContent",
-    "baseURI",
-    "ownerDocument",
-    "nextSibling",
-    "previousSibling",
-    "lastChild",
-    "firstChild",
-    "childNodes",
-    "parentNode",
-    "nodeType",
-    "nodeValue",
-    "nodeName",
-    "closure_lm_714617",
-    "__jsaction"
+    'webkitEntries',
+    'incremental',
+    'webkitdirectory',
+    'selectionDirection',
+    'selectionEnd',
+    'selectionStart',
+    'labels',
+    'validationMessage',
+    'validity',
+    'willValidate',
+    'width',
+    'valueAsNumber',
+    'valueAsDate',
+    'value',
+    'useMap',
+    'defaultValue',
+    'type',
+    'step',
+    'src',
+    'size',
+    'required',
+    'readOnly',
+    'placeholder',
+    'pattern',
+    'name',
+    'multiple',
+    'min',
+    'minLength',
+    'maxLength',
+    'max',
+    'list',
+    'indeterminate',
+    'height',
+    'formTarget',
+    'formNoValidate',
+    'formMethod',
+    'formEnctype',
+    'formAction',
+    'files',
+    'form',
+    'disabled',
+    'dirName',
+    'checked',
+    'defaultChecked',
+    'autofocus',
+    'autocomplete',
+    'alt',
+    'align',
+    'accept',
+    'onautocompleteerror',
+    'onautocomplete',
+    'onwaiting',
+    'onvolumechange',
+    'ontoggle',
+    'ontimeupdate',
+    'onsuspend',
+    'onsubmit',
+    'onstalled',
+    'onshow',
+    'onselect',
+    'onseeking',
+    'onseeked',
+    'onscroll',
+    'onresize',
+    'onreset',
+    'onratechange',
+    'onprogress',
+    'onplaying',
+    'onplay',
+    'onpause',
+    'onmousewheel',
+    'onmouseup',
+    'onmouseover',
+    'onmouseout',
+    'onmousemove',
+    'onmouseleave',
+    'onmouseenter',
+    'onmousedown',
+    'onloadstart',
+    'onloadedmetadata',
+    'onloadeddata',
+    'onload',
+    'onkeyup',
+    'onkeypress',
+    'onkeydown',
+    'oninvalid',
+    'oninput',
+    'onfocus',
+    'onerror',
+    'onended',
+    'onemptied',
+    'ondurationchange',
+    'ondrop',
+    'ondragstart',
+    'ondragover',
+    'ondragleave',
+    'ondragenter',
+    'ondragend',
+    'ondrag',
+    'ondblclick',
+    'oncuechange',
+    'oncontextmenu',
+    'onclose',
+    'onclick',
+    'onchange',
+    'oncanplaythrough',
+    'oncanplay',
+    'oncancel',
+    'onblur',
+    'onabort',
+    'spellcheck',
+    'isContentEditable',
+    'contentEditable',
+    'outerText',
+    'innerText',
+    'accessKey',
+    'hidden',
+    'webkitdropzone',
+    'draggable',
+    'tabIndex',
+    'dir',
+    'translate',
+    'lang',
+    'title',
+    'childElementCount',
+    'lastElementChild',
+    'firstElementChild',
+    'children',
+    'onwebkitfullscreenerror',
+    'onwebkitfullscreenchange',
+    'nextElementSibling',
+    'previousElementSibling',
+    'onwheel',
+    'onselectstart',
+    'onsearch',
+    'onpaste',
+    'oncut',
+    'oncopy',
+    'onbeforepaste',
+    'onbeforecut',
+    'onbeforecopy',
+    'shadowRoot',
+    'dataset',
+    'classList',
+    'className',
+    'outerHTML',
+    'innerHTML',
+    'scrollHeight',
+    'scrollWidth',
+    'scrollTop',
+    'scrollLeft',
+    'clientHeight',
+    'clientWidth',
+    'clientTop',
+    'clientLeft',
+    'offsetParent',
+    'offsetHeight',
+    'offsetWidth',
+    'offsetTop',
+    'offsetLeft',
+    'localName',
+    'prefix',
+    'namespaceURI',
+    'id',
+    'style',
+    'attributes',
+    'tagName',
+    'parentElement',
+    'textContent',
+    'baseURI',
+    'ownerDocument',
+    'nextSibling',
+    'previousSibling',
+    'lastChild',
+    'firstChild',
+    'childNodes',
+    'parentNode',
+    'nodeType',
+    'nodeValue',
+    'nodeName',
+    'closure_lm_714617',
+    '__jsaction'
 ];
 //# sourceMappingURL=parse5_adapter.js.map

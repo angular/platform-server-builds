@@ -5,13 +5,13 @@ var testing_2 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
 var testing_3 = require('@angular/platform-browser/testing');
 var core_private_1 = require('../core_private');
-var index_1 = require('../index');
+var parse5_adapter_1 = require('../src/parse5_adapter');
 var platform_browser_1 = require('@angular/platform-browser');
 var platform_browser_private_1 = require('../platform_browser_private');
 var common_1 = require('@angular/common');
 var testing_4 = require('@angular/core/testing');
 function initServerTests() {
-    index_1.Parse5DomAdapter.makeCurrent();
+    parse5_adapter_1.Parse5DomAdapter.makeCurrent();
     testing_3.BrowserDetection.setup();
 }
 /**

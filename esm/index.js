@@ -1,2 +1,3 @@
-export { SERVER_APPLICATION_PROVIDERS, SERVER_PLATFORM_PROVIDERS, serverBootstrap } from './src/server';
+// TODO: vsavkin add SERVER_PROVIDERS and SERVER_APP_PROVIDERS
+export { Parse5DomAdapter } from './src/parse5_adapter';
 //# sourceMappingURL=index.js.map

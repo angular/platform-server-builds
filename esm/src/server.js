@@ -1,6 +1,7 @@
 import { PlatformLocation } from '@angular/common';
 import { OpaqueToken, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, ReflectiveInjector, assertPlatform, coreLoadAndBootstrap, createPlatform, getPlatform } from '@angular/core';
-import { BROWSER_APP_COMPILER_PROVIDERS, BROWSER_APP_PROVIDERS, BrowserPlatformLocation } from '@angular/platform-browser';
+import { BROWSER_APP_PROVIDERS, BrowserPlatformLocation } from '@angular/platform-browser';
+import { BROWSER_APP_COMPILER_PROVIDERS } from '@angular/platform-browser-dynamic';
 import { ReflectionCapabilities, reflector, wtfInit } from '../core_private';
 import { Parse5DomAdapter } from './parse5_adapter';
 const SERVER_PLATFORM_MARKER = new OpaqueToken('ServerPlatformMarker');

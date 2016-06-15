@@ -5,6 +5,7 @@ var testing_2 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
 var testing_3 = require('@angular/platform-browser/testing');
 var core_private_1 = require('../core_private');
+var platform_browser_dynamic_testing_private_1 = require('../platform_browser_dynamic_testing_private');
 var parse5_adapter_1 = require('../src/parse5_adapter');
 var platform_browser_1 = require('@angular/platform-browser');
 var platform_browser_private_1 = require('../platform_browser_private');
@@ -61,7 +62,7 @@ exports.TEST_SERVER_APPLICATION_PROVIDERS =
     platform_browser_private_1.DomSharedStylesHost, platform_browser_1.ELEMENT_PROBE_PROVIDERS,
     /* @ts2dart_Provider */ { provide: compiler_1.DirectiveResolver, useClass: testing_2.MockDirectiveResolver },
     /* @ts2dart_Provider */ { provide: compiler_1.ViewResolver, useClass: testing_2.MockViewResolver }, testing_4.Log,
-    /* @ts2dart_Provider */ { provide: testing_2.TestComponentRenderer, useClass: testing_3.DOMTestComponentRenderer },
+    /* @ts2dart_Provider */ { provide: testing_2.TestComponentRenderer, useClass: platform_browser_dynamic_testing_private_1.DOMTestComponentRenderer },
     testing_2.TestComponentBuilder,
     /* @ts2dart_Provider */ { provide: core_1.NgZone, useFactory: createNgZone },
     /* @ts2dart_Provider */ { provide: common_1.LocationStrategy, useClass: testing_1.MockLocationStrategy }

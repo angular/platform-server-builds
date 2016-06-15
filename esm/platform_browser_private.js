@@ -1,9 +1,9 @@
-import { __platform_browser_private__ as _ } from '@angular/platform-browser';
-export var DomAdapter = _.DomAdapter;
-export var setRootDomAdapter = _.setRootDomAdapter;
-export var getDOM = _.getDOM;
-export var DomRootRenderer = _.DomRootRenderer;
-export var DomRootRenderer_ = _.DomRootRenderer_;
-export var DomSharedStylesHost = _.DomSharedStylesHost;
-export var SharedStylesHost = _.SharedStylesHost;
+import { __platform_browser_private__ as r } from '@angular/platform-browser';
+export var DomAdapter = r.DomAdapter;
+export var setRootDomAdapter = r.setRootDomAdapter;
+export var getDOM = r.getDOM;
+export var DomRootRenderer = r.DomRootRenderer;
+export var DomRootRenderer_ = r.DomRootRenderer_;
+export var DomSharedStylesHost = r.DomSharedStylesHost;
+export var SharedStylesHost = r.SharedStylesHost;
 //# sourceMappingURL=platform_browser_private.js.map

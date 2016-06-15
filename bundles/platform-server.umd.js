@@ -9,10 +9,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/compiler')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/compiler'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.core, global.ng.platformBrowser, global.ng.compiler));
-}(this, function (exports, _angular_common, _angular_core, _angular_platformBrowser, _angular_compiler) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/platform-browser-dynamic'), require('@angular/compiler')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/compiler'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.core, global.ng.platformBrowser, global._angular_platformBrowserDynamic, global.ng.compiler));
+}(this, function (exports, _angular_common, _angular_core, _angular_platformBrowser, _angular_platformBrowserDynamic, _angular_compiler) {
     'use strict';
     var reflector = _angular_core.__core_private__.reflector;
     var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
@@ -1195,7 +1195,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: _angular_platformBrowser.BrowserPlatformLocation }
     ];
-    var SERVER_APPLICATION_PROVIDERS = [_angular_platformBrowser.BROWSER_APP_PROVIDERS, _angular_platformBrowser.BROWSER_APP_COMPILER_PROVIDERS];
+    var SERVER_APPLICATION_PROVIDERS = [_angular_platformBrowser.BROWSER_APP_PROVIDERS, _angular_platformBrowserDynamic.BROWSER_APP_COMPILER_PROVIDERS];
     function initParse5Adapter() {
         Parse5DomAdapter.makeCurrent();
         wtfInit();

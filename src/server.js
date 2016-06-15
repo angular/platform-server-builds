@@ -2,6 +2,7 @@
 var common_1 = require('@angular/common');
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var core_private_1 = require('../core_private');
 var parse5_adapter_1 = require('./parse5_adapter');
 var SERVER_PLATFORM_MARKER = new core_1.OpaqueToken('ServerPlatformMarker');
@@ -15,7 +16,7 @@ exports.SERVER_PLATFORM_PROVIDERS = [
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
     { provide: common_1.PlatformLocation, useClass: platform_browser_1.BrowserPlatformLocation }
 ];
-exports.SERVER_APPLICATION_PROVIDERS = [platform_browser_1.BROWSER_APP_PROVIDERS, platform_browser_1.BROWSER_APP_COMPILER_PROVIDERS];
+exports.SERVER_APPLICATION_PROVIDERS = [platform_browser_1.BROWSER_APP_PROVIDERS, platform_browser_dynamic_1.BROWSER_APP_COMPILER_PROVIDERS];
 function initParse5Adapter() {
     parse5_adapter_1.Parse5DomAdapter.makeCurrent();
     core_private_1.wtfInit();

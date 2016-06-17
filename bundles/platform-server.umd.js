@@ -9,11 +9,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/compiler')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/platform-browser', '@angular/compiler'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global.ng.platformBrowser, global.ng.compiler));
-}(this, function (exports, _angular_platformBrowser, _angular_compiler) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/platform-browser-dynamic'), require('@angular/compiler')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/platform-browser-dynamic', '@angular/compiler'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.core, global.ng.platformBrowser, global._angular_platformBrowserDynamic, global.ng.compiler));
+}(this, function (exports, _angular_common, _angular_core, _angular_platformBrowser, _angular_platformBrowserDynamic, _angular_compiler) {
     'use strict';
+    var reflector = _angular_core.__core_private__.reflector;
+    var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
+    var wtfInit = _angular_core.__core_private__.wtfInit;
     var globalScope;
     if (typeof window === 'undefined') {
         if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -1181,5 +1184,35 @@ var __extends = (this && this.__extends) || function (d, b) {
         'closure_lm_714617',
         '__jsaction'
     ];
-    exports.Parse5DomAdapter = Parse5DomAdapter;
+    var SERVER_PLATFORM_MARKER = new _angular_core.OpaqueToken('ServerPlatformMarker');
+    /**
+     * A set of providers to initialize the Angular platform in a server.
+     *
+     * Used automatically by `serverBootstrap`, or can be passed to {@link platform}.
+     */
+    var SERVER_PLATFORM_PROVIDERS = [
+        { provide: SERVER_PLATFORM_MARKER, useValue: true }, _angular_core.PLATFORM_COMMON_PROVIDERS,
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
+        { provide: _angular_common.PlatformLocation, useClass: _angular_platformBrowser.BrowserPlatformLocation }
+    ];
+    var SERVER_APPLICATION_PROVIDERS = [_angular_platformBrowser.BROWSER_APP_PROVIDERS, _angular_platformBrowserDynamic.BROWSER_APP_COMPILER_PROVIDERS];
+    function initParse5Adapter() {
+        Parse5DomAdapter.makeCurrent();
+        wtfInit();
+    }
+    function serverPlatform() {
+        if (!_angular_core.getPlatform()) {
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(SERVER_PLATFORM_PROVIDERS));
+        }
+        return _angular_core.assertPlatform(SERVER_PLATFORM_MARKER);
+    }
+    function serverBootstrap(appComponentType, customProviders) {
+        reflector.reflectionCapabilities = new ReflectionCapabilities();
+        var providers = [SERVER_APPLICATION_PROVIDERS, customProviders || []];
+        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(providers, serverPlatform().injector);
+        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
+    }
+    exports.SERVER_APPLICATION_PROVIDERS = SERVER_APPLICATION_PROVIDERS;
+    exports.SERVER_PLATFORM_PROVIDERS = SERVER_PLATFORM_PROVIDERS;
+    exports.serverBootstrap = serverBootstrap;
 }));

@@ -1,5 +1,6 @@
 "use strict";
-// TODO: vsavkin add SERVER_PROVIDERS and SERVER_APP_PROVIDERS
-var parse5_adapter_1 = require('./src/parse5_adapter');
-exports.Parse5DomAdapter = parse5_adapter_1.Parse5DomAdapter;
+var server_1 = require('./src/server');
+exports.SERVER_APPLICATION_PROVIDERS = server_1.SERVER_APPLICATION_PROVIDERS;
+exports.SERVER_PLATFORM_PROVIDERS = server_1.SERVER_PLATFORM_PROVIDERS;
+exports.serverBootstrap = server_1.serverBootstrap;
 //# sourceMappingURL=index.js.map

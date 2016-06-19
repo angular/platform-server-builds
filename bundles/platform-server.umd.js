@@ -9,11 +9,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/compiler')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/platform-browser', '@angular/compiler'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global.ng.platformBrowser, global.ng.compiler));
-}(this, function (exports, _angular_platformBrowser, _angular_compiler) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/compiler')) :
+        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/compiler'], factory) :
+            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.core, global.ng.platformBrowser, global.ng.compiler));
+}(this, function (exports, _angular_common, _angular_core, _angular_platformBrowser, _angular_compiler) {
     'use strict';
+    var reflector = _angular_core.__core_private__.reflector;
+    var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
+    var wtfInit = _angular_core.__core_private__.wtfInit;
     var globalScope;
     if (typeof window === 'undefined') {
         if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -1181,5 +1184,92 @@ var __extends = (this && this.__extends) || function (d, b) {
         'closure_lm_714617',
         '__jsaction'
     ];
-    exports.Parse5DomAdapter = Parse5DomAdapter;
+    var SERVER_PLATFORM_MARKER = new _angular_core.OpaqueToken('ServerPlatformMarker');
+    function notSupported(feature) {
+        throw new Error("platform-server does not support '" + feature + "'.");
+    }
+    var ServerPlatformLocation = (function (_super) {
+        __extends(ServerPlatformLocation, _super);
+        function ServerPlatformLocation() {
+            _super.apply(this, arguments);
+        }
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { throw notSupported('getBaseHrefFromDOM'); };
+        ;
+        ServerPlatformLocation.prototype.onPopState = function (fn) { notSupported('onPopState'); };
+        ;
+        ServerPlatformLocation.prototype.onHashChange = function (fn) { notSupported('onHashChange'); };
+        ;
+        Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
+            get: function () { throw notSupported('pathname'); },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ServerPlatformLocation.prototype, "search", {
+            get: function () { throw notSupported('search'); },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
+            get: function () { throw notSupported('hash'); },
+            enumerable: true,
+            configurable: true
+        });
+        ServerPlatformLocation.prototype.replaceState = function (state, title, url) { notSupported('replaceState'); };
+        ;
+        ServerPlatformLocation.prototype.pushState = function (state, title, url) { notSupported('pushState'); };
+        ;
+        ServerPlatformLocation.prototype.forward = function () { notSupported('forward'); };
+        ;
+        ServerPlatformLocation.prototype.back = function () { notSupported('back'); };
+        ;
+        return ServerPlatformLocation;
+    }(_angular_common.PlatformLocation));
+    /**
+     * A set of providers to initialize the Angular platform in a server.
+     *
+     * Used automatically by `serverBootstrap`, or can be passed to {@link platform}.
+     * @experimental
+     */
+    var SERVER_PLATFORM_PROVIDERS = [
+        { provide: SERVER_PLATFORM_MARKER, useValue: true }, _angular_core.PLATFORM_COMMON_PROVIDERS,
+        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
+        { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation }
+    ];
+    function initParse5Adapter() {
+        Parse5DomAdapter.makeCurrent();
+        wtfInit();
+    }
+    /**
+     * @experimental
+     */
+    function serverPlatform() {
+        if (!_angular_core.getPlatform()) {
+            _angular_core.createPlatform(_angular_core.ReflectiveInjector.resolveAndCreate(SERVER_PLATFORM_PROVIDERS));
+        }
+        return _angular_core.assertPlatform(SERVER_PLATFORM_MARKER);
+    }
+    /**
+     * Used to bootstrap Angular in server environment (such as node).
+     *
+     * This version of bootstrap only creates platform injector and does not define anything for
+     * application injector. It is expected that application providers are imported from other
+     * packages such as `@angular/platform-browser` or `@angular/platform-browser-dynamic`.
+     *
+     * ```
+     * import {BROWSER_APP_PROVIDERS} from '@angular/platform-browser';
+     * import {BROWSER_APP_COMPILER_PROVIDERS} from '@angular/platform-browser-dynamic';
+     *
+     * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
+     * ```
+     *
+     * @experimental
+     */
+    function serverBootstrap(appComponentType, providers) {
+        reflector.reflectionCapabilities = new ReflectionCapabilities();
+        var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(providers, serverPlatform().injector);
+        return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);
+    }
+    exports.SERVER_PLATFORM_PROVIDERS = SERVER_PLATFORM_PROVIDERS;
+    exports.serverBootstrap = serverBootstrap;
+    exports.serverPlatform = serverPlatform;
 }));

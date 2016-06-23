@@ -17,6 +17,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     var reflector = _angular_core.__core_private__.reflector;
     var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
     var wtfInit = _angular_core.__core_private__.wtfInit;
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var globalScope;
     if (typeof window === 'undefined') {
         if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -395,6 +402,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     }(Error));
     var SelectorMatcher = _angular_compiler.__compiler_private__.SelectorMatcher;
     var CssSelector = _angular_compiler.__compiler_private__.CssSelector;
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     var parse5 = require('parse5/index');
     var parser = null;
     var serializer = null;

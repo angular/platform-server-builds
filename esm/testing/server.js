@@ -9,16 +9,18 @@ import { COMPILER_PROVIDERS, DirectiveResolver, ViewResolver, XHR } from '@angul
 import { MockDirectiveResolver, MockViewResolver, OverridingTestComponentBuilder } from '@angular/compiler/testing';
 import { APPLICATION_COMMON_PROVIDERS, APP_ID, NgZone, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, RootRenderer } from '@angular/core';
 import { TestComponentBuilder, TestComponentRenderer } from '@angular/core/testing';
+import { BROWSER_SANITIZATION_PROVIDERS, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager } from '@angular/platform-browser';
 import { AnimationDriver, NoOpAnimationDriver } from '../core_private';
 import { DOMTestComponentRenderer } from '../platform_browser_dynamic_testing_private';
+import { DomEventsPlugin, DomRootRenderer, DomRootRenderer_, DomSharedStylesHost, ELEMENT_PROBE_PROVIDERS, SharedStylesHost, getDOM } from '../platform_browser_private';
 import { Parse5DomAdapter } from '../src/parse5_adapter';
-import { DOCUMENT, BROWSER_SANITIZATION_PROVIDERS, EventManager, EVENT_MANAGER_PLUGINS, ELEMENT_PROBE_PROVIDERS, DomEventsPlugin } from '@angular/platform-browser';
-import { getDOM, DomRootRenderer, DomRootRenderer_, DomSharedStylesHost, SharedStylesHost } from '../platform_browser_private';
 function initServerTests() {
     Parse5DomAdapter.makeCurrent();
 }
 /**
  * Default platform providers for testing.
+ *
+ * @experimental
  */
 export const TEST_SERVER_PLATFORM_PROVIDERS = 
 /*@ts2dart_const*/ [
@@ -42,6 +44,8 @@ function createNgZone() {
 }
 /**
  * Default application providers for testing.
+ *
+ * @experimental
  */
 export const TEST_SERVER_APPLICATION_PROVIDERS = 
 /*@ts2dart_const*/ [

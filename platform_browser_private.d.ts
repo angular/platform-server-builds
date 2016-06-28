@@ -18,3 +18,7 @@ export declare type DomSharedStylesHost = typeof t.DomSharedStylesHost;
 export declare var DomSharedStylesHost: typeof t.DomSharedStylesHost;
 export declare type SharedStylesHost = typeof t.SharedStylesHost;
 export declare var SharedStylesHost: typeof t.SharedStylesHost;
+export declare type ELEMENT_PROBE_PROVIDERS = typeof t.ELEMENT_PROBE_PROVIDERS;
+export declare var ELEMENT_PROBE_PROVIDERS: typeof t.ELEMENT_PROBE_PROVIDERS;
+export declare type DomEventsPlugin = typeof t.DomEventsPlugin;
+export declare var DomEventsPlugin: typeof t.DomEventsPlugin;

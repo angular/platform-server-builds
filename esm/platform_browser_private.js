@@ -13,6 +13,4 @@ export var DomRootRenderer = r.DomRootRenderer;
 export var DomRootRenderer_ = r.DomRootRenderer_;
 export var DomSharedStylesHost = r.DomSharedStylesHost;
 export var SharedStylesHost = r.SharedStylesHost;
-export var ELEMENT_PROBE_PROVIDERS = r.ELEMENT_PROBE_PROVIDERS;
-export var DomEventsPlugin = r.DomEventsPlugin;
 //# sourceMappingURL=platform_browser_private.js.map

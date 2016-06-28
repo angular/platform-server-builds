@@ -14,4 +14,6 @@ exports.DomRootRenderer = platform_browser_1.__platform_browser_private__.DomRoo
 exports.DomRootRenderer_ = platform_browser_1.__platform_browser_private__.DomRootRenderer_;
 exports.DomSharedStylesHost = platform_browser_1.__platform_browser_private__.DomSharedStylesHost;
 exports.SharedStylesHost = platform_browser_1.__platform_browser_private__.SharedStylesHost;
+exports.ELEMENT_PROBE_PROVIDERS = platform_browser_1.__platform_browser_private__.ELEMENT_PROBE_PROVIDERS;
+exports.DomEventsPlugin = platform_browser_1.__platform_browser_private__.DomEventsPlugin;
 //# sourceMappingURL=platform_browser_private.js.map

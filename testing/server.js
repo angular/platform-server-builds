@@ -11,7 +11,6 @@ var testing_1 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
 var testing_2 = require('@angular/core/testing');
 var platform_browser_1 = require('@angular/platform-browser');
-var core_private_1 = require('../core_private');
 var platform_browser_dynamic_testing_private_1 = require('../platform_browser_dynamic_testing_private');
 var platform_browser_private_1 = require('../platform_browser_private');
 var parse5_adapter_1 = require('../src/parse5_adapter');
@@ -56,7 +55,7 @@ exports.TEST_SERVER_APPLICATION_PROVIDERS =
     /* @ts2dart_Provider */ { provide: platform_browser_1.DOCUMENT, useFactory: appDoc },
     /* @ts2dart_Provider */ { provide: platform_browser_private_1.DomRootRenderer, useClass: platform_browser_private_1.DomRootRenderer_ },
     /* @ts2dart_Provider */ { provide: core_1.RootRenderer, useExisting: platform_browser_private_1.DomRootRenderer },
-    /* @ts2dart_Provider */ { provide: core_private_1.AnimationDriver, useClass: core_private_1.NoOpAnimationDriver },
+    /* @ts2dart_Provider */ { provide: platform_browser_1.AnimationDriver, useValue: platform_browser_1.AnimationDriver.NOOP },
     platform_browser_1.EventManager,
     /* @ts2dart_Provider */ {
         provide: platform_browser_1.EVENT_MANAGER_PLUGINS,

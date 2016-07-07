@@ -1,12 +1,28 @@
 /**
- * Default platform providers for testing.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * @experimental
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-export declare const TEST_SERVER_PLATFORM_PROVIDERS: Array<any>;
+import { PlatformRef } from '@angular/core';
+import { browserTestCompiler } from '@angular/platform-browser-dynamic/testing';
 /**
- * Default application providers for testing.
+ * Creates a compiler for testing
  *
- * @experimental
+ * @stable
  */
-export declare const TEST_SERVER_APPLICATION_PROVIDERS: Array<any>;
+export declare const serverTestCompiler: typeof browserTestCompiler;
+/**
+ * Platform for testing
+ *
+ * @experimental API related to bootstrapping are still under review.
+ */
+export declare function serverTestPlatform(): PlatformRef;
+/**
+ * AppModule for testing.
+ *
+ * @stable
+ */
+export declare class ServerTestModule {
+}

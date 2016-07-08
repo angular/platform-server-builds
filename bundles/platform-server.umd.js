@@ -1241,7 +1241,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     /**
      * A set of providers to initialize the Angular platform in a server.
      *
-     * Used automatically by `serverBootstrap`, or can be passed to {@link platform}.
+     * Used automatically by `serverBootstrap`, or can be passed to `platform`.
      * @experimental
      */
     var SERVER_PLATFORM_PROVIDERS = [

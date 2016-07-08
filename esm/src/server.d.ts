@@ -2,7 +2,7 @@ import { ComponentRef, PlatformRef, Type } from '@angular/core';
 /**
  * A set of providers to initialize the Angular platform in a server.
  *
- * Used automatically by `serverBootstrap`, or can be passed to {@link platform}.
+ * Used automatically by `serverBootstrap`, or can be passed to `platform`.
  * @experimental
  */
 export declare const SERVER_PLATFORM_PROVIDERS: Array<any>;

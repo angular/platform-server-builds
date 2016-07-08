@@ -13,9 +13,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var common_1 = require('@angular/common');
 var core_1 = require('@angular/core');
+var testing_1 = require('@angular/platform-browser-dynamic/testing');
 var core_private_1 = require('../core_private');
 var parse5_adapter_1 = require('./parse5_adapter');
-var SERVER_PLATFORM_MARKER = new core_1.OpaqueToken('ServerPlatformMarker');
 function notSupported(feature) {
     throw new Error("platform-server does not support '" + feature + "'.");
 }
@@ -62,9 +62,13 @@ var ServerPlatformLocation = (function (_super) {
  * @experimental
  */
 exports.SERVER_PLATFORM_PROVIDERS = [
-    { provide: SERVER_PLATFORM_MARKER, useValue: true }, core_1.PLATFORM_COMMON_PROVIDERS,
+    core_1.PLATFORM_COMMON_PROVIDERS,
     { provide: core_1.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
-    { provide: common_1.PlatformLocation, useClass: ServerPlatformLocation }
+    { provide: common_1.PlatformLocation, useClass: ServerPlatformLocation },
+];
+var SERVER_DYNAMIC_PROVIDERS = [
+    exports.SERVER_PLATFORM_PROVIDERS,
+    { provide: core_1.CompilerFactory, useValue: testing_1.BROWSER_DYNAMIC_TEST_COMPILER_FACTORY },
 ];
 function initParse5Adapter() {
     parse5_adapter_1.Parse5DomAdapter.makeCurrent();
@@ -73,13 +77,13 @@ function initParse5Adapter() {
 /**
  * @experimental
  */
-function serverPlatform() {
-    if (!core_1.getPlatform()) {
-        core_1.createPlatform(core_1.ReflectiveInjector.resolveAndCreate(exports.SERVER_PLATFORM_PROVIDERS));
-    }
-    return core_1.assertPlatform(SERVER_PLATFORM_MARKER);
-}
-exports.serverPlatform = serverPlatform;
+exports.serverPlatform = core_1.createPlatformFactory('server', exports.SERVER_PLATFORM_PROVIDERS);
+/**
+ * The server platform that supports the runtime compiler.
+ *
+ * @experimental
+ */
+exports.serverDynamicPlatform = core_1.createPlatformFactory('serverDynamic', SERVER_DYNAMIC_PROVIDERS);
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *
@@ -98,7 +102,7 @@ exports.serverPlatform = serverPlatform;
  */
 function serverBootstrap(appComponentType, providers) {
     core_private_1.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
-    var appInjector = core_1.ReflectiveInjector.resolveAndCreate(providers, serverPlatform().injector);
+    var appInjector = core_1.ReflectiveInjector.resolveAndCreate(providers, exports.serverPlatform().injector);
     return core_1.coreLoadAndBootstrap(appComponentType, appInjector);
 }
 exports.serverBootstrap = serverBootstrap;

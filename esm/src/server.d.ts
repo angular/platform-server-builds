@@ -9,7 +9,13 @@ export declare const SERVER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * @experimental
  */
-export declare function serverPlatform(): PlatformRef;
+export declare const serverPlatform: () => PlatformRef;
+/**
+ * The server platform that supports the runtime compiler.
+ *
+ * @experimental
+ */
+export declare const serverDynamicPlatform: () => PlatformRef;
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *

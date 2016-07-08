@@ -9,5 +9,6 @@
 var server_1 = require('./src/server');
 exports.SERVER_PLATFORM_PROVIDERS = server_1.SERVER_PLATFORM_PROVIDERS;
 exports.serverBootstrap = server_1.serverBootstrap;
+exports.serverDynamicPlatform = server_1.serverDynamicPlatform;
 exports.serverPlatform = server_1.serverPlatform;
 //# sourceMappingURL=index.js.map

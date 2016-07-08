@@ -30,6 +30,8 @@ export declare const serverDynamicPlatform: () => PlatformRef;
  * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
  * ```
  *
- * @experimental
+ * @deprecated create an {@link AppModule} and use {@link bootstrapModule} with the {@link
+ * serverDynamicPlatform}()
+ * instead.
  */
 export declare function serverBootstrap(appComponentType: Type, providers: Array<any>): Promise<ComponentRef<any>>;

@@ -75,9 +75,12 @@ export const serverDynamicPlatform = createPlatformFactory('serverDynamic', SERV
  * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
  * ```
  *
- * @experimental
+ * @deprecated create an {@link AppModule} and use {@link bootstrapModule} with the {@link
+ * serverDynamicPlatform}()
+ * instead.
  */
 export function serverBootstrap(appComponentType, providers) {
+    console.warn('serverBootstrap is deprecated. Create an @AppModule and use `bootstrapModule` with the `serverDynamicPlatform()` instead.');
     reflector.reflectionCapabilities = new ReflectionCapabilities();
     var appInjector = ReflectiveInjector.resolveAndCreate(providers, serverPlatform().injector);
     return coreLoadAndBootstrap(appComponentType, appInjector);

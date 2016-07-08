@@ -1280,9 +1280,12 @@ var __extends = (this && this.__extends) || function (d, b) {
      * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
      * ```
      *
-     * @experimental
+     * @deprecated create an {@link AppModule} and use {@link bootstrapModule} with the {@link
+     * serverDynamicPlatform}()
+     * instead.
      */
     function serverBootstrap(appComponentType, providers) {
+        console.warn('serverBootstrap is deprecated. Create an @AppModule and use `bootstrapModule` with the `serverDynamicPlatform()` instead.');
         reflector.reflectionCapabilities = new ReflectionCapabilities();
         var appInjector = _angular_core.ReflectiveInjector.resolveAndCreate(providers, serverPlatform().injector);
         return _angular_core.coreLoadAndBootstrap(appComponentType, appInjector);

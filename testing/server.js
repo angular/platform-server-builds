@@ -12,7 +12,10 @@ var parse5_adapter_1 = require('../src/parse5_adapter');
 function initServerTests() {
     parse5_adapter_1.Parse5DomAdapter.makeCurrent();
 }
-var TEST_SERVER_PLATFORM_PROVIDERS = 
+/**
+ * @deprecated Use initTestEnvironment with serverTestPlatform instead.
+ */
+exports.TEST_SERVER_PLATFORM_PROVIDERS = 
 /*@ts2dart_const*/ [
     core_1.PLATFORM_COMMON_PROVIDERS,
     /*@ts2dart_Provider*/ { provide: core_1.PLATFORM_INITIALIZER, useValue: initServerTests, multi: true },
@@ -23,7 +26,7 @@ var TEST_SERVER_PLATFORM_PROVIDERS =
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.serverTestPlatform = core_1.createPlatformFactory('serverTest', TEST_SERVER_PLATFORM_PROVIDERS);
+exports.serverTestPlatform = core_1.createPlatformFactory('serverTest', exports.TEST_SERVER_PLATFORM_PROVIDERS);
 var ServerTestModule = (function () {
     function ServerTestModule() {
     }
@@ -34,4 +37,8 @@ var ServerTestModule = (function () {
     return ServerTestModule;
 }());
 exports.ServerTestModule = ServerTestModule;
+/**
+ * @deprecated Use initTestEnvironment with ServerTestModule instead.
+ */
+exports.TEST_SERVER_APPLICATION_PROVIDERS = testing_1.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS;
 //# sourceMappingURL=server.js.map

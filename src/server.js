@@ -64,8 +64,8 @@ exports.INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * A set of providers to initialize the Angular platform in a server.
  *
  * Used automatically by `serverBootstrap`, or can be passed to `platform`.
- * @deprecated Use `serverPlatform()` or create a custom platform factory via
- * `createPlatformFactory(serverPlatform, ...)`
+ * @deprecated Use `platformServer()` or create a custom platform factory via
+ * `createPlatformFactory(platformServer, ...)`
  */
 exports.SERVER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports.INTERNAL_SERVER_PLATFORM_PROVIDERS];
 function initParse5Adapter() {
@@ -75,13 +75,21 @@ function initParse5Adapter() {
 /**
  * @experimental
  */
-exports.serverPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'server', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+exports.platformServer = core_1.createPlatformFactory(core_1.platformCore, 'server', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformServer} instead
+ */
+exports.serverPlatform = exports.platformServer;
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-exports.serverDynamicPlatform = core_1.createPlatformFactory(compiler_1.coreDynamicPlatform, 'serverDynamic', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+exports.platformDynamicServer = core_1.createPlatformFactory(compiler_1.platformCoreDynamic, 'serverDynamic', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformDynamicServer} instead
+ */
+exports.serverDynamicPlatform = exports.platformDynamicServer;
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *
@@ -114,12 +122,13 @@ function serverBootstrap(appComponentType, customProviders) {
                         providers: customProviders,
                         declarations: declarations,
                         imports: [platform_browser_1.BrowserModule],
-                        precompile: [appComponentType]
+                        entryComponents: [appComponentType]
                     },] },
         ];
         return DynamicModule;
     }());
-    return core_1.bootstrapModule(DynamicModule, exports.serverDynamicPlatform(), deprecatedConfiguration.compilerOptions)
+    return exports.platformDynamicServer()
+        .bootstrapModule(DynamicModule, deprecatedConfiguration.compilerOptions)
         .then(function (moduleRef) {
         var console = moduleRef.injector.get(core_private_1.Console);
         deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });

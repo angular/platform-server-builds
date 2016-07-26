@@ -18,7 +18,11 @@ var server_1 = require('../src/server');
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.serverTestingPlatform = core_1.createPlatformFactory(testing_1.coreDynamicTestingPlatform, 'serverTesting', server_1.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+exports.platformServerTesting = core_1.createPlatformFactory(testing_1.platformCoreDynamicTesting, 'serverTesting', server_1.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformServerTesting} instead
+ */
+exports.serverTestingPlatform = exports.platformServerTesting;
 var ServerTestingModule = (function () {
     function ServerTestingModule() {
     }
@@ -32,15 +36,15 @@ exports.ServerTestingModule = ServerTestingModule;
 /**
  * Providers of the `serverTestingPlatform` to be used for creating own platform based on this.
  *
- * @deprecated Use `serverTestingPlatform()` or create a custom platform factory via
- * `createPlatformFactory(serverTestingPlatform, ...)`
+ * @deprecated Use `platformServerTesting()` or create a custom platform factory via
+ * `createPlatformFactory(platformServerTesting, ...)`
  */
 exports.TEST_SERVER_PLATFORM_PROVIDERS = 
 // Note: This is not a real provider but a hack to still support the deprecated
 // `setBaseTestProviders` method!
 [function (appProviders) {
         var deprecatedConfiguration = compiler_1.analyzeAppProvidersForDeprecatedConfiguration(appProviders);
-        var platformRef = core_1.createPlatformFactory(exports.serverTestingPlatform, 'serverTestingDeprecated', [{
+        var platformRef = core_1.createPlatformFactory(exports.platformServerTesting, 'serverTestingDeprecated', [{
                 provide: core_1.CompilerOptions,
                 useValue: deprecatedConfiguration.compilerOptions,
                 multi: true

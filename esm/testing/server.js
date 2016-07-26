@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { analyzeAppProvidersForDeprecatedConfiguration } from '@angular/compiler';
-import { coreDynamicTestingPlatform } from '@angular/compiler/testing';
+import { platformCoreDynamicTesting } from '@angular/compiler/testing';
 import { CompilerOptions, NgModule, createPlatformFactory } from '@angular/core';
 import { initTestEnvironment } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -17,7 +17,11 @@ import { INTERNAL_SERVER_PLATFORM_PROVIDERS } from '../src/server';
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export const serverTestingPlatform = createPlatformFactory(coreDynamicTestingPlatform, 'serverTesting', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+export const platformServerTesting = createPlatformFactory(platformCoreDynamicTesting, 'serverTesting', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformServerTesting} instead
+ */
+export const serverTestingPlatform = platformServerTesting;
 export class ServerTestingModule {
 }
 /** @nocollapse */
@@ -27,15 +31,15 @@ ServerTestingModule.decorators = [
 /**
  * Providers of the `serverTestingPlatform` to be used for creating own platform based on this.
  *
- * @deprecated Use `serverTestingPlatform()` or create a custom platform factory via
- * `createPlatformFactory(serverTestingPlatform, ...)`
+ * @deprecated Use `platformServerTesting()` or create a custom platform factory via
+ * `createPlatformFactory(platformServerTesting, ...)`
  */
 export const TEST_SERVER_PLATFORM_PROVIDERS = 
 // Note: This is not a real provider but a hack to still support the deprecated
 // `setBaseTestProviders` method!
 [(appProviders) => {
         const deprecatedConfiguration = analyzeAppProvidersForDeprecatedConfiguration(appProviders);
-        const platformRef = createPlatformFactory(serverTestingPlatform, 'serverTestingDeprecated', [{
+        const platformRef = createPlatformFactory(platformServerTesting, 'serverTestingDeprecated', [{
                 provide: CompilerOptions,
                 useValue: deprecatedConfiguration.compilerOptions,
                 multi: true

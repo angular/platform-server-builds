@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformLocation } from '@angular/common';
-import { analyzeAppProvidersForDeprecatedConfiguration, coreDynamicPlatform } from '@angular/compiler';
-import { ApplicationRef, NgModule, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, bootstrapModule, corePlatform, createPlatformFactory } from '@angular/core';
+import { analyzeAppProvidersForDeprecatedConfiguration, platformCoreDynamic } from '@angular/compiler';
+import { ApplicationRef, NgModule, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, createPlatformFactory, platformCore } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Console, ReflectionCapabilities, reflector, wtfInit } from '../core_private';
 import { Parse5DomAdapter } from './parse5_adapter';
@@ -41,8 +41,8 @@ export const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * A set of providers to initialize the Angular platform in a server.
  *
  * Used automatically by `serverBootstrap`, or can be passed to `platform`.
- * @deprecated Use `serverPlatform()` or create a custom platform factory via
- * `createPlatformFactory(serverPlatform, ...)`
+ * @deprecated Use `platformServer()` or create a custom platform factory via
+ * `createPlatformFactory(platformServer, ...)`
  */
 export const SERVER_PLATFORM_PROVIDERS = [PLATFORM_COMMON_PROVIDERS, INTERNAL_SERVER_PLATFORM_PROVIDERS];
 function initParse5Adapter() {
@@ -52,13 +52,21 @@ function initParse5Adapter() {
 /**
  * @experimental
  */
-export const serverPlatform = createPlatformFactory(corePlatform, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+export const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformServer} instead
+ */
+export const serverPlatform = platformServer;
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-export const serverDynamicPlatform = createPlatformFactory(coreDynamicPlatform, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+export const platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @deprecated Use {@link platformDynamicServer} instead
+ */
+export const serverDynamicPlatform = platformDynamicServer;
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *
@@ -90,10 +98,11 @@ export function serverBootstrap(appComponentType, customProviders) {
                     providers: customProviders,
                     declarations: declarations,
                     imports: [BrowserModule],
-                    precompile: [appComponentType]
+                    entryComponents: [appComponentType]
                 },] },
     ];
-    return bootstrapModule(DynamicModule, serverDynamicPlatform(), deprecatedConfiguration.compilerOptions)
+    return platformDynamicServer()
+        .bootstrapModule(DynamicModule, deprecatedConfiguration.compilerOptions)
         .then((moduleRef) => {
         const console = moduleRef.injector.get(Console);
         deprecatedConfiguration.deprecationMessages.forEach((msg) => console.warn(msg));

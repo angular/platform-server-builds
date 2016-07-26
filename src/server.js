@@ -12,8 +12,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var common_1 = require('@angular/common');
+var compiler_1 = require('@angular/compiler');
 var core_1 = require('@angular/core');
-var testing_1 = require('@angular/platform-browser-dynamic/testing');
+var platform_browser_1 = require('@angular/platform-browser');
 var core_private_1 = require('../core_private');
 var parse5_adapter_1 = require('./parse5_adapter');
 function notSupported(feature) {
@@ -55,21 +56,18 @@ var ServerPlatformLocation = (function (_super) {
     ;
     return ServerPlatformLocation;
 }(common_1.PlatformLocation));
+exports.INTERNAL_SERVER_PLATFORM_PROVIDERS = [
+    { provide: core_1.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
+    { provide: common_1.PlatformLocation, useClass: ServerPlatformLocation },
+];
 /**
  * A set of providers to initialize the Angular platform in a server.
  *
  * Used automatically by `serverBootstrap`, or can be passed to `platform`.
- * @experimental
+ * @deprecated Use `serverPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(serverPlatform, ...)`
  */
-exports.SERVER_PLATFORM_PROVIDERS = [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    { provide: core_1.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
-    { provide: common_1.PlatformLocation, useClass: ServerPlatformLocation },
-];
-var SERVER_DYNAMIC_PROVIDERS = [
-    exports.SERVER_PLATFORM_PROVIDERS,
-    { provide: core_1.CompilerFactory, useValue: testing_1.BROWSER_DYNAMIC_TEST_COMPILER_FACTORY },
-];
+exports.SERVER_PLATFORM_PROVIDERS = [core_1.PLATFORM_COMMON_PROVIDERS, exports.INTERNAL_SERVER_PLATFORM_PROVIDERS];
 function initParse5Adapter() {
     parse5_adapter_1.Parse5DomAdapter.makeCurrent();
     core_private_1.wtfInit();
@@ -77,13 +75,13 @@ function initParse5Adapter() {
 /**
  * @experimental
  */
-exports.serverPlatform = core_1.createPlatformFactory('server', exports.SERVER_PLATFORM_PROVIDERS);
+exports.serverPlatform = core_1.createPlatformFactory(core_1.corePlatform, 'server', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-exports.serverDynamicPlatform = core_1.createPlatformFactory('serverDynamic', SERVER_DYNAMIC_PROVIDERS);
+exports.serverDynamicPlatform = core_1.createPlatformFactory(compiler_1.coreDynamicPlatform, 'serverDynamic', exports.INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *
@@ -98,15 +96,36 @@ exports.serverDynamicPlatform = core_1.createPlatformFactory('serverDynamic', SE
  * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
  * ```
  *
- * @deprecated create an {@link AppModule} and use {@link bootstrapModule} with the {@link
+ * @deprecated create an {@link NgModule} and use {@link bootstrapModule} with the {@link
  * serverDynamicPlatform}()
  * instead.
  */
-function serverBootstrap(appComponentType, providers) {
-    console.warn('serverBootstrap is deprecated. Create an @AppModule and use `bootstrapModule` with the `serverDynamicPlatform()` instead.');
+function serverBootstrap(appComponentType, customProviders) {
+    console.warn('serverBootstrap is deprecated. Create an @NgModule and use `bootstrapModule` with the `serverDynamicPlatform()` instead.');
     core_private_1.reflector.reflectionCapabilities = new core_private_1.ReflectionCapabilities();
-    var appInjector = core_1.ReflectiveInjector.resolveAndCreate(providers, exports.serverPlatform().injector);
-    return core_1.coreLoadAndBootstrap(appComponentType, appInjector);
+    var deprecatedConfiguration = compiler_1.analyzeAppProvidersForDeprecatedConfiguration(customProviders);
+    var declarations = [deprecatedConfiguration.moduleDeclarations.concat([appComponentType])];
+    var DynamicModule = (function () {
+        function DynamicModule() {
+        }
+        /** @nocollapse */
+        DynamicModule.decorators = [
+            { type: core_1.NgModule, args: [{
+                        providers: customProviders,
+                        declarations: declarations,
+                        imports: [platform_browser_1.BrowserModule],
+                        precompile: [appComponentType]
+                    },] },
+        ];
+        return DynamicModule;
+    }());
+    return core_1.bootstrapModule(DynamicModule, exports.serverDynamicPlatform(), deprecatedConfiguration.compilerOptions)
+        .then(function (moduleRef) {
+        var console = moduleRef.injector.get(core_private_1.Console);
+        deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
+        var appRef = moduleRef.injector.get(core_1.ApplicationRef);
+        return appRef.bootstrap(appComponentType);
+    });
 }
 exports.serverBootstrap = serverBootstrap;
 //# sourceMappingURL=server.js.map

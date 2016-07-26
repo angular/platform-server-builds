@@ -6,39 +6,66 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
+var compiler_1 = require('@angular/compiler');
+var testing_1 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
-var testing_1 = require('@angular/platform-browser-dynamic/testing');
-var parse5_adapter_1 = require('../src/parse5_adapter');
-function initServerTests() {
-    parse5_adapter_1.Parse5DomAdapter.makeCurrent();
-}
-/**
- * @deprecated Use initTestEnvironment with serverTestPlatform instead.
- */
-exports.TEST_SERVER_PLATFORM_PROVIDERS = 
-/*@ts2dart_const*/ [
-    core_1.PLATFORM_COMMON_PROVIDERS,
-    /*@ts2dart_Provider*/ { provide: core_1.PLATFORM_INITIALIZER, useValue: initServerTests, multi: true },
-    { provide: core_1.CompilerFactory, useValue: testing_1.BROWSER_DYNAMIC_TEST_COMPILER_FACTORY },
-];
+var testing_2 = require('@angular/core/testing');
+var testing_3 = require('@angular/platform-browser-dynamic/testing');
+var core_private_1 = require('../core_private');
+var server_1 = require('../src/server');
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.serverTestPlatform = core_1.createPlatformFactory('serverTest', exports.TEST_SERVER_PLATFORM_PROVIDERS);
-var ServerTestModule = (function () {
-    function ServerTestModule() {
+exports.serverTestingPlatform = core_1.createPlatformFactory(testing_1.coreDynamicTestingPlatform, 'serverTesting', server_1.INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var ServerTestingModule = (function () {
+    function ServerTestingModule() {
     }
     /** @nocollapse */
-    ServerTestModule.decorators = [
-        { type: core_1.AppModule, args: [{ modules: [testing_1.BrowserDynamicTestModule] },] },
+    ServerTestingModule.decorators = [
+        { type: core_1.NgModule, args: [{ exports: [testing_3.BrowserDynamicTestingModule] },] },
     ];
-    return ServerTestModule;
+    return ServerTestingModule;
 }());
-exports.ServerTestModule = ServerTestModule;
+exports.ServerTestingModule = ServerTestingModule;
 /**
- * @deprecated Use initTestEnvironment with ServerTestModule instead.
+ * Providers of the `serverTestingPlatform` to be used for creating own platform based on this.
+ *
+ * @deprecated Use `serverTestingPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(serverTestingPlatform, ...)`
  */
-exports.TEST_SERVER_APPLICATION_PROVIDERS = testing_1.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS;
+exports.TEST_SERVER_PLATFORM_PROVIDERS = 
+// Note: This is not a real provider but a hack to still support the deprecated
+// `setBaseTestProviders` method!
+[function (appProviders) {
+        var deprecatedConfiguration = compiler_1.analyzeAppProvidersForDeprecatedConfiguration(appProviders);
+        var platformRef = core_1.createPlatformFactory(exports.serverTestingPlatform, 'serverTestingDeprecated', [{
+                provide: core_1.CompilerOptions,
+                useValue: deprecatedConfiguration.compilerOptions,
+                multi: true
+            }])();
+        var DynamicTestModule = (function () {
+            function DynamicTestModule() {
+            }
+            /** @nocollapse */
+            DynamicTestModule.decorators = [
+                { type: core_1.NgModule, args: [{
+                            exports: [ServerTestingModule],
+                            declarations: [deprecatedConfiguration.moduleDeclarations]
+                        },] },
+            ];
+            return DynamicTestModule;
+        }());
+        var testInjector = testing_2.initTestEnvironment(DynamicTestModule, platformRef);
+        var console = testInjector.get(core_private_1.Console);
+        deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
+    }];
+/**
+ * @deprecated Use initTestEnvironment with ServerTestModule instead. This is empty for backwards
+ * compatibility,
+ * as all of our bootstrap methods add a module implicitly, i.e. keeping this filled would add the
+ * providers 2x.
+ */
+exports.TEST_SERVER_APPLICATION_PROVIDERS = [];
 //# sourceMappingURL=server.js.map

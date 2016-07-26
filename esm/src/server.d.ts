@@ -1,21 +1,24 @@
-import { ComponentRef, PlatformRef, Type } from '@angular/core';
+import { ComponentRef, PlatformRef } from '@angular/core';
+import { ConcreteType } from './facade/lang';
+export declare const INTERNAL_SERVER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * A set of providers to initialize the Angular platform in a server.
  *
  * Used automatically by `serverBootstrap`, or can be passed to `platform`.
- * @experimental
+ * @deprecated Use `serverPlatform()` or create a custom platform factory via
+ * `createPlatformFactory(serverPlatform, ...)`
  */
 export declare const SERVER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * @experimental
  */
-export declare const serverPlatform: () => PlatformRef;
+export declare const serverPlatform: (extraProviders?: any[]) => PlatformRef;
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-export declare const serverDynamicPlatform: () => PlatformRef;
+export declare const serverDynamicPlatform: (extraProviders?: any[]) => PlatformRef;
 /**
  * Used to bootstrap Angular in server environment (such as node).
  *
@@ -30,8 +33,8 @@ export declare const serverDynamicPlatform: () => PlatformRef;
  * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
  * ```
  *
- * @deprecated create an {@link AppModule} and use {@link bootstrapModule} with the {@link
+ * @deprecated create an {@link NgModule} and use {@link bootstrapModule} with the {@link
  * serverDynamicPlatform}()
  * instead.
  */
-export declare function serverBootstrap(appComponentType: Type, providers: Array<any>): Promise<ComponentRef<any>>;
+export declare function serverBootstrap<T>(appComponentType: ConcreteType<T>, customProviders: Array<any>): Promise<ComponentRef<T>>;

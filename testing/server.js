@@ -61,7 +61,7 @@ exports.TEST_SERVER_PLATFORM_PROVIDERS =
             ];
             return DynamicTestModule;
         }());
-        var testInjector = testing_2.initTestEnvironment(DynamicTestModule, platformRef);
+        var testInjector = testing_2.TestBed.initTestEnvironment(DynamicTestModule, platformRef);
         var console = testInjector.get(core_private_1.Console);
         deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
     }];

@@ -8,7 +8,7 @@
 import { analyzeAppProvidersForDeprecatedConfiguration } from '@angular/compiler';
 import { platformCoreDynamicTesting } from '@angular/compiler/testing';
 import { CompilerOptions, NgModule, createPlatformFactory } from '@angular/core';
-import { initTestEnvironment } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Console } from '../core_private';
 import { INTERNAL_SERVER_PLATFORM_PROVIDERS } from '../src/server';
@@ -53,7 +53,7 @@ export const TEST_SERVER_PLATFORM_PROVIDERS =
                         declarations: [deprecatedConfiguration.moduleDeclarations]
                     },] },
         ];
-        const testInjector = initTestEnvironment(DynamicTestModule, platformRef);
+        const testInjector = TestBed.initTestEnvironment(DynamicTestModule, platformRef);
         const console = testInjector.get(Console);
         deprecatedConfiguration.deprecationMessages.forEach((msg) => console.warn(msg));
     }];

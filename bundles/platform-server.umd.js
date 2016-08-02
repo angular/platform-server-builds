@@ -1300,7 +1300,7 @@ var __extends = (this && this.__extends) || function (d, b) {
                         providers: customProviders,
                         declarations: declarations,
                         imports: [_angular_platformBrowser.BrowserModule],
-                        entryComponents: [appComponentType]
+                        bootstrap: [appComponentType]
                     },] },
         ];
         return platformDynamicServer()
@@ -1309,7 +1309,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             var console = moduleRef.injector.get(Console);
             deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
             var appRef = moduleRef.injector.get(_angular_core.ApplicationRef);
-            return appRef.bootstrap(appComponentType);
+            return appRef.components[0];
         });
     }
     exports.SERVER_PLATFORM_PROVIDERS = SERVER_PLATFORM_PROVIDERS;

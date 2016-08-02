@@ -98,7 +98,7 @@ export function serverBootstrap(appComponentType, customProviders) {
                     providers: customProviders,
                     declarations: declarations,
                     imports: [BrowserModule],
-                    entryComponents: [appComponentType]
+                    bootstrap: [appComponentType]
                 },] },
     ];
     return platformDynamicServer()
@@ -107,7 +107,7 @@ export function serverBootstrap(appComponentType, customProviders) {
         const console = moduleRef.injector.get(Console);
         deprecatedConfiguration.deprecationMessages.forEach((msg) => console.warn(msg));
         const appRef = moduleRef.injector.get(ApplicationRef);
-        return appRef.bootstrap(appComponentType);
+        return appRef.components[0];
     });
 }
 //# sourceMappingURL=server.js.map

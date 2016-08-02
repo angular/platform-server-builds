@@ -122,7 +122,7 @@ function serverBootstrap(appComponentType, customProviders) {
                         providers: customProviders,
                         declarations: declarations,
                         imports: [platform_browser_1.BrowserModule],
-                        entryComponents: [appComponentType]
+                        bootstrap: [appComponentType]
                     },] },
         ];
         return DynamicModule;
@@ -133,7 +133,7 @@ function serverBootstrap(appComponentType, customProviders) {
         var console = moduleRef.injector.get(core_private_1.Console);
         deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
         var appRef = moduleRef.injector.get(core_1.ApplicationRef);
-        return appRef.bootstrap(appComponentType);
+        return appRef.components[0];
     });
 }
 exports.serverBootstrap = serverBootstrap;

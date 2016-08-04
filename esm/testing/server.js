@@ -7,7 +7,7 @@
  */
 import { analyzeAppProvidersForDeprecatedConfiguration } from '@angular/compiler';
 import { platformCoreDynamicTesting } from '@angular/compiler/testing';
-import { CompilerOptions, NgModule, createPlatformFactory } from '@angular/core';
+import { COMPILER_OPTIONS, NgModule, createPlatformFactory } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { Console } from '../core_private';
@@ -40,7 +40,7 @@ export const TEST_SERVER_PLATFORM_PROVIDERS =
 [(appProviders) => {
         const deprecatedConfiguration = analyzeAppProvidersForDeprecatedConfiguration(appProviders);
         const platformRef = createPlatformFactory(platformServerTesting, 'serverTestingDeprecated', [{
-                provide: CompilerOptions,
+                provide: COMPILER_OPTIONS,
                 useValue: deprecatedConfiguration.compilerOptions,
                 multi: true
             }])();

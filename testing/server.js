@@ -45,7 +45,7 @@ exports.TEST_SERVER_PLATFORM_PROVIDERS =
 [function (appProviders) {
         var deprecatedConfiguration = compiler_1.analyzeAppProvidersForDeprecatedConfiguration(appProviders);
         var platformRef = core_1.createPlatformFactory(exports.platformServerTesting, 'serverTestingDeprecated', [{
-                provide: core_1.CompilerOptions,
+                provide: core_1.COMPILER_OPTIONS,
                 useValue: deprecatedConfiguration.compilerOptions,
                 multi: true
             }])();

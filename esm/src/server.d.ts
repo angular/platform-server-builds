@@ -1,4 +1,5 @@
-import { ComponentRef, PlatformRef, Type } from '@angular/core';
+import { ComponentRef, PlatformRef } from '@angular/core';
+import { ConcreteType } from './facade/lang';
 export declare const INTERNAL_SERVER_PLATFORM_PROVIDERS: Array<any>;
 /**
  * A set of providers to initialize the Angular platform in a server.
@@ -44,4 +45,4 @@ export declare const serverDynamicPlatform: (extraProviders?: any[]) => Platform
  * serverDynamicPlatform}()
  * instead.
  */
-export declare function serverBootstrap<T>(appComponentType: Type<T>, customProviders: Array<any>): Promise<ComponentRef<T>>;
+export declare function serverBootstrap<T>(appComponentType: ConcreteType<T>, customProviders: Array<any>): Promise<ComponentRef<T>>;

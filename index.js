@@ -7,10 +7,7 @@
  */
 "use strict";
 var server_1 = require('./src/server');
-exports.SERVER_PLATFORM_PROVIDERS = server_1.SERVER_PLATFORM_PROVIDERS;
+exports.ServerModule = server_1.ServerModule;
 exports.platformDynamicServer = server_1.platformDynamicServer;
 exports.platformServer = server_1.platformServer;
-exports.serverBootstrap = server_1.serverBootstrap;
-exports.serverDynamicPlatform = server_1.serverDynamicPlatform;
-exports.serverPlatform = server_1.serverPlatform;
 //# sourceMappingURL=index.js.map

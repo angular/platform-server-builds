@@ -14,10 +14,7 @@ var __extends = (this && this.__extends) || function (d, b) {
             (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.compiler, global.ng.core, global.ng.platformBrowser));
 }(this, function (exports, _angular_common, _angular_compiler, _angular_core, _angular_platformBrowser) {
     'use strict';
-    var reflector = _angular_core.__core_private__.reflector;
-    var ReflectionCapabilities = _angular_core.__core_private__.ReflectionCapabilities;
     var wtfInit = _angular_core.__core_private__.wtfInit;
-    var Console = _angular_core.__core_private__.Console;
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -1236,86 +1233,30 @@ var __extends = (this && this.__extends) || function (d, b) {
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation },
     ];
-    /**
-     * A set of providers to initialize the Angular platform in a server.
-     *
-     * Used automatically by `serverBootstrap`, or can be passed to `platform`.
-     * @deprecated Use `platformServer()` or create a custom platform factory via
-     * `createPlatformFactory(platformServer, ...)`
-     */
-    var SERVER_PLATFORM_PROVIDERS = [_angular_core.PLATFORM_COMMON_PROVIDERS, INTERNAL_SERVER_PLATFORM_PROVIDERS];
     function initParse5Adapter() {
         Parse5DomAdapter.makeCurrent();
         wtfInit();
     }
+    var ServerModule = (function () {
+        function ServerModule() {
+        }
+        return ServerModule;
+    }());
+    /** @nocollapse */
+    ServerModule.decorators = [
+        { type: _angular_core.NgModule, args: [{ imports: [_angular_platformBrowser.BrowserModule] },] },
+    ];
     /**
      * @experimental
      */
     var platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-    /**
-     * @deprecated Use {@link platformServer} instead
-     */
-    var serverPlatform = platformServer;
     /**
      * The server platform that supports the runtime compiler.
      *
      * @experimental
      */
     var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-    /**
-     * @deprecated Use {@link platformDynamicServer} instead
-     */
-    var serverDynamicPlatform = platformDynamicServer;
-    /**
-     * Used to bootstrap Angular in server environment (such as node).
-     *
-     * This version of bootstrap only creates platform injector and does not define anything for
-     * application injector. It is expected that application providers are imported from other
-     * packages such as `@angular/platform-browser` or `@angular/platform-browser-dynamic`.
-     *
-     * ```
-     * import {BROWSER_APP_PROVIDERS} from '@angular/platform-browser';
-     * import {BROWSER_APP_COMPILER_PROVIDERS} from '@angular/platform-browser-dynamic';
-     *
-     * serverBootstrap(..., [BROWSER_APP_PROVIDERS, BROWSER_APP_COMPILER_PROVIDERS])
-     * ```
-     *
-     * @deprecated create an {@link NgModule} and use {@link bootstrapModule} with the {@link
-     * serverDynamicPlatform}()
-     * instead.
-     */
-    function serverBootstrap(appComponentType, customProviders) {
-        console.warn('serverBootstrap is deprecated. Create an @NgModule and use `bootstrapModule` with the `serverDynamicPlatform()` instead.');
-        reflector.reflectionCapabilities = new ReflectionCapabilities();
-        var deprecatedConfiguration = _angular_compiler.analyzeAppProvidersForDeprecatedConfiguration(customProviders);
-        var declarations = [deprecatedConfiguration.moduleDeclarations.concat([appComponentType])];
-        var DynamicModule = (function () {
-            function DynamicModule() {
-            }
-            return DynamicModule;
-        }());
-        /** @nocollapse */
-        DynamicModule.decorators = [
-            { type: _angular_core.NgModule, args: [{
-                        providers: customProviders,
-                        declarations: declarations,
-                        imports: [_angular_platformBrowser.BrowserModule],
-                        bootstrap: [appComponentType]
-                    },] },
-        ];
-        return platformDynamicServer()
-            .bootstrapModule(DynamicModule, deprecatedConfiguration.compilerOptions)
-            .then(function (moduleRef) {
-            var console = moduleRef.injector.get(Console);
-            deprecatedConfiguration.deprecationMessages.forEach(function (msg) { return console.warn(msg); });
-            var appRef = moduleRef.injector.get(_angular_core.ApplicationRef);
-            return appRef.components[0];
-        });
-    }
-    exports.SERVER_PLATFORM_PROVIDERS = SERVER_PLATFORM_PROVIDERS;
+    exports.ServerModule = ServerModule;
     exports.platformDynamicServer = platformDynamicServer;
     exports.platformServer = platformServer;
-    exports.serverBootstrap = serverBootstrap;
-    exports.serverDynamicPlatform = serverDynamicPlatform;
-    exports.serverPlatform = serverPlatform;
 }));

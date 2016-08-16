@@ -67,7 +67,7 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.log = function (error /** TODO #9100 */) { console.log(error); };
     Parse5DomAdapter.prototype.logGroup = function (error /** TODO #9100 */) { console.error(error); };
     Parse5DomAdapter.prototype.logGroupEnd = function () { };
-    Parse5DomAdapter.prototype.getXHR = function () { return compiler_1.ResourceLoader; };
+    Parse5DomAdapter.prototype.getXHR = function () { return compiler_1.XHR; };
     Object.defineProperty(Parse5DomAdapter.prototype, "attrToPropMap", {
         get: function () { return _attrToPropMap; },
         enumerable: true,

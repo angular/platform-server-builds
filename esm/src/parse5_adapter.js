@@ -11,7 +11,7 @@ import { DomAdapter, setRootDomAdapter } from '../platform_browser_private';
 import { isPresent, isBlank, global, setValueOnPath, DateWrapper } from '../src/facade/lang';
 import { BaseException } from '../src/facade/exceptions';
 import { SelectorMatcher, CssSelector } from '../compiler_private';
-import { ResourceLoader } from '@angular/compiler';
+import { XHR } from '@angular/compiler';
 var parser = null;
 var serializer = null;
 var treeAdapter = null;
@@ -57,7 +57,7 @@ export class Parse5DomAdapter extends DomAdapter {
     log(error /** TODO #9100 */) { console.log(error); }
     logGroup(error /** TODO #9100 */) { console.error(error); }
     logGroupEnd() { }
-    getXHR() { return ResourceLoader; }
+    getXHR() { return XHR; }
     get attrToPropMap() { return _attrToPropMap; }
     query(selector /** TODO #9100 */) { throw _notImplemented('query'); }
     querySelector(el /** TODO #9100 */, selector) {

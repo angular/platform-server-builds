@@ -1,6 +1,6 @@
 import { DomAdapter } from '../platform_browser_private';
 import { Type } from '@angular/core';
-import { ResourceLoader } from '@angular/compiler';
+import { XHR } from '@angular/compiler';
 export declare class Parse5DomAdapter extends DomAdapter {
     static makeCurrent(): void;
     hasProperty(element: any, name: string): boolean;
@@ -10,7 +10,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     log(error: any): void;
     logGroup(error: any): void;
     logGroupEnd(): void;
-    getResourceLoader(): Type<ResourceLoader>;
+    getXHR(): Type<XHR>;
     readonly attrToPropMap: {
         [key: string]: string;
     };

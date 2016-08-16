@@ -6,24 +6,39 @@
  * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
-var testing_1 = require('@angular/compiler/testing');
 var core_1 = require('@angular/core');
-var testing_2 = require('@angular/platform-browser-dynamic/testing');
-var server_1 = require('../src/server');
+var testing_1 = require('@angular/platform-browser-dynamic/testing');
+var parse5_adapter_1 = require('../src/parse5_adapter');
+function initServerTests() {
+    parse5_adapter_1.Parse5DomAdapter.makeCurrent();
+}
+/**
+ * @deprecated Use initTestEnvironment with serverTestPlatform instead.
+ */
+exports.TEST_SERVER_PLATFORM_PROVIDERS = 
+/*@ts2dart_const*/ [
+    core_1.PLATFORM_COMMON_PROVIDERS,
+    /*@ts2dart_Provider*/ { provide: core_1.PLATFORM_INITIALIZER, useValue: initServerTests, multi: true },
+    { provide: core_1.CompilerFactory, useValue: testing_1.BROWSER_DYNAMIC_TEST_COMPILER_FACTORY },
+];
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-exports.platformServerTesting = core_1.createPlatformFactory(testing_1.platformCoreDynamicTesting, 'serverTesting', server_1.INTERNAL_SERVER_PLATFORM_PROVIDERS);
-var ServerTestingModule = (function () {
-    function ServerTestingModule() {
+exports.serverTestPlatform = core_1.createPlatformFactory('serverTest', exports.TEST_SERVER_PLATFORM_PROVIDERS);
+var ServerTestModule = (function () {
+    function ServerTestModule() {
     }
     /** @nocollapse */
-    ServerTestingModule.decorators = [
-        { type: core_1.NgModule, args: [{ exports: [testing_2.BrowserDynamicTestingModule] },] },
+    ServerTestModule.decorators = [
+        { type: core_1.AppModule, args: [{ modules: [testing_1.BrowserDynamicTestModule] },] },
     ];
-    return ServerTestingModule;
+    return ServerTestModule;
 }());
-exports.ServerTestingModule = ServerTestingModule;
+exports.ServerTestModule = ServerTestModule;
+/**
+ * @deprecated Use initTestEnvironment with ServerTestModule instead.
+ */
+exports.TEST_SERVER_APPLICATION_PROVIDERS = testing_1.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS;
 //# sourceMappingURL=server.js.map

@@ -10,5 +10,4 @@ var core_1 = require('@angular/core');
 exports.reflector = core_1.__core_private__.reflector;
 exports.ReflectionCapabilities = core_1.__core_private__.ReflectionCapabilities;
 exports.wtfInit = core_1.__core_private__.wtfInit;
-exports.Console = core_1.__core_private__.Console;
 //# sourceMappingURL=core_private.js.map

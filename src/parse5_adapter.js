@@ -17,7 +17,6 @@ var platform_browser_private_1 = require('../platform_browser_private');
 var lang_1 = require('../src/facade/lang');
 var exceptions_1 = require('../src/facade/exceptions');
 var compiler_private_1 = require('../compiler_private');
-var compiler_1 = require('@angular/compiler');
 var parser = null;
 var serializer = null;
 var treeAdapter = null;
@@ -73,7 +72,6 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.log = function (error /** TODO #9100 */) { console.log(error); };
     Parse5DomAdapter.prototype.logGroup = function (error /** TODO #9100 */) { console.error(error); };
     Parse5DomAdapter.prototype.logGroupEnd = function () { };
-    Parse5DomAdapter.prototype.getResourceLoader = function () { return compiler_1.ResourceLoader; };
     Object.defineProperty(Parse5DomAdapter.prototype, "attrToPropMap", {
         get: function () { return _attrToPropMap; },
         enumerable: true,

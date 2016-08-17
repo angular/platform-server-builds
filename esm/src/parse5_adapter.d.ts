@@ -1,6 +1,4 @@
 import { DomAdapter } from '../platform_browser_private';
-import { Type } from '@angular/core';
-import { ResourceLoader } from '@angular/compiler';
 /**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
  *
@@ -16,7 +14,6 @@ export declare class Parse5DomAdapter extends DomAdapter {
     log(error: any): void;
     logGroup(error: any): void;
     logGroupEnd(): void;
-    getResourceLoader(): Type<ResourceLoader>;
     readonly attrToPropMap: {
         [key: string]: string;
     };

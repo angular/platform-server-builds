@@ -451,7 +451,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         Parse5DomAdapter.prototype.log = function (error /** TODO #9100 */) { console.log(error); };
         Parse5DomAdapter.prototype.logGroup = function (error /** TODO #9100 */) { console.error(error); };
         Parse5DomAdapter.prototype.logGroupEnd = function () { };
-        Parse5DomAdapter.prototype.getXHR = function () { return _angular_compiler.XHR; };
+        Parse5DomAdapter.prototype.getResourceLoader = function () { return _angular_compiler.ResourceLoader; };
         Object.defineProperty(Parse5DomAdapter.prototype, "attrToPropMap", {
             get: function () { return _attrToPropMap; },
             enumerable: true,

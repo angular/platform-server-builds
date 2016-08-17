@@ -27,6 +27,12 @@ function _notImplemented(methodName /** TODO #9100 */) {
     return new BaseException('This method is not implemented in Parse5DomAdapter: ' + methodName);
 }
 /* tslint:disable:requireParameterType */
+/**
+ * A `DomAdapter` powered by the `parse5` NodeJS module.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ */
 export class Parse5DomAdapter extends DomAdapter {
     static makeCurrent() {
         parser = new parse5.Parser(parse5.TreeAdapters.htmlparser2);

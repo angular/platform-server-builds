@@ -1,6 +1,12 @@
 import { DomAdapter } from '../platform_browser_private';
 import { Type } from '@angular/core';
 import { ResourceLoader } from '@angular/compiler';
+/**
+ * A `DomAdapter` powered by the `parse5` NodeJS module.
+ *
+ * @security Tread carefully! Interacting with the DOM directly is dangerous and
+ * can introduce XSS risks.
+ */
 export declare class Parse5DomAdapter extends DomAdapter {
     static makeCurrent(): void;
     hasProperty(element: any, name: string): boolean;

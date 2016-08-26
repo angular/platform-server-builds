@@ -15,7 +15,6 @@ var parse5 = require('parse5/index');
 var collection_1 = require('../src/facade/collection');
 var platform_browser_private_1 = require('../platform_browser_private');
 var lang_1 = require('../src/facade/lang');
-var exceptions_1 = require('../src/facade/exceptions');
 var compiler_private_1 = require('../compiler_private');
 var parser = null;
 var serializer = null;
@@ -29,7 +28,7 @@ var _attrToPropMap = {
 var defDoc = null;
 var mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
 function _notImplemented(methodName /** TODO #9100 */) {
-    return new exceptions_1.BaseException('This method is not implemented in Parse5DomAdapter: ' + methodName);
+    return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
 }
 /* tslint:disable:requireParameterType */
 /**

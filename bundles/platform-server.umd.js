@@ -378,20 +378,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     })();
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
-    /**
-     * @stable
-     */
-    var BaseException = (function (_super) {
-        __extends(BaseException, _super);
-        function BaseException(message) {
-            if (message === void 0) { message = '--'; }
-            _super.call(this, message);
-            this.message = message;
-            this.stack = (new Error(message)).stack;
-        }
-        BaseException.prototype.toString = function () { return this.message; };
-        return BaseException;
-    }(Error));
     var SelectorMatcher = _angular_compiler.__compiler_private__.SelectorMatcher;
     var CssSelector = _angular_compiler.__compiler_private__.CssSelector;
     /**
@@ -414,7 +400,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     var defDoc = null;
     var mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
     function _notImplemented(methodName /** TODO #9100 */) {
-        return new BaseException('This method is not implemented in Parse5DomAdapter: ' + methodName);
+        return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
     }
     /* tslint:disable:requireParameterType */
     /**

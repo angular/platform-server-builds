@@ -604,8 +604,6 @@ export var Parse5DomAdapter = (function (_super) {
     };
     // TODO(tbosch): move this into a separate environment class once we have it
     Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global, path, value); };
-    Parse5DomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { return setTimeout(callback, 0); };
-    Parse5DomAdapter.prototype.cancelAnimationFrame = function (id) { clearTimeout(id); };
     Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
     Parse5DomAdapter.prototype.performanceNow = function () { return DateWrapper.toMillis(DateWrapper.now()); };
     Parse5DomAdapter.prototype.getAnimationPrefix = function () { return ''; };

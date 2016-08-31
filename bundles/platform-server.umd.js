@@ -3,18 +3,12 @@
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser')) :
-        typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
-            (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}), global._angular_common, global.ng.compiler, global.ng.core, global.ng.platformBrowser));
-}(this, function (exports, _angular_common, _angular_compiler, _angular_core, _angular_platformBrowser) {
-    'use strict';
-    var wtfInit = _angular_core.__core_private__.wtfInit;
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser));
+}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -54,6 +48,49 @@ var __extends = (this && this.__extends) || function (d, b) {
     function isArray(obj) {
         return Array.isArray(obj);
     }
+    var NumberWrapper = (function () {
+        function NumberWrapper() {
+        }
+        NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
+        NumberWrapper.equal = function (a, b) { return a === b; };
+        NumberWrapper.parseIntAutoRadix = function (text) {
+            var result = parseInt(text);
+            if (isNaN(result)) {
+                throw new Error('Invalid integer literal when parsing ' + text);
+            }
+            return result;
+        };
+        NumberWrapper.parseInt = function (text, radix) {
+            if (radix == 10) {
+                if (/^(\-|\+)?[0-9]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else if (radix == 16) {
+                if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else {
+                var result = parseInt(text, radix);
+                if (!isNaN(result)) {
+                    return result;
+                }
+            }
+            throw new Error('Invalid integer literal when parsing ' + text + ' in base ' + radix);
+        };
+        // TODO: NaN is a valid literal but is returned by parseFloat to indicate an error.
+        NumberWrapper.parseFloat = function (text) { return parseFloat(text); };
+        Object.defineProperty(NumberWrapper, "NaN", {
+            get: function () { return NaN; },
+            enumerable: true,
+            configurable: true
+        });
+        NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
+        NumberWrapper.isNaN = function (value) { return isNaN(value); };
+        NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
+        return NumberWrapper;
+    }());
     var DateWrapper = (function () {
         function DateWrapper() {
         }
@@ -90,6 +127,7 @@ var __extends = (this && this.__extends) || function (d, b) {
         }
         obj[parts.shift()] = value;
     }
+
     var Map$1 = _global.Map;
     var Set = _global.Set;
     // Safari and Internet Explorer do not support the iterable parameter to the
@@ -376,10 +414,13 @@ var __extends = (this && this.__extends) || function (d, b) {
             };
         }
     })();
+
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
+
     var SelectorMatcher = _angular_compiler.__compiler_private__.SelectorMatcher;
     var CssSelector = _angular_compiler.__compiler_private__.CssSelector;
+
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -387,6 +428,11 @@ var __extends = (this && this.__extends) || function (d, b) {
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    var __extends$1 = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     var parse5 = require('parse5/index');
     var parser = null;
     var serializer = null;
@@ -410,7 +456,7 @@ var __extends = (this && this.__extends) || function (d, b) {
      * can introduce XSS risks.
      */
     var Parse5DomAdapter = (function (_super) {
-        __extends(Parse5DomAdapter, _super);
+        __extends$1(Parse5DomAdapter, _super);
         function Parse5DomAdapter() {
             _super.apply(this, arguments);
         }
@@ -1181,6 +1227,19 @@ var __extends = (this && this.__extends) || function (d, b) {
         'closure_lm_714617',
         '__jsaction'
     ];
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var __extends = (this && this.__extends) || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
     function notSupported(feature) {
         throw new Error("platform-server does not support '" + feature + "'.");
     }
@@ -1226,17 +1285,22 @@ var __extends = (this && this.__extends) || function (d, b) {
     ];
     function initParse5Adapter() {
         Parse5DomAdapter.makeCurrent();
-        wtfInit();
     }
+    /**
+     * The ng module for the server.
+     *
+     * @experimental
+     */
     var ServerModule = (function () {
         function ServerModule() {
         }
+        ServerModule.decorators = [
+            { type: _angular_core.NgModule, args: [{ imports: [_angular_platformBrowser.BrowserModule] },] },
+        ];
+        /** @nocollapse */
+        ServerModule.ctorParameters = [];
         return ServerModule;
     }());
-    /** @nocollapse */
-    ServerModule.decorators = [
-        { type: _angular_core.NgModule, args: [{ imports: [_angular_platformBrowser.BrowserModule] },] },
-    ];
     /**
      * @experimental
      */
@@ -1247,7 +1311,14 @@ var __extends = (this && this.__extends) || function (d, b) {
      * @experimental
      */
     var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+
+    var __platform_server_private__ = {
+        INTERNAL_SERVER_PLATFORM_PROVIDERS: INTERNAL_SERVER_PLATFORM_PROVIDERS
+    };
+
     exports.ServerModule = ServerModule;
     exports.platformDynamicServer = platformDynamicServer;
     exports.platformServer = platformServer;
+    exports.__platform_server_private__ = __platform_server_private__;
+
 }));

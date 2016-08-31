@@ -5,17 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var parse5 = require('parse5/index');
-var collection_1 = require('../src/facade/collection');
-var platform_browser_private_1 = require('../platform_browser_private');
-var lang_1 = require('../src/facade/lang');
-var compiler_private_1 = require('../compiler_private');
+import { ListWrapper, StringMapWrapper } from '../src/facade/collection';
+import { DomAdapter, setRootDomAdapter } from './private_import_platform-browser';
+import { isPresent, isBlank, global, setValueOnPath, DateWrapper } from '../src/facade/lang';
+import { SelectorMatcher, CssSelector } from './private_import_compiler';
 var parser = null;
 var serializer = null;
 var treeAdapter = null;
@@ -37,7 +36,7 @@ function _notImplemented(methodName /** TODO #9100 */) {
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-var Parse5DomAdapter = (function (_super) {
+export var Parse5DomAdapter = (function (_super) {
     __extends(Parse5DomAdapter, _super);
     function Parse5DomAdapter() {
         _super.apply(this, arguments);
@@ -46,7 +45,7 @@ var Parse5DomAdapter = (function (_super) {
         parser = new parse5.Parser(parse5.TreeAdapters.htmlparser2);
         serializer = new parse5.Serializer(parse5.TreeAdapters.htmlparser2);
         treeAdapter = parser.treeAdapter;
-        platform_browser_private_1.setRootDomAdapter(new Parse5DomAdapter());
+        setRootDomAdapter(new Parse5DomAdapter());
     };
     Parse5DomAdapter.prototype.hasProperty = function (element /** TODO #9100 */, name) {
         return _HTMLElementPropertyList.indexOf(name) > -1;
@@ -95,8 +94,8 @@ var Parse5DomAdapter = (function (_super) {
                 }
             }
         };
-        var matcher = new compiler_private_1.SelectorMatcher();
-        matcher.addSelectables(compiler_private_1.CssSelector.parse(selector));
+        var matcher = new SelectorMatcher();
+        matcher.addSelectables(CssSelector.parse(selector));
         _recursive(res, el, selector, matcher);
         return res;
     };
@@ -112,10 +111,10 @@ var Parse5DomAdapter = (function (_super) {
         else if (selector) {
             var result = false;
             if (matcher == null) {
-                matcher = new compiler_private_1.SelectorMatcher();
-                matcher.addSelectables(compiler_private_1.CssSelector.parse(selector));
+                matcher = new SelectorMatcher();
+                matcher.addSelectables(CssSelector.parse(selector));
             }
-            var cssSelector = new compiler_private_1.CssSelector();
+            var cssSelector = new CssSelector();
             cssSelector.setElement(this.tagName(node));
             if (node.attribs) {
                 for (var attrName in node.attribs) {
@@ -132,39 +131,39 @@ var Parse5DomAdapter = (function (_super) {
     };
     Parse5DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         var listenersMap = el._eventListenersMap;
-        if (lang_1.isBlank(listenersMap)) {
-            var listenersMap = collection_1.StringMapWrapper.create();
+        if (isBlank(listenersMap)) {
+            var listenersMap = StringMapWrapper.create();
             el._eventListenersMap = listenersMap;
         }
-        var listeners = collection_1.StringMapWrapper.get(listenersMap, evt);
-        if (lang_1.isBlank(listeners)) {
+        var listeners = StringMapWrapper.get(listenersMap, evt);
+        if (isBlank(listeners)) {
             listeners = [];
         }
         listeners.push(listener);
-        collection_1.StringMapWrapper.set(listenersMap, evt, listeners);
+        StringMapWrapper.set(listenersMap, evt, listeners);
     };
     Parse5DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         this.on(el, evt, listener);
         return function () {
-            collection_1.ListWrapper.remove(collection_1.StringMapWrapper.get(el._eventListenersMap, evt), listener);
+            ListWrapper.remove(StringMapWrapper.get(el._eventListenersMap, evt), listener);
         };
     };
     Parse5DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt /** TODO #9100 */) {
-        if (lang_1.isBlank(evt.target)) {
+        if (isBlank(evt.target)) {
             evt.target = el;
         }
-        if (lang_1.isPresent(el._eventListenersMap)) {
-            var listeners = collection_1.StringMapWrapper.get(el._eventListenersMap, evt.type);
-            if (lang_1.isPresent(listeners)) {
+        if (isPresent(el._eventListenersMap)) {
+            var listeners = StringMapWrapper.get(el._eventListenersMap, evt.type);
+            if (isPresent(listeners)) {
                 for (var i = 0; i < listeners.length; i++) {
                     listeners[i](evt);
                 }
             }
         }
-        if (lang_1.isPresent(el.parent)) {
+        if (isPresent(el.parent)) {
             this.dispatchEvent(el.parent, evt);
         }
-        if (lang_1.isPresent(el._window)) {
+        if (isPresent(el._window)) {
             this.dispatchEvent(el._window, evt);
         }
     };
@@ -179,7 +178,7 @@ var Parse5DomAdapter = (function (_super) {
     };
     Parse5DomAdapter.prototype.preventDefault = function (evt /** TODO #9100 */) { evt.returnValue = false; };
     Parse5DomAdapter.prototype.isPrevented = function (evt /** TODO #9100 */) {
-        return lang_1.isPresent(evt.returnValue) && !evt.returnValue;
+        return isPresent(evt.returnValue) && !evt.returnValue;
     };
     Parse5DomAdapter.prototype.getInnerHTML = function (el /** TODO #9100 */) {
         return serializer.serialize(this.templateAwareRoot(el));
@@ -202,7 +201,7 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
     Parse5DomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
         var childNodes = el.childNodes;
-        var res = collection_1.ListWrapper.createFixedSize(childNodes.length);
+        var res = ListWrapper.createFixedSize(childNodes.length);
         for (var i = 0; i < childNodes.length; i++) {
             res[i] = childNodes[i];
         }
@@ -218,7 +217,7 @@ var Parse5DomAdapter = (function (_super) {
         treeAdapter.appendChild(this.templateAwareRoot(el), node);
     };
     Parse5DomAdapter.prototype.removeChild = function (el /** TODO #9100 */, node /** TODO #9100 */) {
-        if (collection_1.ListWrapper.contains(el.childNodes, node)) {
+        if (ListWrapper.contains(el.childNodes, node)) {
             this.remove(node);
         }
     };
@@ -273,7 +272,7 @@ var Parse5DomAdapter = (function (_super) {
             // However, comment node instances return the comment content for textContent getter
             return isRecursive ? '' : el.data;
         }
-        else if (lang_1.isBlank(el.childNodes) || el.childNodes.length == 0) {
+        else if (isBlank(el.childNodes) || el.childNodes.length == 0) {
             return '';
         }
         else {
@@ -346,7 +345,7 @@ var Parse5DomAdapter = (function (_super) {
             nodeClone.next = null;
             nodeClone.children = null;
             mapProps.forEach(function (mapName) {
-                if (lang_1.isPresent(node[mapName])) {
+                if (isPresent(node[mapName])) {
                     nodeClone[mapName] = {};
                     for (var prop in node[mapName]) {
                         nodeClone[mapName][prop] = node[mapName][prop];
@@ -403,7 +402,7 @@ var Parse5DomAdapter = (function (_super) {
         }
     };
     Parse5DomAdapter.prototype.hasClass = function (element /** TODO #9100 */, className) {
-        return collection_1.ListWrapper.contains(this.classList(element), className);
+        return ListWrapper.contains(this.classList(element), className);
     };
     Parse5DomAdapter.prototype.hasStyle = function (element /** TODO #9100 */, styleName, styleValue) {
         if (styleValue === void 0) { styleValue = null; }
@@ -488,7 +487,7 @@ var Parse5DomAdapter = (function (_super) {
     };
     Parse5DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) {
         if (attribute) {
-            collection_1.StringMapWrapper.delete(element.attribs, attribute);
+            StringMapWrapper.delete(element.attribs, attribute);
         }
     };
     Parse5DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) {
@@ -504,9 +503,9 @@ var Parse5DomAdapter = (function (_super) {
         var body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
         this.appendChild(newDoc, head);
         this.appendChild(newDoc, body);
-        collection_1.StringMapWrapper.set(newDoc, 'head', head);
-        collection_1.StringMapWrapper.set(newDoc, 'body', body);
-        collection_1.StringMapWrapper.set(newDoc, '_window', collection_1.StringMapWrapper.create());
+        StringMapWrapper.set(newDoc, 'head', head);
+        StringMapWrapper.set(newDoc, 'body', body);
+        StringMapWrapper.set(newDoc, '_window', StringMapWrapper.create());
         return newDoc;
     };
     Parse5DomAdapter.prototype.defaultDoc = function () {
@@ -528,7 +527,7 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.isElementNode = function (node /** TODO #9100 */) {
         return node ? treeAdapter.isElementNode(node) : false;
     };
-    Parse5DomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { return lang_1.isPresent(node.shadowRoot); };
+    Parse5DomAdapter.prototype.hasShadowRoot = function (node /** TODO #9100 */) { return isPresent(node.shadowRoot); };
     Parse5DomAdapter.prototype.isShadowRoot = function (node /** TODO #9100 */) { return this.getShadowRoot(node) == node; };
     Parse5DomAdapter.prototype.importIntoDoc = function (node /** TODO #9100 */) { return this.clone(node); };
     Parse5DomAdapter.prototype.adoptNode = function (node /** TODO #9100 */) { return node; };
@@ -546,32 +545,32 @@ var Parse5DomAdapter = (function (_super) {
         var rules = [];
         for (var i = 0; i < parsedRules.length; i++) {
             var parsedRule = parsedRules[i];
-            var rule = collection_1.StringMapWrapper.create();
-            collection_1.StringMapWrapper.set(rule, 'cssText', css);
-            collection_1.StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
+            var rule = StringMapWrapper.create();
+            StringMapWrapper.set(rule, 'cssText', css);
+            StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
             if (parsedRule.type == 'rule') {
-                collection_1.StringMapWrapper.set(rule, 'type', 1);
-                collection_1.StringMapWrapper.set(rule, 'selectorText', parsedRule.selectors.join(', ')
+                StringMapWrapper.set(rule, 'type', 1);
+                StringMapWrapper.set(rule, 'selectorText', parsedRule.selectors.join(', ')
                     .replace(/\s{2,}/g, ' ')
                     .replace(/\s*~\s*/g, ' ~ ')
                     .replace(/\s*\+\s*/g, ' + ')
                     .replace(/\s*>\s*/g, ' > ')
                     .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
-                if (lang_1.isBlank(parsedRule.declarations)) {
+                if (isBlank(parsedRule.declarations)) {
                     continue;
                 }
                 for (var j = 0; j < parsedRule.declarations.length; j++) {
                     var declaration = parsedRule.declarations[j];
-                    collection_1.StringMapWrapper.set(collection_1.StringMapWrapper.get(rule, 'style'), declaration.property, declaration.value);
-                    collection_1.StringMapWrapper.get(rule, 'style').cssText +=
+                    StringMapWrapper.set(StringMapWrapper.get(rule, 'style'), declaration.property, declaration.value);
+                    StringMapWrapper.get(rule, 'style').cssText +=
                         declaration.property + ': ' + declaration.value + ';';
                 }
             }
             else if (parsedRule.type == 'media') {
-                collection_1.StringMapWrapper.set(rule, 'type', 4);
-                collection_1.StringMapWrapper.set(rule, 'media', { mediaText: parsedRule.media });
+                StringMapWrapper.set(rule, 'type', 4);
+                StringMapWrapper.set(rule, 'media', { mediaText: parsedRule.media });
                 if (parsedRule.rules) {
-                    collection_1.StringMapWrapper.set(rule, 'cssRules', this._buildRules(parsedRule.rules));
+                    StringMapWrapper.set(rule, 'cssRules', this._buildRules(parsedRule.rules));
                 }
             }
             rules.push(rule);
@@ -604,11 +603,11 @@ var Parse5DomAdapter = (function (_super) {
         this.setAttribute(el, 'data-' + name, value);
     };
     // TODO(tbosch): move this into a separate environment class once we have it
-    Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { lang_1.setValueOnPath(lang_1.global, path, value); };
+    Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global, path, value); };
     Parse5DomAdapter.prototype.requestAnimationFrame = function (callback /** TODO #9100 */) { return setTimeout(callback, 0); };
     Parse5DomAdapter.prototype.cancelAnimationFrame = function (id) { clearTimeout(id); };
     Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
-    Parse5DomAdapter.prototype.performanceNow = function () { return lang_1.DateWrapper.toMillis(lang_1.DateWrapper.now()); };
+    Parse5DomAdapter.prototype.performanceNow = function () { return DateWrapper.toMillis(DateWrapper.now()); };
     Parse5DomAdapter.prototype.getAnimationPrefix = function () { return ''; };
     Parse5DomAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };
     Parse5DomAdapter.prototype.supportsAnimation = function () { return true; };
@@ -623,8 +622,7 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.setCookie = function (name, value) { throw new Error('not implemented'); };
     Parse5DomAdapter.prototype.animate = function (element, keyframes, options) { throw new Error('not implemented'); };
     return Parse5DomAdapter;
-}(platform_browser_private_1.DomAdapter));
-exports.Parse5DomAdapter = Parse5DomAdapter;
+}(DomAdapter));
 // TODO: build a proper list, this one is all the keys of a HTMLInputElement
 var _HTMLElementPropertyList = [
     'webkitEntries',

@@ -5,10 +5,5 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-server package.
- */
-export * from './src/platform-server';
-//# sourceMappingURL=index.js.map
+import { __platform_server_private__ as _ } from '@angular/platform-server';
+export declare var INTERNAL_SERVER_PLATFORM_PROVIDERS: typeof _.INTERNAL_SERVER_PLATFORM_PROVIDERS;

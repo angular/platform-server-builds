@@ -1,10 +1,10 @@
-import { ClassProvider, ExistingProvider, FactoryProvider, PlatformRef, TypeProvider, ValueProvider } from '@angular/core';
+import { PlatformRef, Provider } from '@angular/core';
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export declare const platformServerTesting: (extraProviders?: (TypeProvider | ValueProvider | ClassProvider | ExistingProvider | FactoryProvider | any[])[]) => PlatformRef;
+export declare const platformServerTesting: (extraProviders?: Provider[]) => PlatformRef;
 /**
  * NgModule for testing.
  *

@@ -1,4 +1,4 @@
-import { DomAdapter } from '../platform_browser_private';
+import { DomAdapter } from './private_import_platform-browser';
 /**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
  *

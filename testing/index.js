@@ -8,7 +8,7 @@
 /**
  * @module
  * @description
- * Entry point for all public APIs of the platform-server package.
+ * Entry point for all public APIs of the platform-browser-dynamic/testing package.
  */
-export * from './src/platform-server';
+export * from './server';
 //# sourceMappingURL=index.js.map

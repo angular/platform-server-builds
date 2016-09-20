@@ -132,15 +132,11 @@ export var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         var listenersMap = el._eventListenersMap;
         if (isBlank(listenersMap)) {
-            var listenersMap = StringMapWrapper.create();
+            var listenersMap = {};
             el._eventListenersMap = listenersMap;
         }
-        var listeners = StringMapWrapper.get(listenersMap, evt);
-        if (isBlank(listeners)) {
-            listeners = [];
-        }
-        listeners.push(listener);
-        StringMapWrapper.set(listenersMap, evt, listeners);
+        var listeners = listenersMap[evt] || [];
+        listenersMap[evt] = listeners.concat([listener]);
     };
     Parse5DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         this.on(el, evt, listener);
@@ -201,7 +197,7 @@ export var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
     Parse5DomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
         var childNodes = el.childNodes;
-        var res = ListWrapper.createFixedSize(childNodes.length);
+        var res = new Array(childNodes.length);
         for (var i = 0; i < childNodes.length; i++) {
             res[i] = childNodes[i];
         }
@@ -487,7 +483,7 @@ export var Parse5DomAdapter = (function (_super) {
     };
     Parse5DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) {
         if (attribute) {
-            StringMapWrapper.delete(element.attribs, attribute);
+            delete element.attribs[attribute];
         }
     };
     Parse5DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) {
@@ -505,7 +501,7 @@ export var Parse5DomAdapter = (function (_super) {
         this.appendChild(newDoc, body);
         StringMapWrapper.set(newDoc, 'head', head);
         StringMapWrapper.set(newDoc, 'body', body);
-        StringMapWrapper.set(newDoc, '_window', StringMapWrapper.create());
+        StringMapWrapper.set(newDoc, '_window', {});
         return newDoc;
     };
     Parse5DomAdapter.prototype.defaultDoc = function () {
@@ -545,7 +541,7 @@ export var Parse5DomAdapter = (function (_super) {
         var rules = [];
         for (var i = 0; i < parsedRules.length; i++) {
             var parsedRule = parsedRules[i];
-            var rule = StringMapWrapper.create();
+            var rule = {};
             StringMapWrapper.set(rule, 'cssText', css);
             StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
             if (parsedRule.type == 'rule') {

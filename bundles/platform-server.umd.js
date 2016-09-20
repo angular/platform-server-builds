@@ -126,43 +126,8 @@
         obj[parts.shift()] = value;
     }
 
-    var Map$1 = _global.Map;
-    var Set = _global.Set;
-    // Safari and Internet Explorer do not support the iterable parameter to the
-    // Map constructor.  We work around that by manually adding the items.
-    var createMapFromPairs = (function () {
-        try {
-            if (new Map$1([[1, 2]]).size === 1) {
-                return function createMapFromPairs(pairs) { return new Map$1(pairs); };
-            }
-        }
-        catch (e) {
-        }
-        return function createMapAndPopulateFromPairs(pairs) {
-            var map = new Map$1();
-            for (var i = 0; i < pairs.length; i++) {
-                var pair = pairs[i];
-                map.set(pair[0], pair[1]);
-            }
-            return map;
-        };
-    })();
-    var createMapFromMap = (function () {
-        try {
-            if (new Map$1(new Map$1())) {
-                return function createMapFromMap(m) { return new Map$1(m); };
-            }
-        }
-        catch (e) {
-        }
-        return function createMapAndPopulateFromMap(m) {
-            var map = new Map$1();
-            m.forEach(function (v, k) { map.set(k, v); });
-            return map;
-        };
-    })();
     var _clearValues = (function () {
-        if ((new Map$1()).keys().next) {
+        if ((new Map()).keys().next) {
             return function _clearValues(m) {
                 var keyIterator = m.keys();
                 var k;
@@ -181,7 +146,7 @@
     // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
     var _arrayFromMap = (function () {
         try {
-            if ((new Map$1()).values().next) {
+            if ((new Map()).values().next) {
                 return function createArrayFromMap(m, getValues) {
                     return getValues ? Array.from(m.values()) : Array.from(m.keys());
                 };
@@ -190,7 +155,7 @@
         catch (e) {
         }
         return function createArrayFromMapWithForeach(m, getValues) {
-            var res = ListWrapper.createFixedSize(m.size), i = 0;
+            var res = new Array(m.size), i = 0;
             m.forEach(function (v, k) {
                 res[i] = getValues ? v : k;
                 i++;
@@ -204,15 +169,6 @@
     var StringMapWrapper = (function () {
         function StringMapWrapper() {
         }
-        StringMapWrapper.create = function () {
-            // Note: We are not using Object.create(null) here due to
-            // performance!
-            // http://jsperf.com/ng2-object-create-null
-            return {};
-        };
-        StringMapWrapper.contains = function (map, key) {
-            return map.hasOwnProperty(key);
-        };
         StringMapWrapper.get = function (map, key) {
             return map.hasOwnProperty(key) ? map[key] : undefined;
         };
@@ -227,7 +183,6 @@
             }
             return true;
         };
-        StringMapWrapper.delete = function (map, key) { delete map[key]; };
         StringMapWrapper.forEach = function (map, callback) {
             for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
                 var k = _a[_i];
@@ -392,25 +347,6 @@
         }
         return target;
     }
-    // Safari and Internet Explorer do not support the iterable parameter to the
-    // Set constructor.  We work around that by manually adding the items.
-    var createSetFromList = (function () {
-        var test = new Set([1, 2, 3]);
-        if (test.size === 3) {
-            return function createSetFromList(lst) { return new Set(lst); };
-        }
-        else {
-            return function createSetAndPopulateFromList(lst) {
-                var res = new Set(lst);
-                if (res.size !== lst.length) {
-                    for (var i = 0; i < lst.length; i++) {
-                        res.add(lst[i]);
-                    }
-                }
-                return res;
-            };
-        }
-    })();
 
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
@@ -548,15 +484,11 @@
         Parse5DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
             var listenersMap = el._eventListenersMap;
             if (isBlank(listenersMap)) {
-                var listenersMap = StringMapWrapper.create();
+                var listenersMap = {};
                 el._eventListenersMap = listenersMap;
             }
-            var listeners = StringMapWrapper.get(listenersMap, evt);
-            if (isBlank(listeners)) {
-                listeners = [];
-            }
-            listeners.push(listener);
-            StringMapWrapper.set(listenersMap, evt, listeners);
+            var listeners = listenersMap[evt] || [];
+            listenersMap[evt] = listeners.concat([listener]);
         };
         Parse5DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
             this.on(el, evt, listener);
@@ -617,7 +549,7 @@
         Parse5DomAdapter.prototype.childNodes = function (el /** TODO #9100 */) { return el.childNodes; };
         Parse5DomAdapter.prototype.childNodesAsList = function (el /** TODO #9100 */) {
             var childNodes = el.childNodes;
-            var res = ListWrapper.createFixedSize(childNodes.length);
+            var res = new Array(childNodes.length);
             for (var i = 0; i < childNodes.length; i++) {
                 res[i] = childNodes[i];
             }
@@ -903,7 +835,7 @@
         };
         Parse5DomAdapter.prototype.removeAttribute = function (element /** TODO #9100 */, attribute) {
             if (attribute) {
-                StringMapWrapper.delete(element.attribs, attribute);
+                delete element.attribs[attribute];
             }
         };
         Parse5DomAdapter.prototype.removeAttributeNS = function (element /** TODO #9100 */, ns, name) {
@@ -921,7 +853,7 @@
             this.appendChild(newDoc, body);
             StringMapWrapper.set(newDoc, 'head', head);
             StringMapWrapper.set(newDoc, 'body', body);
-            StringMapWrapper.set(newDoc, '_window', StringMapWrapper.create());
+            StringMapWrapper.set(newDoc, '_window', {});
             return newDoc;
         };
         Parse5DomAdapter.prototype.defaultDoc = function () {
@@ -961,7 +893,7 @@
             var rules = [];
             for (var i = 0; i < parsedRules.length; i++) {
                 var parsedRule = parsedRules[i];
-                var rule = StringMapWrapper.create();
+                var rule = {};
                 StringMapWrapper.set(rule, 'cssText', css);
                 StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
                 if (parsedRule.type == 'rule') {

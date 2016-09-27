@@ -32,7 +32,6 @@
     // Need to declare a new variable for global here since TypeScript
     // exports the original value of the symbol.
     var _global = globalScope;
-    var Date = _global.Date;
     // TODO: remove calls to assert in production environment
     // Note: Can't just export this and import in in other files
     // as `assert` is a reserved keyword in Dart
@@ -169,10 +168,15 @@
     var StringMapWrapper = (function () {
         function StringMapWrapper() {
         }
-        StringMapWrapper.get = function (map, key) {
-            return map.hasOwnProperty(key) ? map[key] : undefined;
+        StringMapWrapper.create = function () {
+            // Note: We are not using Object.create(null) here due to
+            // performance!
+            // http://jsperf.com/ng2-object-create-null
+            return {};
         };
-        StringMapWrapper.set = function (map, key, value) { map[key] = value; };
+        StringMapWrapper.contains = function (map, key) {
+            return map.hasOwnProperty(key);
+        };
         StringMapWrapper.keys = function (map) { return Object.keys(map); };
         StringMapWrapper.values = function (map) {
             return Object.keys(map).map(function (k) { return map[k]; });
@@ -492,16 +496,14 @@
         };
         Parse5DomAdapter.prototype.onAndCancel = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
             this.on(el, evt, listener);
-            return function () {
-                ListWrapper.remove(StringMapWrapper.get(el._eventListenersMap, evt), listener);
-            };
+            return function () { ListWrapper.remove((el._eventListenersMap[evt]), listener); };
         };
         Parse5DomAdapter.prototype.dispatchEvent = function (el /** TODO #9100 */, evt /** TODO #9100 */) {
             if (isBlank(evt.target)) {
                 evt.target = el;
             }
             if (isPresent(el._eventListenersMap)) {
-                var listeners = StringMapWrapper.get(el._eventListenersMap, evt.type);
+                var listeners = el._eventListenersMap[evt.type];
                 if (isPresent(listeners)) {
                     for (var i = 0; i < listeners.length; i++) {
                         listeners[i](evt);
@@ -851,9 +853,9 @@
             var body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
             this.appendChild(newDoc, head);
             this.appendChild(newDoc, body);
-            StringMapWrapper.set(newDoc, 'head', head);
-            StringMapWrapper.set(newDoc, 'body', body);
-            StringMapWrapper.set(newDoc, '_window', {});
+            newDoc['head'] = head;
+            newDoc['body'] = body;
+            newDoc['_window'] = StringMapWrapper.create();
             return newDoc;
         };
         Parse5DomAdapter.prototype.defaultDoc = function () {
@@ -894,31 +896,30 @@
             for (var i = 0; i < parsedRules.length; i++) {
                 var parsedRule = parsedRules[i];
                 var rule = {};
-                StringMapWrapper.set(rule, 'cssText', css);
-                StringMapWrapper.set(rule, 'style', { content: '', cssText: '' });
+                rule['cssText'] = css;
+                rule['style'] = { content: '', cssText: '' };
                 if (parsedRule.type == 'rule') {
-                    StringMapWrapper.set(rule, 'type', 1);
-                    StringMapWrapper.set(rule, 'selectorText', parsedRule.selectors.join(', ')
-                        .replace(/\s{2,}/g, ' ')
-                        .replace(/\s*~\s*/g, ' ~ ')
-                        .replace(/\s*\+\s*/g, ' + ')
-                        .replace(/\s*>\s*/g, ' > ')
-                        .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
+                    rule['type'] = 1;
+                    rule['selectorText'] =
+                        parsedRule.selectors.join(', '.replace(/\s{2,}/g, ' ')
+                            .replace(/\s*~\s*/g, ' ~ ')
+                            .replace(/\s*\+\s*/g, ' + ')
+                            .replace(/\s*>\s*/g, ' > ')
+                            .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
                     if (isBlank(parsedRule.declarations)) {
                         continue;
                     }
                     for (var j = 0; j < parsedRule.declarations.length; j++) {
                         var declaration = parsedRule.declarations[j];
-                        StringMapWrapper.set(StringMapWrapper.get(rule, 'style'), declaration.property, declaration.value);
-                        StringMapWrapper.get(rule, 'style').cssText +=
-                            declaration.property + ': ' + declaration.value + ';';
+                        rule['style'] = declaration.property[declaration.value];
+                        rule['style'].cssText += declaration.property + ': ' + declaration.value + ';';
                     }
                 }
                 else if (parsedRule.type == 'media') {
-                    StringMapWrapper.set(rule, 'type', 4);
-                    StringMapWrapper.set(rule, 'media', { mediaText: parsedRule.media });
+                    rule['type'] = 4;
+                    rule['media'] = { mediaText: parsedRule.media };
                     if (parsedRule.rules) {
-                        StringMapWrapper.set(rule, 'cssRules', this._buildRules(parsedRule.rules));
+                        rule['cssRules'] = this._buildRules(parsedRule.rules);
                     }
                 }
                 rules.push(rule);

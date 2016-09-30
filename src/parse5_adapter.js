@@ -131,7 +131,7 @@ export var Parse5DomAdapter = (function (_super) {
     };
     Parse5DomAdapter.prototype.on = function (el /** TODO #9100 */, evt /** TODO #9100 */, listener /** TODO #9100 */) {
         var listenersMap = el._eventListenersMap;
-        if (isBlank(listenersMap)) {
+        if (!listenersMap) {
             var listenersMap = {};
             el._eventListenersMap = listenersMap;
         }

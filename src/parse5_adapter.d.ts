@@ -10,9 +10,9 @@ export declare class Parse5DomAdapter extends DomAdapter {
     hasProperty(element: any, name: string): boolean;
     setProperty(el: any, name: string, value: any): void;
     getProperty(el: any, name: string): any;
-    logError(error: any): void;
-    log(error: any): void;
-    logGroup(error: any): void;
+    logError(error: string): void;
+    log(error: string): void;
+    logGroup(error: string): void;
     logGroupEnd(): void;
     attrToPropMap: {
         [key: string]: string;
@@ -26,8 +26,8 @@ export declare class Parse5DomAdapter extends DomAdapter {
     dispatchEvent(el: any, evt: any): void;
     createMouseEvent(eventType: any): Event;
     createEvent(eventType: string): Event;
-    preventDefault(evt: any): void;
-    isPrevented(evt: any): boolean;
+    preventDefault(event: any): void;
+    isPrevented(event: any): boolean;
     getInnerHTML(el: any): string;
     getTemplateContent(el: any): Node;
     getOuterHTML(el: any): string;

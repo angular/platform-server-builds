@@ -143,65 +143,6 @@
             return res;
         };
     })();
-    /**
-     * Wraps Javascript Objects
-     */
-    var StringMapWrapper = (function () {
-        function StringMapWrapper() {
-        }
-        StringMapWrapper.create = function () {
-            // Note: We are not using Object.create(null) here due to
-            // performance!
-            // http://jsperf.com/ng2-object-create-null
-            return {};
-        };
-        StringMapWrapper.contains = function (map, key) {
-            return map.hasOwnProperty(key);
-        };
-        StringMapWrapper.keys = function (map) { return Object.keys(map); };
-        StringMapWrapper.values = function (map) {
-            return Object.keys(map).map(function (k) { return map[k]; });
-        };
-        StringMapWrapper.isEmpty = function (map) {
-            for (var prop in map) {
-                return false;
-            }
-            return true;
-        };
-        StringMapWrapper.forEach = function (map, callback) {
-            for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
-                var k = _a[_i];
-                callback(map[k], k);
-            }
-        };
-        StringMapWrapper.merge = function (m1, m2) {
-            var m = {};
-            for (var _i = 0, _a = Object.keys(m1); _i < _a.length; _i++) {
-                var k = _a[_i];
-                m[k] = m1[k];
-            }
-            for (var _b = 0, _c = Object.keys(m2); _b < _c.length; _b++) {
-                var k = _c[_b];
-                m[k] = m2[k];
-            }
-            return m;
-        };
-        StringMapWrapper.equals = function (m1, m2) {
-            var k1 = Object.keys(m1);
-            var k2 = Object.keys(m2);
-            if (k1.length != k2.length) {
-                return false;
-            }
-            for (var i = 0; i < k1.length; i++) {
-                var key = k1[i];
-                if (m1[key] !== m2[key]) {
-                    return false;
-                }
-            }
-            return true;
-        };
-        return StringMapWrapper;
-    }());
     var ListWrapper = (function () {
         function ListWrapper() {
         }
@@ -813,7 +754,7 @@
             this.appendChild(newDoc, body);
             newDoc['head'] = head;
             newDoc['body'] = body;
-            newDoc['_window'] = StringMapWrapper.create();
+            newDoc['_window'] = {};
             return newDoc;
         };
         Parse5DomAdapter.prototype.defaultDoc = function () { return defDoc = defDoc || this.createHtmlDocument(); };

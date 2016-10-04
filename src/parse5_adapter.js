@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var parse5 = require('parse5');
-import { ListWrapper, StringMapWrapper } from '../src/facade/collection';
+import { ListWrapper } from '../src/facade/collection';
 import { DomAdapter, setRootDomAdapter } from './private_import_platform-browser';
 import { isPresent, isBlank, global, setValueOnPath } from '../src/facade/lang';
 import { SelectorMatcher, CssSelector } from './private_import_compiler';
@@ -476,7 +476,7 @@ export var Parse5DomAdapter = (function (_super) {
         this.appendChild(newDoc, body);
         newDoc['head'] = head;
         newDoc['body'] = body;
-        newDoc['_window'] = StringMapWrapper.create();
+        newDoc['_window'] = {};
         return newDoc;
     };
     Parse5DomAdapter.prototype.defaultDoc = function () { return defDoc = defDoc || this.createHtmlDocument(); };

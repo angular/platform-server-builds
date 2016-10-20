@@ -217,9 +217,6 @@
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
 
-    var SelectorMatcher = _angular_compiler.__compiler_private__.SelectorMatcher;
-    var CssSelector = _angular_compiler.__compiler_private__.CssSelector;
-
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -306,8 +303,8 @@
                     }
                 }
             };
-            var matcher = new SelectorMatcher();
-            matcher.addSelectables(CssSelector.parse(selector));
+            var matcher = new _angular_compiler.SelectorMatcher();
+            matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
             _recursive(res, el, selector, matcher);
             return res;
         };
@@ -322,10 +319,10 @@
             }
             else if (selector) {
                 if (!matcher) {
-                    matcher = new SelectorMatcher();
-                    matcher.addSelectables(CssSelector.parse(selector));
+                    matcher = new _angular_compiler.SelectorMatcher();
+                    matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
                 }
-                var cssSelector = new CssSelector();
+                var cssSelector = new _angular_compiler.CssSelector();
                 cssSelector.setElement(this.tagName(node));
                 if (node.attribs) {
                     for (var attrName in node.attribs) {

@@ -44,6 +44,50 @@
     function isBlank(obj) {
         return obj === undefined || obj === null;
     }
+    function isArray(obj) {
+        return Array.isArray(obj);
+    }
+    var NumberWrapper = (function () {
+        function NumberWrapper() {
+        }
+        NumberWrapper.toFixed = function (n, fractionDigits) { return n.toFixed(fractionDigits); };
+        NumberWrapper.equal = function (a, b) { return a === b; };
+        NumberWrapper.parseIntAutoRadix = function (text) {
+            var result = parseInt(text);
+            if (isNaN(result)) {
+                throw new Error('Invalid integer literal when parsing ' + text);
+            }
+            return result;
+        };
+        NumberWrapper.parseInt = function (text, radix) {
+            if (radix == 10) {
+                if (/^(\-|\+)?[0-9]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else if (radix == 16) {
+                if (/^(\-|\+)?[0-9ABCDEFabcdef]+$/.test(text)) {
+                    return parseInt(text, radix);
+                }
+            }
+            else {
+                var result = parseInt(text, radix);
+                if (!isNaN(result)) {
+                    return result;
+                }
+            }
+            throw new Error('Invalid integer literal when parsing ' + text + ' in base ' + radix);
+        };
+        Object.defineProperty(NumberWrapper, "NaN", {
+            get: function () { return NaN; },
+            enumerable: true,
+            configurable: true
+        });
+        NumberWrapper.isNumeric = function (value) { return !isNaN(value - parseFloat(value)); };
+        NumberWrapper.isNaN = function (value) { return isNaN(value); };
+        NumberWrapper.isInteger = function (value) { return Number.isInteger(value); };
+        return NumberWrapper;
+    }());
     function setValueOnPath(global, path, value) {
         var parts = path.split('.');
         var obj = global;
@@ -62,6 +106,22 @@
         obj[parts.shift()] = value;
     }
 
+    var _clearValues = (function () {
+        if ((new Map()).keys().next) {
+            return function _clearValues(m) {
+                var keyIterator = m.keys();
+                var k;
+                while (!((k = keyIterator.next()).done)) {
+                    m.set(k.value, null);
+                }
+            };
+        }
+        else {
+            return function _clearValuesWithForeEach(m) {
+                m.forEach(function (v, k) { m.set(k, null); });
+            };
+        }
+    })();
     // Safari doesn't implement MapIterator.next(), which is used is Traceur's polyfill of Array.from
     // TODO(mlaval): remove the work around once we have a working polyfill of Array.from
     var _arrayFromMap = (function () {
@@ -203,7 +263,7 @@
         if (isPresent(source)) {
             for (var i = 0; i < source.length; i++) {
                 var item = source[i];
-                if (Array.isArray(item)) {
+                if (isArray(item)) {
                     _flattenArray(item, target);
                 }
                 else {
@@ -216,6 +276,9 @@
 
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
+
+    var SelectorMatcher = _angular_compiler.__compiler_private__.SelectorMatcher;
+    var CssSelector = _angular_compiler.__compiler_private__.CssSelector;
 
     /**
      * @license
@@ -303,8 +366,8 @@
                     }
                 }
             };
-            var matcher = new _angular_compiler.SelectorMatcher();
-            matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
+            var matcher = new SelectorMatcher();
+            matcher.addSelectables(CssSelector.parse(selector));
             _recursive(res, el, selector, matcher);
             return res;
         };
@@ -319,10 +382,10 @@
             }
             else if (selector) {
                 if (!matcher) {
-                    matcher = new _angular_compiler.SelectorMatcher();
-                    matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
+                    matcher = new SelectorMatcher();
+                    matcher.addSelectables(CssSelector.parse(selector));
                 }
-                var cssSelector = new _angular_compiler.CssSelector();
+                var cssSelector = new CssSelector();
                 cssSelector.setElement(this.tagName(node));
                 if (node.attribs) {
                     for (var attrName in node.attribs) {

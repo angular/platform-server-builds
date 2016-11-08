@@ -48,7 +48,7 @@
         if (typeof token === 'string') {
             return token;
         }
-        if (token === undefined || token === null) {
+        if (token == null) {
             return '' + token;
         }
         if (token.overriddenName) {
@@ -65,12 +65,12 @@
         var parts = path.split('.');
         var obj = global;
         while (parts.length > 1) {
-            var name = parts.shift();
-            if (obj.hasOwnProperty(name) && isPresent(obj[name])) {
-                obj = obj[name];
+            var name_1 = parts.shift();
+            if (obj.hasOwnProperty(name_1) && obj[name_1] != null) {
+                obj = obj[name_1];
             }
             else {
-                obj = obj[name] = {};
+                obj = obj[name_1] = {};
             }
         }
         if (obj === undefined || obj === null) {
@@ -85,7 +85,9 @@
         ListWrapper.removeAll = function (list, items) {
             for (var i = 0; i < items.length; ++i) {
                 var index = list.indexOf(items[i]);
-                list.splice(index, 1);
+                if (index > -1) {
+                    list.splice(index, 1);
+                }
             }
         };
         ListWrapper.remove = function (list, el) {
@@ -105,46 +107,14 @@
             }
             return true;
         };
-        ListWrapper.maximum = function (list, predicate) {
-            if (list.length == 0) {
-                return null;
-            }
-            var solution = null;
-            var maxValue = -Infinity;
-            for (var index = 0; index < list.length; index++) {
-                var candidate = list[index];
-                if (candidate == null) {
-                    continue;
-                }
-                var candidateValue = predicate(candidate);
-                if (candidateValue > maxValue) {
-                    solution = candidate;
-                    maxValue = candidateValue;
-                }
-            }
-            return solution;
-        };
         ListWrapper.flatten = function (list) {
-            var target = [];
-            _flattenArray(list, target);
-            return target;
+            return list.reduce(function (flat, item) {
+                var flatItem = Array.isArray(item) ? ListWrapper.flatten(item) : item;
+                return flat.concat(flatItem);
+            }, []);
         };
         return ListWrapper;
     }());
-    function _flattenArray(source, target) {
-        if (isPresent(source)) {
-            for (var i = 0; i < source.length; i++) {
-                var item = source[i];
-                if (Array.isArray(item)) {
-                    _flattenArray(item, target);
-                }
-                else {
-                    target.push(item);
-                }
-            }
-        }
-        return target;
-    }
 
     var DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
     var setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;

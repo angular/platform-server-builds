@@ -196,8 +196,9 @@ export var ServerRenderer = (function () {
         getDOM().invoke(renderElement, methodName, args);
     };
     ServerRenderer.prototype.setText = function (renderNode, text) { getDOM().setText(renderNode, text); };
-    ServerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing) {
-        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing);
+    ServerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
+        if (previousPlayers === void 0) { previousPlayers = []; }
+        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
     };
     return ServerRenderer;
 }());

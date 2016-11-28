@@ -1,1 +1,1 @@
-{"__symbolic":"module","version":2,"metadata":{},"exports":[{"from":"./src/platform-server"}]}
+[{"__symbolic":"module","version":2,"metadata":{},"exports":[{"from":"./src/platform-server"}]},{"__symbolic":"module","exports":[{"from":"./src/platform-server"}],"metadata":{},"version":1}]

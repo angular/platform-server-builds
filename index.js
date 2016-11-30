@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Version } from '@angular/core';
 /**
- * @module
- * @description
- * Entry point for all public APIs of the platform-server package.
+ * @stable
  */
+export var /** @type {?} */ VERSION = new Version('2.3.0-beta.0-e628b66');
 export { ServerModule, platformDynamicServer, platformServer, __platform_server_private__ } from './src/platform-server';
 //# sourceMappingURL=index.js.map

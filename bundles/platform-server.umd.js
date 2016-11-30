@@ -1,13 +1,13 @@
 /**
- * @license Angular v2.3.0-beta.0-3e73bea
+ * @license Angular v2.3.0-beta.0-e628b66
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser')) :
-  typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
-  (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser));
-}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/compiler'), require('@angular/platform-browser')) :
+  typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/compiler', '@angular/platform-browser'], factory) :
+  (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.common,global.ng.compiler,global.ng.platformBrowser));
+}(this, function (exports,_angular_core,_angular_common,_angular_compiler,_angular_platformBrowser) { 'use strict';
 
   /**
    * @license
@@ -1967,6 +1967,12 @@
       SERVER_RENDER_PROVIDERS: SERVER_RENDER_PROVIDERS,
   };
 
+  /**
+   * @stable
+   */
+  var /** @type {?} */ VERSION = new _angular_core.Version('2.3.0-beta.0-e628b66');
+
+  exports.VERSION = VERSION;
   exports.ServerModule = ServerModule;
   exports.platformDynamicServer = platformDynamicServer;
   exports.platformServer = platformServer;

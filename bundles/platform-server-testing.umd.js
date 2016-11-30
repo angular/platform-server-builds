@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.3.0-beta.0-d420080
+ * @license Angular v2.2.4-9a9a7ac
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -30,7 +30,7 @@
             { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
         ];
         /** @nocollapse */
-        ServerTestingModule.ctorParameters = function () { return []; };
+        ServerTestingModule.ctorParameters = [];
         return ServerTestingModule;
     }());
 

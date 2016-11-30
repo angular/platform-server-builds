@@ -27,7 +27,7 @@ export var ServerTestingModule = (function () {
         { type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
     ];
     /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
+    ServerTestingModule.ctorParameters = [];
     return ServerTestingModule;
 }());
 //# sourceMappingURL=server.js.map

@@ -9,6 +9,6 @@ import { Version } from '@angular/core';
 /**
  * @stable
  */
-export var /** @type {?} */ VERSION = new Version('2.3.0-rc.0-2893c2c');
+export var /** @type {?} */ VERSION = new Version('2.3.0-rc.0-393c100');
 export { ServerModule, platformDynamicServer, platformServer, __platform_server_private__ } from './src/platform-server';
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "2.3.0-rc.0-f31c947",
+  "version": "2.3.0-rc.0-2893c2c",
   "description": "Angular - library for using Angular in Node.js",
   "main": "bundles/platform-server.umd.js",
   "module": "index.js",
@@ -8,10 +8,10 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/core": "2.3.0-rc.0-f31c947",
-    "@angular/common": "2.3.0-rc.0-f31c947",
-    "@angular/compiler": "2.3.0-rc.0-f31c947",
-    "@angular/platform-browser": "2.3.0-rc.0-f31c947"
+    "@angular/core": "2.3.0-rc.0-2893c2c",
+    "@angular/common": "2.3.0-rc.0-2893c2c",
+    "@angular/compiler": "2.3.0-rc.0-2893c2c",
+    "@angular/platform-browser": "2.3.0-rc.0-2893c2c"
   },
   "dependencies": {
     "parse5": "^2.2.1"

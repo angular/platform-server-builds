@@ -10,9 +10,4 @@
  * @description
  * Entry point for all public APIs of the platform-server package.
  */
-import { Version } from '@angular/core';
-/**
- * @stable
- */
-export declare const VERSION: Version;
 export * from './src/platform-server';

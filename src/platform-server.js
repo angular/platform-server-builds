@@ -7,4 +7,5 @@
  */
 export { ServerModule, platformDynamicServer, platformServer } from './server';
 export { __platform_server_private__ } from './private_export';
+export { VERSION } from './version';
 //# sourceMappingURL=platform-server.js.map

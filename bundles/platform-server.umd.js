@@ -1,5 +1,5 @@
 /**
- * @license Angular v2.4.1-df8643f
+ * @license Angular v2.4.1-28a92b2
  * (c) 2010-2016 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1466,6 +1466,7 @@
   ];
 
   var /** @type {?} */ DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
+  var /** @type {?} */ NoOpAnimationPlayer = _angular_core.__core_private__.NoOpAnimationPlayer;
 
   var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
   var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
@@ -1782,7 +1783,12 @@
        */
       ServerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
           if (previousPlayers === void 0) { previousPlayers = []; }
-          return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+          try {
+              return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+          }
+          catch (e) {
+              return new NoOpAnimationPlayer();
+          }
       };
       return ServerRenderer;
   }());
@@ -1970,7 +1976,7 @@
   /**
    * @stable
    */
-  var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1-df8643f');
+  var /** @type {?} */ VERSION = new _angular_core.Version('2.4.1-28a92b2');
 
   exports.ServerModule = ServerModule;
   exports.platformDynamicServer = platformDynamicServer;

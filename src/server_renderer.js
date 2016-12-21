@@ -8,6 +8,7 @@
 import { APP_ID, Inject, Injectable, NgZone, ViewEncapsulation } from '@angular/core';
 import { AnimationDriver, DOCUMENT } from '@angular/platform-browser';
 import { isBlank, isPresent, stringify } from './facade/lang';
+import { NoOpAnimationPlayer } from './private_import_core';
 import { NAMESPACE_URIS, SharedStylesHost, flattenStyles, getDOM, isNamespaced, shimContentAttribute, shimHostAttribute, splitNamespace } from './private_import_platform-browser';
 var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
@@ -345,7 +346,12 @@ export var ServerRenderer = (function () {
      */
     ServerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
         if (previousPlayers === void 0) { previousPlayers = []; }
-        return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+        try {
+            return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
+        }
+        catch (e) {
+            return new NoOpAnimationPlayer();
+        }
     };
     return ServerRenderer;
 }());

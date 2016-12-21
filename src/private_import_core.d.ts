@@ -19,3 +19,5 @@ export declare type RenderDebugInfo = typeof r._RenderDebugInfo;
 export declare var RenderDebugInfo: typeof r.RenderDebugInfo;
 export declare type DebugDomRootRenderer = typeof r._DebugDomRootRenderer;
 export declare var DebugDomRootRenderer: typeof r.DebugDomRootRenderer;
+export declare type NoOpAnimationPlayer = typeof r._NoOpAnimationPlayer;
+export declare var NoOpAnimationPlayer: typeof r.NoOpAnimationPlayer;

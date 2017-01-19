@@ -14,7 +14,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     log(error: string): void;
     logGroup(error: string): void;
     logGroupEnd(): void;
-    readonly attrToPropMap: {
+    attrToPropMap: {
         [key: string]: string;
     };
     query(selector: any): void;

@@ -5,10 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { PlatformLocation } from '@angular/common/index';
-import { platformCoreDynamic } from '@angular/compiler/index';
-import { NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core/index';
-import { BrowserModule } from '@angular/platform-browser/index';
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+import { PlatformLocation } from '@angular/common';
+import { platformCoreDynamic } from '@angular/compiler';
+import { NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { Parse5DomAdapter } from './parse5_adapter';
 import { DebugDomRootRenderer } from './private_import_core';
 import { SharedStylesHost } from './private_import_platform-browser';
@@ -18,45 +23,61 @@ import { ServerRootRenderer } from './server_renderer';
  * @return {?}
  */
 function notSupported(feature) {
-    throw new Error(`platform-server does not support '${feature}'.`);
+    throw new Error("platform-server does not support '" + feature + "'.");
 }
-class ServerPlatformLocation extends PlatformLocation {
+var ServerPlatformLocation = (function (_super) {
+    __extends(ServerPlatformLocation, _super);
+    function ServerPlatformLocation() {
+        _super.apply(this, arguments);
+    }
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { throw notSupported('getBaseHrefFromDOM'); }
+    ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { throw notSupported('getBaseHrefFromDOM'); };
     ;
     /**
      * @param {?} fn
      * @return {?}
      */
-    onPopState(fn) { notSupported('onPopState'); }
+    ServerPlatformLocation.prototype.onPopState = function (fn) { notSupported('onPopState'); };
     ;
     /**
      * @param {?} fn
      * @return {?}
      */
-    onHashChange(fn) { notSupported('onHashChange'); }
+    ServerPlatformLocation.prototype.onHashChange = function (fn) { notSupported('onHashChange'); };
     ;
-    /**
-     * @return {?}
-     */
-    get pathname() { throw notSupported('pathname'); }
-    /**
-     * @return {?}
-     */
-    get search() { throw notSupported('search'); }
-    /**
-     * @return {?}
-     */
-    get hash() { throw notSupported('hash'); }
+    Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
+        /**
+         * @return {?}
+         */
+        get: function () { throw notSupported('pathname'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ServerPlatformLocation.prototype, "search", {
+        /**
+         * @return {?}
+         */
+        get: function () { throw notSupported('search'); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
+        /**
+         * @return {?}
+         */
+        get: function () { throw notSupported('hash'); },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} state
      * @param {?} title
      * @param {?} url
      * @return {?}
      */
-    replaceState(state, title, url) { notSupported('replaceState'); }
+    ServerPlatformLocation.prototype.replaceState = function (state, title, url) { notSupported('replaceState'); };
     ;
     /**
      * @param {?} state
@@ -64,20 +85,21 @@ class ServerPlatformLocation extends PlatformLocation {
      * @param {?} url
      * @return {?}
      */
-    pushState(state, title, url) { notSupported('pushState'); }
+    ServerPlatformLocation.prototype.pushState = function (state, title, url) { notSupported('pushState'); };
     ;
     /**
      * @return {?}
      */
-    forward() { notSupported('forward'); }
+    ServerPlatformLocation.prototype.forward = function () { notSupported('forward'); };
     ;
     /**
      * @return {?}
      */
-    back() { notSupported('back'); }
+    ServerPlatformLocation.prototype.back = function () { notSupported('back'); };
     ;
-}
-export const /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
+    return ServerPlatformLocation;
+}(PlatformLocation));
+export var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
     { provide: PlatformLocation, useClass: ServerPlatformLocation },
 ];
@@ -97,7 +119,7 @@ export function _createConditionalRootRenderer(rootRenderer) {
     }
     return rootRenderer;
 }
-export const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
+export var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
     ServerRootRenderer,
     { provide: RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] },
     // use plain SharedStylesHost, not the DomSharedStylesHost
@@ -108,13 +130,16 @@ export const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
  *
  * \@experimental
  */
-export class ServerModule {
-}
-ServerModule.decorators = [
-    { type: NgModule, args: [{ exports: [BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
-];
-/** @nocollapse */
-ServerModule.ctorParameters = () => [];
+export var ServerModule = (function () {
+    function ServerModule() {
+    }
+    ServerModule.decorators = [
+        { type: NgModule, args: [{ exports: [BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
+    ];
+    /** @nocollapse */
+    ServerModule.ctorParameters = function () { return []; };
+    return ServerModule;
+}());
 function ServerModule_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerModule.decorators;
@@ -127,11 +152,11 @@ function ServerModule_tsickle_Closure_declarations() {
 /**
  * @experimental
  */
-export const /** @type {?} */ platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+export var /** @type {?} */ platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-export const /** @type {?} */ platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+export var /** @type {?} */ platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 //# sourceMappingURL=server.js.map

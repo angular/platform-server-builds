@@ -151,7 +151,7 @@ export class Parse5DomAdapter extends DomAdapter {
             const /** @type {?} */ cssSelector = new CssSelector();
             cssSelector.setElement(this.tagName(node));
             if (node.attribs) {
-                for (const attrName in node.attribs) {
+                for (const /** @type {?} */ attrName in node.attribs) {
                     cssSelector.addAttribute(attrName, node.attribs[attrName]);
                 }
             }
@@ -550,7 +550,7 @@ export class Parse5DomAdapter extends DomAdapter {
     clone(node) {
         const /** @type {?} */ _recursive = (node) => {
             const /** @type {?} */ nodeClone = Object.create(Object.getPrototypeOf(node));
-            for (const prop in node) {
+            for (const /** @type {?} */ prop in node) {
                 const /** @type {?} */ desc = Object.getOwnPropertyDescriptor(node, prop);
                 if (desc && 'value' in desc && typeof desc.value !== 'object') {
                     nodeClone[prop] = node[prop];
@@ -563,7 +563,7 @@ export class Parse5DomAdapter extends DomAdapter {
             mapProps.forEach(mapName => {
                 if (isPresent(node[mapName])) {
                     nodeClone[mapName] = {};
-                    for (const prop in node[mapName]) {
+                    for (const /** @type {?} */ prop in node[mapName]) {
                         nodeClone[mapName][prop] = node[mapName][prop];
                     }
                 }
@@ -687,7 +687,7 @@ export class Parse5DomAdapter extends DomAdapter {
      */
     _writeStyleAttribute(element, styleMap) {
         let /** @type {?} */ styleAttrValue = '';
-        for (const key in styleMap) {
+        for (const /** @type {?} */ key in styleMap) {
             const /** @type {?} */ newValue = styleMap[key];
             if (newValue) {
                 styleAttrValue += key + ':' + styleMap[key] + ';';

@@ -104,7 +104,7 @@ export class ServerRenderer {
      * @return {?}
      */
     selectRootElement(selectorOrNode, debugInfo) {
-        let /** @type {?} */ el;
+        let /** @type {?} */ el /** TODO #9100 */;
         if (typeof selectorOrNode === 'string') {
             el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
             if (isBlank(el)) {
@@ -145,7 +145,7 @@ export class ServerRenderer {
      * @return {?}
      */
     createViewRoot(hostElement) {
-        let /** @type {?} */ nodesParent;
+        let /** @type {?} */ nodesParent /** TODO #9100 */;
         if (isPresent(this._hostAttr)) {
             getDOM().setAttribute(hostElement, this._hostAttr, '');
         }

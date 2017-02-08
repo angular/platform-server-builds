@@ -215,7 +215,7 @@
     var Parse5DomAdapter = (function (_super) {
         __extends$1(Parse5DomAdapter, _super);
         function Parse5DomAdapter() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -341,7 +341,7 @@
                 var /** @type {?} */ cssSelector = new _angular_compiler.CssSelector();
                 cssSelector.setElement(this.tagName(node));
                 if (node.attribs) {
-                    for (var attrName in node.attribs) {
+                    for (var /** @type {?} */ attrName in node.attribs) {
                         cssSelector.addAttribute(attrName, node.attribs[attrName]);
                     }
                 }
@@ -743,7 +743,7 @@
         Parse5DomAdapter.prototype.clone = function (node) {
             var /** @type {?} */ _recursive = function (node) {
                 var /** @type {?} */ nodeClone = Object.create(Object.getPrototypeOf(node));
-                for (var prop in node) {
+                for (var /** @type {?} */ prop in node) {
                     var /** @type {?} */ desc = Object.getOwnPropertyDescriptor(node, prop);
                     if (desc && 'value' in desc && typeof desc.value !== 'object') {
                         nodeClone[prop] = node[prop];
@@ -756,7 +756,7 @@
                 mapProps.forEach(function (mapName) {
                     if (isPresent(node[mapName])) {
                         nodeClone[mapName] = {};
-                        for (var prop in node[mapName]) {
+                        for (var /** @type {?} */ prop in node[mapName]) {
                             nodeClone[mapName][prop] = node[mapName][prop];
                         }
                     }
@@ -881,7 +881,7 @@
          */
         Parse5DomAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
             var /** @type {?} */ styleAttrValue = '';
-            for (var key in styleMap) {
+            for (var /** @type {?} */ key in styleMap) {
                 var /** @type {?} */ newValue = styleMap[key];
                 if (newValue) {
                     styleAttrValue += key + ':' + styleMap[key] + ';';
@@ -1501,19 +1501,19 @@
             }
             return renderer;
         };
-        ServerRootRenderer.decorators = [
-            { type: _angular_core.Injectable },
-        ];
-        /** @nocollapse */
-        ServerRootRenderer.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-            { type: SharedStylesHost, },
-            { type: _angular_platformBrowser.AnimationDriver, },
-            { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
-            { type: _angular_core.NgZone, },
-        ]; };
         return ServerRootRenderer;
     }());
+    ServerRootRenderer.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerRootRenderer.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: SharedStylesHost, },
+        { type: _angular_platformBrowser.AnimationDriver, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
+        { type: _angular_core.NgZone, },
+    ]; };
     var ServerRenderer = (function () {
         /**
          * @param {?} _rootRenderer
@@ -1546,7 +1546,7 @@
          * @return {?}
          */
         ServerRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
-            var /** @type {?} */ el;
+            var /** @type {?} */ el /** TODO #9100 */;
             if (typeof selectorOrNode === 'string') {
                 el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
                 if (isBlank(el)) {
@@ -1587,7 +1587,7 @@
          * @return {?}
          */
         ServerRenderer.prototype.createViewRoot = function (hostElement) {
-            var /** @type {?} */ nodesParent;
+            var /** @type {?} */ nodesParent /** TODO #9100 */;
             if (isPresent(this._hostAttr)) {
                 getDOM().setAttribute(hostElement, this._hostAttr, '');
             }
@@ -1844,7 +1844,7 @@
     var ServerPlatformLocation = (function (_super) {
         __extends(ServerPlatformLocation, _super);
         function ServerPlatformLocation() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         /**
          * @return {?}
@@ -1949,13 +1949,13 @@
     var ServerModule = (function () {
         function ServerModule() {
         }
-        ServerModule.decorators = [
-            { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowser.BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
-        ];
-        /** @nocollapse */
-        ServerModule.ctorParameters = function () { return []; };
         return ServerModule;
     }());
+    ServerModule.decorators = [
+        { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowser.BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
+    ];
+    /** @nocollapse */
+    ServerModule.ctorParameters = function () { return []; };
     /**
      * @experimental
      */

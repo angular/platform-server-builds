@@ -26,13 +26,13 @@
     var ServerTestingModule = (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.decorators = [
-            { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
-        ];
-        /** @nocollapse */
-        ServerTestingModule.ctorParameters = function () { return []; };
         return ServerTestingModule;
     }());
+    ServerTestingModule.decorators = [
+        { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
+    ];
+    /** @nocollapse */
+    ServerTestingModule.ctorParameters = function () { return []; };
 
     exports.platformServerTesting = platformServerTesting;
     exports.ServerTestingModule = ServerTestingModule;

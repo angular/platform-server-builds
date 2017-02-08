@@ -11,7 +11,7 @@ import { isBlank, isPresent, stringify } from './facade/lang';
 import { NAMESPACE_URIS, SharedStylesHost, flattenStyles, getDOM, isNamespaced, shimContentAttribute, shimHostAttribute, splitNamespace } from './private_import_platform-browser';
 var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
-export var ServerRootRenderer = (function () {
+var ServerRootRenderer = (function () {
     /**
      * @param {?} document
      * @param {?} sharedStylesHost
@@ -39,19 +39,20 @@ export var ServerRootRenderer = (function () {
         }
         return renderer;
     };
-    ServerRootRenderer.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    ServerRootRenderer.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-        { type: SharedStylesHost, },
-        { type: AnimationDriver, },
-        { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
-        { type: NgZone, },
-    ]; };
     return ServerRootRenderer;
 }());
+export { ServerRootRenderer };
+ServerRootRenderer.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+ServerRootRenderer.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: SharedStylesHost, },
+    { type: AnimationDriver, },
+    { type: undefined, decorators: [{ type: Inject, args: [APP_ID,] },] },
+    { type: NgZone, },
+]; };
 function ServerRootRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerRootRenderer.decorators;
@@ -73,7 +74,7 @@ function ServerRootRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerRootRenderer.prototype._zone;
 }
-export var ServerRenderer = (function () {
+var ServerRenderer = (function () {
     /**
      * @param {?} _rootRenderer
      * @param {?} componentProto
@@ -105,7 +106,7 @@ export var ServerRenderer = (function () {
      * @return {?}
      */
     ServerRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
-        var /** @type {?} */ el;
+        var /** @type {?} */ el /** TODO #9100 */;
         if (typeof selectorOrNode === 'string') {
             el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
             if (isBlank(el)) {
@@ -146,7 +147,7 @@ export var ServerRenderer = (function () {
      * @return {?}
      */
     ServerRenderer.prototype.createViewRoot = function (hostElement) {
-        var /** @type {?} */ nodesParent;
+        var /** @type {?} */ nodesParent /** TODO #9100 */;
         if (isPresent(this._hostAttr)) {
             getDOM().setAttribute(hostElement, this._hostAttr, '');
         }
@@ -349,6 +350,7 @@ export var ServerRenderer = (function () {
     };
     return ServerRenderer;
 }());
+export { ServerRenderer };
 function ServerRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerRenderer.prototype._contentAttr;

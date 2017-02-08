@@ -20,14 +20,15 @@ export var platformServerTesting = createPlatformFactory(platformCoreDynamicTest
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export var ServerTestingModule = (function () {
+var ServerTestingModule = (function () {
     function ServerTestingModule() {
     }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
-    ];
-    /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
     return ServerTestingModule;
 }());
+export { ServerTestingModule };
+ServerTestingModule.decorators = [
+    { type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
+];
+/** @nocollapse */
+ServerTestingModule.ctorParameters = function () { return []; };
 //# sourceMappingURL=server.js.map

@@ -28,7 +28,7 @@ function notSupported(feature) {
 var ServerPlatformLocation = (function (_super) {
     __extends(ServerPlatformLocation, _super);
     function ServerPlatformLocation() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -130,16 +130,17 @@ export var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
  *
  * \@experimental
  */
-export var ServerModule = (function () {
+var ServerModule = (function () {
     function ServerModule() {
     }
-    ServerModule.decorators = [
-        { type: NgModule, args: [{ exports: [BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
-    ];
-    /** @nocollapse */
-    ServerModule.ctorParameters = function () { return []; };
     return ServerModule;
 }());
+export { ServerModule };
+ServerModule.decorators = [
+    { type: NgModule, args: [{ exports: [BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
+];
+/** @nocollapse */
+ServerModule.ctorParameters = function () { return []; };
 function ServerModule_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerModule.decorators;

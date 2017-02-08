@@ -37,10 +37,10 @@ function _notImplemented(methodName) {
  * \@security Tread carefully! Interacting with the DOM directly is dangerous and
  * can introduce XSS risks.
  */
-export var Parse5DomAdapter = (function (_super) {
+var Parse5DomAdapter = (function (_super) {
     __extends(Parse5DomAdapter, _super);
     function Parse5DomAdapter() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @return {?}
@@ -166,7 +166,7 @@ export var Parse5DomAdapter = (function (_super) {
             var /** @type {?} */ cssSelector = new CssSelector();
             cssSelector.setElement(this.tagName(node));
             if (node.attribs) {
-                for (var attrName in node.attribs) {
+                for (var /** @type {?} */ attrName in node.attribs) {
                     cssSelector.addAttribute(attrName, node.attribs[attrName]);
                 }
             }
@@ -568,7 +568,7 @@ export var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.clone = function (node) {
         var /** @type {?} */ _recursive = function (node) {
             var /** @type {?} */ nodeClone = Object.create(Object.getPrototypeOf(node));
-            for (var prop in node) {
+            for (var /** @type {?} */ prop in node) {
                 var /** @type {?} */ desc = Object.getOwnPropertyDescriptor(node, prop);
                 if (desc && 'value' in desc && typeof desc.value !== 'object') {
                     nodeClone[prop] = node[prop];
@@ -581,7 +581,7 @@ export var Parse5DomAdapter = (function (_super) {
             mapProps.forEach(function (mapName) {
                 if (isPresent(node[mapName])) {
                     nodeClone[mapName] = {};
-                    for (var prop in node[mapName]) {
+                    for (var /** @type {?} */ prop in node[mapName]) {
                         nodeClone[mapName][prop] = node[mapName][prop];
                     }
                 }
@@ -706,7 +706,7 @@ export var Parse5DomAdapter = (function (_super) {
      */
     Parse5DomAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
         var /** @type {?} */ styleAttrValue = '';
-        for (var key in styleMap) {
+        for (var /** @type {?} */ key in styleMap) {
             var /** @type {?} */ newValue = styleMap[key];
             if (newValue) {
                 styleAttrValue += key + ':' + styleMap[key] + ';';
@@ -1108,6 +1108,7 @@ export var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.animate = function (element, keyframes, options) { throw new Error('not implemented'); };
     return Parse5DomAdapter;
 }(DomAdapter));
+export { Parse5DomAdapter };
 // TODO: build a proper list, this one is all the keys of a HTMLInputElement
 var /** @type {?} */ _HTMLElementPropertyList = [
     'webkitEntries',

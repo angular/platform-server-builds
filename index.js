@@ -11,4 +11,5 @@
  * Entry point for all public APIs of the platform-server package.
  */
 export { ServerModule, platformDynamicServer, platformServer, VERSION, __platform_server_private__ } from './src/platform-server';
+// This file only reexports content of the `src` folder. Keep it that way.
 //# sourceMappingURL=index.js.map

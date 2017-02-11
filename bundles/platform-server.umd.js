@@ -4,10 +4,10 @@
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser));
-}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('url')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'url'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser,global.rxjs_Subject,global.url));
+}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser,rxjs_Subject,url) { 'use strict';
 
     /**
      * @license
@@ -29,13 +29,20 @@
     else {
         globalScope = (window);
     }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function scheduleMicroTask(fn) {
+        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
+    }
     // Need to declare a new variable for global here since TypeScript
     // exports the original value of the symbol.
-    var /** @type {?} */ _global = globalScope;
+    var /** @type {?} */ global$1 = globalScope;
     // TODO: remove calls to assert in production environment
     // Note: Can't just export this and import in in other files
     // as `assert` is a reserved keyword in Dart
-    _global.assert = function assert(condition) {
+    global$1.assert = function assert(condition) {
         // TODO: to be fixed properly via #2830, noop for now
     };
     /**
@@ -96,6 +103,130 @@
         }
         obj[parts.shift()] = value;
     }
+
+    var /** @type {?} */ DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
+    var /** @type {?} */ setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
+    var /** @type {?} */ getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
+    var /** @type {?} */ SharedStylesHost = _angular_platformBrowser.__platform_browser_private__.SharedStylesHost;
+    var /** @type {?} */ NAMESPACE_URIS = _angular_platformBrowser.__platform_browser_private__.NAMESPACE_URIS;
+    var /** @type {?} */ shimContentAttribute = _angular_platformBrowser.__platform_browser_private__.shimContentAttribute;
+    var /** @type {?} */ shimHostAttribute = _angular_platformBrowser.__platform_browser_private__.shimHostAttribute;
+    var /** @type {?} */ flattenStyles = _angular_platformBrowser.__platform_browser_private__.flattenStyles;
+    var /** @type {?} */ splitNamespace = _angular_platformBrowser.__platform_browser_private__.splitNamespace;
+    var /** @type {?} */ isNamespaced = _angular_platformBrowser.__platform_browser_private__.isNamespaced;
+
+    /**
+     * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
+     * but not the state stack.
+     */
+    var ServerPlatformLocation = (function () {
+        function ServerPlatformLocation() {
+            this._path = '/';
+            this._search = '';
+            this._hash = '';
+            this._hashUpdate = new rxjs_Subject.Subject();
+        }
+        /**
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(); };
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.onPopState = function (fn) {
+            // No-op: a state stack is not implemented, so
+            // no events will ever come.
+        };
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.onHashChange = function (fn) { this._hashUpdate.subscribe(fn); };
+        Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._path; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ServerPlatformLocation.prototype, "search", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._search; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._hash; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ServerPlatformLocation.prototype, "url", {
+            /**
+             * @return {?}
+             */
+            get: function () { return "" + this.pathname + this.search + this.hash; },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} value
+         * @param {?} oldUrl
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.setHash = function (value, oldUrl) {
+            var _this = this;
+            if (this._hash === value) {
+                // Don't fire events if the hash has not changed.
+                return;
+            }
+            this._hash = value;
+            var /** @type {?} */ newUrl = this.url;
+            scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
+        };
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} newUrl
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
+            var /** @type {?} */ oldUrl = this.url;
+            var /** @type {?} */ parsedUrl = url.parse(newUrl, true);
+            this._path = parsedUrl.path;
+            this._search = parsedUrl.search;
+            this.setHash(parsedUrl.hash, oldUrl);
+        };
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} newUrl
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.pushState = function (state, title, newUrl) {
+            this.replaceState(state, title, newUrl);
+        };
+        /**
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
+        /**
+         * @return {?}
+         */
+        ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+        return ServerPlatformLocation;
+    }());
+    ServerPlatformLocation.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerPlatformLocation.ctorParameters = function () { return []; };
 
     var ListWrapper = (function () {
         function ListWrapper() {
@@ -166,17 +297,6 @@
         return ListWrapper;
     }());
 
-    var /** @type {?} */ DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
-    var /** @type {?} */ setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
-    var /** @type {?} */ getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
-    var /** @type {?} */ SharedStylesHost = _angular_platformBrowser.__platform_browser_private__.SharedStylesHost;
-    var /** @type {?} */ NAMESPACE_URIS = _angular_platformBrowser.__platform_browser_private__.NAMESPACE_URIS;
-    var /** @type {?} */ shimContentAttribute = _angular_platformBrowser.__platform_browser_private__.shimContentAttribute;
-    var /** @type {?} */ shimHostAttribute = _angular_platformBrowser.__platform_browser_private__.shimHostAttribute;
-    var /** @type {?} */ flattenStyles = _angular_platformBrowser.__platform_browser_private__.flattenStyles;
-    var /** @type {?} */ splitNamespace = _angular_platformBrowser.__platform_browser_private__.splitNamespace;
-    var /** @type {?} */ isNamespaced = _angular_platformBrowser.__platform_browser_private__.isNamespaced;
-
     /**
      * @license
      * Copyright Google Inc. All Rights Reserved.
@@ -184,7 +304,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var __extends$1 = (this && this.__extends) || function (d, b) {
+    var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -213,7 +333,7 @@
      * can introduce XSS risks.
      */
     var Parse5DomAdapter = (function (_super) {
-        __extends$1(Parse5DomAdapter, _super);
+        __extends(Parse5DomAdapter, _super);
         function Parse5DomAdapter() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
@@ -1174,7 +1294,15 @@
         /**
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getBaseHref = function () { throw 'not implemented'; };
+        Parse5DomAdapter.prototype.getBaseHref = function () {
+            var /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+            var /** @type {?} */ href = '';
+            if (base) {
+                href = this.getHref(base);
+            }
+            // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+            return isBlank(href) ? null : href;
+        };
         /**
          * @return {?}
          */
@@ -1214,7 +1342,7 @@
          * @param {?} value
          * @return {?}
          */
-        Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(_global, path, value); };
+        Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global$1, path, value); };
         /**
          * @return {?}
          */
@@ -1822,99 +1950,6 @@
         }
     }
 
-    /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    var __extends = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-    /**
-     * @param {?} feature
-     * @return {?}
-     */
-    function notSupported(feature) {
-        throw new Error("platform-server does not support '" + feature + "'.");
-    }
-    var ServerPlatformLocation = (function (_super) {
-        __extends(ServerPlatformLocation, _super);
-        function ServerPlatformLocation() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { throw notSupported('getBaseHrefFromDOM'); };
-        ;
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.onPopState = function (fn) { notSupported('onPopState'); };
-        ;
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.onHashChange = function (fn) { notSupported('onHashChange'); };
-        ;
-        Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
-            /**
-             * @return {?}
-             */
-            get: function () { throw notSupported('pathname'); },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ServerPlatformLocation.prototype, "search", {
-            /**
-             * @return {?}
-             */
-            get: function () { throw notSupported('search'); },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
-            /**
-             * @return {?}
-             */
-            get: function () { throw notSupported('hash'); },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.replaceState = function (state, title, url) { notSupported('replaceState'); };
-        ;
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.pushState = function (state, title, url) { notSupported('pushState'); };
-        ;
-        /**
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.forward = function () { notSupported('forward'); };
-        ;
-        /**
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.back = function () { notSupported('back'); };
-        ;
-        return ServerPlatformLocation;
-    }(_angular_common.PlatformLocation));
     var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
         { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
         { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation },

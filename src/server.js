@@ -9,6 +9,7 @@ import { PlatformLocation } from '@angular/common/index';
 import { platformCoreDynamic } from '@angular/compiler/index';
 import { NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core/index';
 import { BrowserModule } from '@angular/platform-browser/index';
+import { ServerPlatformLocation } from './location';
 import { Parse5DomAdapter } from './parse5_adapter';
 import { DebugDomRootRenderer } from './private_import_core';
 import { SharedStylesHost } from './private_import_platform-browser';
@@ -19,63 +20,6 @@ import { ServerRootRenderer } from './server_renderer';
  */
 function notSupported(feature) {
     throw new Error(`platform-server does not support '${feature}'.`);
-}
-class ServerPlatformLocation extends PlatformLocation {
-    /**
-     * @return {?}
-     */
-    getBaseHrefFromDOM() { throw notSupported('getBaseHrefFromDOM'); }
-    ;
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onPopState(fn) { notSupported('onPopState'); }
-    ;
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onHashChange(fn) { notSupported('onHashChange'); }
-    ;
-    /**
-     * @return {?}
-     */
-    get pathname() { throw notSupported('pathname'); }
-    /**
-     * @return {?}
-     */
-    get search() { throw notSupported('search'); }
-    /**
-     * @return {?}
-     */
-    get hash() { throw notSupported('hash'); }
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} url
-     * @return {?}
-     */
-    replaceState(state, title, url) { notSupported('replaceState'); }
-    ;
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} url
-     * @return {?}
-     */
-    pushState(state, title, url) { notSupported('pushState'); }
-    ;
-    /**
-     * @return {?}
-     */
-    forward() { notSupported('forward'); }
-    ;
-    /**
-     * @return {?}
-     */
-    back() { notSupported('back'); }
-    ;
 }
 export const /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },

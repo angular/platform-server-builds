@@ -980,7 +980,15 @@ export class Parse5DomAdapter extends DomAdapter {
     /**
      * @return {?}
      */
-    getBaseHref() { throw 'not implemented'; }
+    getBaseHref() {
+        const /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+        let /** @type {?} */ href = '';
+        if (base) {
+            href = this.getHref(base);
+        }
+        // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+        return isBlank(href) ? null : href;
+    }
     /**
      * @return {?}
      */

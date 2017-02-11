@@ -999,7 +999,15 @@ var Parse5DomAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getBaseHref = function () { throw 'not implemented'; };
+    Parse5DomAdapter.prototype.getBaseHref = function () {
+        var /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+        var /** @type {?} */ href = '';
+        if (base) {
+            href = this.getHref(base);
+        }
+        // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+        return isBlank(href) ? null : href;
+    };
     /**
      * @return {?}
      */

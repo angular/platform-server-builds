@@ -447,7 +447,11 @@ export class ServerRendererV2 {
      * @param {?} oldChild
      * @return {?}
      */
-    removeChild(parent, oldChild) { getDOM().removeChild(parent, oldChild); }
+    removeChild(parent, oldChild) {
+        if (parent) {
+            getDOM().removeChild(parent, oldChild);
+        }
+    }
     /**
      * @param {?} selectorOrNode
      * @param {?=} debugInfo

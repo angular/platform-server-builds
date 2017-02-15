@@ -2061,7 +2061,11 @@
          * @param {?} oldChild
          * @return {?}
          */
-        ServerRendererV2.prototype.removeChild = function (parent, oldChild) { getDOM().removeChild(parent, oldChild); };
+        ServerRendererV2.prototype.removeChild = function (parent, oldChild) {
+            if (parent) {
+                getDOM().removeChild(parent, oldChild);
+            }
+        };
         /**
          * @param {?} selectorOrNode
          * @param {?=} debugInfo

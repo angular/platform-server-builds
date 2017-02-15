@@ -381,34 +381,42 @@ var Parse5DomAdapter = (function (_super) {
         return el;
     };
     /**
-     * @param {?} el
-     * @param {?} node
+     * @param {?} parent
+     * @param {?} ref
+     * @param {?} newNode
      * @return {?}
      */
-    Parse5DomAdapter.prototype.insertBefore = function (el, node) {
-        this.remove(node);
-        treeAdapter.insertBefore(el.parent, node, el);
+    Parse5DomAdapter.prototype.insertBefore = function (parent, ref, newNode) {
+        this.remove(newNode);
+        if (ref) {
+            treeAdapter.insertBefore(parent, newNode, ref);
+        }
+        else {
+            this.appendChild(parent, newNode);
+        }
     };
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    Parse5DomAdapter.prototype.insertAllBefore = function (el, nodes) {
+    Parse5DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
         var _this = this;
-        nodes.forEach(function (n) { return _this.insertBefore(el, n); });
+        nodes.forEach(function (n) { return _this.insertBefore(parent, ref, n); });
     };
     /**
-     * @param {?} el
+     * @param {?} parent
+     * @param {?} ref
      * @param {?} node
      * @return {?}
      */
-    Parse5DomAdapter.prototype.insertAfter = function (el, node) {
-        if (el.nextSibling) {
-            this.insertBefore(el.nextSibling, node);
+    Parse5DomAdapter.prototype.insertAfter = function (parent, ref, node) {
+        if (ref.nextSibling) {
+            this.insertBefore(parent, ref.nextSibling, node);
         }
         else {
-            this.appendChild(el.parent, node);
+            this.appendChild(parent, node);
         }
     };
     /**

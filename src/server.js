@@ -7,14 +7,14 @@
  */
 import { PlatformLocation } from '@angular/common';
 import { platformCoreDynamic } from '@angular/compiler';
-import { InjectionToken, Injector, NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
+import { InjectionToken, Injector, NgModule, PLATFORM_INITIALIZER, RENDERER_V2_DIRECT, RendererV2, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
 import { BrowserModule, DOCUMENT } from '@angular/platform-browser';
 import { ServerPlatformLocation } from './location';
 import { Parse5DomAdapter, parseDocument } from './parse5_adapter';
 import { PlatformState } from './platform_state';
-import { DebugDomRootRenderer } from './private_import_core';
+import { DebugDomRendererV2, DebugDomRootRenderer } from './private_import_core';
 import { SharedStylesHost, getDOM } from './private_import_platform-browser';
-import { ServerRootRenderer } from './server_renderer';
+import { ServerRendererV2, ServerRootRenderer } from './server_renderer';
 /**
  * @param {?} feature
  * @return {?}
@@ -40,13 +40,18 @@ function initParse5Adapter(injector) {
  * @return {?}
  */
 export function _createConditionalRootRenderer(rootRenderer) {
-    if (isDevMode()) {
-        return new DebugDomRootRenderer(rootRenderer);
-    }
-    return rootRenderer;
+    return isDevMode() ? new DebugDomRootRenderer(rootRenderer) : rootRenderer;
+}
+/**
+ * @param {?} renderer
+ * @return {?}
+ */
+export function _createDebugRendererV2(renderer) {
+    return isDevMode() ? new DebugDomRendererV2(renderer) : renderer;
 }
 export var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
-    ServerRootRenderer,
+    ServerRootRenderer, { provide: RENDERER_V2_DIRECT, useClass: ServerRendererV2 },
+    { provide: RendererV2, useFactory: _createDebugRendererV2, deps: [RENDERER_V2_DIRECT] },
     { provide: RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] },
     // use plain SharedStylesHost, not the DomSharedStylesHost
     SharedStylesHost

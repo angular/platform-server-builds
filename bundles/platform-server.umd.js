@@ -1,13 +1,64 @@
 /**
- * @license Angular v4.0.0-beta.7-269cf42
+ * @license Angular v4.0.0-beta.7-b4d444a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('url')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'url'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser,global.rxjs_Subject,global.url));
-}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser,rxjs_Subject,url) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/compiler'), require('rxjs/Subject'), require('url'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/common', '@angular/compiler', 'rxjs/Subject', 'url', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global.ng.common,global.ng.compiler,global.rxjs_Subject,global.url,global.rxjs_operator_filter,global.rxjs_operator_first,global.rxjs_operator_toPromise));
+}(this, function (exports,_angular_core,_angular_platformBrowser,_angular_common,_angular_compiler,rxjs_Subject,url,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+
+    var /** @type {?} */ DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
+    var /** @type {?} */ setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
+    var /** @type {?} */ getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
+    var /** @type {?} */ SharedStylesHost = _angular_platformBrowser.__platform_browser_private__.SharedStylesHost;
+    var /** @type {?} */ NAMESPACE_URIS = _angular_platformBrowser.__platform_browser_private__.NAMESPACE_URIS;
+    var /** @type {?} */ shimContentAttribute = _angular_platformBrowser.__platform_browser_private__.shimContentAttribute;
+    var /** @type {?} */ shimHostAttribute = _angular_platformBrowser.__platform_browser_private__.shimHostAttribute;
+    var /** @type {?} */ flattenStyles = _angular_platformBrowser.__platform_browser_private__.flattenStyles;
+    var /** @type {?} */ splitNamespace = _angular_platformBrowser.__platform_browser_private__.splitNamespace;
+    var /** @type {?} */ isNamespaced = _angular_platformBrowser.__platform_browser_private__.isNamespaced;
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var /** @type {?} */ parse5 = require('parse5');
+    /**
+     * Representation of the current platform state.
+     *
+     * \@experimental
+     */
+    var PlatformState = (function () {
+        /**
+         * @param {?} _doc
+         */
+        function PlatformState(_doc) {
+            this._doc = _doc;
+        }
+        /**
+         * Renders the current state of the platform to string.
+         * @return {?}
+         */
+        PlatformState.prototype.renderToString = function () { return getDOM().getInnerHTML(this._doc); };
+        /**
+         * Returns the current DOM state.
+         * @return {?}
+         */
+        PlatformState.prototype.getDocument = function () { return this._doc; };
+        return PlatformState;
+    }());
+    PlatformState.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    PlatformState.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
 
     /**
      * @license
@@ -104,23 +155,16 @@
         obj[parts.shift()] = value;
     }
 
-    var /** @type {?} */ DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
-    var /** @type {?} */ setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
-    var /** @type {?} */ getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
-    var /** @type {?} */ SharedStylesHost = _angular_platformBrowser.__platform_browser_private__.SharedStylesHost;
-    var /** @type {?} */ NAMESPACE_URIS = _angular_platformBrowser.__platform_browser_private__.NAMESPACE_URIS;
-    var /** @type {?} */ shimContentAttribute = _angular_platformBrowser.__platform_browser_private__.shimContentAttribute;
-    var /** @type {?} */ shimHostAttribute = _angular_platformBrowser.__platform_browser_private__.shimHostAttribute;
-    var /** @type {?} */ flattenStyles = _angular_platformBrowser.__platform_browser_private__.flattenStyles;
-    var /** @type {?} */ splitNamespace = _angular_platformBrowser.__platform_browser_private__.splitNamespace;
-    var /** @type {?} */ isNamespaced = _angular_platformBrowser.__platform_browser_private__.isNamespaced;
-
     /**
      * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
      * but not the state stack.
      */
     var ServerPlatformLocation = (function () {
-        function ServerPlatformLocation() {
+        /**
+         * @param {?} _doc
+         */
+        function ServerPlatformLocation(_doc) {
+            this._doc = _doc;
             this._path = '/';
             this._search = '';
             this._hash = '';
@@ -129,7 +173,7 @@
         /**
          * @return {?}
          */
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(); };
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(this._doc); };
         /**
          * @param {?} fn
          * @return {?}
@@ -226,7 +270,9 @@
         { type: _angular_core.Injectable },
     ];
     /** @nocollapse */
-    ServerPlatformLocation.ctorParameters = function () { return []; };
+    ServerPlatformLocation.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
 
     var ListWrapper = (function () {
         function ListWrapper() {
@@ -309,7 +355,7 @@
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var /** @type {?} */ parse5 = require('parse5');
+    var /** @type {?} */ parse5$1 = require('parse5');
     var /** @type {?} */ treeAdapter;
     var /** @type {?} */ _attrToPropMap = {
         'class': 'className',
@@ -317,7 +363,6 @@
         'readonly': 'readOnly',
         'tabindex': 'tabIndex',
     };
-    var /** @type {?} */ defDoc = null;
     var /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
     /**
      * @param {?} methodName
@@ -325,6 +370,14 @@
      */
     function _notImplemented(methodName) {
         return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
+    }
+    /**
+     * Parses a document string to a Document object.
+     * @param {?} html
+     * @return {?}
+     */
+    function parseDocument(html) {
+        return parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
     }
     /**
      * A `DomAdapter` powered by the `parse5` NodeJS module.
@@ -341,7 +394,7 @@
          * @return {?}
          */
         Parse5DomAdapter.makeCurrent = function () {
-            treeAdapter = parse5.treeAdapters.htmlparser2;
+            treeAdapter = parse5$1.treeAdapters.htmlparser2;
             setRootDomAdapter(new Parse5DomAdapter());
         };
         /**
@@ -402,11 +455,6 @@
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} selector
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.query = function (selector) { throw _notImplemented('query'); };
         /**
          * @param {?} el
          * @param {?} selector
@@ -554,7 +602,7 @@
          * @return {?}
          */
         Parse5DomAdapter.prototype.getInnerHTML = function (el) {
-            return parse5.serialize(this.templateAwareRoot(el), { treeAdapter: treeAdapter });
+            return parse5$1.serialize(this.templateAwareRoot(el), { treeAdapter: treeAdapter });
         };
         /**
          * @param {?} el
@@ -568,7 +616,7 @@
         Parse5DomAdapter.prototype.getOuterHTML = function (el) {
             var /** @type {?} */ fragment = treeAdapter.createDocumentFragment();
             this.appendChild(fragment, el);
-            return parse5.serialize(fragment, { treeAdapter: treeAdapter });
+            return parse5$1.serialize(fragment, { treeAdapter: treeAdapter });
         };
         /**
          * @param {?} node
@@ -711,7 +759,7 @@
          */
         Parse5DomAdapter.prototype.setInnerHTML = function (el, value) {
             this.clearNodes(el);
-            var /** @type {?} */ content = parse5.parseFragment(value, { treeAdapter: treeAdapter });
+            var /** @type {?} */ content = parse5$1.parseFragment(value, { treeAdapter: treeAdapter });
             for (var /** @type {?} */ i = 0; i < content.childNodes.length; i++) {
                 treeAdapter.appendChild(el, content.childNodes[i]);
             }
@@ -787,7 +835,7 @@
          */
         Parse5DomAdapter.prototype.createTemplate = function (html) {
             var /** @type {?} */ template = treeAdapter.createElement('template', 'http://www.w3.org/1999/xhtml', []);
-            var /** @type {?} */ content = parse5.parseFragment(html, { treeAdapter: treeAdapter });
+            var /** @type {?} */ content = parse5$1.parseFragment(html, { treeAdapter: treeAdapter });
             treeAdapter.setTemplateContent(template, content);
             return template;
         };
@@ -1138,7 +1186,7 @@
          */
         Parse5DomAdapter.prototype.createHtmlDocument = function () {
             var /** @type {?} */ newDoc = treeAdapter.createDocument();
-            newDoc.title = 'fake title';
+            newDoc.title = 'fakeTitle';
             var /** @type {?} */ head = treeAdapter.createElement('head', null, []);
             var /** @type {?} */ body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
             this.appendChild(newDoc, head);
@@ -1149,23 +1197,21 @@
             return newDoc;
         };
         /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.defaultDoc = function () { return defDoc = defDoc || this.createHtmlDocument(); };
-        /**
          * @param {?} el
          * @return {?}
          */
         Parse5DomAdapter.prototype.getBoundingClientRect = function (el) { return { left: 0, top: 0, width: 0, height: 0 }; };
         /**
+         * @param {?} doc
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getTitle = function () { return this.defaultDoc().title || ''; };
+        Parse5DomAdapter.prototype.getTitle = function (doc) { return doc.title || ''; };
         /**
+         * @param {?} doc
          * @param {?} newTitle
          * @return {?}
          */
-        Parse5DomAdapter.prototype.setTitle = function (newTitle) { this.defaultDoc().title = newTitle; };
+        Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle; };
         /**
          * @param {?} el
          * @return {?}
@@ -1277,25 +1323,27 @@
          */
         Parse5DomAdapter.prototype.supportsNativeShadowDOM = function () { return false; };
         /**
+         * @param {?} doc
          * @param {?} target
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getGlobalEventTarget = function (target) {
+        Parse5DomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target == 'window') {
-                return ((this.defaultDoc()))._window;
+                return ((doc))._window;
             }
             else if (target == 'document') {
-                return this.defaultDoc();
+                return doc;
             }
             else if (target == 'body') {
-                return this.defaultDoc().body;
+                return doc.body;
             }
         };
         /**
+         * @param {?} doc
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getBaseHref = function () {
-            var /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+        Parse5DomAdapter.prototype.getBaseHref = function (doc) {
+            var /** @type {?} */ base = this.querySelector(doc, 'base');
             var /** @type {?} */ href = '';
             if (base) {
                 href = this.getHref(base);
@@ -1798,7 +1846,7 @@
          * @return {?}
          */
         ServerRenderer.prototype.listenGlobal = function (target, name, callback) {
-            var /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(target);
+            var /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(this._rootRenderer.document, target);
             return this.listen(renderElement, name, callback);
         };
         /**
@@ -1951,14 +1999,17 @@
     }
 
     var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
+        { provide: _angular_platformBrowser.DOCUMENT, useFactory: _document, deps: [_angular_core.Injector] },
+        { provide: _angular_core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_angular_core.Injector] },
         { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation },
+        PlatformState,
     ];
     /**
+     * @param {?} injector
      * @return {?}
      */
-    function initParse5Adapter() {
-        Parse5DomAdapter.makeCurrent();
+    function initParse5Adapter(injector) {
+        return function () { Parse5DomAdapter.makeCurrent(); };
     }
     /**
      * @param {?} rootRenderer
@@ -1977,6 +2028,12 @@
         SharedStylesHost
     ];
     /**
+     * The DI token for setting the initial config for the platform.
+     *
+     * @experimental
+     */
+    var /** @type {?} */ INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
+    /**
      * The ng module for the server.
      *
      * \@experimental
@@ -1987,10 +2044,28 @@
         return ServerModule;
     }());
     ServerModule.decorators = [
-        { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowser.BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowser.BrowserModule],
+                    providers: [
+                        SERVER_RENDER_PROVIDERS,
+                    ]
+                },] },
     ];
     /** @nocollapse */
     ServerModule.ctorParameters = function () { return []; };
+    /**
+     * @param {?} injector
+     * @return {?}
+     */
+    function _document(injector) {
+        var /** @type {?} */ config = injector.get(INITIAL_CONFIG, null);
+        if (config && config.document) {
+            return parseDocument(config.document);
+        }
+        else {
+            return getDOM().createHtmlDocument();
+        }
+    }
     /**
      * @experimental
      */
@@ -2002,6 +2077,64 @@
      */
     var /** @type {?} */ platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
+    var /** @type {?} */ parse5$2 = require('parse5');
+    /**
+     * @param {?} platformFactory
+     * @param {?} options
+     * @return {?}
+     */
+    function _getPlatform(platformFactory, options) {
+        var /** @type {?} */ extraProviders = options.extraProviders ? options.extraProviders : [];
+        return platformFactory([
+            { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
+            extraProviders
+        ]);
+    }
+    /**
+     * @param {?} platform
+     * @param {?} moduleRefPromise
+     * @return {?}
+     */
+    function _render(platform, moduleRefPromise) {
+        return moduleRefPromise.then(function (moduleRef) {
+            var /** @type {?} */ applicationRef = moduleRef.injector.get(_angular_core.ApplicationRef);
+            return rxjs_operator_toPromise.toPromise
+                .call(rxjs_operator_first.first.call(rxjs_operator_filter.filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+                .then(function () {
+                var /** @type {?} */ output = platform.injector.get(PlatformState).renderToString();
+                _angular_core.destroyPlatform();
+                return output;
+            });
+        });
+    }
+    /**
+     * Renders a Module to string.
+     *
+     * Do not use this in a production server environment. Use pre-compiled {\@link NgModuleFactory} with
+     * {link renderModuleFactory} instead.
+     *
+     * \@experimental
+     * @param {?} module
+     * @param {?} options
+     * @return {?}
+     */
+    function renderModule(module, options) {
+        var /** @type {?} */ platform = _getPlatform(platformDynamicServer, options);
+        return _render(platform, platform.bootstrapModule(module));
+    }
+    /**
+     * Renders a {\@link NgModuleFactory} to string.
+     *
+     * \@experimental
+     * @param {?} moduleFactory
+     * @param {?} options
+     * @return {?}
+     */
+    function renderModuleFactory(moduleFactory, options) {
+        var /** @type {?} */ platform = _getPlatform(platformServer, options);
+        return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
+    }
+
     var /** @type {?} */ __platform_server_private__ = {
         INTERNAL_SERVER_PLATFORM_PROVIDERS: INTERNAL_SERVER_PLATFORM_PROVIDERS,
         SERVER_RENDER_PROVIDERS: SERVER_RENDER_PROVIDERS,
@@ -2010,11 +2143,15 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-beta.7-269cf42');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-beta.7-b4d444a');
 
+    exports.PlatformState = PlatformState;
+    exports.INITIAL_CONFIG = INITIAL_CONFIG;
     exports.ServerModule = ServerModule;
     exports.platformDynamicServer = platformDynamicServer;
     exports.platformServer = platformServer;
+    exports.renderModule = renderModule;
+    exports.renderModuleFactory = renderModuleFactory;
     exports.VERSION = VERSION;
     exports.__platform_server_private__ = __platform_server_private__;
 

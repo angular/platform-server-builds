@@ -22,7 +22,6 @@ var /** @type {?} */ _attrToPropMap = {
     'readonly': 'readOnly',
     'tabindex': 'tabIndex',
 };
-var /** @type {?} */ defDoc = null;
 var /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
 /**
  * @param {?} methodName
@@ -30,6 +29,14 @@ var /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPref
  */
 function _notImplemented(methodName) {
     return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
+}
+/**
+ * Parses a document string to a Document object.
+ * @param {?} html
+ * @return {?}
+ */
+export function parseDocument(html) {
+    return parse5.parse(html, { treeAdapter: parse5.treeAdapters.htmlparser2 });
 }
 /**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
@@ -107,11 +114,6 @@ var Parse5DomAdapter = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @param {?} selector
-     * @return {?}
-     */
-    Parse5DomAdapter.prototype.query = function (selector) { throw _notImplemented('query'); };
     /**
      * @param {?} el
      * @param {?} selector
@@ -843,7 +845,7 @@ var Parse5DomAdapter = (function (_super) {
      */
     Parse5DomAdapter.prototype.createHtmlDocument = function () {
         var /** @type {?} */ newDoc = treeAdapter.createDocument();
-        newDoc.title = 'fake title';
+        newDoc.title = 'fakeTitle';
         var /** @type {?} */ head = treeAdapter.createElement('head', null, []);
         var /** @type {?} */ body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
         this.appendChild(newDoc, head);
@@ -854,23 +856,21 @@ var Parse5DomAdapter = (function (_super) {
         return newDoc;
     };
     /**
-     * @return {?}
-     */
-    Parse5DomAdapter.prototype.defaultDoc = function () { return defDoc = defDoc || this.createHtmlDocument(); };
-    /**
      * @param {?} el
      * @return {?}
      */
     Parse5DomAdapter.prototype.getBoundingClientRect = function (el) { return { left: 0, top: 0, width: 0, height: 0 }; };
     /**
+     * @param {?} doc
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getTitle = function () { return this.defaultDoc().title || ''; };
+    Parse5DomAdapter.prototype.getTitle = function (doc) { return doc.title || ''; };
     /**
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    Parse5DomAdapter.prototype.setTitle = function (newTitle) { this.defaultDoc().title = newTitle; };
+    Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle; };
     /**
      * @param {?} el
      * @return {?}
@@ -982,25 +982,27 @@ var Parse5DomAdapter = (function (_super) {
      */
     Parse5DomAdapter.prototype.supportsNativeShadowDOM = function () { return false; };
     /**
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getGlobalEventTarget = function (target) {
+    Parse5DomAdapter.prototype.getGlobalEventTarget = function (doc, target) {
         if (target == 'window') {
-            return ((this.defaultDoc()))._window;
+            return ((doc))._window;
         }
         else if (target == 'document') {
-            return this.defaultDoc();
+            return doc;
         }
         else if (target == 'body') {
-            return this.defaultDoc().body;
+            return doc.body;
         }
     };
     /**
+     * @param {?} doc
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getBaseHref = function () {
-        var /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+    Parse5DomAdapter.prototype.getBaseHref = function (doc) {
+        var /** @type {?} */ base = this.querySelector(doc, 'base');
         var /** @type {?} */ href = '';
         if (base) {
             href = this.getHref(base);

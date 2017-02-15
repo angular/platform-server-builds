@@ -230,7 +230,7 @@ var ServerRenderer = (function () {
      * @return {?}
      */
     ServerRenderer.prototype.listenGlobal = function (target, name, callback) {
-        var /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(target);
+        var /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(this._rootRenderer.document, target);
         return this.listen(renderElement, name, callback);
     };
     /**

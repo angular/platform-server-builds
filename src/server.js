@@ -7,12 +7,13 @@
  */
 import { PlatformLocation } from '@angular/common/index';
 import { platformCoreDynamic } from '@angular/compiler/index';
-import { NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core/index';
-import { BrowserModule } from '@angular/platform-browser/index';
+import { InjectionToken, Injector, NgModule, PLATFORM_INITIALIZER, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core/index';
+import { BrowserModule, DOCUMENT } from '@angular/platform-browser/index';
 import { ServerPlatformLocation } from './location';
-import { Parse5DomAdapter } from './parse5_adapter';
+import { Parse5DomAdapter, parseDocument } from './parse5_adapter';
+import { PlatformState } from './platform_state';
 import { DebugDomRootRenderer } from './private_import_core';
-import { SharedStylesHost } from './private_import_platform-browser';
+import { SharedStylesHost, getDOM } from './private_import_platform-browser';
 import { ServerRootRenderer } from './server_renderer';
 /**
  * @param {?} feature
@@ -22,14 +23,17 @@ function notSupported(feature) {
     throw new Error(`platform-server does not support '${feature}'.`);
 }
 export const /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-    { provide: PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
+    { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
+    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
     { provide: PlatformLocation, useClass: ServerPlatformLocation },
+    PlatformState,
 ];
 /**
+ * @param {?} injector
  * @return {?}
  */
-function initParse5Adapter() {
-    Parse5DomAdapter.makeCurrent();
+function initParse5Adapter(injector) {
+    return () => { Parse5DomAdapter.makeCurrent(); };
 }
 /**
  * @param {?} rootRenderer
@@ -48,6 +52,12 @@ export const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
     SharedStylesHost
 ];
 /**
+ * The DI token for setting the initial config for the platform.
+ *
+ * @experimental
+ */
+export const /** @type {?} */ INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+/**
  * The ng module for the server.
  *
  * \@experimental
@@ -55,7 +65,12 @@ export const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
 export class ServerModule {
 }
 ServerModule.decorators = [
-    { type: NgModule, args: [{ exports: [BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
+    { type: NgModule, args: [{
+                exports: [BrowserModule],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                ]
+            },] },
 ];
 /** @nocollapse */
 ServerModule.ctorParameters = () => [];
@@ -67,6 +82,19 @@ function ServerModule_tsickle_Closure_declarations() {
      * @type {?}
      */
     ServerModule.ctorParameters;
+}
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function _document(injector) {
+    let /** @type {?} */ config = injector.get(INITIAL_CONFIG, null);
+    if (config && config.document) {
+        return parseDocument(config.document);
+    }
+    else {
+        return getDOM().createHtmlDocument();
+    }
 }
 /**
  * @experimental

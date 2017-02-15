@@ -1,5 +1,9 @@
 import { DomAdapter } from './private_import_platform-browser';
 /**
+ * Parses a document string to a Document object.
+ */
+export declare function parseDocument(html: string): any;
+/**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
  *
  * @security Tread carefully! Interacting with the DOM directly is dangerous and
@@ -17,7 +21,6 @@ export declare class Parse5DomAdapter extends DomAdapter {
     readonly attrToPropMap: {
         [key: string]: string;
     };
-    query(selector: any): void;
     querySelector(el: any, selector: string): any;
     querySelectorAll(el: any, selector: string): any[];
     elementMatches(node: any, selector: string, matcher?: any): boolean;
@@ -88,10 +91,9 @@ export declare class Parse5DomAdapter extends DomAdapter {
     removeAttributeNS(element: any, ns: string, name: string): void;
     templateAwareRoot(el: any): any;
     createHtmlDocument(): Document;
-    defaultDoc(): Document;
     getBoundingClientRect(el: any): any;
-    getTitle(): string;
-    setTitle(newTitle: string): void;
+    getTitle(doc: Document): string;
+    setTitle(doc: Document, newTitle: string): void;
     isTemplateElement(el: any): boolean;
     isTextNode(node: any): boolean;
     isCommentNode(node: any): boolean;
@@ -104,8 +106,8 @@ export declare class Parse5DomAdapter extends DomAdapter {
     resolveAndSetHref(el: any, baseUrl: string, href: string): void;
     supportsDOMEvents(): boolean;
     supportsNativeShadowDOM(): boolean;
-    getGlobalEventTarget(target: string): any;
-    getBaseHref(): string;
+    getGlobalEventTarget(doc: Document, target: string): any;
+    getBaseHref(doc: Document): string;
     resetBaseElement(): void;
     getHistory(): History;
     getLocation(): Location;

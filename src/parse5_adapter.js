@@ -17,7 +17,6 @@ const /** @type {?} */ _attrToPropMap = {
     'readonly': 'readOnly',
     'tabindex': 'tabIndex',
 };
-let /** @type {?} */ defDoc = null;
 const /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
 /**
  * @param {?} methodName
@@ -25,6 +24,14 @@ const /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPr
  */
 function _notImplemented(methodName) {
     return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
+}
+/**
+ * Parses a document string to a Document object.
+ * @param {?} html
+ * @return {?}
+ */
+export function parseDocument(html) {
+    return parse5.parse(html, { treeAdapter: parse5.treeAdapters.htmlparser2 });
 }
 /**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
@@ -94,11 +101,6 @@ export class Parse5DomAdapter extends DomAdapter {
      * @return {?}
      */
     get attrToPropMap() { return _attrToPropMap; }
-    /**
-     * @param {?} selector
-     * @return {?}
-     */
-    query(selector) { throw _notImplemented('query'); }
     /**
      * @param {?} el
      * @param {?} selector
@@ -824,7 +826,7 @@ export class Parse5DomAdapter extends DomAdapter {
      */
     createHtmlDocument() {
         const /** @type {?} */ newDoc = treeAdapter.createDocument();
-        newDoc.title = 'fake title';
+        newDoc.title = 'fakeTitle';
         const /** @type {?} */ head = treeAdapter.createElement('head', null, []);
         const /** @type {?} */ body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
         this.appendChild(newDoc, head);
@@ -835,23 +837,21 @@ export class Parse5DomAdapter extends DomAdapter {
         return newDoc;
     }
     /**
-     * @return {?}
-     */
-    defaultDoc() { return defDoc = defDoc || this.createHtmlDocument(); }
-    /**
      * @param {?} el
      * @return {?}
      */
     getBoundingClientRect(el) { return { left: 0, top: 0, width: 0, height: 0 }; }
     /**
+     * @param {?} doc
      * @return {?}
      */
-    getTitle() { return this.defaultDoc().title || ''; }
+    getTitle(doc) { return doc.title || ''; }
     /**
+     * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    setTitle(newTitle) { this.defaultDoc().title = newTitle; }
+    setTitle(doc, newTitle) { doc.title = newTitle; }
     /**
      * @param {?} el
      * @return {?}
@@ -963,25 +963,27 @@ export class Parse5DomAdapter extends DomAdapter {
      */
     supportsNativeShadowDOM() { return false; }
     /**
+     * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    getGlobalEventTarget(target) {
+    getGlobalEventTarget(doc, target) {
         if (target == 'window') {
-            return ((this.defaultDoc()))._window;
+            return ((doc))._window;
         }
         else if (target == 'document') {
-            return this.defaultDoc();
+            return doc;
         }
         else if (target == 'body') {
-            return this.defaultDoc().body;
+            return doc.body;
         }
     }
     /**
+     * @param {?} doc
      * @return {?}
      */
-    getBaseHref() {
-        const /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
+    getBaseHref(doc) {
+        const /** @type {?} */ base = this.querySelector(doc, 'base');
         let /** @type {?} */ href = '';
         if (base) {
             href = this.getHref(base);

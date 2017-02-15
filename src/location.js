@@ -5,7 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable } from '@angular/core/index';
+import { Inject, Injectable } from '@angular/core/index';
+import { DOCUMENT } from '@angular/platform-browser/index';
 import { Subject } from 'rxjs/Subject';
 import * as url from 'url';
 import { scheduleMicroTask } from './facade/lang';
@@ -15,7 +16,11 @@ import { getDOM } from './private_import_platform-browser';
  * but not the state stack.
  */
 export class ServerPlatformLocation {
-    constructor() {
+    /**
+     * @param {?} _doc
+     */
+    constructor(_doc) {
+        this._doc = _doc;
         this._path = '/';
         this._search = '';
         this._hash = '';
@@ -24,7 +29,7 @@ export class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return getDOM().getBaseHref(); }
+    getBaseHrefFromDOM() { return getDOM().getBaseHref(this._doc); }
     /**
      * @param {?} fn
      * @return {?}
@@ -103,7 +108,9 @@ ServerPlatformLocation.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-ServerPlatformLocation.ctorParameters = () => [];
+ServerPlatformLocation.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
 function ServerPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerPlatformLocation.decorators;
@@ -120,5 +127,7 @@ function ServerPlatformLocation_tsickle_Closure_declarations() {
     ServerPlatformLocation.prototype._hash;
     /** @type {?} */
     ServerPlatformLocation.prototype._hashUpdate;
+    /** @type {?} */
+    ServerPlatformLocation.prototype._doc;
 }
 //# sourceMappingURL=location.js.map

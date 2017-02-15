@@ -227,7 +227,7 @@ export class ServerRenderer {
      * @return {?}
      */
     listenGlobal(target, name, callback) {
-        const /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(target);
+        const /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(this._rootRenderer.document, target);
         return this.listen(renderElement, name, callback);
     }
     /**

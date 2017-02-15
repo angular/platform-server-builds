@@ -11,10 +11,12 @@ import { LocationChangeListener, PlatformLocation } from '@angular/common';
  * but not the state stack.
  */
 export declare class ServerPlatformLocation implements PlatformLocation {
+    private _doc;
     private _path;
     private _search;
     private _hash;
     private _hashUpdate;
+    constructor(_doc: any);
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;

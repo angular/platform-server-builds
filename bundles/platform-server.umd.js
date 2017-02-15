@@ -722,34 +722,42 @@
             return el;
         };
         /**
-         * @param {?} el
-         * @param {?} node
+         * @param {?} parent
+         * @param {?} ref
+         * @param {?} newNode
          * @return {?}
          */
-        Parse5DomAdapter.prototype.insertBefore = function (el, node) {
-            this.remove(node);
-            treeAdapter.insertBefore(el.parent, node, el);
+        Parse5DomAdapter.prototype.insertBefore = function (parent, ref, newNode) {
+            this.remove(newNode);
+            if (ref) {
+                treeAdapter.insertBefore(parent, newNode, ref);
+            }
+            else {
+                this.appendChild(parent, newNode);
+            }
         };
         /**
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} nodes
          * @return {?}
          */
-        Parse5DomAdapter.prototype.insertAllBefore = function (el, nodes) {
+        Parse5DomAdapter.prototype.insertAllBefore = function (parent, ref, nodes) {
             var _this = this;
-            nodes.forEach(function (n) { return _this.insertBefore(el, n); });
+            nodes.forEach(function (n) { return _this.insertBefore(parent, ref, n); });
         };
         /**
-         * @param {?} el
+         * @param {?} parent
+         * @param {?} ref
          * @param {?} node
          * @return {?}
          */
-        Parse5DomAdapter.prototype.insertAfter = function (el, node) {
-            if (el.nextSibling) {
-                this.insertBefore(el.nextSibling, node);
+        Parse5DomAdapter.prototype.insertAfter = function (parent, ref, node) {
+            if (ref.nextSibling) {
+                this.insertBefore(parent, ref.nextSibling, node);
             }
             else {
-                this.appendChild(el.parent, node);
+                this.appendChild(parent, node);
             }
         };
         /**
@@ -1646,6 +1654,7 @@
     ];
 
     var /** @type {?} */ DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
+    var /** @type {?} */ DebugDomRendererV2 = _angular_core.__core_private__.DebugDomRendererV2;
 
     var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
     var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
@@ -1967,17 +1976,17 @@
         return ServerRenderer;
     }());
     /**
-     * @param {?} sibling
+     * @param {?} ref
      * @param {?} nodes
      * @return {?}
      */
-    function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
-        var /** @type {?} */ parent = getDOM().parentElement(sibling);
-        if (nodes.length > 0 && isPresent(parent)) {
-            var /** @type {?} */ nextSibling = getDOM().nextSibling(sibling);
-            if (isPresent(nextSibling)) {
+    function moveNodesAfterSibling(ref, nodes) {
+        var /** @type {?} */ parent = getDOM().parentElement(ref);
+        if (nodes.length > 0 && parent) {
+            var /** @type {?} */ nextSibling = getDOM().nextSibling(ref);
+            if (nextSibling) {
                 for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
-                    getDOM().insertBefore(nextSibling, nodes[i]);
+                    getDOM().insertBefore(parent, nextSibling, nodes[i]);
                 }
             }
             else {
@@ -1992,11 +2001,227 @@
      * @param {?} nodes
      * @return {?}
      */
-    function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
+    function appendNodes(parent, nodes) {
         for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
             getDOM().appendChild(parent, nodes[i]);
         }
     }
+    var ServerRendererV2 = (function () {
+        /**
+         * @param {?} ngZone
+         * @param {?} document
+         */
+        function ServerRendererV2(ngZone, document) {
+            this.ngZone = ngZone;
+            this.document = document;
+        }
+        /**
+         * @param {?} name
+         * @param {?=} namespace
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        ServerRendererV2.prototype.createElement = function (name, namespace, debugInfo) {
+            if (namespace) {
+                return getDOM().createElementNS(NAMESPACE_URIS[namespace], name);
+            }
+            return getDOM().createElement(name);
+        };
+        /**
+         * @param {?} value
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        ServerRendererV2.prototype.createComment = function (value, debugInfo) { return getDOM().createComment(value); };
+        /**
+         * @param {?} value
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        ServerRendererV2.prototype.createText = function (value, debugInfo) { return getDOM().createTextNode(value); };
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @return {?}
+         */
+        ServerRendererV2.prototype.appendChild = function (parent, newChild) { getDOM().appendChild(parent, newChild); };
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @param {?} refChild
+         * @return {?}
+         */
+        ServerRendererV2.prototype.insertBefore = function (parent, newChild, refChild) {
+            if (parent) {
+                getDOM().insertBefore(parent, refChild, newChild);
+            }
+        };
+        /**
+         * @param {?} parent
+         * @param {?} oldChild
+         * @return {?}
+         */
+        ServerRendererV2.prototype.removeChild = function (parent, oldChild) { getDOM().removeChild(parent, oldChild); };
+        /**
+         * @param {?} selectorOrNode
+         * @param {?=} debugInfo
+         * @return {?}
+         */
+        ServerRendererV2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
+            var /** @type {?} */ el;
+            if (typeof selectorOrNode === 'string') {
+                el = getDOM().querySelector(this.document, selectorOrNode);
+                if (!el) {
+                    throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
+                }
+            }
+            else {
+                el = selectorOrNode;
+            }
+            getDOM().clearNodes(el);
+            return el;
+        };
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        ServerRendererV2.prototype.parentNode = function (node) { return getDOM().parentElement(node); };
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+        ServerRendererV2.prototype.nextSibling = function (node) { return getDOM().nextSibling(node); };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @param {?=} namespace
+         * @return {?}
+         */
+        ServerRendererV2.prototype.setAttribute = function (el, name, value, namespace) {
+            if (namespace) {
+                getDOM().setAttributeNS(el, NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+            }
+            else {
+                getDOM().setAttribute(el, name, value);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?=} namespace
+         * @return {?}
+         */
+        ServerRendererV2.prototype.removeAttribute = function (el, name, namespace) {
+            if (namespace) {
+                getDOM().removeAttributeNS(el, NAMESPACE_URIS[namespace], name);
+            }
+            else {
+                getDOM().removeAttribute(el, name);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} propertyName
+         * @param {?} propertyValue
+         * @return {?}
+         */
+        ServerRendererV2.prototype.setBindingDebugInfo = function (el, propertyName, propertyValue) {
+            if (getDOM().isCommentNode(el)) {
+                var /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+                var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+                obj[propertyName] = propertyValue;
+                getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
+            }
+            else {
+                this.setAttribute(el, propertyName, propertyValue);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} propertyName
+         * @return {?}
+         */
+        ServerRendererV2.prototype.removeBindingDebugInfo = function (el, propertyName) {
+            if (getDOM().isCommentNode(el)) {
+                var /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+                var /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+                delete obj[propertyName];
+                getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
+            }
+            else {
+                this.removeAttribute(el, propertyName);
+            }
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+        ServerRendererV2.prototype.addClass = function (el, name) { getDOM().addClass(el, name); };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+        ServerRendererV2.prototype.removeClass = function (el, name) { getDOM().removeClass(el, name); };
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} value
+         * @param {?} hasVendorPrefix
+         * @param {?} hasImportant
+         * @return {?}
+         */
+        ServerRendererV2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
+            getDOM().setStyle(el, style, value);
+        };
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} hasVendorPrefix
+         * @return {?}
+         */
+        ServerRendererV2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
+            getDOM().removeStyle(el, style);
+        };
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @return {?}
+         */
+        ServerRendererV2.prototype.setProperty = function (el, name, value) { getDOM().setProperty(el, name, value); };
+        /**
+         * @param {?} node
+         * @param {?} value
+         * @return {?}
+         */
+        ServerRendererV2.prototype.setText = function (node, value) { getDOM().setText(node, value); };
+        /**
+         * @param {?} target
+         * @param {?} eventName
+         * @param {?} callback
+         * @return {?}
+         */
+        ServerRendererV2.prototype.listen = function (target, eventName, callback) {
+            var _this = this;
+            // Note: We are not using the EventsPlugin here as this is not needed
+            // to run our tests.
+            var /** @type {?} */ el = typeof target === 'string' ? getDOM().getGlobalEventTarget(this.document, target) : target;
+            var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
+            return this.ngZone.runOutsideAngular(function () { return getDOM().onAndCancel(el, eventName, outsideHandler); });
+        };
+        return ServerRendererV2;
+    }());
+    ServerRendererV2.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerRendererV2.ctorParameters = function () { return [
+        { type: _angular_core.NgZone, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
 
     var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
         { provide: _angular_platformBrowser.DOCUMENT, useFactory: _document, deps: [_angular_core.Injector] },
@@ -2016,13 +2241,18 @@
      * @return {?}
      */
     function _createConditionalRootRenderer(rootRenderer) {
-        if (_angular_core.isDevMode()) {
-            return new DebugDomRootRenderer(rootRenderer);
-        }
-        return rootRenderer;
+        return _angular_core.isDevMode() ? new DebugDomRootRenderer(rootRenderer) : rootRenderer;
+    }
+    /**
+     * @param {?} renderer
+     * @return {?}
+     */
+    function _createDebugRendererV2(renderer) {
+        return _angular_core.isDevMode() ? new DebugDomRendererV2(renderer) : renderer;
     }
     var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
-        ServerRootRenderer,
+        ServerRootRenderer, { provide: _angular_core.RENDERER_V2_DIRECT, useClass: ServerRendererV2 },
+        { provide: _angular_core.RendererV2, useFactory: _createDebugRendererV2, deps: [_angular_core.RENDERER_V2_DIRECT] },
         { provide: _angular_core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] },
         // use plain SharedStylesHost, not the DomSharedStylesHost
         SharedStylesHost

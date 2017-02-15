@@ -362,17 +362,17 @@ function ServerRenderer_tsickle_Closure_declarations() {
     ServerRenderer.prototype._zone;
 }
 /**
- * @param {?} sibling
+ * @param {?} ref
  * @param {?} nodes
  * @return {?}
  */
-function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
-    const /** @type {?} */ parent = getDOM().parentElement(sibling);
-    if (nodes.length > 0 && isPresent(parent)) {
-        const /** @type {?} */ nextSibling = getDOM().nextSibling(sibling);
-        if (isPresent(nextSibling)) {
+function moveNodesAfterSibling(ref, nodes) {
+    const /** @type {?} */ parent = getDOM().parentElement(ref);
+    if (nodes.length > 0 && parent) {
+        const /** @type {?} */ nextSibling = getDOM().nextSibling(ref);
+        if (nextSibling) {
             for (let /** @type {?} */ i = 0; i < nodes.length; i++) {
-                getDOM().insertBefore(nextSibling, nodes[i]);
+                getDOM().insertBefore(parent, nextSibling, nodes[i]);
             }
         }
         else {
@@ -387,22 +387,236 @@ function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 *
  * @param {?} nodes
  * @return {?}
  */
-function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
+function appendNodes(parent, nodes) {
     for (let /** @type {?} */ i = 0; i < nodes.length; i++) {
         getDOM().appendChild(parent, nodes[i]);
     }
 }
-/**
- * @param {?} eventHandler
- * @return {?}
- */
-function decoratePreventDefault(eventHandler) {
-    return (event /** TODO #9100 */) => {
-        const /** @type {?} */ allowDefaultBehavior = eventHandler(event);
-        if (allowDefaultBehavior === false) {
-            // TODO(tbosch): move preventDefault into event plugins...
-            getDOM().preventDefault(event);
+export class ServerRendererV2 {
+    /**
+     * @param {?} ngZone
+     * @param {?} document
+     */
+    constructor(ngZone, document) {
+        this.ngZone = ngZone;
+        this.document = document;
+    }
+    /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createElement(name, namespace, debugInfo) {
+        if (namespace) {
+            return getDOM().createElementNS(NAMESPACE_URIS[namespace], name);
         }
-    };
+        return getDOM().createElement(name);
+    }
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createComment(value, debugInfo) { return getDOM().createComment(value); }
+    /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    createText(value, debugInfo) { return getDOM().createTextNode(value); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    appendChild(parent, newChild) { getDOM().appendChild(parent, newChild); }
+    /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    insertBefore(parent, newChild, refChild) {
+        if (parent) {
+            getDOM().insertBefore(parent, refChild, newChild);
+        }
+    }
+    /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    removeChild(parent, oldChild) { getDOM().removeChild(parent, oldChild); }
+    /**
+     * @param {?} selectorOrNode
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    selectRootElement(selectorOrNode, debugInfo) {
+        let /** @type {?} */ el;
+        if (typeof selectorOrNode === 'string') {
+            el = getDOM().querySelector(this.document, selectorOrNode);
+            if (!el) {
+                throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
+            }
+        }
+        else {
+            el = selectorOrNode;
+        }
+        getDOM().clearNodes(el);
+        return el;
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    parentNode(node) { return getDOM().parentElement(node); }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    nextSibling(node) { return getDOM().nextSibling(node); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    setAttribute(el, name, value, namespace) {
+        if (namespace) {
+            getDOM().setAttributeNS(el, NAMESPACE_URIS[namespace], namespace + ':' + name, value);
+        }
+        else {
+            getDOM().setAttribute(el, name, value);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    removeAttribute(el, name, namespace) {
+        if (namespace) {
+            getDOM().removeAttributeNS(el, NAMESPACE_URIS[namespace], name);
+        }
+        else {
+            getDOM().removeAttribute(el, name);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @param {?} propertyValue
+     * @return {?}
+     */
+    setBindingDebugInfo(el, propertyName, propertyValue) {
+        if (getDOM().isCommentNode(el)) {
+            const /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            obj[propertyName] = propertyValue;
+            getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
+        }
+        else {
+            this.setAttribute(el, propertyName, propertyValue);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} propertyName
+     * @return {?}
+     */
+    removeBindingDebugInfo(el, propertyName) {
+        if (getDOM().isCommentNode(el)) {
+            const /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
+            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
+            delete obj[propertyName];
+            getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
+        }
+        else {
+            this.removeAttribute(el, propertyName);
+        }
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    addClass(el, name) { getDOM().addClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    removeClass(el, name) { getDOM().removeClass(el, name); }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} hasVendorPrefix
+     * @param {?} hasImportant
+     * @return {?}
+     */
+    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
+        getDOM().setStyle(el, style, value);
+    }
+    /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} hasVendorPrefix
+     * @return {?}
+     */
+    removeStyle(el, style, hasVendorPrefix) {
+        getDOM().removeStyle(el, style);
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(el, name, value) { getDOM().setProperty(el, name, value); }
+    /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    setText(node, value) { getDOM().setText(node, value); }
+    /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    listen(target, eventName, callback) {
+        // Note: We are not using the EventsPlugin here as this is not needed
+        // to run our tests.
+        const /** @type {?} */ el = typeof target === 'string' ? getDOM().getGlobalEventTarget(this.document, target) : target;
+        const /** @type {?} */ outsideHandler = (event) => this.ngZone.runGuarded(() => callback(event));
+        return this.ngZone.runOutsideAngular(() => getDOM().onAndCancel(el, eventName, outsideHandler));
+    }
+}
+ServerRendererV2.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+ServerRendererV2.ctorParameters = () => [
+    { type: NgZone, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
+function ServerRendererV2_tsickle_Closure_declarations() {
+    /** @type {?} */
+    ServerRendererV2.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    ServerRendererV2.ctorParameters;
+    /** @type {?} */
+    ServerRendererV2.prototype.ngZone;
+    /** @type {?} */
+    ServerRendererV2.prototype.document;
 }
 //# sourceMappingURL=server_renderer.js.map

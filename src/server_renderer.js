@@ -311,6 +311,7 @@ export class ServerRenderer {
             getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2)));
         }
         else {
+            propertyName = propertyName.replace(/\$/g, '_');
             this.setElementAttribute(renderElement, propertyName, propertyValue);
         }
     }
@@ -420,15 +421,93 @@ function appendNodes(parent, nodes) {
         getDOM().appendChild(parent, nodes[i]);
     }
 }
-export class ServerRendererV2 {
+export class ServerRendererFactoryV2 {
     /**
      * @param {?} ngZone
      * @param {?} document
+     * @param {?} sharedStylesHost
      */
-    constructor(ngZone, document) {
+    constructor(ngZone, document, sharedStylesHost) {
         this.ngZone = ngZone;
         this.document = document;
+        this.sharedStylesHost = sharedStylesHost;
+        this.rendererByCompId = new Map();
+        this.defaultRenderer = new DefaultServerRendererV2(document, ngZone);
     }
+    ;
+    /**
+     * @param {?} element
+     * @param {?} type
+     * @return {?}
+     */
+    createRenderer(element, type) {
+        if (!element || !type) {
+            return this.defaultRenderer;
+        }
+        switch (type.encapsulation) {
+            case ViewEncapsulation.Emulated: {
+                let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+                if (!renderer) {
+                    renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, type);
+                    this.rendererByCompId.set(type.id, renderer);
+                }
+                ((renderer)).applyToHost(element);
+                return renderer;
+            }
+            case ViewEncapsulation.Native:
+                throw new Error('Native encapsulation is not supported on the server!');
+            default: {
+                if (!this.rendererByCompId.has(type.id)) {
+                    const /** @type {?} */ styles = flattenStyles(type.id, type.styles, []);
+                    this.sharedStylesHost.addStyles(styles);
+                    this.rendererByCompId.set(type.id, this.defaultRenderer);
+                }
+                return this.defaultRenderer;
+            }
+        }
+    }
+}
+ServerRendererFactoryV2.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+ServerRendererFactoryV2.ctorParameters = () => [
+    { type: NgZone, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: SharedStylesHost, },
+];
+function ServerRendererFactoryV2_tsickle_Closure_declarations() {
+    /** @type {?} */
+    ServerRendererFactoryV2.decorators;
+    /**
+     * @nocollapse
+     * @type {?}
+     */
+    ServerRendererFactoryV2.ctorParameters;
+    /** @type {?} */
+    ServerRendererFactoryV2.prototype.rendererByCompId;
+    /** @type {?} */
+    ServerRendererFactoryV2.prototype.defaultRenderer;
+    /** @type {?} */
+    ServerRendererFactoryV2.prototype.ngZone;
+    /** @type {?} */
+    ServerRendererFactoryV2.prototype.document;
+    /** @type {?} */
+    ServerRendererFactoryV2.prototype.sharedStylesHost;
+}
+class DefaultServerRendererV2 {
+    /**
+     * @param {?} document
+     * @param {?} ngZone
+     */
+    constructor(document, ngZone) {
+        this.document = document;
+        this.ngZone = ngZone;
+    }
+    /**
+     * @return {?}
+     */
+    destroy() { }
     /**
      * @param {?} name
      * @param {?=} namespace
@@ -540,39 +619,6 @@ export class ServerRendererV2 {
     }
     /**
      * @param {?} el
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */
-    setBindingDebugInfo(el, propertyName, propertyValue) {
-        if (getDOM().isCommentNode(el)) {
-            const /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
-            obj[propertyName] = propertyValue;
-            getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
-        }
-        else {
-            this.setAttribute(el, propertyName, propertyValue);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} propertyName
-     * @return {?}
-     */
-    removeBindingDebugInfo(el, propertyName) {
-        if (getDOM().isCommentNode(el)) {
-            const /** @type {?} */ m = getDOM().getText(el).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-            const /** @type {?} */ obj = m === null ? {} : JSON.parse(m[1]);
-            delete obj[propertyName];
-            getDOM().setText(el, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(obj, null, 2)));
-        }
-        else {
-            this.removeAttribute(el, propertyName);
-        }
-    }
-    /**
-     * @param {?} el
      * @param {?} name
      * @return {?}
      */
@@ -615,7 +661,7 @@ export class ServerRendererV2 {
      * @param {?} value
      * @return {?}
      */
-    setText(node, value) { getDOM().setText(node, value); }
+    setValue(node, value) { getDOM().setText(node, value); }
     /**
      * @param {?} target
      * @param {?} eventName
@@ -630,25 +676,51 @@ export class ServerRendererV2 {
         return this.ngZone.runOutsideAngular(() => getDOM().onAndCancel(el, eventName, outsideHandler));
     }
 }
-ServerRendererV2.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-ServerRendererV2.ctorParameters = () => [
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-];
-function ServerRendererV2_tsickle_Closure_declarations() {
+function DefaultServerRendererV2_tsickle_Closure_declarations() {
     /** @type {?} */
-    ServerRendererV2.decorators;
+    DefaultServerRendererV2.prototype.destroyNode;
+    /** @type {?} */
+    DefaultServerRendererV2.prototype.document;
+    /** @type {?} */
+    DefaultServerRendererV2.prototype.ngZone;
+}
+class EmulatedEncapsulationServerRendererV2 extends DefaultServerRendererV2 {
     /**
-     * @nocollapse
-     * @type {?}
+     * @param {?} document
+     * @param {?} ngZone
+     * @param {?} sharedStylesHost
+     * @param {?} component
      */
-    ServerRendererV2.ctorParameters;
+    constructor(document, ngZone, sharedStylesHost, component) {
+        super(document, ngZone);
+        this.component = component;
+        const styles = flattenStyles(component.id, component.styles, []);
+        sharedStylesHost.addStyles(styles);
+        this.contentAttr = shimContentAttribute(component.id);
+        this.hostAttr = shimHostAttribute(component.id);
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    applyToHost(element) { super.setAttribute(element, this.hostAttr, ''); }
+    /**
+     * @param {?} parent
+     * @param {?} name
+     * @return {?}
+     */
+    createElement(parent, name) {
+        const /** @type {?} */ el = super.createElement(parent, name);
+        super.setAttribute(el, this.contentAttr, '');
+        return el;
+    }
+}
+function EmulatedEncapsulationServerRendererV2_tsickle_Closure_declarations() {
     /** @type {?} */
-    ServerRendererV2.prototype.ngZone;
+    EmulatedEncapsulationServerRendererV2.prototype.contentAttr;
     /** @type {?} */
-    ServerRendererV2.prototype.document;
+    EmulatedEncapsulationServerRendererV2.prototype.hostAttr;
+    /** @type {?} */
+    EmulatedEncapsulationServerRendererV2.prototype.component;
 }
 //# sourceMappingURL=server_renderer.js.map

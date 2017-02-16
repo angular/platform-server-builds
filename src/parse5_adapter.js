@@ -629,7 +629,7 @@ var Parse5DomAdapter = (function (_super) {
      * @return {?}
      */
     Parse5DomAdapter.prototype.getElementsByTagName = function (element, name) {
-        throw _notImplemented('getElementsByTagName');
+        return this.querySelectorAll(element, name);
     };
     /**
      * @param {?} element

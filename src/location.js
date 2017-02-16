@@ -5,12 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import * as url from 'url';
 import { scheduleMicroTask } from './facade/lang';
 import { getDOM } from './private_import_platform-browser';
+import { INITIAL_CONFIG } from './tokens';
 /**
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
@@ -18,13 +19,21 @@ import { getDOM } from './private_import_platform-browser';
 var ServerPlatformLocation = (function () {
     /**
      * @param {?} _doc
+     * @param {?} _config
      */
-    function ServerPlatformLocation(_doc) {
+    function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
         this._path = '/';
         this._search = '';
         this._hash = '';
         this._hashUpdate = new Subject();
+        var config = _config;
+        if (!!config && !!config.url) {
+            var parsedUrl = url.parse(config.url);
+            this._path = parsedUrl.pathname;
+            this._search = parsedUrl.search;
+            this._hash = parsedUrl.hash;
+        }
     }
     /**
      * @return {?}
@@ -99,7 +108,7 @@ var ServerPlatformLocation = (function () {
     ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
         var /** @type {?} */ oldUrl = this.url;
         var /** @type {?} */ parsedUrl = url.parse(newUrl, true);
-        this._path = parsedUrl.path;
+        this._path = parsedUrl.pathname;
         this._search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     };
@@ -129,6 +138,7 @@ ServerPlatformLocation.decorators = [
 /** @nocollapse */
 ServerPlatformLocation.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
 ]; };
 function ServerPlatformLocation_tsickle_Closure_declarations() {
     /** @type {?} */

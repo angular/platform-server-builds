@@ -7,14 +7,18 @@
  */
 import { PlatformLocation } from '@angular/common';
 import { platformCoreDynamic } from '@angular/compiler';
-import { InjectionToken, Injector, NgModule, PLATFORM_INITIALIZER, RENDERER_V2_DIRECT, RendererV2, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, Injector, NgModule, PLATFORM_INITIALIZER, RENDERER_V2_DIRECT, RendererV2, RootRenderer, createPlatformFactory, isDevMode, platformCore } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { BrowserModule, DOCUMENT } from '@angular/platform-browser';
+import { SERVER_HTTP_PROVIDERS } from './http';
 import { ServerPlatformLocation } from './location';
 import { Parse5DomAdapter, parseDocument } from './parse5_adapter';
 import { PlatformState } from './platform_state';
-import { DebugDomRendererV2, DebugDomRootRenderer } from './private_import_core';
+import { ALLOW_MULTIPLE_PLATFORMS, DebugDomRendererV2, DebugDomRootRenderer } from './private_import_core';
 import { SharedStylesHost, getDOM } from './private_import_platform-browser';
 import { ServerRendererV2, ServerRootRenderer } from './server_renderer';
+import { ServerStylesHost } from './styles_host';
+import { INITIAL_CONFIG } from './tokens';
 /**
  * @param {?} feature
  * @return {?}
@@ -25,8 +29,9 @@ function notSupported(feature) {
 export var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
-    { provide: PlatformLocation, useClass: ServerPlatformLocation },
-    PlatformState,
+    { provide: PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
+    // Add special provider that allows multiple instances of platformServer* to be created.
+    { provide: ALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
 /**
  * @param {?} injector
@@ -49,19 +54,28 @@ export function _createConditionalRootRenderer(rootRenderer) {
 export function _createDebugRendererV2(renderer) {
     return isDevMode() ? new DebugDomRendererV2(renderer) : renderer;
 }
+/**
+ * @param {?} stylesHost
+ * @return {?}
+ */
+export function _addStylesToRootComponentFactory(stylesHost) {
+    var /** @type {?} */ initializer = function () { return stylesHost.rootComponentIsReady(); };
+    return initializer;
+}
 export var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
-    ServerRootRenderer, { provide: RENDERER_V2_DIRECT, useClass: ServerRendererV2 },
+    ServerRootRenderer,
+    { provide: RENDERER_V2_DIRECT, useClass: ServerRendererV2 },
     { provide: RendererV2, useFactory: _createDebugRendererV2, deps: [RENDERER_V2_DIRECT] },
     { provide: RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] },
-    // use plain SharedStylesHost, not the DomSharedStylesHost
-    SharedStylesHost
+    ServerStylesHost,
+    { provide: SharedStylesHost, useExisting: ServerStylesHost },
+    {
+        provide: APP_BOOTSTRAP_LISTENER,
+        useFactory: _addStylesToRootComponentFactory,
+        deps: [ServerStylesHost],
+        multi: true
+    },
 ];
-/**
- * The DI token for setting the initial config for the platform.
- *
- * @experimental
- */
-export var /** @type {?} */ INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /**
  * The ng module for the server.
  *
@@ -76,9 +90,8 @@ export { ServerModule };
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                providers: [
-                    SERVER_RENDER_PROVIDERS,
-                ]
+                imports: [HttpModule],
+                providers: [SERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS],
             },] },
 ];
 /** @nocollapse */

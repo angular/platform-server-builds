@@ -1,23 +1,10 @@
-import { InjectionToken, PlatformRef, Provider, RendererV2 } from '@angular/core';
+import { PlatformRef, Provider, RendererV2 } from '@angular/core';
+import { ServerStylesHost } from './styles_host';
 export declare const INTERNAL_SERVER_PLATFORM_PROVIDERS: Array<any>;
 export declare function _createConditionalRootRenderer(rootRenderer: any): any;
 export declare function _createDebugRendererV2(renderer: RendererV2): RendererV2;
+export declare function _addStylesToRootComponentFactory(stylesHost: ServerStylesHost): () => void;
 export declare const SERVER_RENDER_PROVIDERS: Provider[];
-/**
- * Config object passed to initialize the platform.
- *
- * @experimental
- */
-export interface PlatformConfig {
-    document?: string;
-    url?: string;
-}
-/**
- * The DI token for setting the initial config for the platform.
- *
- * @experimental
- */
-export declare const INITIAL_CONFIG: InjectionToken<PlatformConfig>;
 /**
  * The ng module for the server.
  *

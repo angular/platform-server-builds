@@ -13,6 +13,18 @@ import { scheduleMicroTask } from './facade/lang';
 import { getDOM } from './private_import_platform-browser';
 import { INITIAL_CONFIG } from './tokens';
 /**
+ * @param {?} urlStr
+ * @return {?}
+ */
+function parseUrl(urlStr) {
+    const /** @type {?} */ parsedUrl = url.parse(urlStr);
+    return {
+        pathname: parsedUrl.pathname || '',
+        search: parsedUrl.search || '',
+        hash: parsedUrl.hash || '',
+    };
+}
+/**
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
@@ -29,7 +41,7 @@ export class ServerPlatformLocation {
         this._hashUpdate = new Subject();
         const config = _config;
         if (!!config && !!config.url) {
-            const parsedUrl = url.parse(config.url);
+            const parsedUrl = parseUrl(config.url);
             this._path = parsedUrl.pathname;
             this._search = parsedUrl.search;
             this._hash = parsedUrl.hash;
@@ -90,7 +102,7 @@ export class ServerPlatformLocation {
      */
     replaceState(state, title, newUrl) {
         const /** @type {?} */ oldUrl = this.url;
-        const /** @type {?} */ parsedUrl = url.parse(newUrl, true);
+        const /** @type {?} */ parsedUrl = parseUrl(newUrl);
         this._path = parsedUrl.pathname;
         this._search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);

@@ -313,6 +313,18 @@
     var /** @type {?} */ INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
 
     /**
+     * @param {?} urlStr
+     * @return {?}
+     */
+    function parseUrl(urlStr) {
+        var /** @type {?} */ parsedUrl = url.parse(urlStr);
+        return {
+            pathname: parsedUrl.pathname || '',
+            search: parsedUrl.search || '',
+            hash: parsedUrl.hash || '',
+        };
+    }
+    /**
      * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
      * but not the state stack.
      */
@@ -329,7 +341,7 @@
             this._hashUpdate = new rxjs_Subject.Subject();
             var config = _config;
             if (!!config && !!config.url) {
-                var parsedUrl = url.parse(config.url);
+                var parsedUrl = parseUrl(config.url);
                 this._path = parsedUrl.pathname;
                 this._search = parsedUrl.search;
                 this._hash = parsedUrl.hash;
@@ -407,7 +419,7 @@
          */
         ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
             var /** @type {?} */ oldUrl = this.url;
-            var /** @type {?} */ parsedUrl = url.parse(newUrl, true);
+            var /** @type {?} */ parsedUrl = parseUrl(newUrl);
             this._path = parsedUrl.pathname;
             this._search = parsedUrl.search;
             this.setHash(parsedUrl.hash, oldUrl);

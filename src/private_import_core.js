@@ -14,6 +14,5 @@ export var /** @type {?} */ AnimationPlayer = r.AnimationPlayer;
 export var /** @type {?} */ AnimationStyles = r.AnimationStyles;
 export var /** @type {?} */ RenderDebugInfo = r.RenderDebugInfo;
 export var /** @type {?} */ DebugDomRootRenderer = r.DebugDomRootRenderer;
-export var /** @type {?} */ DebugDomRendererV2 = r.DebugDomRendererV2;
 export var /** @type {?} */ ALLOW_MULTIPLE_PLATFORMS = r.ALLOW_MULTIPLE_PLATFORMS;
 //# sourceMappingURL=private_import_core.js.map

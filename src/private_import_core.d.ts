@@ -21,3 +21,5 @@ export declare type DebugDomRootRenderer = typeof r._DebugDomRootRenderer;
 export declare const DebugDomRootRenderer: typeof r.DebugDomRootRenderer;
 export declare type DebugDomRendererV2 = typeof r._DebugDomRendererV2;
 export declare const DebugDomRendererV2: typeof r.DebugDomRendererV2;
+export declare type ALLOW_MULTIPLE_PLATFORMS = typeof r.ALLOW_MULTIPLE_PLATFORMS;
+export declare const ALLOW_MULTIPLE_PLATFORMS: typeof r.ALLOW_MULTIPLE_PLATFORMS;

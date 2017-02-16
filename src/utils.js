@@ -5,12 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, destroyPlatform } from '@angular/core/index';
+import { ApplicationRef } from '@angular/core/index';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
 import { toPromise } from 'rxjs/operator/toPromise';
 import { PlatformState } from './platform_state';
-import { INITIAL_CONFIG, platformDynamicServer, platformServer } from './server';
+import { platformDynamicServer, platformServer } from './server';
+import { INITIAL_CONFIG } from './tokens';
 const /** @type {?} */ parse5 = require('parse5');
 /**
  * @param {?} platformFactory
@@ -36,7 +37,7 @@ function _render(platform, moduleRefPromise) {
             .call(first.call(filter.call(applicationRef.isStable, (isStable) => isStable)))
             .then(() => {
             const /** @type {?} */ output = platform.injector.get(PlatformState).renderToString();
-            destroyPlatform();
+            platform.destroy();
             return output;
         });
     });

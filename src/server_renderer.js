@@ -5,12 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { DomElementSchemaRegistry } from '@angular/compiler/index';
 import { APP_ID, Inject, Injectable, NgZone, ViewEncapsulation } from '@angular/core/index';
 import { AnimationDriver, DOCUMENT } from '@angular/platform-browser/index';
 import { isBlank, isPresent, stringify } from './facade/lang';
 import { NAMESPACE_URIS, SharedStylesHost, flattenStyles, getDOM, isNamespaced, shimContentAttribute, shimHostAttribute, splitNamespace } from './private_import_platform-browser';
 const /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
 const /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
+const /** @type {?} */ EMPTY_ARRAY = [];
 export class ServerRootRenderer {
     /**
      * @param {?} document
@@ -26,6 +28,7 @@ export class ServerRootRenderer {
         this.appId = appId;
         this._zone = _zone;
         this.registeredComponents = new Map();
+        this._schema = new DomElementSchemaRegistry();
     }
     /**
      * @param {?} componentProto
@@ -34,7 +37,7 @@ export class ServerRootRenderer {
     renderComponent(componentProto) {
         let /** @type {?} */ renderer = this.registeredComponents.get(componentProto.id);
         if (!renderer) {
-            renderer = new ServerRenderer(this, componentProto, this.animationDriver, `${this.appId}-${componentProto.id}`, this._zone);
+            renderer = new ServerRenderer(this, componentProto, this.animationDriver, `${this.appId}-${componentProto.id}`, this._zone, this._schema);
             this.registeredComponents.set(componentProto.id, renderer);
         }
         return renderer;
@@ -62,6 +65,8 @@ function ServerRootRenderer_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerRootRenderer.prototype.registeredComponents;
     /** @type {?} */
+    ServerRootRenderer.prototype._schema;
+    /** @type {?} */
     ServerRootRenderer.prototype.document;
     /** @type {?} */
     ServerRootRenderer.prototype.sharedStylesHost;
@@ -79,16 +84,19 @@ export class ServerRenderer {
      * @param {?} _animationDriver
      * @param {?} styleShimId
      * @param {?} _zone
+     * @param {?} _schema
      */
-    constructor(_rootRenderer, componentProto, _animationDriver, styleShimId, _zone) {
+    constructor(_rootRenderer, componentProto, _animationDriver, styleShimId, _zone, _schema) {
         this._rootRenderer = _rootRenderer;
         this.componentProto = componentProto;
         this._animationDriver = _animationDriver;
         this._zone = _zone;
+        this._schema = _schema;
         this._styles = flattenStyles(styleShimId, componentProto.styles, []);
         if (componentProto.encapsulation === ViewEncapsulation.Native) {
             throw new Error('Native encapsulation is not supported on the server!');
         }
+        this._rootRenderer.sharedStylesHost.addStyles(this._styles);
         if (this.componentProto.encapsulation === ViewEncapsulation.Emulated) {
             this._contentAttr = shimContentAttribute(styleShimId);
             this._hostAttr = shimHostAttribute(styleShimId);
@@ -231,6 +239,15 @@ export class ServerRenderer {
         return this.listen(renderElement, name, callback);
     }
     /**
+     * @param {?} tagName
+     * @param {?} propertyName
+     * @return {?}
+     */
+    _isSafeToReflectProperty(tagName, propertyName) {
+        return this._schema.securityContext(tagName, propertyName, true) ===
+            this._schema.securityContext(tagName, propertyName, false);
+    }
+    /**
      * @param {?} renderElement
      * @param {?} propertyName
      * @param {?} propertyValue
@@ -238,6 +255,15 @@ export class ServerRenderer {
      */
     setElementProperty(renderElement, propertyName, propertyValue) {
         getDOM().setProperty(renderElement, propertyName, propertyValue);
+        // Mirror property values for known HTML element properties in the attributes.
+        const /** @type {?} */ tagName = ((renderElement.tagName)).toLowerCase();
+        if (isPresent(propertyValue) &&
+            (typeof propertyValue === 'number' || typeof propertyValue == 'string') &&
+            this._schema.hasElement(tagName, EMPTY_ARRAY) &&
+            this._schema.hasProperty(tagName, propertyName, EMPTY_ARRAY) &&
+            this._isSafeToReflectProperty(tagName, propertyName)) {
+            this.setElementAttribute(renderElement, propertyName, propertyValue.toString());
+        }
     }
     /**
      * @param {?} renderElement
@@ -360,6 +386,8 @@ function ServerRenderer_tsickle_Closure_declarations() {
     ServerRenderer.prototype._animationDriver;
     /** @type {?} */
     ServerRenderer.prototype._zone;
+    /** @type {?} */
+    ServerRenderer.prototype._schema;
 }
 /**
  * @param {?} ref

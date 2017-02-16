@@ -613,7 +613,7 @@ export class Parse5DomAdapter extends DomAdapter {
      * @return {?}
      */
     getElementsByTagName(element, name) {
-        throw _notImplemented('getElementsByTagName');
+        return this.querySelectorAll(element, name);
     }
     /**
      * @param {?} element

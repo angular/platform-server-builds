@@ -15,4 +15,5 @@ export const /** @type {?} */ AnimationStyles = r.AnimationStyles;
 export const /** @type {?} */ RenderDebugInfo = r.RenderDebugInfo;
 export const /** @type {?} */ DebugDomRootRenderer = r.DebugDomRootRenderer;
 export const /** @type {?} */ DebugDomRendererV2 = r.DebugDomRendererV2;
+export const /** @type {?} */ ALLOW_MULTIPLE_PLATFORMS = r.ALLOW_MULTIPLE_PLATFORMS;
 //# sourceMappingURL=private_import_core.js.map

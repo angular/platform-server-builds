@@ -16,7 +16,7 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     private _search;
     private _hash;
     private _hashUpdate;
-    constructor(_doc: any);
+    constructor(_doc: any, _config: any);
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { DomElementSchemaRegistry } from '@angular/compiler';
-import { ComponentRenderTypeV2, NgZone, RenderComponentType, Renderer, RendererFactoryV2, RendererV2, RootRenderer } from '@angular/core';
+import { NgZone, RenderComponentType, Renderer, RendererFactoryV2, RendererTypeV2, RendererV2, RootRenderer } from '@angular/core';
 import { AnimationDriver } from '@angular/platform-browser';
 import { AnimationKeyframe, AnimationPlayer, AnimationStyles, RenderDebugInfo } from './private_import_core';
 import { SharedStylesHost } from './private_import_platform-browser';
@@ -59,5 +59,5 @@ export declare class ServerRendererFactoryV2 implements RendererFactoryV2 {
     private rendererByCompId;
     private defaultRenderer;
     constructor(ngZone: NgZone, document: any, sharedStylesHost: SharedStylesHost);
-    createRenderer(element: any, type: ComponentRenderTypeV2): RendererV2;
+    createRenderer(element: any, type: RendererTypeV2): RendererV2;
 }

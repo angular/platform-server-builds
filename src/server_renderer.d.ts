@@ -58,6 +58,7 @@ export declare class ServerRendererFactoryV2 implements RendererFactoryV2 {
     private sharedStylesHost;
     private rendererByCompId;
     private defaultRenderer;
+    private schema;
     constructor(ngZone: NgZone, document: any, sharedStylesHost: SharedStylesHost);
     createRenderer(element: any, type: RendererTypeV2): RendererV2;
 }

@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-2ddd1c3
+ * @license Angular v4.0.0-beta.8-bb0460b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2231,7 +2231,8 @@
             this.document = document;
             this.sharedStylesHost = sharedStylesHost;
             this.rendererByCompId = new Map();
-            this.defaultRenderer = new DefaultServerRendererV2(document, ngZone);
+            this.schema = new _angular_compiler.DomElementSchemaRegistry();
+            this.defaultRenderer = new DefaultServerRendererV2(document, ngZone, this.schema);
         }
         ;
         /**
@@ -2247,7 +2248,7 @@
                 case _angular_core.ViewEncapsulation.Emulated: {
                     var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
-                        renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, type);
+                        renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                         this.rendererByCompId.set(type.id, renderer);
                     }
                     ((renderer)).applyToHost(element);
@@ -2280,10 +2281,12 @@
         /**
          * @param {?} document
          * @param {?} ngZone
+         * @param {?} schema
          */
-        function DefaultServerRendererV2(document, ngZone) {
+        function DefaultServerRendererV2(document, ngZone, schema) {
             this.document = document;
             this.ngZone = ngZone;
+            this.schema = schema;
         }
         /**
          * @return {?}
@@ -2431,12 +2434,31 @@
             getDOM().removeStyle(el, style);
         };
         /**
+         * @param {?} tagName
+         * @param {?} propertyName
+         * @return {?}
+         */
+        DefaultServerRendererV2.prototype._isSafeToReflectProperty = function (tagName, propertyName) {
+            return this.schema.securityContext(tagName, propertyName, true) ===
+                this.schema.securityContext(tagName, propertyName, false);
+        };
+        /**
          * @param {?} el
          * @param {?} name
          * @param {?} value
          * @return {?}
          */
-        DefaultServerRendererV2.prototype.setProperty = function (el, name, value) { getDOM().setProperty(el, name, value); };
+        DefaultServerRendererV2.prototype.setProperty = function (el, name, value) {
+            getDOM().setProperty(el, name, value);
+            // Mirror property values for known HTML element properties in the attributes.
+            var /** @type {?} */ tagName = ((el.tagName)).toLowerCase();
+            if (isPresent(value) && (typeof value === 'number' || typeof value == 'string') &&
+                this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+                this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
+                this._isSafeToReflectProperty(tagName, name)) {
+                this.setAttribute(el, name, value.toString());
+            }
+        };
         /**
          * @param {?} node
          * @param {?} value
@@ -2465,10 +2487,11 @@
          * @param {?} document
          * @param {?} ngZone
          * @param {?} sharedStylesHost
+         * @param {?} schema
          * @param {?} component
          */
-        function EmulatedEncapsulationServerRendererV2(document, ngZone, sharedStylesHost, component) {
-            var _this = _super.call(this, document, ngZone) || this;
+        function EmulatedEncapsulationServerRendererV2(document, ngZone, sharedStylesHost, schema, component) {
+            var _this = _super.call(this, document, ngZone, schema) || this;
             _this.component = component;
             var styles = flattenStyles(component.id, component.styles, []);
             sharedStylesHost.addStyles(styles);
@@ -2718,7 +2741,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-beta.8-2ddd1c3');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-beta.8-bb0460b');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

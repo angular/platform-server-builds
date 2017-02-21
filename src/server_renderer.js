@@ -432,7 +432,8 @@ export class ServerRendererFactoryV2 {
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
-        this.defaultRenderer = new DefaultServerRendererV2(document, ngZone);
+        this.schema = new DomElementSchemaRegistry();
+        this.defaultRenderer = new DefaultServerRendererV2(document, ngZone, this.schema);
     }
     ;
     /**
@@ -448,7 +449,7 @@ export class ServerRendererFactoryV2 {
             case ViewEncapsulation.Emulated: {
                 let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, type);
+                    renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 ((renderer)).applyToHost(element);
@@ -489,6 +490,8 @@ function ServerRendererFactoryV2_tsickle_Closure_declarations() {
     /** @type {?} */
     ServerRendererFactoryV2.prototype.defaultRenderer;
     /** @type {?} */
+    ServerRendererFactoryV2.prototype.schema;
+    /** @type {?} */
     ServerRendererFactoryV2.prototype.ngZone;
     /** @type {?} */
     ServerRendererFactoryV2.prototype.document;
@@ -499,10 +502,12 @@ class DefaultServerRendererV2 {
     /**
      * @param {?} document
      * @param {?} ngZone
+     * @param {?} schema
      */
-    constructor(document, ngZone) {
+    constructor(document, ngZone, schema) {
         this.document = document;
         this.ngZone = ngZone;
+        this.schema = schema;
     }
     /**
      * @return {?}
@@ -650,12 +655,31 @@ class DefaultServerRendererV2 {
         getDOM().removeStyle(el, style);
     }
     /**
+     * @param {?} tagName
+     * @param {?} propertyName
+     * @return {?}
+     */
+    _isSafeToReflectProperty(tagName, propertyName) {
+        return this.schema.securityContext(tagName, propertyName, true) ===
+            this.schema.securityContext(tagName, propertyName, false);
+    }
+    /**
      * @param {?} el
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    setProperty(el, name, value) { getDOM().setProperty(el, name, value); }
+    setProperty(el, name, value) {
+        getDOM().setProperty(el, name, value);
+        // Mirror property values for known HTML element properties in the attributes.
+        const /** @type {?} */ tagName = ((el.tagName)).toLowerCase();
+        if (isPresent(value) && (typeof value === 'number' || typeof value == 'string') &&
+            this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+            this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
+            this._isSafeToReflectProperty(tagName, name)) {
+            this.setAttribute(el, name, value.toString());
+        }
+    }
     /**
      * @param {?} node
      * @param {?} value
@@ -683,16 +707,19 @@ function DefaultServerRendererV2_tsickle_Closure_declarations() {
     DefaultServerRendererV2.prototype.document;
     /** @type {?} */
     DefaultServerRendererV2.prototype.ngZone;
+    /** @type {?} */
+    DefaultServerRendererV2.prototype.schema;
 }
 class EmulatedEncapsulationServerRendererV2 extends DefaultServerRendererV2 {
     /**
      * @param {?} document
      * @param {?} ngZone
      * @param {?} sharedStylesHost
+     * @param {?} schema
      * @param {?} component
      */
-    constructor(document, ngZone, sharedStylesHost, component) {
-        super(document, ngZone);
+    constructor(document, ngZone, sharedStylesHost, schema, component) {
+        super(document, ngZone, schema);
         this.component = component;
         const styles = flattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);

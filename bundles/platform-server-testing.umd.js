@@ -1,40 +1,58 @@
 /**
- * @license Angular v4.0.0-beta.8-bb0460b
+ * @license Angular v0.0.0-PLACEHOLDER
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/compiler/testing'), require('@angular/core'), require('@angular/platform-browser-dynamic/testing'), require('@angular/platform-server')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/compiler/testing', '@angular/core', '@angular/platform-browser-dynamic/testing', '@angular/platform-server'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}, global.ng.platformServer.testing = global.ng.platformServer.testing || {}),global.ng.compiler.testing,global.ng.core,global.ng.platformBrowserDynamic.testing,global.ng.platformServer));
-}(this, function (exports,_angular_compiler_testing,_angular_core,_angular_platformBrowserDynamic_testing,_angular_platformServer) { 'use strict';
+  if (typeof define === "function" && define.amd) {
+    define('@angular/platform-server/testing', ['exports', '@angular/compiler/testing', '@angular/core', '@angular/platform-browser-dynamic/testing', '@angular/platform-server'], factory);
+  } else if (typeof exports !== "undefined") {
+    factory(exports, require('@angular/compiler/testing'), require('@angular/core'), require('@angular/platform-browser-dynamic/testing'), require('@angular/platform-server'));
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(mod.exports, global.ng.compiler.testing, global.ng.core, global.ng.platformBrowserDynamic.testing, global.ng.platformServer);
+    global.ng = global.ng || {};
+    global.ng.platformServer = global.ng.platformServer || {};
+    global.ng.platformServer.testing = mod.exports;
+  }
+})(this, function (exports, _testing, _core, _testing2, _platformServer) {
+  'use strict';
 
-    var INTERNAL_SERVER_PLATFORM_PROVIDERS = _angular_platformServer.__platform_server_private__.INTERNAL_SERVER_PLATFORM_PROVIDERS;
-    var SERVER_RENDER_PROVIDERS = _angular_platformServer.__platform_server_private__.SERVER_RENDER_PROVIDERS;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ServerTestingModule = exports.platformServerTesting = undefined;
 
-    /**
-     * Platform for testing
-     *
-     * @experimental API related to bootstrapping are still under review.
-     */
-    var platformServerTesting = _angular_core.createPlatformFactory(_angular_compiler_testing.platformCoreDynamicTesting, 'serverTesting', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-    /**
-     * NgModule for testing.
-     *
-     * @experimental API related to bootstrapping are still under review.
-     */
-    var ServerTestingModule = (function () {
-        function ServerTestingModule() {
-        }
-        return ServerTestingModule;
-    }());
-    ServerTestingModule.decorators = [
-        { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule], providers: SERVER_RENDER_PROVIDERS },] },
-    ];
-    /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
 
-    exports.platformServerTesting = platformServerTesting;
-    exports.ServerTestingModule = ServerTestingModule;
+  /**
+   * Platform for testing
+   *
+   * @experimental API related to bootstrapping are still under review.
+   */
+  var platformServerTesting = (0, _core.createPlatformFactory)(_testing.platformCoreDynamicTesting, 'serverTesting', _platformServer.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+  /**
+   * NgModule for testing.
+   *
+   * @experimental API related to bootstrapping are still under review.
+   */
 
-}));
+  var ServerTestingModule = function ServerTestingModule() {
+    _classCallCheck(this, ServerTestingModule);
+  };
+
+  ServerTestingModule.decorators = [{ type: _core.NgModule, args: [{ exports: [_testing2.BrowserDynamicTestingModule], providers: _platformServer.ɵSERVER_RENDER_PROVIDERS }] }];
+  /** @nocollapse */
+  ServerTestingModule.ctorParameters = function () {
+    return [];
+  };
+
+  exports.platformServerTesting = platformServerTesting;
+  exports.ServerTestingModule = ServerTestingModule;
+});

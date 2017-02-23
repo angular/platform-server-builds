@@ -17,7 +17,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵe = exports.ɵc = exports.ɵd = exports.ɵa = exports.ɵb = exports.ɵh = exports.ɵg = exports.ɵf = exports.ɵi = exports.ɵSERVER_RENDER_PROVIDERS = exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = exports.VERSION = exports.renderModuleFactory = exports.renderModule = exports.INITIAL_CONFIG = exports.platformServer = exports.platformDynamicServer = exports.ServerModule = exports.PlatformState = undefined;
+    exports.ɵd = exports.ɵb = exports.ɵc = exports.ɵa = exports.ɵg = exports.ɵf = exports.ɵe = exports.ɵh = exports.ɵSERVER_RENDER_PROVIDERS = exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = exports.VERSION = exports.renderModuleFactory = exports.renderModule = exports.INITIAL_CONFIG = exports.platformServer = exports.platformDynamicServer = exports.ServerModule = exports.PlatformState = undefined;
 
     var url = _interopRequireWildcard(_url);
 
@@ -2160,17 +2160,17 @@
 
         /**
          * @param {?} doc
-         * @param {?} appRef
+         * @param {?} transitionId
          */
-        function ServerStylesHost(doc, appRef) {
+        function ServerStylesHost(doc, transitionId) {
             _classCallCheck(this, ServerStylesHost);
 
             var _this9 = _possibleConstructorReturn(this, (ServerStylesHost.__proto__ || Object.getPrototypeOf(ServerStylesHost)).call(this));
 
             _this9.doc = doc;
-            _this9.appRef = appRef;
-            _this9.root = null;
-            _this9.buffer = [];
+            _this9.transitionId = transitionId;
+            _this9.head = null;
+            _this9.head = (0, _platformBrowser.ɵgetDOM)().getElementsByTagName(doc, 'head')[0];
             return _this9;
         }
         /**
@@ -2185,36 +2185,19 @@
                 var /** @type {?} */adapter = (0, _platformBrowser.ɵgetDOM)();
                 var /** @type {?} */el = adapter.createElement('style');
                 adapter.setText(el, style);
-                adapter.appendChild(this.root, el);
+                if (!!this.transitionId) {
+                    adapter.setAttribute(el, 'ng-transition', this.transitionId);
+                }
+                adapter.appendChild(this.head, el);
             }
         }, {
             key: 'onStylesAdded',
             value: function onStylesAdded(additions) {
                 var _this10 = this;
 
-                if (!this.root) {
-                    additions.forEach(function (style) {
-                        return _this10.buffer.push(style);
-                    });
-                } else {
-                    additions.forEach(function (style) {
-                        return _this10._addStyle(style);
-                    });
-                }
-            }
-        }, {
-            key: 'rootComponentIsReady',
-            value: function rootComponentIsReady() {
-                var _this11 = this;
-
-                if (!!this.root) {
-                    return;
-                }
-                this.root = this.appRef.components[0].location.nativeElement;
-                this.buffer.forEach(function (style) {
-                    return _this11._addStyle(style);
+                additions.forEach(function (style) {
+                    return _this10._addStyle(style);
                 });
-                this.buffer = null;
             }
         }]);
 
@@ -2224,7 +2207,7 @@
     ServerStylesHost.decorators = [{ type: _core.Injectable }];
     /** @nocollapse */
     ServerStylesHost.ctorParameters = function () {
-        return [{ type: undefined, decorators: [{ type: _core.Inject, args: [_platformBrowser.DOCUMENT] }] }, { type: _core.ApplicationRef }];
+        return [{ type: undefined, decorators: [{ type: _core.Inject, args: [_platformBrowser.DOCUMENT] }] }, { type: undefined, decorators: [{ type: _core.Optional }, { type: _core.Inject, args: [_platformBrowser.ɵTRANSITION_ID] }] }];
     };
 
     var /** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS = [{ provide: _platformBrowser.DOCUMENT, useFactory: _document, deps: [_core.Injector] }, { provide: _core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_core.Injector] }, { provide: _common.PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
@@ -2246,22 +2229,7 @@
     function _createConditionalRootRenderer(rootRenderer) {
         return (0, _core.isDevMode)() ? new _core.ɵDebugDomRootRenderer(rootRenderer) : rootRenderer;
     }
-    /**
-     * @param {?} stylesHost
-     * @return {?}
-     */
-    function _addStylesToRootComponentFactory(stylesHost) {
-        var /** @type {?} */initializer = function initializer() {
-            return stylesHost.rootComponentIsReady();
-        };
-        return initializer;
-    }
-    var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRootRenderer, { provide: _core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] }, ServerRendererFactoryV2, { provide: _core.RendererFactoryV2, useExisting: ServerRendererFactoryV2 }, ServerStylesHost, { provide: _platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost }, {
-        provide: _core.APP_BOOTSTRAP_LISTENER,
-        useFactory: _addStylesToRootComponentFactory,
-        deps: [ServerStylesHost],
-        multi: true
-    }];
+    var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRootRenderer, { provide: _core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] }, ServerRendererFactoryV2, { provide: _core.RendererFactoryV2, useExisting: ServerRendererFactoryV2 }, ServerStylesHost, { provide: _platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost }];
     /**
      * The ng module for the server.
      *
@@ -2320,6 +2288,10 @@
      */
     function _render(platform, moduleRefPromise) {
         return moduleRefPromise.then(function (moduleRef) {
+            var /** @type {?} */transitionId = moduleRef.injector.get(_platformBrowser.ɵTRANSITION_ID, null);
+            if (!transitionId) {
+                throw new Error('renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.');
+            }
             var /** @type {?} */applicationRef = moduleRef.injector.get(_core.ApplicationRef);
             return _toPromise.toPromise.call(_first.first.call(_filter.filter.call(applicationRef.isStable, function (isStable) {
                 return isStable;
@@ -2373,13 +2345,12 @@
     exports.VERSION = VERSION;
     exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
     exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
-    exports.ɵi = SERVER_HTTP_PROVIDERS;
-    exports.ɵf = ServerXhr;
-    exports.ɵg = ServerXsrfStrategy;
-    exports.ɵh = httpFactory;
-    exports.ɵb = _addStylesToRootComponentFactory;
+    exports.ɵh = SERVER_HTTP_PROVIDERS;
+    exports.ɵe = ServerXhr;
+    exports.ɵf = ServerXsrfStrategy;
+    exports.ɵg = httpFactory;
     exports.ɵa = _createConditionalRootRenderer;
-    exports.ɵd = ServerRendererFactoryV2;
-    exports.ɵc = ServerRootRenderer;
-    exports.ɵe = ServerStylesHost;
+    exports.ɵc = ServerRendererFactoryV2;
+    exports.ɵb = ServerRootRenderer;
+    exports.ɵd = ServerStylesHost;
 });

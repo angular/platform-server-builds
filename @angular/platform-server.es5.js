@@ -13,12 +13,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * @license Angular v4.0.0-beta.8-88755b0
+ * @license Angular v4.0.0-beta.8-88bc143
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, ɵDebugDomRootRenderer, isDevMode, APP_BOOTSTRAP_LISTENER, RendererFactoryV2, RootRenderer, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, NgZone, APP_ID, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
-import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetRootDomAdapter, ɵDomAdapter, AnimationDriver, ɵNAMESPACE_URIS, ɵsplitNamespace, ɵisNamespaced, ɵshimHostAttribute, ɵshimContentAttribute, ɵflattenStyles } from '@angular/platform-browser';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, ɵDebugDomRootRenderer, isDevMode, RendererFactoryV2, RootRenderer, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, NgZone, APP_ID, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
+import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetRootDomAdapter, ɵDomAdapter, AnimationDriver, ɵNAMESPACE_URIS, ɵsplitNamespace, ɵisNamespaced, ɵshimHostAttribute, ɵshimContentAttribute, ɵflattenStyles, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { PlatformLocation } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
 import { HttpModule, ReadyState, Http, XSRFStrategy, BrowserXhr, RequestOptions, XHRBackend } from '@angular/http';
@@ -3099,17 +3099,17 @@ var ServerStylesHost = function (_SharedStylesHost) {
 
     /**
      * @param {?} doc
-     * @param {?} appRef
+     * @param {?} transitionId
      */
-    function ServerStylesHost(doc, appRef) {
+    function ServerStylesHost(doc, transitionId) {
         _classCallCheck(this, ServerStylesHost);
 
         var _this9 = _possibleConstructorReturn(this, (ServerStylesHost.__proto__ || Object.getPrototypeOf(ServerStylesHost)).call(this));
 
         _this9.doc = doc;
-        _this9.appRef = appRef;
-        _this9.root = null;
-        _this9.buffer = [];
+        _this9.transitionId = transitionId;
+        _this9.head = null;
+        _this9.head = ɵgetDOM().getElementsByTagName(doc, 'head')[0];
         return _this9;
     }
     /**
@@ -3124,7 +3124,10 @@ var ServerStylesHost = function (_SharedStylesHost) {
             var /** @type {?} */adapter = ɵgetDOM();
             var /** @type {?} */el = adapter.createElement('style');
             adapter.setText(el, style);
-            adapter.appendChild(this.root, el);
+            if (!!this.transitionId) {
+                adapter.setAttribute(el, 'ng-transition', this.transitionId);
+            }
+            adapter.appendChild(this.head, el);
         }
         /**
          * @param {?} additions
@@ -3136,33 +3139,9 @@ var ServerStylesHost = function (_SharedStylesHost) {
         value: function onStylesAdded(additions) {
             var _this10 = this;
 
-            if (!this.root) {
-                additions.forEach(function (style) {
-                    return _this10.buffer.push(style);
-                });
-            } else {
-                additions.forEach(function (style) {
-                    return _this10._addStyle(style);
-                });
-            }
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'rootComponentIsReady',
-        value: function rootComponentIsReady() {
-            var _this11 = this;
-
-            if (!!this.root) {
-                return;
-            }
-            this.root = this.appRef.components[0].location.nativeElement;
-            this.buffer.forEach(function (style) {
-                return _this11._addStyle(style);
+            additions.forEach(function (style) {
+                return _this10._addStyle(style);
             });
-            this.buffer = null;
         }
     }]);
 
@@ -3172,7 +3151,7 @@ var ServerStylesHost = function (_SharedStylesHost) {
 ServerStylesHost.decorators = [{ type: Injectable }];
 /** @nocollapse */
 ServerStylesHost.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: Inject, args: [DOCUMENT] }] }, { type: ApplicationRef }];
+    return [{ type: undefined, decorators: [{ type: Inject, args: [DOCUMENT] }] }, { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID] }] }];
 };
 
 var /** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS = [{ provide: DOCUMENT, useFactory: _document, deps: [Injector] }, { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] }, { provide: PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
@@ -3194,22 +3173,7 @@ function initParse5Adapter(injector) {
 function _createConditionalRootRenderer(rootRenderer) {
     return isDevMode() ? new ɵDebugDomRootRenderer(rootRenderer) : rootRenderer;
 }
-/**
- * @param {?} stylesHost
- * @return {?}
- */
-function _addStylesToRootComponentFactory(stylesHost) {
-    var /** @type {?} */initializer = function initializer() {
-        return stylesHost.rootComponentIsReady();
-    };
-    return initializer;
-}
-var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRootRenderer, { provide: RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] }, ServerRendererFactoryV2, { provide: RendererFactoryV2, useExisting: ServerRendererFactoryV2 }, ServerStylesHost, { provide: ɵSharedStylesHost, useExisting: ServerStylesHost }, {
-    provide: APP_BOOTSTRAP_LISTENER,
-    useFactory: _addStylesToRootComponentFactory,
-    deps: [ServerStylesHost],
-    multi: true
-}];
+var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRootRenderer, { provide: RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] }, ServerRendererFactoryV2, { provide: RendererFactoryV2, useExisting: ServerRendererFactoryV2 }, ServerStylesHost, { provide: ɵSharedStylesHost, useExisting: ServerStylesHost }];
 /**
  * The ng module for the server.
  *
@@ -3269,6 +3233,10 @@ function _getPlatform(platformFactory, options) {
  */
 function _render(platform, moduleRefPromise) {
     return moduleRefPromise.then(function (moduleRef) {
+        var /** @type {?} */transitionId = moduleRef.injector.get(ɵTRANSITION_ID, null);
+        if (!transitionId) {
+            throw new Error('renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.');
+        }
         var /** @type {?} */applicationRef = moduleRef.injector.get(ApplicationRef);
         return toPromise.call(first.call(filter.call(applicationRef.isStable, function (isStable) {
             return isStable;
@@ -3310,6 +3278,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-var /** @type {?} */VERSION = new Version('4.0.0-beta.8-88755b0');
+var /** @type {?} */VERSION = new Version('4.0.0-beta.8-88bc143');
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵi, ServerXhr as ɵf, ServerXsrfStrategy as ɵg, httpFactory as ɵh, _addStylesToRootComponentFactory as ɵb, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵd, ServerRootRenderer as ɵc, ServerStylesHost as ɵe };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵe, ServerXsrfStrategy as ɵf, httpFactory as ɵg, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵc, ServerRootRenderer as ɵb, ServerStylesHost as ɵd };

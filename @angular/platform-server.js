@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-187f7b6
+ * @license Angular v4.0.0-beta.8-4b54c0e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1792,6 +1792,7 @@ class ServerRootRenderer {
         this._zone = _zone;
         this.registeredComponents = new Map();
         this._schema = new DomElementSchemaRegistry();
+        throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');
     }
     /**
      * @param {?} componentProto
@@ -2610,6 +2611,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-187f7b6');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-4b54c0e');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵe, ServerXsrfStrategy as ɵf, httpFactory as ɵg, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵc, ServerRootRenderer as ɵb, ServerStylesHost as ɵd };

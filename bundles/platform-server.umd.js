@@ -1596,6 +1596,7 @@
             this._zone = _zone;
             this.registeredComponents = new Map();
             this._schema = new _compiler.DomElementSchemaRegistry();
+            throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');
         }
         /**
          * @param {?} componentProto

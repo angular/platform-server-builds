@@ -2210,7 +2210,7 @@
         return [{ type: undefined, decorators: [{ type: _core.Inject, args: [_platformBrowser.DOCUMENT] }] }, { type: undefined, decorators: [{ type: _core.Optional }, { type: _core.Inject, args: [_platformBrowser.ɵTRANSITION_ID] }] }];
     };
 
-    var /** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS = [{ provide: _platformBrowser.DOCUMENT, useFactory: _document, deps: [_core.Injector] }, { provide: _core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_core.Injector] }, { provide: _common.PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
+    var /** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS = [{ provide: _platformBrowser.DOCUMENT, useFactory: _document, deps: [_core.Injector] }, { provide: _core.PLATFORM_ID, useValue: _common.ɵPLATFORM_SERVER_ID }, { provide: _core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_core.Injector] }, { provide: _common.PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
     // Add special provider that allows multiple instances of platformServer* to be created.
     { provide: _core.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }];
     /**

@@ -1,11 +1,11 @@
 /**
- * @license Angular v4.0.0-beta.8-88bc143
+ * @license Angular v4.0.0-beta.8-a1d4769
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, ɵDebugDomRootRenderer, isDevMode, RendererFactoryV2, RootRenderer, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, NgZone, APP_ID, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, ɵDebugDomRootRenderer, isDevMode, RendererFactoryV2, RootRenderer, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, NgZone, APP_ID, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
 import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetRootDomAdapter, ɵDomAdapter, AnimationDriver, ɵNAMESPACE_URIS, ɵsplitNamespace, ɵisNamespaced, ɵshimHostAttribute, ɵshimContentAttribute, ɵflattenStyles, ɵTRANSITION_ID } from '@angular/platform-browser';
-import { PlatformLocation } from '@angular/common';
+import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
 import { HttpModule, ReadyState, Http, XSRFStrategy, BrowserXhr, RequestOptions, XHRBackend } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -2476,6 +2476,7 @@ ServerStylesHost.ctorParameters = () => [
 
 const /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
+    { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
     { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
     { provide: PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
     // Add special provider that allows multiple instances of platformServer* to be created.
@@ -2609,6 +2610,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-88bc143');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-a1d4769');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵe, ServerXsrfStrategy as ɵf, httpFactory as ɵg, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵc, ServerRootRenderer as ɵb, ServerStylesHost as ɵd };

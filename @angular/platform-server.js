@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-41da599
+ * @license Angular v4.0.0-beta.8-2da3844
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2609,6 +2609,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-41da599');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-2da3844');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵe, ServerXsrfStrategy as ɵf, httpFactory as ɵg, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵc, ServerRootRenderer as ɵb, ServerStylesHost as ɵd };

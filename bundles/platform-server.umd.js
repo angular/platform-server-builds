@@ -2334,7 +2334,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-ee747f7');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-e99d721');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

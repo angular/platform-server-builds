@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-beta.8-39f56fa
+ * @license Angular v4.0.0-beta.8-01907ba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1101,7 +1101,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
     classList(element) {
         let /** @type {?} */ classAttrValue = null;
         const /** @type {?} */ attributes = element.attribs;
-        if (attributes && attributes.hasOwnProperty('class')) {
+        if (attributes && attributes['class'] != null) {
             classAttrValue = attributes['class'];
         }
         return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
@@ -1158,7 +1158,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
     _readStyleAttribute(element) {
         const /** @type {?} */ styleMap = {};
         const /** @type {?} */ attributes = element.attribs;
-        if (attributes && attributes.hasOwnProperty('style')) {
+        if (attributes && attributes['style'] != null) {
             const /** @type {?} */ styleAttrValue = attributes['style'];
             const /** @type {?} */ styleList = styleAttrValue.split(/;+/g);
             for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
@@ -1236,7 +1236,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @return {?}
      */
     hasAttribute(element, attribute) {
-        return element.attribs && element.attribs.hasOwnProperty(attribute);
+        return element.attribs && element.attribs[attribute] != null;
     }
     /**
      * @param {?} element
@@ -1251,9 +1251,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @return {?}
      */
     getAttribute(element, attribute) {
-        return element.attribs && element.attribs.hasOwnProperty(attribute) ?
-            element.attribs[attribute] :
-            null;
+        return this.hasAttribute(element, attribute) ? element.attribs[attribute] : null;
     }
     /**
      * @param {?} element
@@ -2611,6 +2609,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-39f56fa');
+const /** @type {?} */ VERSION = new Version('4.0.0-beta.8-01907ba');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵe, ServerXsrfStrategy as ɵf, httpFactory as ɵg, _createConditionalRootRenderer as ɵa, ServerRendererFactoryV2 as ɵc, ServerRootRenderer as ɵb, ServerStylesHost as ɵd };

@@ -1151,7 +1151,7 @@
             value: function classList(element) {
                 var /** @type {?} */classAttrValue = null;
                 var /** @type {?} */attributes = element.attribs;
-                if (attributes && attributes.hasOwnProperty('class')) {
+                if (attributes && attributes['class'] != null) {
                     classAttrValue = attributes['class'];
                 }
                 return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
@@ -1194,7 +1194,7 @@
             value: function _readStyleAttribute(element) {
                 var /** @type {?} */styleMap = {};
                 var /** @type {?} */attributes = element.attribs;
-                if (attributes && attributes.hasOwnProperty('style')) {
+                if (attributes && attributes['style'] != null) {
                     var /** @type {?} */styleAttrValue = attributes['style'];
                     var /** @type {?} */styleList = styleAttrValue.split(/;+/g);
                     for (var /** @type {?} */i = 0; i < styleList.length; i++) {
@@ -1255,7 +1255,7 @@
         }, {
             key: 'hasAttribute',
             value: function hasAttribute(element, attribute) {
-                return element.attribs && element.attribs.hasOwnProperty(attribute);
+                return element.attribs && element.attribs[attribute] != null;
             }
         }, {
             key: 'hasAttributeNS',
@@ -1265,7 +1265,7 @@
         }, {
             key: 'getAttribute',
             value: function getAttribute(element, attribute) {
-                return element.attribs && element.attribs.hasOwnProperty(attribute) ? element.attribs[attribute] : null;
+                return this.hasAttribute(element, attribute) ? element.attribs[attribute] : null;
             }
         }, {
             key: 'getAttributeNS',
@@ -2334,7 +2334,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-39f56fa');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-beta.8-01907ba');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

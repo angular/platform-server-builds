@@ -1,5 +1,5 @@
 var _get=function get(object,property,receiver){if(object===null)object=Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc===undefined){var parent=Object.getPrototypeOf(object);if(parent===null){return undefined;}else{return get(parent,property,receiver);}}else if("value"in desc){return desc.value;}else{var getter=desc.get;if(getter===undefined){return undefined;}return getter.call(receiver);}};var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}/**
- * @license Angular v4.0.0-beta.8-39f56fa
+ * @license Angular v4.0.0-beta.8-01907ba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */import{Injectable,Inject,ɵALLOW_MULTIPLE_PLATFORMS,Injector,PLATFORM_INITIALIZER,PLATFORM_ID,ɵDebugDomRootRenderer,isDevMode,RendererFactoryV2,RootRenderer,NgModule,platformCore,createPlatformFactory,Optional,InjectionToken,NgZone,APP_ID,ViewEncapsulation,ApplicationRef,Version}from'@angular/core';import{ɵgetDOM,DOCUMENT,ɵSharedStylesHost,BrowserModule,ɵsetRootDomAdapter,ɵDomAdapter,AnimationDriver,ɵNAMESPACE_URIS,ɵsplitNamespace,ɵisNamespaced,ɵshimHostAttribute,ɵshimContentAttribute,ɵflattenStyles,ɵTRANSITION_ID}from'@angular/platform-browser';import{PlatformLocation,ɵPLATFORM_SERVER_ID}from'@angular/common';import{platformCoreDynamic,CssSelector,SelectorMatcher,DomElementSchemaRegistry}from'@angular/compiler';import{HttpModule,ReadyState,Http,XSRFStrategy,BrowserXhr,RequestOptions,XHRBackend}from'@angular/http';import{Observable}from'rxjs/Observable';import{Subject}from'rxjs/Subject';import*as url from'url';import{filter}from'rxjs/operator/filter';import{first}from'rxjs/operator/first';import{toPromise}from'rxjs/operator/toPromise';/**
@@ -372,7 +372,7 @@ return isRecursive?'':el.data;}if(!el.childNodes||el.childNodes.length==0){retur
      */},{key:'getElementsByTagName',value:function getElementsByTagName(element,name){return this.querySelectorAll(element,name);}/**
      * @param {?} element
      * @return {?}
-     */},{key:'classList',value:function classList(element){var/** @type {?} */classAttrValue=null;var/** @type {?} */attributes=element.attribs;if(attributes&&attributes.hasOwnProperty('class')){classAttrValue=attributes['class'];}return classAttrValue?classAttrValue.trim().split(/\s+/g):[];}/**
+     */},{key:'classList',value:function classList(element){var/** @type {?} */classAttrValue=null;var/** @type {?} */attributes=element.attribs;if(attributes&&attributes['class']!=null){classAttrValue=attributes['class'];}return classAttrValue?classAttrValue.trim().split(/\s+/g):[];}/**
      * @param {?} element
      * @param {?} className
      * @return {?}
@@ -393,7 +393,7 @@ return isRecursive?'':el.data;}if(!el.childNodes||el.childNodes.length==0){retur
      * \@internal
      * @param {?} element
      * @return {?}
-     */},{key:'_readStyleAttribute',value:function _readStyleAttribute(element){var/** @type {?} */styleMap={};var/** @type {?} */attributes=element.attribs;if(attributes&&attributes.hasOwnProperty('style')){var/** @type {?} */styleAttrValue=attributes['style'];var/** @type {?} */styleList=styleAttrValue.split(/;+/g);for(var/** @type {?} */i=0;i<styleList.length;i++){if(styleList[i].length>0){var/** @type {?} */elems=styleList[i].split(/:+/g);styleMap[elems[0].trim()]=elems[1].trim();}}}return styleMap;}/**
+     */},{key:'_readStyleAttribute',value:function _readStyleAttribute(element){var/** @type {?} */styleMap={};var/** @type {?} */attributes=element.attribs;if(attributes&&attributes['style']!=null){var/** @type {?} */styleAttrValue=attributes['style'];var/** @type {?} */styleList=styleAttrValue.split(/;+/g);for(var/** @type {?} */i=0;i<styleList.length;i++){if(styleList[i].length>0){var/** @type {?} */elems=styleList[i].split(/:+/g);styleMap[elems[0].trim()]=elems[1].trim();}}}return styleMap;}/**
      * \@internal
      * @param {?} element
      * @param {?} styleMap
@@ -421,7 +421,7 @@ return isRecursive?'':el.data;}if(!el.childNodes||el.childNodes.length==0){retur
      * @param {?} element
      * @param {?} attribute
      * @return {?}
-     */},{key:'hasAttribute',value:function hasAttribute(element,attribute){return element.attribs&&element.attribs.hasOwnProperty(attribute);}/**
+     */},{key:'hasAttribute',value:function hasAttribute(element,attribute){return element.attribs&&element.attribs[attribute]!=null;}/**
      * @param {?} element
      * @param {?} ns
      * @param {?} attribute
@@ -430,7 +430,7 @@ return isRecursive?'':el.data;}if(!el.childNodes||el.childNodes.length==0){retur
      * @param {?} element
      * @param {?} attribute
      * @return {?}
-     */},{key:'getAttribute',value:function getAttribute(element,attribute){return element.attribs&&element.attribs.hasOwnProperty(attribute)?element.attribs[attribute]:null;}/**
+     */},{key:'getAttribute',value:function getAttribute(element,attribute){return this.hasAttribute(element,attribute)?element.attribs[attribute]:null;}/**
      * @param {?} element
      * @param {?} ns
      * @param {?} attribute
@@ -877,4 +877,4 @@ var/** @type {?} */el=typeof target==='string'?ɵgetDOM().getGlobalEventTarget(t
  * @return {?}
  */function renderModuleFactory(moduleFactory,options){var/** @type {?} */platform=_getPlatform(platformServer,options);return _render(platform,platform.bootstrapModuleFactory(moduleFactory));}/**
  * @stable
- */var/** @type {?} */VERSION=new Version('4.0.0-beta.8-39f56fa');export{PlatformState,ServerModule,platformDynamicServer,platformServer,INITIAL_CONFIG,renderModule,renderModuleFactory,VERSION,INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS,SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS,SERVER_HTTP_PROVIDERS as ɵh,ServerXhr as ɵe,ServerXsrfStrategy as ɵf,httpFactory as ɵg,_createConditionalRootRenderer as ɵa,ServerRendererFactoryV2 as ɵc,ServerRootRenderer as ɵb,ServerStylesHost as ɵd};
+ */var/** @type {?} */VERSION=new Version('4.0.0-beta.8-01907ba');export{PlatformState,ServerModule,platformDynamicServer,platformServer,INITIAL_CONFIG,renderModule,renderModuleFactory,VERSION,INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS,SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS,SERVER_HTTP_PROVIDERS as ɵh,ServerXhr as ɵe,ServerXsrfStrategy as ɵf,httpFactory as ɵg,_createConditionalRootRenderer as ɵa,ServerRendererFactoryV2 as ɵc,ServerRootRenderer as ɵb,ServerStylesHost as ɵd};

@@ -1,8 +1,8 @@
 var _get=function get(object,property,receiver){if(object===null)object=Function.prototype;var desc=Object.getOwnPropertyDescriptor(object,property);if(desc===undefined){var parent=Object.getPrototypeOf(object);if(parent===null){return undefined;}else{return get(parent,property,receiver);}}else if("value"in desc){return desc.value;}else{var getter=desc.get;if(getter===undefined){return undefined;}return getter.call(receiver);}};var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}/**
- * @license Angular v4.0.0-rc.1-e58cb7b
+ * @license Angular v4.0.0-rc.1-126fda2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
- */import{Injectable,Inject,ɵALLOW_MULTIPLE_PLATFORMS,Injector,PLATFORM_INITIALIZER,PLATFORM_ID,ɵDebugDomRootRenderer,isDevMode,RendererFactoryV2,RootRenderer,NgModule,platformCore,createPlatformFactory,Optional,InjectionToken,NgZone,APP_ID,ViewEncapsulation,ApplicationRef,Version}from'@angular/core';import{ɵgetDOM,DOCUMENT,ɵSharedStylesHost,BrowserModule,ɵsetRootDomAdapter,ɵDomAdapter,AnimationDriver,ɵNAMESPACE_URIS,ɵsplitNamespace,ɵisNamespaced,ɵshimHostAttribute,ɵshimContentAttribute,ɵflattenStyles,ɵTRANSITION_ID}from'@angular/platform-browser';import{PlatformLocation,ɵPLATFORM_SERVER_ID}from'@angular/common';import{platformCoreDynamic,CssSelector,SelectorMatcher,DomElementSchemaRegistry}from'@angular/compiler';import{HttpModule,ReadyState,Http,XSRFStrategy,BrowserXhr,RequestOptions,XHRBackend}from'@angular/http';import{Observable}from'rxjs/Observable';import{Subject}from'rxjs/Subject';import*as url from'url';import{filter}from'rxjs/operator/filter';import{first}from'rxjs/operator/first';import{toPromise}from'rxjs/operator/toPromise';/**
+ */import{Injectable,Inject,ɵALLOW_MULTIPLE_PLATFORMS,Injector,PLATFORM_INITIALIZER,PLATFORM_ID,RendererFactoryV2,NgModule,platformCore,createPlatformFactory,Optional,InjectionToken,ViewEncapsulation,NgZone,ApplicationRef,Version}from'@angular/core';import{ɵgetDOM,DOCUMENT,ɵSharedStylesHost,BrowserModule,ɵsetRootDomAdapter,ɵDomAdapter,ɵflattenStyles,ɵNAMESPACE_URIS,ɵshimHostAttribute,ɵshimContentAttribute,ɵTRANSITION_ID}from'@angular/platform-browser';import{PlatformLocation,ɵPLATFORM_SERVER_ID}from'@angular/common';import{platformCoreDynamic,CssSelector,SelectorMatcher,DomElementSchemaRegistry}from'@angular/compiler';import{HttpModule,ReadyState,Http,XSRFStrategy,BrowserXhr,RequestOptions,XHRBackend}from'@angular/http';import{Observable}from'rxjs/Observable';import{Subject}from'rxjs/Subject';import*as url from'url';import{filter}from'rxjs/operator/filter';import{first}from'rxjs/operator/first';import{toPromise}from'rxjs/operator/toPromise';/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -71,9 +71,6 @@ global$1.assert=function assert(condition){// TODO: to be fixed properly via #28
  * @param {?} obj
  * @return {?}
  */function isBlank(obj){return obj==null;}/**
- * @param {?} token
- * @return {?}
- */function stringify(token){if(typeof token==='string'){return token;}if(token==null){return''+token;}if(token.overriddenName){return''+token.overriddenName;}if(token.name){return''+token.name;}var/** @type {?} */res=token.toString();var/** @type {?} */newLineIndex=res.indexOf('\n');return newLineIndex===-1?res:res.substring(0,newLineIndex);}/**
  * @param {?} global
  * @param {?} path
  * @param {?} value
@@ -586,127 +583,7 @@ return isBlank(href)?null:href;}/**
      */},{key:'animate',value:function animate(element,keyframes,options){throw new Error('not implemented');}},{key:'attrToPropMap',get:function get(){return _attrToPropMap;}}],[{key:'makeCurrent',/**
      * @return {?}
      */value:function makeCurrent(){treeAdapter=parse5$1.treeAdapters.htmlparser2;ɵsetRootDomAdapter(new Parse5DomAdapter());}}]);return Parse5DomAdapter;}(ɵDomAdapter);// TODO: build a proper list, this one is all the keys of a HTMLInputElement
-var/** @type {?} */_HTMLElementPropertyList=['webkitEntries','incremental','webkitdirectory','selectionDirection','selectionEnd','selectionStart','labels','validationMessage','validity','willValidate','width','valueAsNumber','valueAsDate','value','useMap','defaultValue','type','step','src','size','required','readOnly','placeholder','pattern','name','multiple','min','minLength','maxLength','max','list','indeterminate','height','formTarget','formNoValidate','formMethod','formEnctype','formAction','files','form','disabled','dirName','checked','defaultChecked','autofocus','autocomplete','alt','align','accept','onautocompleteerror','onautocomplete','onwaiting','onvolumechange','ontoggle','ontimeupdate','onsuspend','onsubmit','onstalled','onshow','onselect','onseeking','onseeked','onscroll','onresize','onreset','onratechange','onprogress','onplaying','onplay','onpause','onmousewheel','onmouseup','onmouseover','onmouseout','onmousemove','onmouseleave','onmouseenter','onmousedown','onloadstart','onloadedmetadata','onloadeddata','onload','onkeyup','onkeypress','onkeydown','oninvalid','oninput','onfocus','onerror','onended','onemptied','ondurationchange','ondrop','ondragstart','ondragover','ondragleave','ondragenter','ondragend','ondrag','ondblclick','oncuechange','oncontextmenu','onclose','onclick','onchange','oncanplaythrough','oncanplay','oncancel','onblur','onabort','spellcheck','isContentEditable','contentEditable','outerText','innerText','accessKey','hidden','webkitdropzone','draggable','tabIndex','dir','translate','lang','title','childElementCount','lastElementChild','firstElementChild','children','onwebkitfullscreenerror','onwebkitfullscreenchange','nextElementSibling','previousElementSibling','onwheel','onselectstart','onsearch','onpaste','oncut','oncopy','onbeforepaste','onbeforecut','onbeforecopy','shadowRoot','dataset','classList','className','outerHTML','innerHTML','scrollHeight','scrollWidth','scrollTop','scrollLeft','clientHeight','clientWidth','clientTop','clientLeft','offsetParent','offsetHeight','offsetWidth','offsetTop','offsetLeft','localName','prefix','namespaceURI','id','style','attributes','tagName','parentElement','textContent','baseURI','ownerDocument','nextSibling','previousSibling','lastChild','firstChild','childNodes','parentNode','nodeType','nodeValue','nodeName','closure_lm_714617','__jsaction'];var/** @type {?} */TEMPLATE_COMMENT_TEXT='template bindings={}';var/** @type {?} */TEMPLATE_BINDINGS_EXP=/^template bindings=(.*)$/;var/** @type {?} */EMPTY_ARRAY=[];var ServerRootRenderer=function(){/**
-     * @param {?} document
-     * @param {?} sharedStylesHost
-     * @param {?} animationDriver
-     * @param {?} appId
-     * @param {?} _zone
-     */function ServerRootRenderer(document,sharedStylesHost,animationDriver,appId,_zone){_classCallCheck(this,ServerRootRenderer);this.document=document;this.sharedStylesHost=sharedStylesHost;this.animationDriver=animationDriver;this.appId=appId;this._zone=_zone;this.registeredComponents=new Map();this._schema=new DomElementSchemaRegistry();throw new Error('RootRenderer is no longer supported. Please use the `RendererFactoryV2` instead!');}/**
-     * @param {?} componentProto
-     * @return {?}
-     */_createClass(ServerRootRenderer,[{key:'renderComponent',value:function renderComponent(componentProto){var/** @type {?} */renderer=this.registeredComponents.get(componentProto.id);if(!renderer){renderer=new ServerRenderer(this,componentProto,this.animationDriver,this.appId+'-'+componentProto.id,this._zone,this._schema);this.registeredComponents.set(componentProto.id,renderer);}return renderer;}}]);return ServerRootRenderer;}();ServerRootRenderer.decorators=[{type:Injectable}];/** @nocollapse */ServerRootRenderer.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]},{type:ɵSharedStylesHost},{type:AnimationDriver},{type:undefined,decorators:[{type:Inject,args:[APP_ID]}]},{type:NgZone}];};var ServerRenderer=function(){/**
-     * @param {?} _rootRenderer
-     * @param {?} componentProto
-     * @param {?} _animationDriver
-     * @param {?} styleShimId
-     * @param {?} _zone
-     * @param {?} _schema
-     */function ServerRenderer(_rootRenderer,componentProto,_animationDriver,styleShimId,_zone,_schema){_classCallCheck(this,ServerRenderer);this._rootRenderer=_rootRenderer;this.componentProto=componentProto;this._animationDriver=_animationDriver;this._zone=_zone;this._schema=_schema;this._styles=ɵflattenStyles(styleShimId,componentProto.styles,[]);if(componentProto.encapsulation===ViewEncapsulation.Native){throw new Error('Native encapsulation is not supported on the server!');}this._rootRenderer.sharedStylesHost.addStyles(this._styles);if(this.componentProto.encapsulation===ViewEncapsulation.Emulated){this._contentAttr=ɵshimContentAttribute(styleShimId);this._hostAttr=ɵshimHostAttribute(styleShimId);}else{this._contentAttr=null;this._hostAttr=null;}}/**
-     * @param {?} selectorOrNode
-     * @param {?} debugInfo
-     * @return {?}
-     */_createClass(ServerRenderer,[{key:'selectRootElement',value:function selectRootElement(selectorOrNode,debugInfo){var/** @type {?} */el=void 0/** TODO #9100 */;if(typeof selectorOrNode==='string'){el=ɵgetDOM().querySelector(this._rootRenderer.document,selectorOrNode);if(isBlank(el)){throw new Error('The selector "'+selectorOrNode+'" did not match any elements');}}else{el=selectorOrNode;}ɵgetDOM().clearNodes(el);return el;}/**
-     * @param {?} parent
-     * @param {?} name
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createElement',value:function createElement(parent,name,debugInfo){var/** @type {?} */el=void 0;if(ɵisNamespaced(name)){var/** @type {?} */nsAndName=ɵsplitNamespace(name);el=ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[nsAndName[0]],nsAndName[1]);}else{el=ɵgetDOM().createElement(name);}if(isPresent(this._contentAttr)){ɵgetDOM().setAttribute(el,this._contentAttr,'');}if(isPresent(parent)){ɵgetDOM().appendChild(parent,el);}return el;}/**
-     * @param {?} hostElement
-     * @return {?}
-     */},{key:'createViewRoot',value:function createViewRoot(hostElement){var/** @type {?} */nodesParent=void 0/** TODO #9100 */;if(isPresent(this._hostAttr)){ɵgetDOM().setAttribute(hostElement,this._hostAttr,'');}nodesParent=hostElement;return nodesParent;}/**
-     * @param {?} parentElement
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createTemplateAnchor',value:function createTemplateAnchor(parentElement,debugInfo){var/** @type {?} */comment=ɵgetDOM().createComment(TEMPLATE_COMMENT_TEXT);if(isPresent(parentElement)){ɵgetDOM().appendChild(parentElement,comment);}return comment;}/**
-     * @param {?} parentElement
-     * @param {?} value
-     * @param {?} debugInfo
-     * @return {?}
-     */},{key:'createText',value:function createText(parentElement,value,debugInfo){var/** @type {?} */node=ɵgetDOM().createTextNode(value);if(isPresent(parentElement)){ɵgetDOM().appendChild(parentElement,node);}return node;}/**
-     * @param {?} parentElement
-     * @param {?} nodes
-     * @return {?}
-     */},{key:'projectNodes',value:function projectNodes(parentElement,nodes){if(isBlank(parentElement))return;appendNodes(parentElement,nodes);}/**
-     * @param {?} node
-     * @param {?} viewRootNodes
-     * @return {?}
-     */},{key:'attachViewAfter',value:function attachViewAfter(node,viewRootNodes){moveNodesAfterSibling(node,viewRootNodes);}/**
-     * @param {?} viewRootNodes
-     * @return {?}
-     */},{key:'detachView',value:function detachView(viewRootNodes){for(var/** @type {?} */i=0;i<viewRootNodes.length;i++){ɵgetDOM().remove(viewRootNodes[i]);}}/**
-     * @param {?} hostElement
-     * @param {?} viewAllNodes
-     * @return {?}
-     */},{key:'destroyView',value:function destroyView(hostElement,viewAllNodes){}/**
-     * @param {?} renderElement
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */},{key:'listen',value:function listen(renderElement,name,callback){var _this6=this;// Note: We are not using the EventsPlugin here as this is not needed
-// to run our tests.
-var/** @type {?} */outsideHandler=function outsideHandler(event){return _this6._zone.runGuarded(function(){return callback(event);});};return this._zone.runOutsideAngular(function(){return ɵgetDOM().onAndCancel(renderElement,name,outsideHandler);});}/**
-     * @param {?} target
-     * @param {?} name
-     * @param {?} callback
-     * @return {?}
-     */},{key:'listenGlobal',value:function listenGlobal(target,name,callback){var/** @type {?} */renderElement=ɵgetDOM().getGlobalEventTarget(this._rootRenderer.document,target);return this.listen(renderElement,name,callback);}/**
-     * @param {?} tagName
-     * @param {?} propertyName
-     * @return {?}
-     */},{key:'_isSafeToReflectProperty',value:function _isSafeToReflectProperty(tagName,propertyName){return this._schema.securityContext(tagName,propertyName,true)===this._schema.securityContext(tagName,propertyName,false);}/**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */},{key:'setElementProperty',value:function setElementProperty(renderElement,propertyName,propertyValue){ɵgetDOM().setProperty(renderElement,propertyName,propertyValue);// Mirror property values for known HTML element properties in the attributes.
-var/** @type {?} */tagName=renderElement.tagName.toLowerCase();if(isPresent(propertyValue)&&(typeof propertyValue==='number'||typeof propertyValue=='string')&&this._schema.hasElement(tagName,EMPTY_ARRAY)&&this._schema.hasProperty(tagName,propertyName,EMPTY_ARRAY)&&this._isSafeToReflectProperty(tagName,propertyName)){this.setElementAttribute(renderElement,propertyName,propertyValue.toString());}}/**
-     * @param {?} renderElement
-     * @param {?} attributeName
-     * @param {?} attributeValue
-     * @return {?}
-     */},{key:'setElementAttribute',value:function setElementAttribute(renderElement,attributeName,attributeValue){var/** @type {?} */attrNs=void 0;var/** @type {?} */attrNameWithoutNs=attributeName;if(ɵisNamespaced(attributeName)){var/** @type {?} */nsAndName=ɵsplitNamespace(attributeName);attrNameWithoutNs=nsAndName[1];attributeName=nsAndName[0]+':'+nsAndName[1];attrNs=ɵNAMESPACE_URIS[nsAndName[0]];}if(isPresent(attributeValue)){if(isPresent(attrNs)){ɵgetDOM().setAttributeNS(renderElement,attrNs,attributeName,attributeValue);}else{ɵgetDOM().setAttribute(renderElement,attributeName,attributeValue);}}else{if(isPresent(attrNs)){ɵgetDOM().removeAttributeNS(renderElement,attrNs,attrNameWithoutNs);}else{ɵgetDOM().removeAttribute(renderElement,attributeName);}}}/**
-     * @param {?} renderElement
-     * @param {?} propertyName
-     * @param {?} propertyValue
-     * @return {?}
-     */},{key:'setBindingDebugInfo',value:function setBindingDebugInfo(renderElement,propertyName,propertyValue){if(ɵgetDOM().isCommentNode(renderElement)){var/** @type {?} */existingBindings=ɵgetDOM().getText(renderElement).replace(/\n/g,'').match(TEMPLATE_BINDINGS_EXP);var/** @type {?} */parsedBindings=JSON.parse(existingBindings[1]);parsedBindings[/** TODO #9100 */propertyName]=propertyValue;ɵgetDOM().setText(renderElement,TEMPLATE_COMMENT_TEXT.replace('{}',JSON.stringify(parsedBindings,null,2)));}else{propertyName=propertyName.replace(/\$/g,'_');this.setElementAttribute(renderElement,propertyName,propertyValue);}}/**
-     * @param {?} renderElement
-     * @param {?} className
-     * @param {?} isAdd
-     * @return {?}
-     */},{key:'setElementClass',value:function setElementClass(renderElement,className,isAdd){if(isAdd){ɵgetDOM().addClass(renderElement,className);}else{ɵgetDOM().removeClass(renderElement,className);}}/**
-     * @param {?} renderElement
-     * @param {?} styleName
-     * @param {?} styleValue
-     * @return {?}
-     */},{key:'setElementStyle',value:function setElementStyle(renderElement,styleName,styleValue){if(isPresent(styleValue)){ɵgetDOM().setStyle(renderElement,styleName,stringify(styleValue));}else{ɵgetDOM().removeStyle(renderElement,styleName);}}/**
-     * @param {?} renderElement
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */},{key:'invokeElementMethod',value:function invokeElementMethod(renderElement,methodName,args){ɵgetDOM().invoke(renderElement,methodName,args);}/**
-     * @param {?} renderNode
-     * @param {?} text
-     * @return {?}
-     */},{key:'setText',value:function setText(renderNode,text){ɵgetDOM().setText(renderNode,text);}/**
-     * @param {?} element
-     * @param {?} startingStyles
-     * @param {?} keyframes
-     * @param {?} duration
-     * @param {?} delay
-     * @param {?} easing
-     * @param {?=} previousPlayers
-     * @return {?}
-     */},{key:'animate',value:function animate(element,startingStyles,keyframes,duration,delay,easing){var previousPlayers=arguments.length>6&&arguments[6]!==undefined?arguments[6]:[];return this._animationDriver.animate(element,startingStyles,keyframes,duration,delay,easing,previousPlayers);}}]);return ServerRenderer;}();/**
- * @param {?} ref
- * @param {?} nodes
- * @return {?}
- */function moveNodesAfterSibling(ref,nodes){var/** @type {?} */parent=ɵgetDOM().parentElement(ref);if(nodes.length>0&&parent){var/** @type {?} */nextSibling=ɵgetDOM().nextSibling(ref);if(nextSibling){for(var/** @type {?} */i=0;i<nodes.length;i++){ɵgetDOM().insertBefore(parent,nextSibling,nodes[i]);}}else{for(var/** @type {?} */_i=0;_i<nodes.length;_i++){ɵgetDOM().appendChild(parent,nodes[_i]);}}}}/**
- * @param {?} parent
- * @param {?} nodes
- * @return {?}
- */function appendNodes(parent,nodes){for(var/** @type {?} */i=0;i<nodes.length;i++){ɵgetDOM().appendChild(parent,nodes[i]);}}var ServerRendererFactoryV2=function(){/**
+var/** @type {?} */_HTMLElementPropertyList=['webkitEntries','incremental','webkitdirectory','selectionDirection','selectionEnd','selectionStart','labels','validationMessage','validity','willValidate','width','valueAsNumber','valueAsDate','value','useMap','defaultValue','type','step','src','size','required','readOnly','placeholder','pattern','name','multiple','min','minLength','maxLength','max','list','indeterminate','height','formTarget','formNoValidate','formMethod','formEnctype','formAction','files','form','disabled','dirName','checked','defaultChecked','autofocus','autocomplete','alt','align','accept','onautocompleteerror','onautocomplete','onwaiting','onvolumechange','ontoggle','ontimeupdate','onsuspend','onsubmit','onstalled','onshow','onselect','onseeking','onseeked','onscroll','onresize','onreset','onratechange','onprogress','onplaying','onplay','onpause','onmousewheel','onmouseup','onmouseover','onmouseout','onmousemove','onmouseleave','onmouseenter','onmousedown','onloadstart','onloadedmetadata','onloadeddata','onload','onkeyup','onkeypress','onkeydown','oninvalid','oninput','onfocus','onerror','onended','onemptied','ondurationchange','ondrop','ondragstart','ondragover','ondragleave','ondragenter','ondragend','ondrag','ondblclick','oncuechange','oncontextmenu','onclose','onclick','onchange','oncanplaythrough','oncanplay','oncancel','onblur','onabort','spellcheck','isContentEditable','contentEditable','outerText','innerText','accessKey','hidden','webkitdropzone','draggable','tabIndex','dir','translate','lang','title','childElementCount','lastElementChild','firstElementChild','children','onwebkitfullscreenerror','onwebkitfullscreenchange','nextElementSibling','previousElementSibling','onwheel','onselectstart','onsearch','onpaste','oncut','oncopy','onbeforepaste','onbeforecut','onbeforecopy','shadowRoot','dataset','classList','className','outerHTML','innerHTML','scrollHeight','scrollWidth','scrollTop','scrollLeft','clientHeight','clientWidth','clientTop','clientLeft','offsetParent','offsetHeight','offsetWidth','offsetTop','offsetLeft','localName','prefix','namespaceURI','id','style','attributes','tagName','parentElement','textContent','baseURI','ownerDocument','nextSibling','previousSibling','lastChild','firstChild','childNodes','parentNode','nodeType','nodeValue','nodeName','closure_lm_714617','__jsaction'];var/** @type {?} */EMPTY_ARRAY=[];var ServerRendererFactoryV2=function(){/**
      * @param {?} ngZone
      * @param {?} document
      * @param {?} sharedStylesHost
@@ -806,15 +683,15 @@ var/** @type {?} */tagName=el.tagName.toLowerCase();if(isPresent(value)&&(typeof
      * @param {?} eventName
      * @param {?} callback
      * @return {?}
-     */},{key:'listen',value:function listen(target,eventName,callback){var _this7=this;// Note: We are not using the EventsPlugin here as this is not needed
+     */},{key:'listen',value:function listen(target,eventName,callback){var _this6=this;// Note: We are not using the EventsPlugin here as this is not needed
 // to run our tests.
-var/** @type {?} */el=typeof target==='string'?ɵgetDOM().getGlobalEventTarget(this.document,target):target;var/** @type {?} */outsideHandler=function outsideHandler(event){return _this7.ngZone.runGuarded(function(){return callback(event);});};return this.ngZone.runOutsideAngular(function(){return ɵgetDOM().onAndCancel(el,eventName,outsideHandler);});}}]);return DefaultServerRendererV2;}();var EmulatedEncapsulationServerRendererV2=function(_DefaultServerRendere){_inherits(EmulatedEncapsulationServerRendererV2,_DefaultServerRendere);/**
+var/** @type {?} */el=typeof target==='string'?ɵgetDOM().getGlobalEventTarget(this.document,target):target;var/** @type {?} */outsideHandler=function outsideHandler(event){return _this6.ngZone.runGuarded(function(){return callback(event);});};return this.ngZone.runOutsideAngular(function(){return ɵgetDOM().onAndCancel(el,eventName,outsideHandler);});}}]);return DefaultServerRendererV2;}();var EmulatedEncapsulationServerRendererV2=function(_DefaultServerRendere){_inherits(EmulatedEncapsulationServerRendererV2,_DefaultServerRendere);/**
      * @param {?} document
      * @param {?} ngZone
      * @param {?} sharedStylesHost
      * @param {?} schema
      * @param {?} component
-     */function EmulatedEncapsulationServerRendererV2(document,ngZone,sharedStylesHost,schema,component){_classCallCheck(this,EmulatedEncapsulationServerRendererV2);var _this8=_possibleConstructorReturn(this,(EmulatedEncapsulationServerRendererV2.__proto__||Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2)).call(this,document,ngZone,schema));_this8.component=component;var styles=ɵflattenStyles(component.id,component.styles,[]);sharedStylesHost.addStyles(styles);_this8.contentAttr=ɵshimContentAttribute(component.id);_this8.hostAttr=ɵshimHostAttribute(component.id);return _this8;}/**
+     */function EmulatedEncapsulationServerRendererV2(document,ngZone,sharedStylesHost,schema,component){_classCallCheck(this,EmulatedEncapsulationServerRendererV2);var _this7=_possibleConstructorReturn(this,(EmulatedEncapsulationServerRendererV2.__proto__||Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2)).call(this,document,ngZone,schema));_this7.component=component;var styles=ɵflattenStyles(component.id,component.styles,[]);sharedStylesHost.addStyles(styles);_this7.contentAttr=ɵshimContentAttribute(component.id);_this7.hostAttr=ɵshimHostAttribute(component.id);return _this7;}/**
      * @param {?} element
      * @return {?}
      */_createClass(EmulatedEncapsulationServerRendererV2,[{key:'applyToHost',value:function applyToHost(element){_get(EmulatedEncapsulationServerRendererV2.prototype.__proto__||Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype),'setAttribute',this).call(this,element,this.hostAttr,'');}/**
@@ -824,20 +701,17 @@ var/** @type {?} */el=typeof target==='string'?ɵgetDOM().getGlobalEventTarget(t
      */},{key:'createElement',value:function createElement(parent,name){var/** @type {?} */el=_get(EmulatedEncapsulationServerRendererV2.prototype.__proto__||Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype),'createElement',this).call(this,parent,name);_get(EmulatedEncapsulationServerRendererV2.prototype.__proto__||Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype),'setAttribute',this).call(this,el,this.contentAttr,'');return el;}}]);return EmulatedEncapsulationServerRendererV2;}(DefaultServerRendererV2);var ServerStylesHost=function(_SharedStylesHost){_inherits(ServerStylesHost,_SharedStylesHost);/**
      * @param {?} doc
      * @param {?} transitionId
-     */function ServerStylesHost(doc,transitionId){_classCallCheck(this,ServerStylesHost);var _this9=_possibleConstructorReturn(this,(ServerStylesHost.__proto__||Object.getPrototypeOf(ServerStylesHost)).call(this));_this9.doc=doc;_this9.transitionId=transitionId;_this9.head=null;_this9.head=ɵgetDOM().getElementsByTagName(doc,'head')[0];return _this9;}/**
+     */function ServerStylesHost(doc,transitionId){_classCallCheck(this,ServerStylesHost);var _this8=_possibleConstructorReturn(this,(ServerStylesHost.__proto__||Object.getPrototypeOf(ServerStylesHost)).call(this));_this8.doc=doc;_this8.transitionId=transitionId;_this8.head=null;_this8.head=ɵgetDOM().getElementsByTagName(doc,'head')[0];return _this8;}/**
      * @param {?} style
      * @return {?}
      */_createClass(ServerStylesHost,[{key:'_addStyle',value:function _addStyle(style){var/** @type {?} */adapter=ɵgetDOM();var/** @type {?} */el=adapter.createElement('style');adapter.setText(el,style);if(!!this.transitionId){adapter.setAttribute(el,'ng-transition',this.transitionId);}adapter.appendChild(this.head,el);}/**
      * @param {?} additions
      * @return {?}
-     */},{key:'onStylesAdded',value:function onStylesAdded(additions){var _this10=this;additions.forEach(function(style){return _this10._addStyle(style);});}}]);return ServerStylesHost;}(ɵSharedStylesHost);ServerStylesHost.decorators=[{type:Injectable}];/** @nocollapse */ServerStylesHost.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]},{type:undefined,decorators:[{type:Optional},{type:Inject,args:[ɵTRANSITION_ID]}]}];};var/** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS=[{provide:DOCUMENT,useFactory:_document,deps:[Injector]},{provide:PLATFORM_ID,useValue:ɵPLATFORM_SERVER_ID},{provide:PLATFORM_INITIALIZER,useFactory:initParse5Adapter,multi:true,deps:[Injector]},{provide:PlatformLocation,useClass:ServerPlatformLocation},PlatformState,// Add special provider that allows multiple instances of platformServer* to be created.
+     */},{key:'onStylesAdded',value:function onStylesAdded(additions){var _this9=this;additions.forEach(function(style){return _this9._addStyle(style);});}}]);return ServerStylesHost;}(ɵSharedStylesHost);ServerStylesHost.decorators=[{type:Injectable}];/** @nocollapse */ServerStylesHost.ctorParameters=function(){return[{type:undefined,decorators:[{type:Inject,args:[DOCUMENT]}]},{type:undefined,decorators:[{type:Optional},{type:Inject,args:[ɵTRANSITION_ID]}]}];};var/** @type {?} */INTERNAL_SERVER_PLATFORM_PROVIDERS=[{provide:DOCUMENT,useFactory:_document,deps:[Injector]},{provide:PLATFORM_ID,useValue:ɵPLATFORM_SERVER_ID},{provide:PLATFORM_INITIALIZER,useFactory:initParse5Adapter,multi:true,deps:[Injector]},{provide:PlatformLocation,useClass:ServerPlatformLocation},PlatformState,// Add special provider that allows multiple instances of platformServer* to be created.
 {provide:ɵALLOW_MULTIPLE_PLATFORMS,useValue:true}];/**
  * @param {?} injector
  * @return {?}
- */function initParse5Adapter(injector){return function(){Parse5DomAdapter.makeCurrent();};}/**
- * @param {?} rootRenderer
- * @return {?}
- */function _createConditionalRootRenderer(rootRenderer){return isDevMode()?new ɵDebugDomRootRenderer(rootRenderer):rootRenderer;}var/** @type {?} */SERVER_RENDER_PROVIDERS=[ServerRootRenderer,{provide:RootRenderer,useFactory:_createConditionalRootRenderer,deps:[ServerRootRenderer]},ServerRendererFactoryV2,{provide:RendererFactoryV2,useExisting:ServerRendererFactoryV2},ServerStylesHost,{provide:ɵSharedStylesHost,useExisting:ServerStylesHost}];/**
+ */function initParse5Adapter(injector){return function(){Parse5DomAdapter.makeCurrent();};}var/** @type {?} */SERVER_RENDER_PROVIDERS=[ServerRendererFactoryV2,{provide:RendererFactoryV2,useExisting:ServerRendererFactoryV2},ServerStylesHost,{provide:ɵSharedStylesHost,useExisting:ServerStylesHost}];/**
  * The ng module for the server.
  *
  * \@experimental
@@ -877,4 +751,4 @@ var/** @type {?} */el=typeof target==='string'?ɵgetDOM().getGlobalEventTarget(t
  * @return {?}
  */function renderModuleFactory(moduleFactory,options){var/** @type {?} */platform=_getPlatform(platformServer,options);return _render(platform,platform.bootstrapModuleFactory(moduleFactory));}/**
  * @stable
- */var/** @type {?} */VERSION=new Version('4.0.0-rc.1-e58cb7b');export{PlatformState,ServerModule,platformDynamicServer,platformServer,INITIAL_CONFIG,renderModule,renderModuleFactory,VERSION,INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS,SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS,SERVER_HTTP_PROVIDERS as ɵh,ServerXhr as ɵe,ServerXsrfStrategy as ɵf,httpFactory as ɵg,_createConditionalRootRenderer as ɵa,ServerRendererFactoryV2 as ɵc,ServerRootRenderer as ɵb,ServerStylesHost as ɵd};
+ */var/** @type {?} */VERSION=new Version('4.0.0-rc.1-126fda2');export{PlatformState,ServerModule,platformDynamicServer,platformServer,INITIAL_CONFIG,renderModule,renderModuleFactory,VERSION,INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS,SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS,SERVER_HTTP_PROVIDERS as ɵf,ServerXhr as ɵc,ServerXsrfStrategy as ɵd,httpFactory as ɵe,ServerRendererFactoryV2 as ɵa,ServerStylesHost as ɵb};

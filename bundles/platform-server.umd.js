@@ -689,7 +689,7 @@
         }, {
             key: 'querySelector',
             value: function querySelector(el, selector) {
-                return this.querySelectorAll(el, selector)[0];
+                return this.querySelectorAll(el, selector)[0] || null;
             }
         }, {
             key: 'querySelectorAll',
@@ -1993,7 +1993,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-47bdc2b');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-9402df9');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

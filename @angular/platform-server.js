@@ -1,9 +1,9 @@
 /**
- * @license Angular v4.0.0-rc.1-49b462e
+ * @license Angular v4.0.0-rc.1-47bdc2b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
 import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
@@ -2115,7 +2115,11 @@ ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
                 imports: [HttpModule],
-                providers: [SERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                    SERVER_HTTP_PROVIDERS,
+                    { provide: Testability, useValue: null },
+                ],
             },] },
 ];
 /** @nocollapse */
@@ -2210,6 +2214,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.1-49b462e');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.1-47bdc2b');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, ServerRendererFactoryV2 as ɵa, ServerStylesHost as ɵb };

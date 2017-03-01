@@ -1903,7 +1903,7 @@
     ServerModule.decorators = [{ type: _core.NgModule, args: [{
             exports: [_platformBrowser.BrowserModule],
             imports: [_http.HttpModule],
-            providers: [SERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS]
+            providers: [SERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS, { provide: _core.Testability, useValue: null }]
         }] }];
     /** @nocollapse */
     ServerModule.ctorParameters = function () {
@@ -1993,7 +1993,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-49b462e');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.1-47bdc2b');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

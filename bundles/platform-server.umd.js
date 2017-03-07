@@ -17,7 +17,7 @@
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
-    exports.ɵb = exports.ɵa = exports.ɵe = exports.ɵd = exports.ɵc = exports.ɵf = exports.ɵSERVER_RENDER_PROVIDERS = exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = exports.VERSION = exports.renderModuleFactory = exports.renderModule = exports.INITIAL_CONFIG = exports.platformServer = exports.platformDynamicServer = exports.ServerModule = exports.PlatformState = undefined;
+    exports.ɵa = exports.ɵd = exports.ɵc = exports.ɵb = exports.ɵe = exports.ɵServerRendererFactoryV2 = exports.ɵSERVER_RENDER_PROVIDERS = exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = exports.VERSION = exports.renderModuleFactory = exports.renderModule = exports.INITIAL_CONFIG = exports.platformServer = exports.platformDynamicServer = exports.ServerModule = exports.PlatformState = undefined;
 
     var url = _interopRequireWildcard(_url);
 
@@ -340,77 +340,6 @@
     var /** @type {?} */SERVER_HTTP_PROVIDERS = [{ provide: _http.Http, useFactory: httpFactory, deps: [_http.XHRBackend, _http.RequestOptions] }, { provide: _http.BrowserXhr, useClass: ServerXhr }, { provide: _http.XSRFStrategy, useClass: ServerXsrfStrategy }];
 
     /**
-     * @license
-     * Copyright Google Inc. All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    var /** @type {?} */globalScope = void 0;
-    if (typeof window === 'undefined') {
-        if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-            // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-            globalScope = self;
-        } else {
-            globalScope = global;
-        }
-    } else {
-        globalScope = window;
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    function scheduleMicroTask(fn) {
-        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-    }
-    // Need to declare a new variable for global here since TypeScript
-    // exports the original value of the symbol.
-    var /** @type {?} */global$1 = globalScope;
-    // TODO: remove calls to assert in production environment
-    // Note: Can't just export this and import in in other files
-    // as `assert` is a reserved keyword in Dart
-    global$1.assert = function assert(condition) {
-        // TODO: to be fixed properly via #2830, noop for now
-    };
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    function isPresent(obj) {
-        return obj != null;
-    }
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    function isBlank(obj) {
-        return obj == null;
-    }
-    /**
-     * @param {?} global
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    function setValueOnPath(global, path, value) {
-        var /** @type {?} */parts = path.split('.');
-        var /** @type {?} */obj = global;
-        while (parts.length > 1) {
-            var /** @type {?} */name = parts.shift();
-            if (obj.hasOwnProperty(name) && obj[name] != null) {
-                obj = obj[name];
-            } else {
-                obj = obj[name] = {};
-            }
-        }
-        if (obj === undefined || obj === null) {
-            obj = {};
-        }
-        obj[parts.shift()] = value;
-    }
-
-    /**
      * The DI token for setting the initial config for the platform.
      *
      * @experimental
@@ -550,63 +479,21 @@
     ServerPlatformLocation.ctorParameters = function () {
         return [{ type: undefined, decorators: [{ type: _core.Inject, args: [_platformBrowser.DOCUMENT] }] }, { type: undefined, decorators: [{ type: _core.Optional }, { type: _core.Inject, args: [INITIAL_CONFIG] }] }];
     };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function scheduleMicroTask(fn) {
+        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
+    }
 
-    var ListWrapper = function () {
-        function ListWrapper() {
-            _classCallCheck(this, ListWrapper);
-        }
-
-        _createClass(ListWrapper, null, [{
-            key: 'findLast',
-            value: function findLast(arr, condition) {
-                for (var /** @type {?} */i = arr.length - 1; i >= 0; i--) {
-                    if (condition(arr[i])) {
-                        return arr[i];
-                    }
-                }
-                return null;
-            }
-        }, {
-            key: 'removeAll',
-            value: function removeAll(list, items) {
-                for (var /** @type {?} */i = 0; i < items.length; ++i) {
-                    var /** @type {?} */index = list.indexOf(items[i]);
-                    if (index > -1) {
-                        list.splice(index, 1);
-                    }
-                }
-            }
-        }, {
-            key: 'remove',
-            value: function remove(list, el) {
-                var /** @type {?} */index = list.indexOf(el);
-                if (index > -1) {
-                    list.splice(index, 1);
-                    return true;
-                }
-                return false;
-            }
-        }, {
-            key: 'equals',
-            value: function equals(a, b) {
-                if (a.length != b.length) return false;
-                for (var /** @type {?} */i = 0; i < a.length; ++i) {
-                    if (a[i] !== b[i]) return false;
-                }
-                return true;
-            }
-        }, {
-            key: 'flatten',
-            value: function flatten(list) {
-                return list.reduce(function (flat, item) {
-                    var /** @type {?} */flatItem = Array.isArray(item) ? ListWrapper.flatten(item) : item;
-                    return flat.concat(flatItem);
-                }, []);
-            }
-        }]);
-
-        return ListWrapper;
-    }();
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
 
     var /** @type {?} */treeAdapter = void 0;
     var /** @type {?} */_attrToPropMap = {
@@ -763,7 +650,7 @@
             value: function onAndCancel(el, evt, listener) {
                 this.on(el, evt, listener);
                 return function () {
-                    ListWrapper.remove( /** @type {?} */el._eventListenersMap[evt], listener);
+                    remove( /** @type {?} */el._eventListenersMap[evt], listener);
                 };
             }
         }, {
@@ -812,7 +699,7 @@
         }, {
             key: 'isPrevented',
             value: function isPrevented(event) {
-                return isPresent(event.returnValue) && !event.returnValue;
+                return event.returnValue != null && !event.returnValue;
             }
         }, {
             key: 'getInnerHTML',
@@ -1089,7 +976,7 @@
                     nodeClone.next = null;
                     nodeClone.children = null;
                     mapProps.forEach(function (mapName) {
-                        if (isPresent(node[mapName])) {
+                        if (node[mapName] != null) {
                             nodeClone[mapName] = {};
                             for (var /** @type {?} */_prop in node[mapName]) {
                                 nodeClone[mapName][_prop] = node[mapName][_prop];
@@ -1335,7 +1222,7 @@
         }, {
             key: 'hasShadowRoot',
             value: function hasShadowRoot(node) {
-                return isPresent(node.shadowRoot);
+                return node.shadowRoot != null;
             }
         }, {
             key: 'isShadowRoot',
@@ -1378,7 +1265,7 @@
                     if (parsedRule.type == 'rule') {
                         rule['type'] = 1;
                         rule['selectorText'] = parsedRule.selectors.join(', '.replace(/\s{2,}/g, ' ').replace(/\s*~\s*/g, ' ~ ').replace(/\s*\+\s*/g, ' + ').replace(/\s*>\s*/g, ' > ').replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
-                        if (isBlank(parsedRule.declarations)) {
+                        if (parsedRule.declarations == null) {
                             continue;
                         }
                         for (var /** @type {?} */j = 0; j < parsedRule.declarations.length; j++) {
@@ -1427,7 +1314,7 @@
                     href = this.getHref(base);
                 }
                 // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-                return isBlank(href) ? null : href;
+                return href == null ? null : href;
             }
         }, {
             key: 'resetBaseElement',
@@ -1467,7 +1354,7 @@
         }, {
             key: 'setGlobalVar',
             value: function setGlobalVar(path, value) {
-                setValueOnPath(global$1, path, value);
+                (0, _platformBrowser.ɵsetValueOnPath)(_core.ɵglobal, path, value);
             }
         }, {
             key: 'supportsWebAnimation',
@@ -1552,6 +1439,17 @@
 
     // TODO: build a proper list, this one is all the keys of a HTMLInputElement
     var /** @type {?} */_HTMLElementPropertyList = ['webkitEntries', 'incremental', 'webkitdirectory', 'selectionDirection', 'selectionEnd', 'selectionStart', 'labels', 'validationMessage', 'validity', 'willValidate', 'width', 'valueAsNumber', 'valueAsDate', 'value', 'useMap', 'defaultValue', 'type', 'step', 'src', 'size', 'required', 'readOnly', 'placeholder', 'pattern', 'name', 'multiple', 'min', 'minLength', 'maxLength', 'max', 'list', 'indeterminate', 'height', 'formTarget', 'formNoValidate', 'formMethod', 'formEnctype', 'formAction', 'files', 'form', 'disabled', 'dirName', 'checked', 'defaultChecked', 'autofocus', 'autocomplete', 'alt', 'align', 'accept', 'onautocompleteerror', 'onautocomplete', 'onwaiting', 'onvolumechange', 'ontoggle', 'ontimeupdate', 'onsuspend', 'onsubmit', 'onstalled', 'onshow', 'onselect', 'onseeking', 'onseeked', 'onscroll', 'onresize', 'onreset', 'onratechange', 'onprogress', 'onplaying', 'onplay', 'onpause', 'onmousewheel', 'onmouseup', 'onmouseover', 'onmouseout', 'onmousemove', 'onmouseleave', 'onmouseenter', 'onmousedown', 'onloadstart', 'onloadedmetadata', 'onloadeddata', 'onload', 'onkeyup', 'onkeypress', 'onkeydown', 'oninvalid', 'oninput', 'onfocus', 'onerror', 'onended', 'onemptied', 'ondurationchange', 'ondrop', 'ondragstart', 'ondragover', 'ondragleave', 'ondragenter', 'ondragend', 'ondrag', 'ondblclick', 'oncuechange', 'oncontextmenu', 'onclose', 'onclick', 'onchange', 'oncanplaythrough', 'oncanplay', 'oncancel', 'onblur', 'onabort', 'spellcheck', 'isContentEditable', 'contentEditable', 'outerText', 'innerText', 'accessKey', 'hidden', 'webkitdropzone', 'draggable', 'tabIndex', 'dir', 'translate', 'lang', 'title', 'childElementCount', 'lastElementChild', 'firstElementChild', 'children', 'onwebkitfullscreenerror', 'onwebkitfullscreenchange', 'nextElementSibling', 'previousElementSibling', 'onwheel', 'onselectstart', 'onsearch', 'onpaste', 'oncut', 'oncopy', 'onbeforepaste', 'onbeforecut', 'onbeforecopy', 'shadowRoot', 'dataset', 'classList', 'className', 'outerHTML', 'innerHTML', 'scrollHeight', 'scrollWidth', 'scrollTop', 'scrollLeft', 'clientHeight', 'clientWidth', 'clientTop', 'clientLeft', 'offsetParent', 'offsetHeight', 'offsetWidth', 'offsetTop', 'offsetLeft', 'localName', 'prefix', 'namespaceURI', 'id', 'style', 'attributes', 'tagName', 'parentElement', 'textContent', 'baseURI', 'ownerDocument', 'nextSibling', 'previousSibling', 'lastChild', 'firstChild', 'childNodes', 'parentNode', 'nodeType', 'nodeValue', 'nodeName', 'closure_lm_714617', '__jsaction'];
+    /**
+     * @param {?} list
+     * @param {?} el
+     * @return {?}
+     */
+    function remove(list, el) {
+        var /** @type {?} */index = list.indexOf(el);
+        if (index > -1) {
+            list.splice(index, 1);
+        }
+    }
 
     var /** @type {?} */EMPTY_ARRAY = [];
 
@@ -1743,10 +1641,11 @@
         }, {
             key: 'setProperty',
             value: function setProperty(el, name, value) {
+                checkNoSyntheticProp(name, 'property');
                 (0, _platformBrowser.ɵgetDOM)().setProperty(el, name, value);
                 // Mirror property values for known HTML element properties in the attributes.
                 var /** @type {?} */tagName = el.tagName.toLowerCase();
-                if (isPresent(value) && (typeof value === 'number' || typeof value == 'string') && this.schema.hasElement(tagName, EMPTY_ARRAY) && this.schema.hasProperty(tagName, name, EMPTY_ARRAY) && this._isSafeToReflectProperty(tagName, name)) {
+                if (value != null && (typeof value === 'number' || typeof value == 'string') && this.schema.hasElement(tagName, EMPTY_ARRAY) && this.schema.hasProperty(tagName, name, EMPTY_ARRAY) && this._isSafeToReflectProperty(tagName, name)) {
                     this.setAttribute(el, name, value.toString());
                 }
             }
@@ -1762,6 +1661,7 @@
 
                 // Note: We are not using the EventsPlugin here as this is not needed
                 // to run our tests.
+                checkNoSyntheticProp(eventName, 'listener');
                 var /** @type {?} */el = typeof target === 'string' ? (0, _platformBrowser.ɵgetDOM)().getGlobalEventTarget(this.document, target) : target;
                 var /** @type {?} */outsideHandler = function outsideHandler(event) {
                     return _this6.ngZone.runGuarded(function () {
@@ -1776,6 +1676,18 @@
 
         return DefaultServerRendererV2;
     }();
+
+    var /** @type {?} */AT_CHARCODE = '@'.charCodeAt(0);
+    /**
+     * @param {?} name
+     * @param {?} nameKind
+     * @return {?}
+     */
+    function checkNoSyntheticProp(name, nameKind) {
+        if (name.charCodeAt(0) === AT_CHARCODE) {
+            throw new Error('Found the synthetic ' + nameKind + ' ' + name + '. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.');
+        }
+    }
 
     var EmulatedEncapsulationServerRendererV2 = function (_DefaultServerRendere) {
         _inherits(EmulatedEncapsulationServerRendererV2, _DefaultServerRendere);
@@ -1993,7 +1905,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-207298c');
+    var /** @type {?} */VERSION = new _core.Version('4.0.0-rc.2-b7e76cc');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;
@@ -2005,10 +1917,10 @@
     exports.VERSION = VERSION;
     exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
     exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
-    exports.ɵf = SERVER_HTTP_PROVIDERS;
-    exports.ɵc = ServerXhr;
-    exports.ɵd = ServerXsrfStrategy;
-    exports.ɵe = httpFactory;
-    exports.ɵa = ServerRendererFactoryV2;
-    exports.ɵb = ServerStylesHost;
+    exports.ɵServerRendererFactoryV2 = ServerRendererFactoryV2;
+    exports.ɵe = SERVER_HTTP_PROVIDERS;
+    exports.ɵb = ServerXhr;
+    exports.ɵc = ServerXsrfStrategy;
+    exports.ɵd = httpFactory;
+    exports.ɵa = ServerStylesHost;
 });

@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.0.0-rc.2-207298c
+ * @license Angular v4.0.0-rc.2-b7e76cc
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
-import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
+import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetValueOnPath, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
 import { HttpModule, ReadyState, Http, XSRFStrategy, BrowserXhr, RequestOptions, XHRBackend } from '@angular/http';
@@ -192,80 +192,6 @@ const /** @type {?} */ SERVER_HTTP_PROVIDERS = [
 ];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-let /** @type {?} */ globalScope;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = (self);
-    }
-    else {
-        globalScope = (global);
-    }
-}
-else {
-    globalScope = (window);
-}
-/**
- * @param {?} fn
- * @return {?}
- */
-function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-const /** @type {?} */ global$1 = globalScope;
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-global$1.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isPresent(obj) {
-    return obj != null;
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank(obj) {
-    return obj == null;
-}
-/**
- * @param {?} global
- * @param {?} path
- * @param {?} value
- * @return {?}
- */
-function setValueOnPath(global, path, value) {
-    const /** @type {?} */ parts = path.split('.');
-    let /** @type {?} */ obj = global;
-    while (parts.length > 1) {
-        const /** @type {?} */ name = parts.shift();
-        if (obj.hasOwnProperty(name) && obj[name] != null) {
-            obj = obj[name];
-        }
-        else {
-            obj = obj[name] = {};
-        }
-    }
-    if (obj === undefined || obj === null) {
-        obj = {};
-    }
-    obj[parts.shift()] = value;
-}
-
-/**
  * The DI token for setting the initial config for the platform.
  *
  * @experimental
@@ -393,71 +319,12 @@ ServerPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
 ];
-
-class ListWrapper {
-    /**
-     * @param {?} arr
-     * @param {?} condition
-     * @return {?}
-     */
-    static findLast(arr, condition) {
-        for (let /** @type {?} */ i = arr.length - 1; i >= 0; i--) {
-            if (condition(arr[i])) {
-                return arr[i];
-            }
-        }
-        return null;
-    }
-    /**
-     * @param {?} list
-     * @param {?} items
-     * @return {?}
-     */
-    static removeAll(list, items) {
-        for (let /** @type {?} */ i = 0; i < items.length; ++i) {
-            const /** @type {?} */ index = list.indexOf(items[i]);
-            if (index > -1) {
-                list.splice(index, 1);
-            }
-        }
-    }
-    /**
-     * @param {?} list
-     * @param {?} el
-     * @return {?}
-     */
-    static remove(list, el) {
-        const /** @type {?} */ index = list.indexOf(el);
-        if (index > -1) {
-            list.splice(index, 1);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * @param {?} a
-     * @param {?} b
-     * @return {?}
-     */
-    static equals(a, b) {
-        if (a.length != b.length)
-            return false;
-        for (let /** @type {?} */ i = 0; i < a.length; ++i) {
-            if (a[i] !== b[i])
-                return false;
-        }
-        return true;
-    }
-    /**
-     * @param {?} list
-     * @return {?}
-     */
-    static flatten(list) {
-        return list.reduce((flat, item) => {
-            const /** @type {?} */ flatItem = Array.isArray(item) ? ListWrapper.flatten(item) : item;
-            return ((flat)).concat(flatItem);
-        }, []);
-    }
+/**
+ * @param {?} fn
+ * @return {?}
+ */
+function scheduleMicroTask(fn) {
+    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
 
 /**
@@ -648,7 +515,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      */
     onAndCancel(el, evt, listener) {
         this.on(el, evt, listener);
-        return () => { ListWrapper.remove(/** @type {?} */ ((el._eventListenersMap[evt])), listener); };
+        return () => { remove(/** @type {?} */ ((el._eventListenersMap[evt])), listener); };
     }
     /**
      * @param {?} el
@@ -700,7 +567,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} event
      * @return {?}
      */
-    isPrevented(event) { return isPresent(event.returnValue) && !event.returnValue; }
+    isPrevented(event) { return event.returnValue != null && !event.returnValue; }
     /**
      * @param {?} el
      * @return {?}
@@ -1033,7 +900,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
             nodeClone.next = null;
             nodeClone.children = null;
             mapProps.forEach(mapName => {
-                if (isPresent(node[mapName])) {
+                if (node[mapName] != null) {
                     nodeClone[mapName] = {};
                     for (const /** @type {?} */ prop in node[mapName]) {
                         nodeClone[mapName][prop] = node[mapName][prop];
@@ -1346,7 +1213,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} node
      * @return {?}
      */
-    hasShadowRoot(node) { return isPresent(node.shadowRoot); }
+    hasShadowRoot(node) { return node.shadowRoot != null; }
     /**
      * @param {?} node
      * @return {?}
@@ -1402,7 +1269,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
                         .replace(/\s*\+\s*/g, ' + ')
                         .replace(/\s*>\s*/g, ' > ')
                         .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
-                if (isBlank(parsedRule.declarations)) {
+                if (parsedRule.declarations == null) {
                     continue;
                 }
                 for (let /** @type {?} */ j = 0; j < parsedRule.declarations.length; j++) {
@@ -1457,7 +1324,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
             href = this.getHref(base);
         }
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-        return isBlank(href) ? null : href;
+        return href == null ? null : href;
     }
     /**
      * @return {?}
@@ -1498,7 +1365,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} value
      * @return {?}
      */
-    setGlobalVar(path, value) { setValueOnPath(global$1, path, value); }
+    setGlobalVar(path, value) { ɵsetValueOnPath(ɵglobal, path, value); }
     /**
      * @return {?}
      */
@@ -1751,6 +1618,17 @@ const /** @type {?} */ _HTMLElementPropertyList = [
     'closure_lm_714617',
     '__jsaction',
 ];
+/**
+ * @param {?} list
+ * @param {?} el
+ * @return {?}
+ */
+function remove(list, el) {
+    const /** @type {?} */ index = list.indexOf(el);
+    if (index > -1) {
+        list.splice(index, 1);
+    }
+}
 
 const /** @type {?} */ EMPTY_ARRAY = [];
 class ServerRendererFactoryV2 {
@@ -1982,10 +1860,11 @@ class DefaultServerRendererV2 {
      * @return {?}
      */
     setProperty(el, name, value) {
+        checkNoSyntheticProp(name, 'property');
         ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
         const /** @type {?} */ tagName = ((el.tagName)).toLowerCase();
-        if (isPresent(value) && (typeof value === 'number' || typeof value == 'string') &&
+        if (value != null && (typeof value === 'number' || typeof value == 'string') &&
             this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
             this._isSafeToReflectProperty(tagName, name)) {
@@ -2007,9 +1886,21 @@ class DefaultServerRendererV2 {
     listen(target, eventName, callback) {
         // Note: We are not using the EventsPlugin here as this is not needed
         // to run our tests.
+        checkNoSyntheticProp(eventName, 'listener');
         const /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         const /** @type {?} */ outsideHandler = (event) => this.ngZone.runGuarded(() => callback(event));
         return this.ngZone.runOutsideAngular(() => ɵgetDOM().onAndCancel(el, eventName, outsideHandler));
+    }
+}
+const /** @type {?} */ AT_CHARCODE = '@'.charCodeAt(0);
+/**
+ * @param {?} name
+ * @param {?} nameKind
+ * @return {?}
+ */
+function checkNoSyntheticProp(name, nameKind) {
+    if (name.charCodeAt(0) === AT_CHARCODE) {
+        throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
     }
 }
 class EmulatedEncapsulationServerRendererV2 extends DefaultServerRendererV2 {
@@ -2216,6 +2107,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-207298c');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-b7e76cc');
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, ServerRendererFactoryV2 as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactoryV2 as ɵServerRendererFactoryV2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

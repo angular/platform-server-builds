@@ -1,9 +1,9 @@
 /**
- * @license Angular v4.0.0-rc.2-5df998d
+ * @license Angular v4.0.0-rc.2-ad3b44a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactory2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
 import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetValueOnPath, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
@@ -1631,7 +1631,7 @@ function remove(list, el) {
 }
 
 const /** @type {?} */ EMPTY_ARRAY = [];
-class ServerRendererFactoryV2 {
+class ServerRendererFactory2 {
     /**
      * @param {?} ngZone
      * @param {?} document
@@ -1643,7 +1643,7 @@ class ServerRendererFactoryV2 {
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRendererV2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
     ;
     /**
@@ -1659,7 +1659,7 @@ class ServerRendererFactoryV2 {
             case ViewEncapsulation.Emulated: {
                 let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 ((renderer)).applyToHost(element);
@@ -1678,16 +1678,16 @@ class ServerRendererFactoryV2 {
         }
     }
 }
-ServerRendererFactoryV2.decorators = [
+ServerRendererFactory2.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-ServerRendererFactoryV2.ctorParameters = () => [
+ServerRendererFactory2.ctorParameters = () => [
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: ɵSharedStylesHost, },
 ];
-class DefaultServerRendererV2 {
+class DefaultServerRenderer2 {
     /**
      * @param {?} document
      * @param {?} ngZone
@@ -1903,7 +1903,7 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error(`Found the synthetic ${nameKind} ${name}. Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.`);
     }
 }
-class EmulatedEncapsulationServerRendererV2 extends DefaultServerRendererV2 {
+class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     /**
      * @param {?} document
      * @param {?} ngZone
@@ -1992,8 +1992,8 @@ function initParse5Adapter(injector) {
     return () => { Parse5DomAdapter.makeCurrent(); };
 }
 const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
-    ServerRendererFactoryV2,
-    { provide: RendererFactoryV2, useExisting: ServerRendererFactoryV2 },
+    ServerRendererFactory2,
+    { provide: RendererFactory2, useExisting: ServerRendererFactory2 },
     ServerStylesHost,
     { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
 ];
@@ -2107,6 +2107,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-5df998d');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.2-ad3b44a');
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactoryV2 as ɵServerRendererFactoryV2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

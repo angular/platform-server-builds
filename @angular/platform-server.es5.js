@@ -13,11 +13,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * @license Angular v4.0.0-rc.2-5df998d
+ * @license Angular v4.0.0-rc.2-ad3b44a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactoryV2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactory2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
 import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetValueOnPath, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
@@ -2090,24 +2090,24 @@ function remove(list, el) {
 
 var /** @type {?} */EMPTY_ARRAY = [];
 
-var ServerRendererFactoryV2 = function () {
+var ServerRendererFactory2 = function () {
     /**
      * @param {?} ngZone
      * @param {?} document
      * @param {?} sharedStylesHost
      */
-    function ServerRendererFactoryV2(ngZone, document, sharedStylesHost) {
-        _classCallCheck(this, ServerRendererFactoryV2);
+    function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
+        _classCallCheck(this, ServerRendererFactory2);
 
         this.ngZone = ngZone;
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRendererV2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
 
-    _createClass(ServerRendererFactoryV2, [{
+    _createClass(ServerRendererFactory2, [{
         key: 'createRenderer',
 
         /**
@@ -2124,7 +2124,7 @@ var ServerRendererFactoryV2 = function () {
                     {
                         var /** @type {?} */renderer = this.rendererByCompId.get(type.id);
                         if (!renderer) {
-                            renderer = new EmulatedEncapsulationServerRendererV2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                            renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                             this.rendererByCompId.set(type.id, renderer);
                         }
                         renderer.applyToHost(element);
@@ -2145,23 +2145,23 @@ var ServerRendererFactoryV2 = function () {
         }
     }]);
 
-    return ServerRendererFactoryV2;
+    return ServerRendererFactory2;
 }();
 
-ServerRendererFactoryV2.decorators = [{ type: Injectable }];
+ServerRendererFactory2.decorators = [{ type: Injectable }];
 /** @nocollapse */
-ServerRendererFactoryV2.ctorParameters = function () {
+ServerRendererFactory2.ctorParameters = function () {
     return [{ type: NgZone }, { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT] }] }, { type: ɵSharedStylesHost }];
 };
 
-var DefaultServerRendererV2 = function () {
+var DefaultServerRenderer2 = function () {
     /**
      * @param {?} document
      * @param {?} ngZone
      * @param {?} schema
      */
-    function DefaultServerRendererV2(document, ngZone, schema) {
-        _classCallCheck(this, DefaultServerRendererV2);
+    function DefaultServerRenderer2(document, ngZone, schema) {
+        _classCallCheck(this, DefaultServerRenderer2);
 
         this.document = document;
         this.ngZone = ngZone;
@@ -2173,7 +2173,7 @@ var DefaultServerRendererV2 = function () {
      */
 
 
-    _createClass(DefaultServerRendererV2, [{
+    _createClass(DefaultServerRenderer2, [{
         key: 'destroy',
         value: function destroy() {}
         /**
@@ -2440,7 +2440,7 @@ var DefaultServerRendererV2 = function () {
         }
     }]);
 
-    return DefaultServerRendererV2;
+    return DefaultServerRenderer2;
 }();
 
 var /** @type {?} */AT_CHARCODE = '@'.charCodeAt(0);
@@ -2455,8 +2455,8 @@ function checkNoSyntheticProp(name, nameKind) {
     }
 }
 
-var EmulatedEncapsulationServerRendererV2 = function (_DefaultServerRendere) {
-    _inherits(EmulatedEncapsulationServerRendererV2, _DefaultServerRendere);
+var EmulatedEncapsulationServerRenderer2 = function (_DefaultServerRendere) {
+    _inherits(EmulatedEncapsulationServerRenderer2, _DefaultServerRendere);
 
     /**
      * @param {?} document
@@ -2465,10 +2465,10 @@ var EmulatedEncapsulationServerRendererV2 = function (_DefaultServerRendere) {
      * @param {?} schema
      * @param {?} component
      */
-    function EmulatedEncapsulationServerRendererV2(document, ngZone, sharedStylesHost, schema, component) {
-        _classCallCheck(this, EmulatedEncapsulationServerRendererV2);
+    function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
+        _classCallCheck(this, EmulatedEncapsulationServerRenderer2);
 
-        var _this7 = _possibleConstructorReturn(this, (EmulatedEncapsulationServerRendererV2.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2)).call(this, document, ngZone, schema));
+        var _this7 = _possibleConstructorReturn(this, (EmulatedEncapsulationServerRenderer2.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRenderer2)).call(this, document, ngZone, schema));
 
         _this7.component = component;
         var styles = ɵflattenStyles(component.id, component.styles, []);
@@ -2483,10 +2483,10 @@ var EmulatedEncapsulationServerRendererV2 = function (_DefaultServerRendere) {
      */
 
 
-    _createClass(EmulatedEncapsulationServerRendererV2, [{
+    _createClass(EmulatedEncapsulationServerRenderer2, [{
         key: 'applyToHost',
         value: function applyToHost(element) {
-            _get(EmulatedEncapsulationServerRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype), 'setAttribute', this).call(this, element, this.hostAttr, '');
+            _get(EmulatedEncapsulationServerRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRenderer2.prototype), 'setAttribute', this).call(this, element, this.hostAttr, '');
         }
         /**
          * @param {?} parent
@@ -2497,14 +2497,14 @@ var EmulatedEncapsulationServerRendererV2 = function (_DefaultServerRendere) {
     }, {
         key: 'createElement',
         value: function createElement(parent, name) {
-            var /** @type {?} */el = _get(EmulatedEncapsulationServerRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype), 'createElement', this).call(this, parent, name);
-            _get(EmulatedEncapsulationServerRendererV2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRendererV2.prototype), 'setAttribute', this).call(this, el, this.contentAttr, '');
+            var /** @type {?} */el = _get(EmulatedEncapsulationServerRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRenderer2.prototype), 'createElement', this).call(this, parent, name);
+            _get(EmulatedEncapsulationServerRenderer2.prototype.__proto__ || Object.getPrototypeOf(EmulatedEncapsulationServerRenderer2.prototype), 'setAttribute', this).call(this, el, this.contentAttr, '');
             return el;
         }
     }]);
 
-    return EmulatedEncapsulationServerRendererV2;
-}(DefaultServerRendererV2);
+    return EmulatedEncapsulationServerRenderer2;
+}(DefaultServerRenderer2);
 
 var ServerStylesHost = function (_SharedStylesHost) {
     _inherits(ServerStylesHost, _SharedStylesHost);
@@ -2578,7 +2578,7 @@ function initParse5Adapter(injector) {
         Parse5DomAdapter.makeCurrent();
     };
 }
-var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRendererFactoryV2, { provide: RendererFactoryV2, useExisting: ServerRendererFactoryV2 }, ServerStylesHost, { provide: ɵSharedStylesHost, useExisting: ServerStylesHost }];
+var /** @type {?} */SERVER_RENDER_PROVIDERS = [ServerRendererFactory2, { provide: RendererFactory2, useExisting: ServerRendererFactory2 }, ServerStylesHost, { provide: ɵSharedStylesHost, useExisting: ServerStylesHost }];
 /**
  * The ng module for the server.
  *
@@ -2683,6 +2683,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-var /** @type {?} */VERSION = new Version('4.0.0-rc.2-5df998d');
+var /** @type {?} */VERSION = new Version('4.0.0-rc.2-ad3b44a');
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactoryV2 as ɵServerRendererFactoryV2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

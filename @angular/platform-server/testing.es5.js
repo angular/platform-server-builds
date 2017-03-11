@@ -1,10 +1,12 @@
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+/**
+ * @license Angular v4.0.0-rc.3-6c8638c
+ * (c) 2010-2017 Google, Inc. https://angular.io/
+ * License: MIT
+ */
 import { platformCoreDynamicTesting } from '@angular/compiler/testing';
 import { createPlatformFactory, NgModule } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
-
 /**
  * Platform for testing
  *
@@ -16,15 +18,14 @@ var platformServerTesting = createPlatformFactory(platformCoreDynamicTesting, 's
  *
  * @experimental API related to bootstrapping are still under review.
  */
-
-var ServerTestingModule = function ServerTestingModule() {
-  _classCallCheck(this, ServerTestingModule);
-};
-
-ServerTestingModule.decorators = [{ type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: ɵSERVER_RENDER_PROVIDERS }] }];
+var ServerTestingModule = (function () {
+    function ServerTestingModule() {
+    }
+    return ServerTestingModule;
+}());
+ServerTestingModule.decorators = [
+    { type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: ɵSERVER_RENDER_PROVIDERS },] },
+];
 /** @nocollapse */
-ServerTestingModule.ctorParameters = function () {
-  return [];
-};
-
+ServerTestingModule.ctorParameters = function () { return []; };
 export { platformServerTesting, ServerTestingModule };

@@ -129,4 +129,5 @@ export declare class Parse5DomAdapter extends DomAdapter {
     getCookie(name: string): string;
     setCookie(name: string, value: string): void;
     animate(element: any, keyframes: any[], options: any): any;
+    private getTitleNode(doc);
 }

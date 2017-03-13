@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-e7dab7e
+ * @license Angular v4.0.0-rc.3-018e5c9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1219,13 +1219,15 @@
          * @param {?} doc
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getTitle = function (doc) { return doc.title || ''; };
+        Parse5DomAdapter.prototype.getTitle = function (doc) { return this.getText(this.getTitleNode(doc)) || ''; };
         /**
          * @param {?} doc
          * @param {?} newTitle
          * @return {?}
          */
-        Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle; };
+        Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) {
+            this.setText(this.getTitleNode(doc), newTitle || '');
+        };
         /**
          * @param {?} el
          * @return {?}
@@ -1471,6 +1473,18 @@
          * @return {?}
          */
         Parse5DomAdapter.prototype.animate = function (element, keyframes, options) { throw new Error('not implemented'); };
+        /**
+         * @param {?} doc
+         * @return {?}
+         */
+        Parse5DomAdapter.prototype.getTitleNode = function (doc) {
+            var /** @type {?} */ title = this.querySelector(doc, 'title');
+            if (!title) {
+                title = (this.createElement('title'));
+                this.appendChild(this.querySelector(doc, 'head'), title);
+            }
+            return title;
+        };
         return Parse5DomAdapter;
     }(_angular_platformBrowser.ɵDomAdapter));
     // TODO: build a proper list, this one is all the keys of a HTMLInputElement
@@ -2155,7 +2169,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-e7dab7e');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-018e5c9');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

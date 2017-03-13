@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-e7dab7e
+ * @license Angular v4.0.0-rc.3-018e5c9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1224,13 +1224,15 @@ var Parse5DomAdapter = (function (_super) {
      * @param {?} doc
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getTitle = function (doc) { return doc.title || ''; };
+    Parse5DomAdapter.prototype.getTitle = function (doc) { return this.getText(this.getTitleNode(doc)) || ''; };
     /**
      * @param {?} doc
      * @param {?} newTitle
      * @return {?}
      */
-    Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) { doc.title = newTitle; };
+    Parse5DomAdapter.prototype.setTitle = function (doc, newTitle) {
+        this.setText(this.getTitleNode(doc), newTitle || '');
+    };
     /**
      * @param {?} el
      * @return {?}
@@ -1476,6 +1478,18 @@ var Parse5DomAdapter = (function (_super) {
      * @return {?}
      */
     Parse5DomAdapter.prototype.animate = function (element, keyframes, options) { throw new Error('not implemented'); };
+    /**
+     * @param {?} doc
+     * @return {?}
+     */
+    Parse5DomAdapter.prototype.getTitleNode = function (doc) {
+        var /** @type {?} */ title = this.querySelector(doc, 'title');
+        if (!title) {
+            title = (this.createElement('title'));
+            this.appendChild(this.querySelector(doc, 'head'), title);
+        }
+        return title;
+    };
     return Parse5DomAdapter;
 }(ɵDomAdapter));
 // TODO: build a proper list, this one is all the keys of a HTMLInputElement
@@ -2160,5 +2174,5 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-e7dab7e');
+var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-018e5c9');
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

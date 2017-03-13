@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1828,20 +1828,19 @@ class DefaultServerRenderer2 {
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?} hasVendorPrefix
-     * @param {?} hasImportant
+     * @param {?} flags
      * @return {?}
      */
-    setStyle(el, style, value, hasVendorPrefix, hasImportant) {
+    setStyle(el, style, value, flags) {
         ɵgetDOM().setStyle(el, style, value);
     }
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?} hasVendorPrefix
+     * @param {?} flags
      * @return {?}
      */
-    removeStyle(el, style, hasVendorPrefix) {
+    removeStyle(el, style, flags) {
         ɵgetDOM().removeStyle(el, style);
     }
     /**
@@ -2107,6 +2106,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-fa1920a');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-ff71eff');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

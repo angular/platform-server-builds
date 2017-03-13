@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1868,20 +1868,19 @@
          * @param {?} el
          * @param {?} style
          * @param {?} value
-         * @param {?} hasVendorPrefix
-         * @param {?} hasImportant
+         * @param {?} flags
          * @return {?}
          */
-        DefaultServerRenderer2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
+        DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
             _angular_platformBrowser.ɵgetDOM().setStyle(el, style, value);
         };
         /**
          * @param {?} el
          * @param {?} style
-         * @param {?} hasVendorPrefix
+         * @param {?} flags
          * @return {?}
          */
-        DefaultServerRenderer2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
+        DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
             _angular_platformBrowser.ɵgetDOM().removeStyle(el, style);
         };
         /**
@@ -2156,7 +2155,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-fa1920a');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-ff71eff');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

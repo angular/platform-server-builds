@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-fa1920a
+ * @license Angular v4.0.0-rc.3-ff71eff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1873,20 +1873,19 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} el
      * @param {?} style
      * @param {?} value
-     * @param {?} hasVendorPrefix
-     * @param {?} hasImportant
+     * @param {?} flags
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.setStyle = function (el, style, value, hasVendorPrefix, hasImportant) {
+    DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
         ɵgetDOM().setStyle(el, style, value);
     };
     /**
      * @param {?} el
      * @param {?} style
-     * @param {?} hasVendorPrefix
+     * @param {?} flags
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.removeStyle = function (el, style, hasVendorPrefix) {
+    DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
         ɵgetDOM().removeStyle(el, style);
     };
     /**
@@ -2161,5 +2160,5 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-fa1920a');
+var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-ff71eff');
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

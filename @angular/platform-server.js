@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-80649ea
+ * @license Angular v4.0.0-rc.3-f093501
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1092,7 +1092,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    hasAttributeNS(element, ns, attribute) { throw 'not implemented'; }
+    hasAttributeNS(element, ns, attribute) {
+        return this.hasAttribute(element, attribute);
+    }
     /**
      * @param {?} element
      * @param {?} attribute
@@ -1107,7 +1109,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    getAttributeNS(element, ns, attribute) { throw 'not implemented'; }
+    getAttributeNS(element, ns, attribute) {
+        return this.getAttribute(element, attribute);
+    }
     /**
      * @param {?} element
      * @param {?} attribute
@@ -1130,7 +1134,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @return {?}
      */
     setAttributeNS(element, ns, attribute, value) {
-        throw 'not implemented';
+        this.setAttribute(element, attribute, value);
     }
     /**
      * @param {?} element
@@ -2120,6 +2124,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-80649ea');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-f093501');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

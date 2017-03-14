@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-778f7d6
+ * @license Angular v4.0.0-rc.3-80649ea
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1235,7 +1235,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getHref(el) { return el.href; }
+    getHref(el) { return this.getAttribute(el, 'href'); }
     /**
      * @param {?} el
      * @param {?} baseUrl
@@ -2120,6 +2120,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-778f7d6');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-80649ea');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

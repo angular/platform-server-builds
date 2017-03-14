@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-778f7d6
+ * @license Angular v4.0.0-rc.3-80649ea
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1274,7 +1274,7 @@
          * @param {?} el
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getHref = function (el) { return el.href; };
+        Parse5DomAdapter.prototype.getHref = function (el) { return this.getAttribute(el, 'href'); };
         /**
          * @param {?} el
          * @param {?} baseUrl
@@ -2169,7 +2169,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-778f7d6');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-80649ea');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

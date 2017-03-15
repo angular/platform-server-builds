@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-ec548ad
+ * @license Angular v4.0.0-rc.3-a9b1880
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2143,6 +2143,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-ec548ad');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-a9b1880');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-bf98d9d
+ * @license Angular v4.0.0-rc.3-6772c91
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -49,7 +49,9 @@
     PlatformState.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     PlatformState.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     ]; };
@@ -73,7 +75,9 @@
     ServerXhr.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerXhr.ctorParameters = function () { return []; };
     var ServerXsrfStrategy = (function () {
         function ServerXsrfStrategy() {
@@ -88,7 +92,9 @@
     ServerXsrfStrategy.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerXsrfStrategy.ctorParameters = function () { return []; };
     var ZoneMacroTaskConnection = (function () {
         /**
@@ -342,7 +348,9 @@
     ServerPlatformLocation.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerPlatformLocation.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
@@ -1758,7 +1766,9 @@
     ServerRendererFactory2.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerRendererFactory2.ctorParameters = function () { return [
         { type: _angular_core.NgZone, },
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
@@ -2056,7 +2066,9 @@
     ServerStylesHost.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerStylesHost.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
@@ -2103,7 +2115,9 @@
                     ],
                 },] },
     ];
-    /** @nocollapse */
+    /**
+     * @nocollapse
+     */
     ServerModule.ctorParameters = function () { return []; };
     /**
      * @param {?} injector
@@ -2192,7 +2206,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-bf98d9d');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-6772c91');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

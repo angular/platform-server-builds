@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-bf98d9d
+ * @license Angular v4.0.0-rc.3-6772c91
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -49,7 +49,9 @@ class PlatformState {
 PlatformState.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 PlatformState.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
@@ -71,7 +73,9 @@ class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerXhr.ctorParameters = () => [];
 class ServerXsrfStrategy {
     /**
@@ -83,7 +87,9 @@ class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerXsrfStrategy.ctorParameters = () => [];
 class ZoneMacroTaskConnection {
     /**
@@ -314,7 +320,9 @@ class ServerPlatformLocation {
 ServerPlatformLocation.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
@@ -1718,7 +1726,9 @@ class ServerRendererFactory2 {
 ServerRendererFactory2.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerRendererFactory2.ctorParameters = () => [
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
@@ -2006,7 +2016,9 @@ class ServerStylesHost extends ɵSharedStylesHost {
 ServerStylesHost.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
@@ -2051,7 +2063,9 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
+/**
+ * @nocollapse
+ */
 ServerModule.ctorParameters = () => [];
 /**
  * @param {?} injector
@@ -2143,6 +2157,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-bf98d9d');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-6772c91');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

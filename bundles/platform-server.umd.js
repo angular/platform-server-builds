@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-423bfb0
+ * @license Angular v4.0.0-rc.3-ec548ad
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -378,12 +378,31 @@
         return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
     }
     /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function _getElement(el, name) {
+        for (var /** @type {?} */ i = 0; i < el.childNodes.length; i++) {
+            var /** @type {?} */ node = el.childNodes[i];
+            if (node.name === name) {
+                return node;
+            }
+        }
+        return null;
+    }
+    /**
      * Parses a document string to a Document object.
      * @param {?} html
      * @return {?}
      */
     function parseDocument(html) {
-        return parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
+        var /** @type {?} */ doc = parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
+        var /** @type {?} */ docElement = _getElement(doc, 'html');
+        doc['head'] = _getElement(docElement, 'head');
+        doc['body'] = _getElement(docElement, 'body');
+        doc['_window'] = {};
+        return doc;
     }
     /**
      * A `DomAdapter` powered by the `parse5` NodeJS module.
@@ -1131,7 +1150,9 @@
          * @param {?} attribute
          * @return {?}
          */
-        Parse5DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
+        Parse5DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) {
+            return this.hasAttribute(element, attribute);
+        };
         /**
          * @param {?} element
          * @param {?} attribute
@@ -1146,7 +1167,9 @@
          * @param {?} attribute
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
+        Parse5DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) {
+            return this.getAttribute(element, attribute);
+        };
         /**
          * @param {?} element
          * @param {?} attribute
@@ -1169,7 +1192,7 @@
          * @return {?}
          */
         Parse5DomAdapter.prototype.setAttributeNS = function (element, ns, attribute, value) {
-            throw 'not implemented';
+            this.setAttribute(element, attribute, value);
         };
         /**
          * @param {?} element
@@ -1274,7 +1297,7 @@
          * @param {?} el
          * @return {?}
          */
-        Parse5DomAdapter.prototype.getHref = function (el) { return el.href; };
+        Parse5DomAdapter.prototype.getHref = function (el) { return this.getAttribute(el, 'href'); };
         /**
          * @param {?} el
          * @param {?} baseUrl
@@ -2169,7 +2192,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-423bfb0');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-ec548ad');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

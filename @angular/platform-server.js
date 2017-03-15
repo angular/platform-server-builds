@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-423bfb0
+ * @license Angular v4.0.0-rc.3-ec548ad
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -351,12 +351,31 @@ function _notImplemented(methodName) {
     return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
 }
 /**
+ * @param {?} el
+ * @param {?} name
+ * @return {?}
+ */
+function _getElement(el, name) {
+    for (let /** @type {?} */ i = 0; i < el.childNodes.length; i++) {
+        let /** @type {?} */ node = el.childNodes[i];
+        if (node.name === name) {
+            return node;
+        }
+    }
+    return null;
+}
+/**
  * Parses a document string to a Document object.
  * @param {?} html
  * @return {?}
  */
 function parseDocument(html) {
-    return parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
+    let /** @type {?} */ doc = parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
+    let /** @type {?} */ docElement = _getElement(doc, 'html');
+    doc['head'] = _getElement(docElement, 'head');
+    doc['body'] = _getElement(docElement, 'body');
+    doc['_window'] = {};
+    return doc;
 }
 /**
  * A `DomAdapter` powered by the `parse5` NodeJS module.
@@ -1092,7 +1111,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    hasAttributeNS(element, ns, attribute) { throw 'not implemented'; }
+    hasAttributeNS(element, ns, attribute) {
+        return this.hasAttribute(element, attribute);
+    }
     /**
      * @param {?} element
      * @param {?} attribute
@@ -1107,7 +1128,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} attribute
      * @return {?}
      */
-    getAttributeNS(element, ns, attribute) { throw 'not implemented'; }
+    getAttributeNS(element, ns, attribute) {
+        return this.getAttribute(element, attribute);
+    }
     /**
      * @param {?} element
      * @param {?} attribute
@@ -1130,7 +1153,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @return {?}
      */
     setAttributeNS(element, ns, attribute, value) {
-        throw 'not implemented';
+        this.setAttribute(element, attribute, value);
     }
     /**
      * @param {?} element
@@ -1235,7 +1258,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} el
      * @return {?}
      */
-    getHref(el) { return el.href; }
+    getHref(el) { return this.getAttribute(el, 'href'); }
     /**
      * @param {?} el
      * @param {?} baseUrl
@@ -2120,6 +2143,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-423bfb0');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-ec548ad');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

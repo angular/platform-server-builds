@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-6e98757
+ * @license Angular v4.0.0-rc.3-dd36d41
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1038,8 +1038,12 @@ class Parse5DomAdapter extends ɵDomAdapter {
             const /** @type {?} */ styleList = styleAttrValue.split(/;+/g);
             for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
                 if (styleList[i].length > 0) {
-                    const /** @type {?} */ elems = styleList[i].split(/:+/g);
-                    ((styleMap))[elems[0].trim()] = elems[1].trim();
+                    const /** @type {?} */ style = (styleList[i]);
+                    const /** @type {?} */ colon = style.indexOf(':');
+                    if (colon === -1) {
+                        throw new Error(`Invalid CSS style: ${style}`);
+                    }
+                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
                 }
             }
         }
@@ -2157,6 +2161,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-6e98757');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-dd36d41');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

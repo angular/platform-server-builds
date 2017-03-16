@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-26d4ce2
+ * @license Angular v4.0.0-rc.3-a4076c7
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -398,6 +398,20 @@ class Parse5DomAdapter extends ɵDomAdapter {
     static makeCurrent() {
         treeAdapter = parse5$1.treeAdapters.htmlparser2;
         ɵsetRootDomAdapter(new Parse5DomAdapter());
+    }
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    contains(nodeA, nodeB) {
+        let /** @type {?} */ inner = nodeB;
+        while (inner) {
+            if (inner === nodeA)
+                return true;
+            inner = inner.parent;
+        }
+        return false;
     }
     /**
      * @param {?} element
@@ -2161,6 +2175,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-26d4ce2');
+const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-a4076c7');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

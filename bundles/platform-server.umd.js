@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-26d4ce2
+ * @license Angular v4.0.0-rc.3-a4076c7
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -429,6 +429,20 @@
         Parse5DomAdapter.makeCurrent = function () {
             treeAdapter = parse5$1.treeAdapters.htmlparser2;
             _angular_platformBrowser.ɵsetRootDomAdapter(new Parse5DomAdapter());
+        };
+        /**
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        Parse5DomAdapter.prototype.contains = function (nodeA, nodeB) {
+            var /** @type {?} */ inner = nodeB;
+            while (inner) {
+                if (inner === nodeA)
+                    return true;
+                inner = inner.parent;
+            }
+            return false;
         };
         /**
          * @param {?} element
@@ -2210,7 +2224,7 @@
     /**
      * @stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-26d4ce2');
+    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-a4076c7');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;

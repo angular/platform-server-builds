@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-992aa17
+ * @license Angular v4.0.0-rc.3-492153a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -22,7 +22,7 @@ import { toPromise } from 'rxjs/operator/toPromise';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const /** @type {?} */ parse5 = require('parse5');
+const parse5 = require('parse5');
 /**
  * Representation of the current platform state.
  *
@@ -63,7 +63,7 @@ PlatformState.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const /** @type {?} */ xhr2 = require('xhr2');
+const xhr2 = require('xhr2');
 class ServerXhr {
     /**
      * @return {?}
@@ -200,9 +200,9 @@ const /** @type {?} */ SERVER_HTTP_PROVIDERS = [
 /**
  * The DI token for setting the initial config for the platform.
  *
- * @experimental
+ * \@experimental
  */
-const /** @type {?} */ INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 
 /**
  * @param {?} urlStr
@@ -342,7 +342,7 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const /** @type {?} */ parse5$1 = require('parse5');
+const parse5$1 = require('parse5');
 let /** @type {?} */ treeAdapter;
 const /** @type {?} */ _attrToPropMap = {
     'class': 'className',
@@ -1682,6 +1682,7 @@ const /** @type {?} */ _HTMLElementPropertyList = [
     '__jsaction',
 ];
 /**
+ * @template T
  * @param {?} list
  * @param {?} el
  * @return {?}
@@ -2099,15 +2100,15 @@ function _document(injector) {
     }
 }
 /**
- * @experimental
+ * \@experimental
  */
-const /** @type {?} */ platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
- * @experimental
+ * \@experimental
  */
-const /** @type {?} */ platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+const platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 const /** @type {?} */ parse5$2 = require('parse5');
 /**
@@ -2123,6 +2124,7 @@ function _getPlatform(platformFactory, options) {
     ]);
 }
 /**
+ * @template T
  * @param {?} platform
  * @param {?} moduleRefPromise
  * @return {?}
@@ -2151,6 +2153,7 @@ the server-rendered app can be properly bootstrapped into a client app.`);
  * {link renderModuleFactory} instead.
  *
  * \@experimental
+ * @template T
  * @param {?} module
  * @param {?} options
  * @return {?}
@@ -2163,6 +2166,7 @@ function renderModule(module, options) {
  * Renders a {\@link NgModuleFactory} to string.
  *
  * \@experimental
+ * @template T
  * @param {?} moduleFactory
  * @param {?} options
  * @return {?}
@@ -2173,9 +2177,9 @@ function renderModuleFactory(moduleFactory, options) {
 }
 
 /**
- * @stable
+ * \@stable
  */
-const /** @type {?} */ VERSION = new Version('4.0.0-rc.3-992aa17');
+const VERSION = new Version('4.0.0-rc.3-492153a');
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };
 //# sourceMappingURL=platform-server.js.map

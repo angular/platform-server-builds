@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-6772c91
+ * @license Angular v4.0.0-rc.3-923d0c5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1082,8 +1082,12 @@ var Parse5DomAdapter = (function (_super) {
             var /** @type {?} */ styleList = styleAttrValue.split(/;+/g);
             for (var /** @type {?} */ i = 0; i < styleList.length; i++) {
                 if (styleList[i].length > 0) {
-                    var /** @type {?} */ elems = styleList[i].split(/:+/g);
-                    ((styleMap))[elems[0].trim()] = elems[1].trim();
+                    var /** @type {?} */ style = (styleList[i]);
+                    var /** @type {?} */ colon = style.indexOf(':');
+                    if (colon === -1) {
+                        throw new Error("Invalid CSS style: " + style);
+                    }
+                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
                 }
             }
         }
@@ -2211,5 +2215,5 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-6772c91');
+var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-923d0c5');
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };

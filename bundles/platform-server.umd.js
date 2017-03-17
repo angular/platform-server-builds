@@ -1,13 +1,13 @@
 /**
- * @license Angular v4.0.0-rc.5-6e9264a
+ * @license Angular v4.0.0-rc.5-5c5c2ae
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/compiler'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/common', '@angular/compiler', '@angular/http', 'rxjs/Observable', 'rxjs/Subject', 'url', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global.ng.common,global.ng.compiler,global._angular_http,global.rxjs_Observable,global.rxjs_Subject,global.url,global.rxjs_operator_filter,global.rxjs_operator_first,global.rxjs_operator_toPromise));
-}(this, function (exports,_angular_core,_angular_platformBrowser,_angular_common,_angular_compiler,_angular_http,rxjs_Observable,rxjs_Subject,url,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/compiler'), require('@angular/http'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/compiler', '@angular/http', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser,global.ng.common,global.ng.compiler,global._angular_http,global._angular_platformBrowser_animations,global.rxjs_Observable,global.rxjs_Subject,global.url,global.rxjs_operator_filter,global.rxjs_operator_first,global.rxjs_operator_toPromise));
+}(this, function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_compiler,_angular_http,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
 
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -2107,9 +2107,22 @@
     function initParse5Adapter(injector) {
         return function () { Parse5DomAdapter.makeCurrent(); };
     }
+    /**
+     * @param {?} renderer
+     * @param {?} engine
+     * @param {?} zone
+     * @return {?}
+     */
+    function instantiateServerRendererFactory(renderer, engine, zone) {
+        return new _angular_platformBrowser_animations.ɵAnimationRendererFactory(renderer, engine, zone);
+    }
     var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
         ServerRendererFactory2,
-        { provide: _angular_core.RendererFactory2, useExisting: ServerRendererFactory2 },
+        {
+            provide: _angular_core.RendererFactory2,
+            useFactory: instantiateServerRendererFactory,
+            deps: [ServerRendererFactory2, _angular_animations_browser.ɵAnimationEngine, _angular_core.NgZone]
+        },
         ServerStylesHost,
         { provide: _angular_platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost },
     ];
@@ -2126,7 +2139,7 @@
     ServerModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     exports: [_angular_platformBrowser.BrowserModule],
-                    imports: [_angular_http.HttpModule],
+                    imports: [_angular_http.HttpModule, _angular_platformBrowser_animations.NoopAnimationsModule],
                     providers: [
                         SERVER_RENDER_PROVIDERS,
                         SERVER_HTTP_PROVIDERS,
@@ -2228,7 +2241,7 @@
     /**
      * \@stable
      */
-    var VERSION = new _angular_core.Version('4.0.0-rc.5-6e9264a');
+    var VERSION = new _angular_core.Version('4.0.0-rc.5-5c5c2ae');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;
@@ -2241,11 +2254,12 @@
     exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
     exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
     exports.ɵServerRendererFactory2 = ServerRendererFactory2;
-    exports.ɵe = SERVER_HTTP_PROVIDERS;
-    exports.ɵb = ServerXhr;
-    exports.ɵc = ServerXsrfStrategy;
-    exports.ɵd = httpFactory;
-    exports.ɵa = ServerStylesHost;
+    exports.ɵf = SERVER_HTTP_PROVIDERS;
+    exports.ɵc = ServerXhr;
+    exports.ɵd = ServerXsrfStrategy;
+    exports.ɵe = httpFactory;
+    exports.ɵa = instantiateServerRendererFactory;
+    exports.ɵb = ServerStylesHost;
 
 }));
 //# sourceMappingURL=platform-server.umd.js.map

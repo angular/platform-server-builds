@@ -1,11 +1,12 @@
 /**
- * @license Angular v4.0.0-rc.5-6e9264a
+ * @license Angular v4.0.0-rc.5-5c5c2ae
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { platformCoreDynamicTesting } from '@angular/compiler/testing';
 import { createPlatformFactory, NgModule } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
 /**
  * Platform for testing
@@ -24,7 +25,11 @@ var ServerTestingModule = (function () {
     return ServerTestingModule;
 }());
 ServerTestingModule.decorators = [
-    { type: NgModule, args: [{ exports: [BrowserDynamicTestingModule], providers: ɵSERVER_RENDER_PROVIDERS },] },
+    { type: NgModule, args: [{
+                exports: [BrowserDynamicTestingModule],
+                imports: [NoopAnimationsModule],
+                providers: ɵSERVER_RENDER_PROVIDERS
+            },] },
 ];
 /** @nocollapse */
 ServerTestingModule.ctorParameters = function () { return []; };

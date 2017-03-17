@@ -4,15 +4,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.5-6e9264a
+ * @license Angular v4.0.0-rc.5-5c5c2ae
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, RendererFactory2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, NgZone, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, NgZone, RendererFactory2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
 import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetValueOnPath, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
+import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
 import { HttpModule, ReadyState, Http, XSRFStrategy, BrowserXhr, RequestOptions, XHRBackend } from '@angular/http';
+import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import * as url from 'url';
@@ -2112,9 +2114,22 @@ var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
 function initParse5Adapter(injector) {
     return function () { Parse5DomAdapter.makeCurrent(); };
 }
+/**
+ * @param {?} renderer
+ * @param {?} engine
+ * @param {?} zone
+ * @return {?}
+ */
+function instantiateServerRendererFactory(renderer, engine, zone) {
+    return new ɵAnimationRendererFactory(renderer, engine, zone);
+}
 var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
     ServerRendererFactory2,
-    { provide: RendererFactory2, useExisting: ServerRendererFactory2 },
+    {
+        provide: RendererFactory2,
+        useFactory: instantiateServerRendererFactory,
+        deps: [ServerRendererFactory2, ɵAnimationEngine, NgZone]
+    },
     ServerStylesHost,
     { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
 ];
@@ -2131,7 +2146,7 @@ var ServerModule = (function () {
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule],
+                imports: [HttpModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -2233,6 +2248,6 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.0.0-rc.5-6e9264a');
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };
+var VERSION = new Version('4.0.0-rc.5-5c5c2ae');
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=platform-server.es5.js.map

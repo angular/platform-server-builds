@@ -11,6 +11,7 @@ export declare function parseDocument(html: string): any;
  */
 export declare class Parse5DomAdapter extends DomAdapter {
     static makeCurrent(): void;
+    contains(nodeA: any, nodeB: any): boolean;
     hasProperty(element: any, name: string): boolean;
     setProperty(el: any, name: string, value: any): void;
     getProperty(el: any, name: string): any;

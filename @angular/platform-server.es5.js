@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.3-480a407
+ * @license Angular v4.0.0-rc.4-fcaca45
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -26,7 +26,7 @@ import { toPromise } from 'rxjs/operator/toPromise';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var /** @type {?} */ parse5 = require('parse5');
+var parse5 = require('parse5');
 /**
  * Representation of the current platform state.
  *
@@ -67,7 +67,7 @@ PlatformState.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var /** @type {?} */ xhr2 = require('xhr2');
+var xhr2 = require('xhr2');
 var ServerXhr = (function () {
     function ServerXhr() {
     }
@@ -216,9 +216,9 @@ var /** @type {?} */ SERVER_HTTP_PROVIDERS = [
 /**
  * The DI token for setting the initial config for the platform.
  *
- * @experimental
+ * \@experimental
  */
-var /** @type {?} */ INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /**
  * @param {?} urlStr
  * @return {?}
@@ -374,7 +374,7 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var /** @type {?} */ parse5$1 = require('parse5');
+var parse5$1 = require('parse5');
 var /** @type {?} */ treeAdapter;
 var /** @type {?} */ _attrToPropMap = {
     'class': 'className',
@@ -434,6 +434,20 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.makeCurrent = function () {
         treeAdapter = parse5$1.treeAdapters.htmlparser2;
         ɵsetRootDomAdapter(new Parse5DomAdapter());
+    };
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    Parse5DomAdapter.prototype.contains = function (nodeA, nodeB) {
+        var /** @type {?} */ inner = nodeB;
+        while (inner) {
+            if (inner === nodeA)
+                return true;
+            inner = inner.parent;
+        }
+        return false;
     };
     /**
      * @param {?} element
@@ -1713,6 +1727,7 @@ var /** @type {?} */ _HTMLElementPropertyList = [
     '__jsaction',
 ];
 /**
+ * @template T
  * @param {?} list
  * @param {?} el
  * @return {?}
@@ -2142,15 +2157,15 @@ function _document(injector) {
     }
 }
 /**
- * @experimental
+ * \@experimental
  */
-var /** @type {?} */ platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
- * @experimental
+ * \@experimental
  */
-var /** @type {?} */ platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 var /** @type {?} */ parse5$2 = require('parse5');
 /**
  * @param {?} platformFactory
@@ -2165,6 +2180,7 @@ function _getPlatform(platformFactory, options) {
     ]);
 }
 /**
+ * @template T
  * @param {?} platform
  * @param {?} moduleRefPromise
  * @return {?}
@@ -2192,6 +2208,7 @@ function _render(platform, moduleRefPromise) {
  * {link renderModuleFactory} instead.
  *
  * \@experimental
+ * @template T
  * @param {?} module
  * @param {?} options
  * @return {?}
@@ -2204,6 +2221,7 @@ function renderModule(module, options) {
  * Renders a {\@link NgModuleFactory} to string.
  *
  * \@experimental
+ * @template T
  * @param {?} moduleFactory
  * @param {?} options
  * @return {?}
@@ -2213,7 +2231,8 @@ function renderModuleFactory(moduleFactory, options) {
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
 /**
- * @stable
+ * \@stable
  */
-var /** @type {?} */ VERSION = new Version('4.0.0-rc.3-480a407');
+var VERSION = new Version('4.0.0-rc.4-fcaca45');
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵe, ServerXhr as ɵb, ServerXsrfStrategy as ɵc, httpFactory as ɵd, ServerStylesHost as ɵa };
+//# sourceMappingURL=platform-server.es5.js.map

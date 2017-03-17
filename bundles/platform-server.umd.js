@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.3-480a407
+ * @license Angular v4.0.0-rc.4-fcaca45
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -21,7 +21,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ parse5 = require('parse5');
+    var parse5 = require('parse5');
     /**
      * Representation of the current platform state.
      *
@@ -62,7 +62,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ xhr2 = require('xhr2');
+    var xhr2 = require('xhr2');
     var ServerXhr = (function () {
         function ServerXhr() {
         }
@@ -211,9 +211,9 @@
     /**
      * The DI token for setting the initial config for the platform.
      *
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
+    var INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
     /**
      * @param {?} urlStr
      * @return {?}
@@ -369,7 +369,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ parse5$1 = require('parse5');
+    var parse5$1 = require('parse5');
     var /** @type {?} */ treeAdapter;
     var /** @type {?} */ _attrToPropMap = {
         'class': 'className',
@@ -429,6 +429,20 @@
         Parse5DomAdapter.makeCurrent = function () {
             treeAdapter = parse5$1.treeAdapters.htmlparser2;
             _angular_platformBrowser.ɵsetRootDomAdapter(new Parse5DomAdapter());
+        };
+        /**
+         * @param {?} nodeA
+         * @param {?} nodeB
+         * @return {?}
+         */
+        Parse5DomAdapter.prototype.contains = function (nodeA, nodeB) {
+            var /** @type {?} */ inner = nodeB;
+            while (inner) {
+                if (inner === nodeA)
+                    return true;
+                inner = inner.parent;
+            }
+            return false;
         };
         /**
          * @param {?} element
@@ -1708,6 +1722,7 @@
         '__jsaction',
     ];
     /**
+     * @template T
      * @param {?} list
      * @param {?} el
      * @return {?}
@@ -2137,15 +2152,15 @@
         }
     }
     /**
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+    var platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
     /**
      * The server platform that supports the runtime compiler.
      *
-     * @experimental
+     * \@experimental
      */
-    var /** @type {?} */ platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+    var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
     var /** @type {?} */ parse5$2 = require('parse5');
     /**
      * @param {?} platformFactory
@@ -2160,6 +2175,7 @@
         ]);
     }
     /**
+     * @template T
      * @param {?} platform
      * @param {?} moduleRefPromise
      * @return {?}
@@ -2187,6 +2203,7 @@
      * {link renderModuleFactory} instead.
      *
      * \@experimental
+     * @template T
      * @param {?} module
      * @param {?} options
      * @return {?}
@@ -2199,6 +2216,7 @@
      * Renders a {\@link NgModuleFactory} to string.
      *
      * \@experimental
+     * @template T
      * @param {?} moduleFactory
      * @param {?} options
      * @return {?}
@@ -2208,9 +2226,9 @@
         return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
     }
     /**
-     * @stable
+     * \@stable
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-rc.3-480a407');
+    var VERSION = new _angular_core.Version('4.0.0-rc.4-fcaca45');
 
     exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;
@@ -2230,3 +2248,4 @@
     exports.ɵa = ServerStylesHost;
 
 }));
+//# sourceMappingURL=platform-server.umd.js.map

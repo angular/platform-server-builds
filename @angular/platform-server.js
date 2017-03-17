@@ -1,17 +1,18 @@
 /**
- * @license Angular v4.0.0-rc.5-5c5c2ae
+ * @license Angular v4.0.0-rc.5-bcc29ff
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { Injectable, Inject, ɵALLOW_MULTIPLE_PLATFORMS, Injector, PLATFORM_INITIALIZER, PLATFORM_ID, NgZone, RendererFactory2, Testability, NgModule, platformCore, createPlatformFactory, Optional, InjectionToken, ɵglobal, ViewEncapsulation, ApplicationRef, Version } from '@angular/core';
-import { ɵgetDOM, DOCUMENT, ɵSharedStylesHost, BrowserModule, ɵsetValueOnPath, ɵsetRootDomAdapter, ɵDomAdapter, ɵflattenStyles, ɵNAMESPACE_URIS, ɵshimHostAttribute, ɵshimContentAttribute, ɵTRANSITION_ID } from '@angular/platform-browser';
+import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, ɵglobal } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵsetValueOnPath, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { platformCoreDynamic, CssSelector, SelectorMatcher, DomElementSchemaRegistry } from '@angular/compiler';
-import { HttpModule, ReadyState, Http, XSRFStrategy, BrowserXhr, RequestOptions, XHRBackend } from '@angular/http';
-import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CssSelector, DomElementSchemaRegistry, SelectorMatcher, platformCoreDynamic } from '@angular/compiler';
+import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
+import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { parse } from 'url';
 import * as url from 'url';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
@@ -193,12 +194,19 @@ function httpFactory(xhrBackend, options) {
     const /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new Http(macroBackend, options);
 }
-const /** @type {?} */ SERVER_HTTP_PROVIDERS = [
+const SERVER_HTTP_PROVIDERS = [
     { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
     { provide: BrowserXhr, useClass: ServerXhr },
     { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
 ];
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -207,11 +215,18 @@ const /** @type {?} */ SERVER_HTTP_PROVIDERS = [
 const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} urlStr
  * @return {?}
  */
 function parseUrl(urlStr) {
-    const /** @type {?} */ parsedUrl = url.parse(urlStr);
+    const /** @type {?} */ parsedUrl = parse(urlStr);
     return {
         pathname: parsedUrl.pathname || '',
         search: parsedUrl.search || '',
@@ -345,14 +360,14 @@ function scheduleMicroTask(fn) {
  * found in the LICENSE file at https://angular.io/license
  */
 const parse5$1 = require('parse5');
-let /** @type {?} */ treeAdapter;
-const /** @type {?} */ _attrToPropMap = {
+let treeAdapter;
+const _attrToPropMap = {
     'class': 'className',
     'innerHtml': 'innerHTML',
     'readonly': 'readOnly',
     'tabindex': 'tabIndex',
 };
-const /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
+const mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
 /**
  * @param {?} methodName
  * @return {?}
@@ -1499,7 +1514,7 @@ class Parse5DomAdapter extends ɵDomAdapter {
     }
 }
 // TODO: build a proper list, this one is all the keys of a HTMLInputElement
-const /** @type {?} */ _HTMLElementPropertyList = [
+const _HTMLElementPropertyList = [
     'webkitEntries',
     'incremental',
     'webkitdirectory',
@@ -1696,7 +1711,14 @@ function remove(list, el) {
     }
 }
 
-const /** @type {?} */ EMPTY_ARRAY = [];
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const EMPTY_ARRAY = [];
 class ServerRendererFactory2 {
     /**
      * @param {?} ngZone
@@ -1959,7 +1981,7 @@ class DefaultServerRenderer2 {
         return this.ngZone.runOutsideAngular(() => ɵgetDOM().onAndCancel(el, eventName, outsideHandler));
     }
 }
-const /** @type {?} */ AT_CHARCODE = '@'.charCodeAt(0);
+const AT_CHARCODE = '@'.charCodeAt(0);
 /**
  * @param {?} name
  * @param {?} nameKind
@@ -2003,6 +2025,13 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     }
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 class ServerStylesHost extends ɵSharedStylesHost {
     /**
      * @param {?} doc
@@ -2045,7 +2074,14 @@ ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
 ];
 
-const /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
     { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
@@ -2069,7 +2105,7 @@ function initParse5Adapter(injector) {
 function instantiateServerRendererFactory(renderer, engine, zone) {
     return new ɵAnimationRendererFactory(renderer, engine, zone);
 }
-const /** @type {?} */ SERVER_RENDER_PROVIDERS = [
+const SERVER_RENDER_PROVIDERS = [
     ServerRendererFactory2,
     {
         provide: RendererFactory2,
@@ -2125,7 +2161,14 @@ const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SE
  */
 const platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
-const /** @type {?} */ parse5$2 = require('parse5');
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+const parse5$2 = require('parse5');
 /**
  * @param {?} platformFactory
  * @param {?} options
@@ -2192,9 +2235,56 @@ function renderModuleFactory(moduleFactory, options) {
 }
 
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the common package.
+ */
+/**
  * \@stable
  */
-const VERSION = new Version('4.0.0-rc.5-5c5c2ae');
+const VERSION = new Version('4.0.0-rc.5-bcc29ff');
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the platform-server package.
+ */
+
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * Generated bundle index. Do not edit.
+ */
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=platform-server.js.map

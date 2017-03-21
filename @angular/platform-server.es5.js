@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.5-d3eda7a
+ * @license Angular v4.0.0-rc.5-de3d2ee
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1787,6 +1787,7 @@ var ServerRendererFactory2 = (function () {
             return this.defaultRenderer;
         }
         switch (type.encapsulation) {
+            case ViewEncapsulation.Native:
             case ViewEncapsulation.Emulated: {
                 var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
@@ -2309,7 +2310,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.0.0-rc.5-d3eda7a');
+var VERSION = new Version('4.0.0-rc.5-de3d2ee');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

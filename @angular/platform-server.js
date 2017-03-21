@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.0.0-rc.5-8e6995c
+ * @license Angular v4.0.0-rc.5-64beae9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -67,6 +67,16 @@ PlatformState.ctorParameters = () => [
  * found in the LICENSE file at https://angular.io/license
  */
 const xhr2 = require('xhr2');
+const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+/**
+ * @param {?} url
+ * @return {?}
+ */
+function validateRequestUrl(url$$1) {
+    if (!isAbsoluteUrl.test(url$$1)) {
+        throw new Error(`URLs requested via Http on the server must be absolute. URL: ${url$$1}`);
+    }
+}
 class ServerXhr {
     /**
      * @return {?}
@@ -101,6 +111,7 @@ class ZoneMacroTaskConnection {
      */
     constructor(request, backend) {
         this.request = request;
+        validateRequestUrl(request.url);
         this.response = new Observable((observer) => {
             let task = null;
             let scheduled = false;
@@ -2258,7 +2269,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.0.0-rc.5-8e6995c');
+const VERSION = new Version('4.0.0-rc.5-64beae9');
 
 /**
  * @license

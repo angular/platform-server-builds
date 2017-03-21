@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.0.0-rc.5-8e6995c
+ * @license Angular v4.0.0-rc.5-64beae9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -70,6 +70,16 @@ PlatformState.ctorParameters = function () { return [
  * found in the LICENSE file at https://angular.io/license
  */
 var xhr2 = require('xhr2');
+var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+/**
+ * @param {?} url
+ * @return {?}
+ */
+function validateRequestUrl(url$$1) {
+    if (!isAbsoluteUrl.test(url$$1)) {
+        throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
+    }
+}
 var ServerXhr = (function () {
     function ServerXhr() {
     }
@@ -111,6 +121,7 @@ var ZoneMacroTaskConnection = (function () {
     function ZoneMacroTaskConnection(request, backend) {
         var _this = this;
         this.request = request;
+        validateRequestUrl(request.url);
         this.response = new Observable(function (observer) {
             var task = null;
             var scheduled = false;
@@ -2310,7 +2321,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.0.0-rc.5-8e6995c');
+var VERSION = new Version('4.0.0-rc.5-64beae9');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

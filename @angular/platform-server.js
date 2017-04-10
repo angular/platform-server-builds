@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-beta.0-258d539
+ * @license Angular v4.1.0-beta.0-96aa236
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2269,7 +2269,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.1.0-beta.0-258d539');
+const VERSION = new Version('4.1.0-beta.0-96aa236');
 
 /**
  * @license

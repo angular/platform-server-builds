@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "4.1.0-beta.1-abecf3e",
+  "version": "4.1.0-beta.1-e20a722",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./@angular/platform-server.es5.js",
@@ -9,11 +9,11 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "4.1.0-beta.1-abecf3e",
-    "@angular/core": "4.1.0-beta.1-abecf3e",
-    "@angular/common": "4.1.0-beta.1-abecf3e",
-    "@angular/compiler": "4.1.0-beta.1-abecf3e",
-    "@angular/platform-browser": "4.1.0-beta.1-abecf3e"
+    "@angular/animations": "4.1.0-beta.1-e20a722",
+    "@angular/core": "4.1.0-beta.1-e20a722",
+    "@angular/common": "4.1.0-beta.1-e20a722",
+    "@angular/compiler": "4.1.0-beta.1-e20a722",
+    "@angular/platform-browser": "4.1.0-beta.1-e20a722"
   },
   "dependencies": {
     "parse5": "^3.0.1",

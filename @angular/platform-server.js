@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.1.0-beta.1-6f3710e
+ * @license Angular v4.1.0-beta.1-b46aba9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -458,6 +458,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
     setProperty(el, name, value) {
         if (name === 'innerHTML') {
             this.setInnerHTML(el, value);
+        }
+        else if (name === 'innerText') {
+            this.setText(el, value);
         }
         else if (name === 'className') {
             el.attribs['class'] = el.className = value;
@@ -2269,7 +2272,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.1.0-beta.1-6f3710e');
+const VERSION = new Version('4.1.0-beta.1-b46aba9');
 
 /**
  * @license

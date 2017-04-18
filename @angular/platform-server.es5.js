@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-beta.1-6f3710e
+ * @license Angular v4.1.0-beta.1-b46aba9
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -493,6 +493,9 @@ var Parse5DomAdapter = (function (_super) {
     Parse5DomAdapter.prototype.setProperty = function (el, name, value) {
         if (name === 'innerHTML') {
             this.setInnerHTML(el, value);
+        }
+        else if (name === 'innerText') {
+            this.setText(el, value);
         }
         else if (name === 'className') {
             el.attribs['class'] = el.className = value;
@@ -2321,7 +2324,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.1.0-beta.1-6f3710e');
+var VERSION = new Version('4.1.0-beta.1-b46aba9');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

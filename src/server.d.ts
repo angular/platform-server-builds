@@ -21,10 +21,10 @@ export declare class ServerModule {
 /**
  * @experimental
  */
-export declare const platformServer: (extraProviders?: Provider[]) => PlatformRef;
+export declare const platformServer: (extraProviders?: Provider[] | undefined) => PlatformRef;
 /**
  * The server platform that supports the runtime compiler.
  *
  * @experimental
  */
-export declare const platformDynamicServer: (extraProviders?: Provider[]) => PlatformRef;
+export declare const platformDynamicServer: (extraProviders?: Provider[] | undefined) => PlatformRef;

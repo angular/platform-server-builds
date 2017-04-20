@@ -33,7 +33,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     preventDefault(event: any): void;
     isPrevented(event: any): boolean;
     getInnerHTML(el: any): string;
-    getTemplateContent(el: any): Node;
+    getTemplateContent(el: any): Node | null;
     getOuterHTML(el: any): string;
     nodeName(node: any): string;
     nodeValue(node: any): string;
@@ -77,7 +77,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     removeClass(element: any, className: string): void;
     hasClass(element: any, className: string): boolean;
     hasStyle(element: any, styleName: string, styleValue?: string): boolean;
-    setStyle(element: any, styleName: string, styleValue: string): void;
+    setStyle(element: any, styleName: string, styleValue?: string | null): void;
     removeStyle(element: any, styleName: string): void;
     getStyle(element: any, styleName: string): string;
     tagName(element: any): string;
@@ -108,7 +108,7 @@ export declare class Parse5DomAdapter extends DomAdapter {
     supportsDOMEvents(): boolean;
     supportsNativeShadowDOM(): boolean;
     getGlobalEventTarget(doc: Document, target: string): any;
-    getBaseHref(doc: Document): string;
+    getBaseHref(doc: Document): string | null;
     resetBaseElement(): void;
     getHistory(): History;
     getLocation(): Location;

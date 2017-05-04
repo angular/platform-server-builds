@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
- * @license Angular v4.1.0-8931e71
+ * @license Angular v4.1.0-1092292
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1822,6 +1822,14 @@ var ServerRendererFactory2 = (function () {
             }
         }
     };
+    /**
+     * @return {?}
+     */
+    ServerRendererFactory2.prototype.begin = function () { };
+    /**
+     * @return {?}
+     */
+    ServerRendererFactory2.prototype.end = function () { };
     return ServerRendererFactory2;
 }());
 ServerRendererFactory2.decorators = [
@@ -2323,7 +2331,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.1.0-8931e71');
+var VERSION = new Version('4.1.0-1092292');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

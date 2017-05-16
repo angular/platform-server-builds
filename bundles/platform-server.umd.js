@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-beta.1-af99cf2
+ * @license Angular v4.2.0-beta.1-9a7f5d5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9,13 +9,18 @@
 	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser,global.ng.common,global.ng.compiler,global._angular_http,global._angular_platformBrowser_animations,global.rxjs_Observable,global.rxjs_Subject,global.url,global.rxjs_operator_filter,global.rxjs_operator_first,global.rxjs_operator_toPromise));
 }(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_compiler,_angular_http,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
 
-var __extends = (undefined && undefined.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 /**
- * @license Angular v4.2.0-beta.1-af99cf2
+ * @license Angular v4.2.0-beta.1-9a7f5d5
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2329,7 +2334,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('4.2.0-beta.1-af99cf2');
+var VERSION = new _angular_core.Version('4.2.0-beta.1-9a7f5d5');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

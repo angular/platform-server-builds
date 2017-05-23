@@ -1,15 +1,6 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.2.0-rc.0-1651a8f
+ * @license Angular v4.2.0-rc.0-fa809ec
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -456,7 +447,7 @@ function parseDocument(html) {
  * can introduce XSS risks.
  */
 var Parse5DomAdapter = (function (_super) {
-    __extends(Parse5DomAdapter, _super);
+    tslib_1.__extends(Parse5DomAdapter, _super);
     function Parse5DomAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -2066,7 +2057,7 @@ function checkNoSyntheticProp(name, nameKind) {
     }
 }
 var EmulatedEncapsulationServerRenderer2 = (function (_super) {
-    __extends(EmulatedEncapsulationServerRenderer2, _super);
+    tslib_1.__extends(EmulatedEncapsulationServerRenderer2, _super);
     /**
      * @param {?} document
      * @param {?} ngZone
@@ -2108,7 +2099,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var ServerStylesHost = (function (_super) {
-    __extends(ServerStylesHost, _super);
+    tslib_1.__extends(ServerStylesHost, _super);
     /**
      * @param {?} doc
      * @param {?} transitionId
@@ -2336,7 +2327,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.2.0-rc.0-1651a8f');
+var VERSION = new Version('4.2.0-rc.0-fa809ec');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

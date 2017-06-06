@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.0-rc.2-bfdd339
+ * @license Angular v4.2.0-rc.2-bb2fc6b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v4.2.0-rc.2-bfdd339
+ * @license Angular v4.2.0-rc.2-bb2fc6b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1504,12 +1504,6 @@ var Parse5DomAdapter = (function (_super) {
      */
     Parse5DomAdapter.prototype.setData = function (el, name, value) { this.setAttribute(el, 'data-' + name, value); };
     /**
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { _angular_platformBrowser.ɵsetValueOnPath(_angular_core.ɵglobal, path, value); };
-    /**
      * @return {?}
      */
     Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
@@ -2350,7 +2344,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('4.2.0-rc.2-bfdd339');
+var VERSION = new _angular_core.Version('4.2.0-rc.2-bb2fc6b');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

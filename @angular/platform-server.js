@@ -1,10 +1,10 @@
 /**
- * @license Angular v4.2.0-rc.2-bfdd339
+ * @license Angular v4.2.0-rc.2-bb2fc6b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, ɵglobal } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵsetValueOnPath, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { CssSelector, DomElementSchemaRegistry, SelectorMatcher, platformCoreDynamic } from '@angular/compiler';
@@ -1443,12 +1443,6 @@ class Parse5DomAdapter extends ɵDomAdapter {
      */
     setData(el, name, value) { this.setAttribute(el, 'data-' + name, value); }
     /**
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    setGlobalVar(path, value) { ɵsetValueOnPath(ɵglobal, path, value); }
-    /**
      * @return {?}
      */
     supportsWebAnimation() { return false; }
@@ -2280,7 +2274,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.2.0-rc.2-bfdd339');
+const VERSION = new Version('4.2.0-rc.2-bb2fc6b');
 
 /**
  * @license

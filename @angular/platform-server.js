@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.2.2-bffccf4
+ * @license Angular v4.2.2-709a3f6
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2274,7 +2274,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.2.2-bffccf4');
+const VERSION = new Version('4.2.2-709a3f6');
 
 /**
  * @license

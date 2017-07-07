@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.3.0-beta.1-72747e5
+ * @license Angular v4.3.0-beta.1-37797e2
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,6 +8,7 @@ import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule,
 import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, ɵinterceptingHandler } from '@angular/common/http';
 import { CssSelector, DomElementSchemaRegistry, SelectorMatcher, platformCoreDynamic } from '@angular/compiler';
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
@@ -109,42 +110,44 @@ ServerXsrfStrategy.decorators = [
  * @nocollapse
  */
 ServerXsrfStrategy.ctorParameters = function () { return []; };
-var ZoneMacroTaskConnection = (function () {
+/**
+ * @abstract
+ */
+var ZoneMacroTaskWrapper = (function () {
+    function ZoneMacroTaskWrapper() {
+    }
     /**
      * @param {?} request
-     * @param {?} backend
+     * @return {?}
      */
-    function ZoneMacroTaskConnection(request, backend) {
+    ZoneMacroTaskWrapper.prototype.wrap = function (request) {
         var _this = this;
-        this.request = request;
-        validateRequestUrl(request.url);
-        this.response = new Observable(function (observer) {
-            var task = null;
-            var scheduled = false;
-            var sub = null;
-            var savedResult = null;
-            var savedError = null;
-            var scheduleTask = function (_task) {
+        return new Observable(function (observer) {
+            var /** @type {?} */ task = ((null));
+            var /** @type {?} */ scheduled = false;
+            var /** @type {?} */ sub = null;
+            var /** @type {?} */ savedResult = null;
+            var /** @type {?} */ savedError = null;
+            var /** @type {?} */ scheduleTask = function (_task) {
                 task = _task;
                 scheduled = true;
-                _this.lastConnection = backend.createConnection(request);
-                sub = _this.lastConnection.response
-                    .subscribe(function (res) { return savedResult = res; }, function (err) {
+                var /** @type {?} */ delegate = _this.delegate(request);
+                sub = delegate.subscribe(function (res) { return savedResult = res; }, function (err) {
                     if (!scheduled) {
-                        throw new Error('invoke twice');
+                        throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     savedError = err;
                     scheduled = false;
                     task.invoke();
                 }, function () {
                     if (!scheduled) {
-                        throw new Error('invoke twice');
+                        throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     scheduled = false;
                     task.invoke();
                 });
             };
-            var cancelTask = function (_task) {
+            var /** @type {?} */ cancelTask = function (_task) {
                 if (!scheduled) {
                     return;
                 }
@@ -154,7 +157,7 @@ var ZoneMacroTaskConnection = (function () {
                     sub = null;
                 }
             };
-            var onComplete = function () {
+            var /** @type {?} */ onComplete = function () {
                 if (savedError !== null) {
                     observer.error(savedError);
                 }
@@ -163,10 +166,10 @@ var ZoneMacroTaskConnection = (function () {
                     observer.complete();
                 }
             };
-            // MockBackend is currently synchronous, which means that if scheduleTask is by
+            // MockBackend for Http is synchronous, which means that if scheduleTask is by
             // scheduleMacroTask, the request will hit MockBackend and the response will be
             // sent, causing task.invoke() to be called.
-            var _task = Zone.current.scheduleMacroTask('ZoneMacroTaskConnection.subscribe', onComplete, {}, function () { return null; }, cancelTask);
+            var /** @type {?} */ _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, function () { return null; }, cancelTask);
             scheduleTask(_task);
             return function () {
                 if (scheduled && task) {
@@ -179,7 +182,37 @@ var ZoneMacroTaskConnection = (function () {
                 }
             };
         });
+    };
+    /**
+     * @abstract
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneMacroTaskWrapper.prototype.delegate = function (request) { };
+    return ZoneMacroTaskWrapper;
+}());
+var ZoneMacroTaskConnection = (function (_super) {
+    tslib_1.__extends(ZoneMacroTaskConnection, _super);
+    /**
+     * @param {?} request
+     * @param {?} backend
+     */
+    function ZoneMacroTaskConnection(request, backend) {
+        var _this = _super.call(this) || this;
+        _this.request = request;
+        _this.backend = backend;
+        validateRequestUrl(request.url);
+        _this.response = _this.wrap(request);
+        return _this;
     }
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneMacroTaskConnection.prototype.delegate = function (request) {
+        this.lastConnection = this.backend.createConnection(request);
+        return (this.lastConnection.response);
+    };
     Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
         /**
          * @return {?}
@@ -191,7 +224,7 @@ var ZoneMacroTaskConnection = (function () {
         configurable: true
     });
     return ZoneMacroTaskConnection;
-}());
+}(ZoneMacroTaskWrapper));
 var ZoneMacroTaskBackend = (function () {
     /**
      * @param {?} backend
@@ -208,6 +241,30 @@ var ZoneMacroTaskBackend = (function () {
     };
     return ZoneMacroTaskBackend;
 }());
+var ZoneClientBackend = (function (_super) {
+    tslib_1.__extends(ZoneClientBackend, _super);
+    /**
+     * @param {?} backend
+     */
+    function ZoneClientBackend(backend) {
+        var _this = _super.call(this) || this;
+        _this.backend = backend;
+        return _this;
+    }
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneClientBackend.prototype.delegate = function (request) {
+        return this.backend.handle(request);
+    };
+    return ZoneClientBackend;
+}(ZoneMacroTaskWrapper));
 /**
  * @param {?} xhrBackend
  * @param {?} options
@@ -217,10 +274,23 @@ function httpFactory(xhrBackend, options) {
     var /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new Http(macroBackend, options);
 }
+/**
+ * @param {?} backend
+ * @param {?} interceptors
+ * @return {?}
+ */
+function zoneWrappedInterceptingHandler(backend, interceptors) {
+    var /** @type {?} */ realBackend = ɵinterceptingHandler(backend, interceptors);
+    return new ZoneClientBackend(realBackend);
+}
 var SERVER_HTTP_PROVIDERS = [
     { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
-    { provide: BrowserXhr, useClass: ServerXhr },
-    { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
+    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
+    {
+        provide: HttpHandler,
+        useFactory: zoneWrappedInterceptingHandler,
+        deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
+    }
 ];
 /**
  * @license
@@ -2193,7 +2263,7 @@ var ServerModule = (function () {
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule, NoopAnimationsModule],
+                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -2321,7 +2391,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.0-beta.1-72747e5');
+var VERSION = new Version('4.3.0-beta.1-37797e2');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2345,5 +2415,5 @@ var VERSION = new Version('4.3.0-beta.1-72747e5');
 /**
  * Generated bundle index. Do not edit.
  */
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=platform-server.es5.js.map

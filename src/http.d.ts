@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { BrowserXhr, Connection, ConnectionBackend, Http, ReadyState, Request, RequestOptions, Response, XHRBackend, XSRFStrategy } from '@angular/http';
-import { HttpRequest, HttpInterceptor, HttpResponse, HttpBackend } from '@angular/common/http';
+import { HttpEvent, HttpRequest, HttpInterceptor, HttpBackend } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 export declare class ServerXhr implements BrowserXhr {
     build(): XMLHttpRequest;
@@ -26,11 +26,11 @@ export declare class ZoneMacroTaskBackend implements ConnectionBackend {
     constructor(backend: XHRBackend);
     createConnection(request: any): ZoneMacroTaskConnection;
 }
-export declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpResponse<any>> implements HttpBackend {
+export declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
     constructor(backend: HttpBackend);
-    handle(request: HttpRequest<any>): Observable<HttpResponse<any>>;
-    protected delegate(request: HttpRequest<any>): Observable<HttpResponse<any>>;
+    handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
+    protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
 export declare function httpFactory(xhrBackend: XHRBackend, options: RequestOptions): Http;
 export declare function zoneWrappedInterceptingHandler(backend: HttpBackend, interceptors: HttpInterceptor[] | null): ZoneClientBackend;

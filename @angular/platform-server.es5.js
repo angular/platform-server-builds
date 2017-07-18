@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.3.0-f19bd5f
+ * @license Angular v4.3.0-4ce29f3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@ import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule,
 import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, ɵinterceptingHandler } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
 import { CssSelector, DomElementSchemaRegistry, SelectorMatcher, platformCoreDynamic } from '@angular/compiler';
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
@@ -286,7 +286,7 @@ function zoneWrappedInterceptingHandler(backend, interceptors) {
 var SERVER_HTTP_PROVIDERS = [
     { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
     { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
-    {
+    { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
         deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
@@ -2391,7 +2391,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.0-f19bd5f');
+var VERSION = new Version('4.3.0-4ce29f3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

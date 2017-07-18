@@ -6,9 +6,24 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { NgModuleFactory, Provider, Type } from '@angular/core';
+/**
+ * Options used to configure the server Platform instance that is created in {@link renderModule}
+ * and {@link renderModuleFactory}.
+ *
+ * @experimental
+ */
 export interface PlatformOptions {
+    /**
+     * The full document HTML of the page to render as a string.
+     */
     document?: string;
+    /**
+     * The URL for the current render request.
+     */
     url?: string;
+    /**
+     * Platform level providers for the current render request.
+     */
     extraProviders?: Provider[];
 }
 /**

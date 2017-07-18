@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.3.0-5c62e30
+ * @license Angular v4.3.0-a5205c6
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v4.3.0-5c62e30
+ * @license Angular v4.3.0-a5205c6
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -308,7 +308,7 @@ function zoneWrappedInterceptingHandler(backend, interceptors) {
 var SERVER_HTTP_PROVIDERS = [
     { provide: _angular_http.Http, useFactory: httpFactory, deps: [_angular_http.XHRBackend, _angular_http.RequestOptions] },
     { provide: _angular_http.BrowserXhr, useClass: ServerXhr }, { provide: _angular_http.XSRFStrategy, useClass: ServerXsrfStrategy },
-    {
+    { provide: _angular_common_http.XhrFactory, useClass: ServerXhr }, {
         provide: _angular_common_http.HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
         deps: [_angular_common_http.HttpBackend, [new _angular_core.Optional(), _angular_common_http.HTTP_INTERCEPTORS]]
@@ -2413,7 +2413,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('4.3.0-5c62e30');
+var VERSION = new _angular_core.Version('4.3.0-a5205c6');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,9 +36,13 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
+ */
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -75,12 +79,14 @@ var PlatformState = (function () {
 PlatformState.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 PlatformState.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -111,9 +117,7 @@ var ServerXhr = (function () {
 ServerXhr.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXhr.ctorParameters = function () { return []; };
 var ServerXsrfStrategy = (function () {
     function ServerXsrfStrategy() {
@@ -128,9 +132,7 @@ var ServerXsrfStrategy = (function () {
 ServerXsrfStrategy.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXsrfStrategy.ctorParameters = function () { return []; };
 /**
  * @abstract
@@ -205,12 +207,6 @@ var ZoneMacroTaskWrapper = (function () {
             };
         });
     };
-    /**
-     * @abstract
-     * @param {?} request
-     * @return {?}
-     */
-    ZoneMacroTaskWrapper.prototype.delegate = function (request) { };
     return ZoneMacroTaskWrapper;
 }());
 var ZoneMacroTaskConnection = (function (_super) {
@@ -315,12 +311,23 @@ var SERVER_HTTP_PROVIDERS = [
     }
 ];
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Config object passed to initialize the platform.
+ *
+ * \@experimental
+ * @record
+ */
+function PlatformConfig() { }
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -328,11 +335,8 @@ var SERVER_HTTP_PROVIDERS = [
  */
 var INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @param {?} urlStr
@@ -361,9 +365,9 @@ var ServerPlatformLocation = (function () {
         this._search = '';
         this._hash = '';
         this._hashUpdate = new rxjs_Subject.Subject();
-        var config = _config;
+        var /** @type {?} */ config = (_config);
         if (!!config && !!config.url) {
-            var parsedUrl = parseUrl(config.url);
+            var /** @type {?} */ parsedUrl = parseUrl(config.url);
             this._path = parsedUrl.pathname;
             this._search = parsedUrl.search;
             this._hash = parsedUrl.hash;
@@ -468,9 +472,7 @@ var ServerPlatformLocation = (function () {
 ServerPlatformLocation.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerPlatformLocation.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
@@ -482,6 +484,10 @@ ServerPlatformLocation.ctorParameters = function () { return [
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -1855,6 +1861,10 @@ function remove(list, el) {
     }
 }
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -1922,9 +1932,7 @@ var ServerRendererFactory2 = (function () {
 ServerRendererFactory2.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerRendererFactory2.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
@@ -2159,7 +2167,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
         _this.component = component;
-        var styles = _angular_platformBrowser.ɵflattenStyles(component.id, component.styles, []);
+        var /** @type {?} */ styles = _angular_platformBrowser.ɵflattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
         _this.contentAttr = _angular_platformBrowser.ɵshimContentAttribute(component.id);
         _this.hostAttr = _angular_platformBrowser.ɵshimHostAttribute(component.id);
@@ -2182,6 +2190,10 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     };
     return EmulatedEncapsulationServerRenderer2;
 }(DefaultServerRenderer2));
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2229,13 +2241,15 @@ var ServerStylesHost = (function (_super) {
 ServerStylesHost.decorators = [
     { type: _angular_core.Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerStylesHost.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
 ]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2298,9 +2312,7 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerModule.ctorParameters = function () { return []; };
 /**
  * @param {?} injector
@@ -2326,6 +2338,10 @@ var platformServer = _angular_core.createPlatformFactory(_angular_core.platformC
  */
 var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -2333,6 +2349,13 @@ var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compile
  * found in the LICENSE file at https://angular.io/license
  */
 var parse5$2 = require('parse5');
+/**
+ * Options used to configure the server Platform instance that is created in {\@link renderModule}
+ * and {\@link renderModuleFactory}.
+ *
+ * \@experimental
+ * @record
+ */
 /**
  * @param {?} platformFactory
  * @param {?} options
@@ -2397,11 +2420,19 @@ function renderModuleFactory(moduleFactory, options) {
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -2418,13 +2449,14 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.0-abee785');
+var VERSION = new _angular_core.Version('5.0.0-beta.0-b7a6f52');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;
 exports.platformDynamicServer = platformDynamicServer;
 exports.platformServer = platformServer;
 exports.INITIAL_CONFIG = INITIAL_CONFIG;
+exports.PlatformConfig = PlatformConfig;
 exports.renderModule = renderModule;
 exports.renderModuleFactory = renderModuleFactory;
 exports.VERSION = VERSION;

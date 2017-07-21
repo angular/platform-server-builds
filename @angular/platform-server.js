@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-abee785
+ * @license Angular v5.0.0-beta.0-b7a6f52
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -19,6 +19,10 @@ import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
 import { toPromise } from 'rxjs/operator/toPromise';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53,13 +57,15 @@ class PlatformState {
 PlatformState.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 PlatformState.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -87,9 +93,7 @@ class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXhr.ctorParameters = () => [];
 class ServerXsrfStrategy {
     /**
@@ -101,9 +105,7 @@ class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXsrfStrategy.ctorParameters = () => [];
 /**
  * @abstract
@@ -175,12 +177,6 @@ class ZoneMacroTaskWrapper {
             };
         });
     }
-    /**
-     * @abstract
-     * @param {?} request
-     * @return {?}
-     */
-    delegate(request) { }
 }
 class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
     /**
@@ -274,12 +270,23 @@ const SERVER_HTTP_PROVIDERS = [
 ];
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Config object passed to initialize the platform.
+ *
+ * \@experimental
+ * @record
+ */
+function PlatformConfig() { }
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -288,11 +295,8 @@ const SERVER_HTTP_PROVIDERS = [
 const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @param {?} urlStr
@@ -321,9 +325,9 @@ class ServerPlatformLocation {
         this._search = '';
         this._hash = '';
         this._hashUpdate = new Subject();
-        const config = _config;
+        const /** @type {?} */ config = (_config);
         if (!!config && !!config.url) {
-            const parsedUrl = parseUrl(config.url);
+            const /** @type {?} */ parsedUrl = parseUrl(config.url);
             this._path = parsedUrl.pathname;
             this._search = parsedUrl.search;
             this._hash = parsedUrl.hash;
@@ -410,9 +414,7 @@ class ServerPlatformLocation {
 ServerPlatformLocation.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
@@ -425,6 +427,10 @@ function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -1787,6 +1793,10 @@ function remove(list, el) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -1853,9 +1863,7 @@ class ServerRendererFactory2 {
 ServerRendererFactory2.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
@@ -2087,7 +2095,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     constructor(document, ngZone, sharedStylesHost, schema, component) {
         super(document, ngZone, schema);
         this.component = component;
-        const styles = ɵflattenStyles(component.id, component.styles, []);
+        const /** @type {?} */ styles = ɵflattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
         this.contentAttr = ɵshimContentAttribute(component.id);
         this.hostAttr = ɵshimHostAttribute(component.id);
@@ -2109,6 +2117,10 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2150,14 +2162,16 @@ class ServerStylesHost extends ɵSharedStylesHost {
 ServerStylesHost.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
 ];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2217,9 +2231,7 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerModule.ctorParameters = () => [];
 /**
  * @param {?} injector
@@ -2246,6 +2258,10 @@ const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SE
 const platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -2253,6 +2269,14 @@ const platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'server
  * found in the LICENSE file at https://angular.io/license
  */
 const parse5$2 = require('parse5');
+/**
+ * Options used to configure the server Platform instance that is created in {\@link renderModule}
+ * and {\@link renderModuleFactory}.
+ *
+ * \@experimental
+ * @record
+ */
+
 /**
  * @param {?} platformFactory
  * @param {?} options
@@ -2319,6 +2343,10 @@ function renderModuleFactory(moduleFactory, options) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -2326,6 +2354,10 @@ function renderModuleFactory(moduleFactory, options) {
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2341,8 +2373,12 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.0-abee785');
+const VERSION = new Version('5.0.0-beta.0-b7a6f52');
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2351,6 +2387,10 @@ const VERSION = new Version('5.0.0-beta.0-abee785');
  * found in the LICENSE file at https://angular.io/license
  */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2367,8 +2407,12 @@ const VERSION = new Version('5.0.0-beta.0-abee785');
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=platform-server.js.map

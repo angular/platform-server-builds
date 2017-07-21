@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-54e0244
+ * @license Angular v5.0.0-beta.0-a6c635e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -528,7 +528,10 @@ class Parse5DomAdapter extends ɵDomAdapter {
             el.attribs['class'] = el.className = value;
         }
         else {
-            el[name] = value;
+            // Store the property in a separate property bag so that it doesn't clobber
+            // actual parse5 properties on the Element.
+            el.properties = el.properties || {};
+            el.properties[name] = value;
         }
     }
     /**
@@ -536,7 +539,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} name
      * @return {?}
      */
-    getProperty(el, name) { return el[name]; }
+    getProperty(el, name) {
+        return el.properties ? el.properties[name] : undefined;
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -2336,7 +2341,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.0-54e0244');
+const VERSION = new Version('5.0.0-beta.0-a6c635e');
 
 /**
  * @license

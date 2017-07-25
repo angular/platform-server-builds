@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v5.0.0-beta.0-6279e50
+ * @license Angular v5.0.0-beta.0-91ab39c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2328,13 +2328,6 @@ var platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDy
  */
 var parse5$2 = require('parse5');
 /**
- * Options used to configure the server Platform instance that is created in {\@link renderModule}
- * and {\@link renderModuleFactory}.
- *
- * \@experimental
- * @record
- */
-/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -2371,8 +2364,12 @@ function _render(platform, moduleRefPromise) {
 /**
  * Renders a Module to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * Do not use this in a production server environment. Use pre-compiled {\@link NgModuleFactory} with
- * {link renderModuleFactory} instead.
+ * {\@link renderModuleFactory} instead.
  *
  * \@experimental
  * @template T
@@ -2386,6 +2383,10 @@ function renderModule(module, options) {
 }
 /**
  * Renders a {\@link NgModuleFactory} to string.
+ *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
  *
  * \@experimental
  * @template T
@@ -2427,7 +2428,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.0-6279e50');
+var VERSION = new Version('5.0.0-beta.0-91ab39c');
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc

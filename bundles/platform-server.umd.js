@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.0-6fc5940
+ * @license Angular v5.0.0-beta.0-6279e50
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.0-6fc5940
+ * @license Angular v5.0.0-beta.0-6279e50
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2140,7 +2140,7 @@ var DefaultServerRenderer2 = (function () {
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? _angular_platformBrowser.ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return _angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler); });
+        return this.ngZone.runOutsideAngular(function () { return (_angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -2449,7 +2449,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.0-6fc5940');
+var VERSION = new _angular_core.Version('5.0.0-beta.0-6279e50');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v4.3.0-4ce29f3
+ * @license Angular v4.3.1-bcea196
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -528,7 +528,10 @@ class Parse5DomAdapter extends ɵDomAdapter {
             el.attribs['class'] = el.className = value;
         }
         else {
-            el[name] = value;
+            // Store the property in a separate property bag so that it doesn't clobber
+            // actual parse5 properties on the Element.
+            el.properties = el.properties || {};
+            el.properties[name] = value;
         }
     }
     /**
@@ -536,7 +539,9 @@ class Parse5DomAdapter extends ɵDomAdapter {
      * @param {?} name
      * @return {?}
      */
-    getProperty(el, name) { return el[name]; }
+    getProperty(el, name) {
+        return el.properties ? el.properties[name] : undefined;
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -2286,8 +2291,12 @@ the server-rendered app can be properly bootstrapped into a client app.`);
 /**
  * Renders a Module to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * Do not use this in a production server environment. Use pre-compiled {\@link NgModuleFactory} with
- * {link renderModuleFactory} instead.
+ * {\@link renderModuleFactory} instead.
  *
  * \@experimental
  * @template T
@@ -2301,6 +2310,10 @@ function renderModule(module, options) {
 }
 /**
  * Renders a {\@link NgModuleFactory} to string.
+ *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
  *
  * \@experimental
  * @template T
@@ -2336,7 +2349,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('4.3.0-4ce29f3');
+const VERSION = new Version('4.3.1-bcea196');
 
 /**
  * @license

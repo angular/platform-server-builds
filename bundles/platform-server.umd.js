@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.2-fcadbf4
+ * @license Angular v5.0.0-beta.2-f69561b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.2-fcadbf4
+ * @license Angular v5.0.0-beta.2-f69561b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2260,12 +2260,8 @@ ServerStylesHost.ctorParameters = function () { return [
 var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: _angular_platformBrowser.DOCUMENT, useFactory: _document, deps: [_angular_core.Injector] },
     { provide: _angular_core.PLATFORM_ID, useValue: _angular_common.ɵPLATFORM_SERVER_ID },
-    { provide: _angular_core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_angular_core.Injector] }, {
-        provide: _angular_common.PlatformLocation,
-        useClass: ServerPlatformLocation,
-        deps: [_angular_platformBrowser.DOCUMENT, [_angular_core.Optional, INITIAL_CONFIG]]
-    },
-    { provide: PlatformState, deps: [_angular_platformBrowser.DOCUMENT] },
+    { provide: _angular_core.PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [_angular_core.Injector] },
+    { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
     // Add special provider that allows multiple instances of platformServer* to be created.
     { provide: _angular_core.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
@@ -2454,7 +2450,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.2-fcadbf4');
+var VERSION = new _angular_core.Version('5.0.0-beta.2-f69561b');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

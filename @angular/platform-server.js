@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.2-fcadbf4
+ * @license Angular v5.0.0-beta.2-f69561b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2182,12 +2182,8 @@ ServerStylesHost.ctorParameters = () => [
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
-    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] }, {
-        provide: PlatformLocation,
-        useClass: ServerPlatformLocation,
-        deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
-    },
-    { provide: PlatformState, deps: [DOCUMENT] },
+    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
+    { provide: PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
     // Add special provider that allows multiple instances of platformServer* to be created.
     { provide: ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
@@ -2377,7 +2373,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.2-fcadbf4');
+const VERSION = new Version('5.0.0-beta.2-f69561b');
 
 /**
  * @fileoverview added by tsickle

@@ -1,10 +1,10 @@
-import { PlatformRef, StaticProvider } from '@angular/core';
+import { PlatformRef, Provider } from '@angular/core';
 /**
  * Platform for testing
  *
  * @experimental API related to bootstrapping are still under review.
  */
-export declare const platformServerTesting: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
+export declare const platformServerTesting: (extraProviders?: Provider[] | undefined) => PlatformRef;
 /**
  * NgModule for testing.
  *

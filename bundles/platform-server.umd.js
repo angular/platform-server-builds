@@ -1,13 +1,13 @@
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/compiler'), require('@angular/http'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/compiler', '@angular/http', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser,global.ng.common,global._angular_common_http,global.ng.compiler,global._angular_http,global._angular_platformBrowser_animations,global.Rx,global.Rx,global.url,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_compiler,_angular_http,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('@angular/compiler'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', '@angular/compiler', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser,global.ng.common,global._angular_common_http,global._angular_http,global._angular_platformBrowserDynamic,global._angular_platformBrowser_animations,global.Rx,global.Rx,global.url,global.ng.compiler,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,_angular_compiler,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.4-83713dd
+ * @license Angular v5.0.0-beta.4-a56468c
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2340,7 +2340,7 @@ var platformServer = _angular_core.createPlatformFactory(_angular_core.platformC
  *
  * \@experimental
  */
-var platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformDynamicServer = _angular_core.createPlatformFactory(_angular_platformBrowserDynamic.ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -2454,7 +2454,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.4-83713dd');
+var VERSION = new _angular_core.Version('5.0.0-beta.4-a56468c');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

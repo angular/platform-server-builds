@@ -116,7 +116,6 @@ export declare class Parse5DomAdapter extends DomAdapter {
     getData(el: any, name: string): string;
     getComputedStyle(el: any): any;
     setData(el: any, name: string, value: string): void;
-    setGlobalVar(path: string, value: any): void;
     supportsWebAnimation(): boolean;
     performanceNow(): number;
     getAnimationPrefix(): string;

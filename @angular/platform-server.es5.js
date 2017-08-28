@@ -1,26 +1,28 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.2.0-beta.0-4874765
+ * @license Angular v5.0.0-beta.4-d64c935
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, ɵglobal } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵsetValueOnPath, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { CssSelector, DomElementSchemaRegistry, SelectorMatcher, platformCoreDynamic } from '@angular/compiler';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
+import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { parse } from 'url';
+import { CssSelector, DomElementSchemaRegistry, SelectorMatcher } from '@angular/compiler';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
 import { toPromise } from 'rxjs/operator/toPromise';
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -56,12 +58,14 @@ var PlatformState = (function () {
 PlatformState.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 PlatformState.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -92,9 +96,7 @@ var ServerXhr = (function () {
 ServerXhr.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXhr.ctorParameters = function () { return []; };
 var ServerXsrfStrategy = (function () {
     function ServerXsrfStrategy() {
@@ -109,46 +111,46 @@ var ServerXsrfStrategy = (function () {
 ServerXsrfStrategy.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerXsrfStrategy.ctorParameters = function () { return []; };
-var ZoneMacroTaskConnection = (function () {
+/**
+ * @abstract
+ */
+var ZoneMacroTaskWrapper = (function () {
+    function ZoneMacroTaskWrapper() {
+    }
     /**
      * @param {?} request
-     * @param {?} backend
+     * @return {?}
      */
-    function ZoneMacroTaskConnection(request, backend) {
+    ZoneMacroTaskWrapper.prototype.wrap = function (request) {
         var _this = this;
-        this.request = request;
-        validateRequestUrl(request.url);
-        this.response = new Observable(function (observer) {
-            var task = null;
-            var scheduled = false;
-            var sub = null;
-            var savedResult = null;
-            var savedError = null;
-            var scheduleTask = function (_task) {
+        return new Observable(function (observer) {
+            var /** @type {?} */ task = ((null));
+            var /** @type {?} */ scheduled = false;
+            var /** @type {?} */ sub = null;
+            var /** @type {?} */ savedResult = null;
+            var /** @type {?} */ savedError = null;
+            var /** @type {?} */ scheduleTask = function (_task) {
                 task = _task;
                 scheduled = true;
-                _this.lastConnection = backend.createConnection(request);
-                sub = _this.lastConnection.response
-                    .subscribe(function (res) { return savedResult = res; }, function (err) {
+                var /** @type {?} */ delegate = _this.delegate(request);
+                sub = delegate.subscribe(function (res) { return savedResult = res; }, function (err) {
                     if (!scheduled) {
-                        throw new Error('invoke twice');
+                        throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     savedError = err;
                     scheduled = false;
                     task.invoke();
                 }, function () {
                     if (!scheduled) {
-                        throw new Error('invoke twice');
+                        throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     scheduled = false;
                     task.invoke();
                 });
             };
-            var cancelTask = function (_task) {
+            var /** @type {?} */ cancelTask = function (_task) {
                 if (!scheduled) {
                     return;
                 }
@@ -158,7 +160,7 @@ var ZoneMacroTaskConnection = (function () {
                     sub = null;
                 }
             };
-            var onComplete = function () {
+            var /** @type {?} */ onComplete = function () {
                 if (savedError !== null) {
                     observer.error(savedError);
                 }
@@ -167,10 +169,10 @@ var ZoneMacroTaskConnection = (function () {
                     observer.complete();
                 }
             };
-            // MockBackend is currently synchronous, which means that if scheduleTask is by
+            // MockBackend for Http is synchronous, which means that if scheduleTask is by
             // scheduleMacroTask, the request will hit MockBackend and the response will be
             // sent, causing task.invoke() to be called.
-            var _task = Zone.current.scheduleMacroTask('ZoneMacroTaskConnection.subscribe', onComplete, {}, function () { return null; }, cancelTask);
+            var /** @type {?} */ _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, function () { return null; }, cancelTask);
             scheduleTask(_task);
             return function () {
                 if (scheduled && task) {
@@ -183,7 +185,31 @@ var ZoneMacroTaskConnection = (function () {
                 }
             };
         });
+    };
+    return ZoneMacroTaskWrapper;
+}());
+var ZoneMacroTaskConnection = (function (_super) {
+    tslib_1.__extends(ZoneMacroTaskConnection, _super);
+    /**
+     * @param {?} request
+     * @param {?} backend
+     */
+    function ZoneMacroTaskConnection(request, backend) {
+        var _this = _super.call(this) || this;
+        _this.request = request;
+        _this.backend = backend;
+        validateRequestUrl(request.url);
+        _this.response = _this.wrap(request);
+        return _this;
     }
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneMacroTaskConnection.prototype.delegate = function (request) {
+        this.lastConnection = this.backend.createConnection(request);
+        return (this.lastConnection.response);
+    };
     Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
         /**
          * @return {?}
@@ -195,7 +221,7 @@ var ZoneMacroTaskConnection = (function () {
         configurable: true
     });
     return ZoneMacroTaskConnection;
-}());
+}(ZoneMacroTaskWrapper));
 var ZoneMacroTaskBackend = (function () {
     /**
      * @param {?} backend
@@ -212,6 +238,30 @@ var ZoneMacroTaskBackend = (function () {
     };
     return ZoneMacroTaskBackend;
 }());
+var ZoneClientBackend = (function (_super) {
+    tslib_1.__extends(ZoneClientBackend, _super);
+    /**
+     * @param {?} backend
+     */
+    function ZoneClientBackend(backend) {
+        var _this = _super.call(this) || this;
+        _this.backend = backend;
+        return _this;
+    }
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+    /**
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneClientBackend.prototype.delegate = function (request) {
+        return this.backend.handle(request);
+    };
+    return ZoneClientBackend;
+}(ZoneMacroTaskWrapper));
 /**
  * @param {?} xhrBackend
  * @param {?} options
@@ -221,11 +271,28 @@ function httpFactory(xhrBackend, options) {
     var /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new Http(macroBackend, options);
 }
+/**
+ * @param {?} backend
+ * @param {?} interceptors
+ * @return {?}
+ */
+function zoneWrappedInterceptingHandler(backend, interceptors) {
+    var /** @type {?} */ realBackend = ɵinterceptingHandler(backend, interceptors);
+    return new ZoneClientBackend(realBackend);
+}
 var SERVER_HTTP_PROVIDERS = [
     { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
-    { provide: BrowserXhr, useClass: ServerXhr },
-    { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
+    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
+    { provide: XhrFactory, useClass: ServerXhr }, {
+        provide: HttpHandler,
+        useFactory: zoneWrappedInterceptingHandler,
+        deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
+    }
 ];
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -233,6 +300,13 @@ var SERVER_HTTP_PROVIDERS = [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * Config object passed to initialize the platform.
+ *
+ * \@experimental
+ * @record
+ */
+function PlatformConfig() { }
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -240,11 +314,8 @@ var SERVER_HTTP_PROVIDERS = [
  */
 var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @param {?} urlStr
@@ -273,9 +344,9 @@ var ServerPlatformLocation = (function () {
         this._search = '';
         this._hash = '';
         this._hashUpdate = new Subject();
-        var config = _config;
+        var /** @type {?} */ config = (_config);
         if (!!config && !!config.url) {
-            var parsedUrl = parseUrl(config.url);
+            var /** @type {?} */ parsedUrl = parseUrl(config.url);
             this._path = parsedUrl.pathname;
             this._search = parsedUrl.search;
             this._hash = parsedUrl.hash;
@@ -380,9 +451,7 @@ var ServerPlatformLocation = (function () {
 ServerPlatformLocation.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerPlatformLocation.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
@@ -394,6 +463,10 @@ ServerPlatformLocation.ctorParameters = function () { return [
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -451,7 +524,7 @@ function parseDocument(html) {
  * can introduce XSS risks.
  */
 var Parse5DomAdapter = (function (_super) {
-    __extends(Parse5DomAdapter, _super);
+    tslib_1.__extends(Parse5DomAdapter, _super);
     function Parse5DomAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -501,7 +574,10 @@ var Parse5DomAdapter = (function (_super) {
             el.attribs['class'] = el.className = value;
         }
         else {
-            el[name] = value;
+            // Store the property in a separate property bag so that it doesn't clobber
+            // actual parse5 properties on the Element.
+            el.properties = el.properties || {};
+            el.properties[name] = value;
         }
     };
     /**
@@ -509,7 +585,9 @@ var Parse5DomAdapter = (function (_super) {
      * @param {?} name
      * @return {?}
      */
-    Parse5DomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
+    Parse5DomAdapter.prototype.getProperty = function (el, name) {
+        return el.properties ? el.properties[name] : undefined;
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -1485,12 +1563,6 @@ var Parse5DomAdapter = (function (_super) {
      */
     Parse5DomAdapter.prototype.setData = function (el, name, value) { this.setAttribute(el, 'data-' + name, value); };
     /**
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { ɵsetValueOnPath(ɵglobal, path, value); };
-    /**
      * @return {?}
      */
     Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
@@ -1768,6 +1840,10 @@ function remove(list, el) {
     }
 }
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -1835,9 +1911,7 @@ var ServerRendererFactory2 = (function () {
 ServerRendererFactory2.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerRendererFactory2.ctorParameters = function () { return [
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
@@ -2045,7 +2119,7 @@ var DefaultServerRenderer2 = (function () {
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return ɵgetDOM().onAndCancel(el, eventName, outsideHandler); });
+        return this.ngZone.runOutsideAngular(function () { return (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -2061,7 +2135,7 @@ function checkNoSyntheticProp(name, nameKind) {
     }
 }
 var EmulatedEncapsulationServerRenderer2 = (function (_super) {
-    __extends(EmulatedEncapsulationServerRenderer2, _super);
+    tslib_1.__extends(EmulatedEncapsulationServerRenderer2, _super);
     /**
      * @param {?} document
      * @param {?} ngZone
@@ -2072,7 +2146,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
         _this.component = component;
-        var styles = ɵflattenStyles(component.id, component.styles, []);
+        var /** @type {?} */ styles = ɵflattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
         _this.contentAttr = ɵshimContentAttribute(component.id);
         _this.hostAttr = ɵshimHostAttribute(component.id);
@@ -2096,6 +2170,10 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     return EmulatedEncapsulationServerRenderer2;
 }(DefaultServerRenderer2));
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -2103,7 +2181,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var ServerStylesHost = (function (_super) {
-    __extends(ServerStylesHost, _super);
+    tslib_1.__extends(ServerStylesHost, _super);
     /**
      * @param {?} doc
      * @param {?} transitionId
@@ -2142,13 +2220,15 @@ var ServerStylesHost = (function (_super) {
 ServerStylesHost.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerStylesHost.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
 ]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2159,8 +2239,12 @@ ServerStylesHost.ctorParameters = function () { return [
 var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
-    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] },
-    { provide: PlatformLocation, useClass: ServerPlatformLocation }, PlatformState,
+    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] }, {
+        provide: PlatformLocation,
+        useClass: ServerPlatformLocation,
+        deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
+    },
+    { provide: PlatformState, deps: [DOCUMENT] },
     // Add special provider that allows multiple instances of platformServer* to be created.
     { provide: ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
@@ -2203,7 +2287,7 @@ var ServerModule = (function () {
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule, NoopAnimationsModule],
+                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -2211,9 +2295,7 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ServerModule.ctorParameters = function () { return []; };
 /**
  * @param {?} injector
@@ -2237,7 +2319,11 @@ var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERV
  *
  * \@experimental
  */
-var platformDynamicServer = createPlatformFactory(platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -2283,8 +2369,12 @@ function _render(platform, moduleRefPromise) {
 /**
  * Renders a Module to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * Do not use this in a production server environment. Use pre-compiled {\@link NgModuleFactory} with
- * {link renderModuleFactory} instead.
+ * {\@link renderModuleFactory} instead.
  *
  * \@experimental
  * @template T
@@ -2299,6 +2389,10 @@ function renderModule(module, options) {
 /**
  * Renders a {\@link NgModuleFactory} to string.
  *
+ * `document` is the full document HTML of the page to render, as a string.
+ * `url` is the URL for the current render request.
+ * `extraProviders` are the platform level providers for the current render request.
+ *
  * \@experimental
  * @template T
  * @param {?} moduleFactory
@@ -2310,11 +2404,19 @@ function renderModuleFactory(moduleFactory, options) {
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -2331,13 +2433,21 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.2.0-beta.0-4874765');
+var VERSION = new Version('5.0.0-beta.4-d64c935');
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
 /**
  * @license
@@ -2353,7 +2463,11 @@ var VERSION = new Version('4.2.0-beta.0-4874765');
  */
 // This file only reexports content of the `src` folder. Keep it that way.
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Generated bundle index. Do not edit.
  */
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵf, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=platform-server.es5.js.map

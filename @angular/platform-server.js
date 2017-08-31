@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.5-30d53a8
+ * @license Angular v5.0.0-beta.5-2f2d5f3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { parse } from 'url';
 import * as url from 'url';
-import { CssSelector, DomElementSchemaRegistry, SelectorMatcher } from '@angular/compiler';
+import { DomElementSchemaRegistry } from '@angular/compiler';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
 import { toPromise } from 'rxjs/operator/toPromise';
@@ -31,7 +31,352 @@ import { toPromise } from 'rxjs/operator/toPromise';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const parse5 = require('parse5');
+const domino = require('domino');
+/**
+ * @param {?} methodName
+ * @return {?}
+ */
+function _notImplemented(methodName) {
+    return new Error('This method is not implemented in DominoAdapter: ' + methodName);
+}
+/**
+ * Parses a document string to a Document object.
+ * @param {?} html
+ * @param {?=} url
+ * @return {?}
+ */
+function parseDocument(html, url$$1 = '/') {
+    let /** @type {?} */ window = domino.createWindow(html, url$$1);
+    let /** @type {?} */ doc = window.document;
+    return doc;
+}
+/**
+ * Serializes a document to string.
+ * @param {?} doc
+ * @return {?}
+ */
+function serializeDocument(doc) {
+    return ((doc)).serialize();
+}
+/**
+ * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
+ */
+class DominoAdapter extends ɵBrowserDomAdapter {
+    /**
+     * @return {?}
+     */
+    static makeCurrent() { ɵsetRootDomAdapter(new DominoAdapter()); }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    logError(error) { console.error(error); }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    log(error) { console.log(error); }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
+    logGroup(error) { console.error(error); }
+    /**
+     * @return {?}
+     */
+    logGroupEnd() { }
+    /**
+     * @return {?}
+     */
+    supportsDOMEvents() { return false; }
+    /**
+     * @return {?}
+     */
+    supportsNativeShadowDOM() { return false; }
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    contains(nodeA, nodeB) {
+        let /** @type {?} */ inner = nodeB;
+        while (inner) {
+            if (inner === nodeA)
+                return true;
+            inner = inner.parent;
+        }
+        return false;
+    }
+    /**
+     * @return {?}
+     */
+    createHtmlDocument() {
+        return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
+    }
+    /**
+     * @return {?}
+     */
+    getDefaultDocument() {
+        if (!DominoAdapter.defaultDoc) {
+            DominoAdapter.defaultDoc = domino.createDocument();
+        }
+        return DominoAdapter.defaultDoc;
+    }
+    /**
+     * @param {?} el
+     * @param {?=} doc
+     * @return {?}
+     */
+    createShadowRoot(el, doc = document) {
+        el.shadowRoot = doc.createDocumentFragment();
+        el.shadowRoot.parent = el;
+        return el.shadowRoot;
+    }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    getShadowRoot(el) { return el.shadowRoot; }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    isTextNode(node) { return node.nodeType === DominoAdapter.defaultDoc.TEXT_NODE; }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    isCommentNode(node) {
+        return node.nodeType === DominoAdapter.defaultDoc.COMMENT_NODE;
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    isElementNode(node) {
+        return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
+    }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    hasShadowRoot(node) { return node.shadowRoot != null; }
+    /**
+     * @param {?} node
+     * @return {?}
+     */
+    isShadowRoot(node) { return this.getShadowRoot(node) == node; }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    getProperty(el, name) {
+        // Domino tries tp resolve href-s which we do not want. Just return the
+        // atribute value.
+        if (name === 'href') {
+            return this.getAttribute(el, 'href');
+        }
+        return ((el))[name];
+    }
+    /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    setProperty(el, name, value) {
+        // Eventhough the server renderer reflects any properties to attributes
+        // map 'href' to atribute just to handle when setProperty is directly called.
+        if (name === 'href') {
+            this.setAttribute(el, 'href', value);
+        }
+        ((el))[name] = value;
+    }
+    /**
+     * @param {?} doc
+     * @param {?} target
+     * @return {?}
+     */
+    getGlobalEventTarget(doc, target) {
+        if (target === 'window') {
+            return doc.defaultView;
+        }
+        if (target === 'document') {
+            return doc;
+        }
+        if (target === 'body') {
+            return doc.body;
+        }
+        return null;
+    }
+    /**
+     * @param {?} doc
+     * @return {?}
+     */
+    getBaseHref(doc) {
+        const /** @type {?} */ base = this.querySelector(doc.documentElement, 'base');
+        let /** @type {?} */ href = '';
+        if (base) {
+            href = this.getHref(base);
+        }
+        // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+        return href;
+    }
+    /**
+     * \@internal
+     * @param {?} element
+     * @return {?}
+     */
+    _readStyleAttribute(element) {
+        const /** @type {?} */ styleMap = {};
+        const /** @type {?} */ styleAttribute = element.getAttribute('style');
+        if (styleAttribute) {
+            const /** @type {?} */ styleList = styleAttribute.split(/;+/g);
+            for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
+                if (styleList[i].length > 0) {
+                    const /** @type {?} */ style = (styleList[i]);
+                    const /** @type {?} */ colon = style.indexOf(':');
+                    if (colon === -1) {
+                        throw new Error(`Invalid CSS style: ${style}`);
+                    }
+                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
+                }
+            }
+        }
+        return styleMap;
+    }
+    /**
+     * \@internal
+     * @param {?} element
+     * @param {?} styleMap
+     * @return {?}
+     */
+    _writeStyleAttribute(element, styleMap) {
+        let /** @type {?} */ styleAttrValue = '';
+        for (const /** @type {?} */ key in styleMap) {
+            const /** @type {?} */ newValue = styleMap[key];
+            if (newValue) {
+                styleAttrValue += key + ':' + styleMap[key] + ';';
+            }
+        }
+        element.setAttribute('style', styleAttrValue);
+    }
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    setStyle(element, styleName, styleValue) {
+        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        ((styleMap))[styleName] = styleValue;
+        this._writeStyleAttribute(element, styleMap);
+    }
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    removeStyle(element, styleName) { this.setStyle(element, styleName, null); }
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    getStyle(element, styleName) {
+        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        return styleMap.hasOwnProperty(styleName) ? ((styleMap))[styleName] : '';
+    }
+    /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    hasStyle(element, styleName, styleValue) {
+        const /** @type {?} */ value = this.getStyle(element, styleName) || '';
+        return styleValue ? value == styleValue : value.length > 0;
+    }
+    /**
+     * @param {?} el
+     * @param {?} evt
+     * @return {?}
+     */
+    dispatchEvent(el, evt) {
+        el.dispatchEvent(evt);
+        // Dispatch the event to the window also.
+        const /** @type {?} */ doc = el.ownerDocument || el;
+        const /** @type {?} */ win = ((doc)).defaultView;
+        if (win) {
+            win.dispatchEvent(evt);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    getHistory() { throw _notImplemented('getHistory'); }
+    /**
+     * @return {?}
+     */
+    getLocation() { throw _notImplemented('getLocation'); }
+    /**
+     * @return {?}
+     */
+    getUserAgent() { return 'Fake user agent'; }
+    /**
+     * @return {?}
+     */
+    supportsWebAnimation() { return false; }
+    /**
+     * @return {?}
+     */
+    performanceNow() { return Date.now(); }
+    /**
+     * @return {?}
+     */
+    getAnimationPrefix() { return ''; }
+    /**
+     * @return {?}
+     */
+    getTransitionEnd() { return 'transitionend'; }
+    /**
+     * @return {?}
+     */
+    supportsAnimation() { return true; }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    getDistributedNodes(el) { throw _notImplemented('getDistributedNodes'); }
+    /**
+     * @return {?}
+     */
+    supportsCookies() { return false; }
+    /**
+     * @param {?} name
+     * @return {?}
+     */
+    getCookie(name) { throw _notImplemented('getCookie'); }
+    /**
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    setCookie(name, value) { throw _notImplemented('setCookie'); }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /**
  * Representation of the current platform state.
  *
@@ -48,7 +393,7 @@ class PlatformState {
      * Renders the current state of the platform to string.
      * @return {?}
      */
-    renderToString() { return ɵgetDOM().getInnerHTML(this._doc); }
+    renderToString() { return serializeDocument(this._doc); }
     /**
      * Returns the current DOM state.
      * @return {?}
@@ -439,1371 +784,6 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const parse5$1 = require('parse5');
-let treeAdapter;
-const _attrToPropMap = {
-    'class': 'className',
-    'innerHtml': 'innerHTML',
-    'readonly': 'readOnly',
-    'tabindex': 'tabIndex',
-};
-const mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
-/**
- * @param {?} methodName
- * @return {?}
- */
-function _notImplemented(methodName) {
-    return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
-}
-/**
- * @param {?} el
- * @param {?} name
- * @return {?}
- */
-function _getElement(el, name) {
-    for (let /** @type {?} */ i = 0; i < el.childNodes.length; i++) {
-        let /** @type {?} */ node = el.childNodes[i];
-        if (node.name === name) {
-            return node;
-        }
-    }
-    return null;
-}
-/**
- * Parses a document string to a Document object.
- * @param {?} html
- * @return {?}
- */
-function parseDocument(html) {
-    let /** @type {?} */ doc = parse5$1.parse(html, { treeAdapter: parse5$1.treeAdapters.htmlparser2 });
-    let /** @type {?} */ docElement = _getElement(doc, 'html');
-    doc['head'] = _getElement(docElement, 'head');
-    doc['body'] = _getElement(docElement, 'body');
-    doc['_window'] = {};
-    return doc;
-}
-/**
- * A `DomAdapter` powered by the `parse5` NodeJS module.
- *
- * \@security Tread carefully! Interacting with the DOM directly is dangerous and
- * can introduce XSS risks.
- */
-class Parse5DomAdapter extends ɵDomAdapter {
-    /**
-     * @return {?}
-     */
-    static makeCurrent() {
-        treeAdapter = parse5$1.treeAdapters.htmlparser2;
-        ɵsetRootDomAdapter(new Parse5DomAdapter());
-    }
-    /**
-     * @param {?} nodeA
-     * @param {?} nodeB
-     * @return {?}
-     */
-    contains(nodeA, nodeB) {
-        let /** @type {?} */ inner = nodeB;
-        while (inner) {
-            if (inner === nodeA)
-                return true;
-            inner = inner.parent;
-        }
-        return false;
-    }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    hasProperty(element, name) {
-        return _HTMLElementPropertyList.indexOf(name) > -1;
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(el, name, value) {
-        if (name === 'innerHTML') {
-            this.setInnerHTML(el, value);
-        }
-        else if (name === 'innerText') {
-            this.setText(el, value);
-        }
-        else if (name === 'className') {
-            el.attribs['class'] = el.className = value;
-        }
-        else {
-            // Store the property in a separate property bag so that it doesn't clobber
-            // actual parse5 properties on the Element.
-            el.properties = el.properties || {};
-            el.properties[name] = value;
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    getProperty(el, name) {
-        return el.properties ? el.properties[name] : undefined;
-    }
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    logError(error) { console.error(error); }
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    log(error) { console.log(error); }
-    /**
-     * @param {?} error
-     * @return {?}
-     */
-    logGroup(error) { console.error(error); }
-    /**
-     * @return {?}
-     */
-    logGroupEnd() { }
-    /**
-     * @return {?}
-     */
-    get attrToPropMap() { return _attrToPropMap; }
-    /**
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    querySelector(el, selector) {
-        return this.querySelectorAll(el, selector)[0] || null;
-    }
-    /**
-     * @param {?} el
-     * @param {?} selector
-     * @return {?}
-     */
-    querySelectorAll(el, selector) {
-        const /** @type {?} */ res = [];
-        const /** @type {?} */ _recursive = (result, node, selector, matcher) => {
-            const /** @type {?} */ cNodes = node.childNodes;
-            if (cNodes && cNodes.length > 0) {
-                for (let /** @type {?} */ i = 0; i < cNodes.length; i++) {
-                    const /** @type {?} */ childNode = cNodes[i];
-                    if (this.elementMatches(childNode, selector, matcher)) {
-                        result.push(childNode);
-                    }
-                    _recursive(result, childNode, selector, matcher);
-                }
-            }
-        };
-        const /** @type {?} */ matcher = new SelectorMatcher();
-        matcher.addSelectables(CssSelector.parse(selector));
-        _recursive(res, el, selector, matcher);
-        return res;
-    }
-    /**
-     * @param {?} node
-     * @param {?} selector
-     * @param {?=} matcher
-     * @return {?}
-     */
-    elementMatches(node, selector, matcher = null) {
-        if (this.isElementNode(node) && selector === '*') {
-            return true;
-        }
-        let /** @type {?} */ result = false;
-        if (selector && selector.charAt(0) == '#') {
-            result = this.getAttribute(node, 'id') == selector.substring(1);
-        }
-        else if (selector) {
-            if (!matcher) {
-                matcher = new SelectorMatcher();
-                matcher.addSelectables(CssSelector.parse(selector));
-            }
-            const /** @type {?} */ cssSelector = new CssSelector();
-            cssSelector.setElement(this.tagName(node));
-            if (node.attribs) {
-                for (const /** @type {?} */ attrName in node.attribs) {
-                    cssSelector.addAttribute(attrName, node.attribs[attrName]);
-                }
-            }
-            const /** @type {?} */ classList = this.classList(node);
-            for (let /** @type {?} */ i = 0; i < classList.length; i++) {
-                cssSelector.addClassName(classList[i]);
-            }
-            matcher.match(cssSelector, function (selector, cb) { result = true; });
-        }
-        return result;
-    }
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    on(el, evt, listener) {
-        let /** @type {?} */ listenersMap = el._eventListenersMap;
-        if (!listenersMap) {
-            listenersMap = {};
-            el._eventListenersMap = listenersMap;
-        }
-        const /** @type {?} */ listeners = listenersMap[evt] || [];
-        listenersMap[evt] = [...listeners, listener];
-    }
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @param {?} listener
-     * @return {?}
-     */
-    onAndCancel(el, evt, listener) {
-        this.on(el, evt, listener);
-        return () => { remove(/** @type {?} */ ((el._eventListenersMap[evt])), listener); };
-    }
-    /**
-     * @param {?} el
-     * @param {?} evt
-     * @return {?}
-     */
-    dispatchEvent(el, evt) {
-        if (!evt.target) {
-            evt.target = el;
-        }
-        if (el._eventListenersMap) {
-            const /** @type {?} */ listeners = el._eventListenersMap[evt.type];
-            if (listeners) {
-                for (let /** @type {?} */ i = 0; i < listeners.length; i++) {
-                    listeners[i](evt);
-                }
-            }
-        }
-        if (el.parent) {
-            this.dispatchEvent(el.parent, evt);
-        }
-        if (el._window) {
-            this.dispatchEvent(el._window, evt);
-        }
-    }
-    /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    createMouseEvent(eventType) { return this.createEvent(eventType); }
-    /**
-     * @param {?} eventType
-     * @return {?}
-     */
-    createEvent(eventType) {
-        const /** @type {?} */ event = ({
-            type: eventType,
-            defaultPrevented: false,
-            preventDefault: () => { ((event)).defaultPrevented = true; }
-        });
-        return event;
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    preventDefault(event) { event.returnValue = false; }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    isPrevented(event) { return event.returnValue != null && !event.returnValue; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getInnerHTML(el) {
-        return parse5$1.serialize(this.templateAwareRoot(el), { treeAdapter });
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getTemplateContent(el) { return null; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getOuterHTML(el) {
-        const /** @type {?} */ fragment = treeAdapter.createDocumentFragment();
-        this.appendChild(fragment, el);
-        return parse5$1.serialize(fragment, { treeAdapter });
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nodeName(node) { return node.tagName; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    nodeValue(node) { return node.nodeValue; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    type(node) { throw _notImplemented('type'); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    content(node) { return node.childNodes[0]; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    firstChild(el) { return el.firstChild; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    nextSibling(el) { return el.nextSibling; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    parentElement(el) { return el.parent; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    childNodes(el) { return el.childNodes; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    childNodesAsList(el) {
-        const /** @type {?} */ childNodes = el.childNodes;
-        const /** @type {?} */ res = new Array(childNodes.length);
-        for (let /** @type {?} */ i = 0; i < childNodes.length; i++) {
-            res[i] = childNodes[i];
-        }
-        return res;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    clearNodes(el) {
-        while (el.childNodes.length > 0) {
-            this.remove(el.childNodes[0]);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    appendChild(el, node) {
-        this.remove(node);
-        treeAdapter.appendChild(this.templateAwareRoot(el), node);
-    }
-    /**
-     * @param {?} el
-     * @param {?} node
-     * @return {?}
-     */
-    removeChild(el, node) {
-        if (el.childNodes.indexOf(node) > -1) {
-            this.remove(node);
-        }
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    remove(el) {
-        const /** @type {?} */ parent = el.parent;
-        if (parent) {
-            const /** @type {?} */ index = parent.childNodes.indexOf(el);
-            parent.childNodes.splice(index, 1);
-        }
-        const /** @type {?} */ prev = el.previousSibling;
-        const /** @type {?} */ next = el.nextSibling;
-        if (prev) {
-            prev.next = next;
-        }
-        if (next) {
-            next.prev = prev;
-        }
-        el.prev = null;
-        el.next = null;
-        el.parent = null;
-        return el;
-    }
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} newNode
-     * @return {?}
-     */
-    insertBefore(parent, ref, newNode) {
-        this.remove(newNode);
-        if (ref) {
-            treeAdapter.insertBefore(parent, newNode, ref);
-        }
-        else {
-            this.appendChild(parent, newNode);
-        }
-    }
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} nodes
-     * @return {?}
-     */
-    insertAllBefore(parent, ref, nodes) {
-        nodes.forEach((n) => this.insertBefore(parent, ref, n));
-    }
-    /**
-     * @param {?} parent
-     * @param {?} ref
-     * @param {?} node
-     * @return {?}
-     */
-    insertAfter(parent, ref, node) {
-        if (ref.nextSibling) {
-            this.insertBefore(parent, ref.nextSibling, node);
-        }
-        else {
-            this.appendChild(parent, node);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setInnerHTML(el, value) {
-        this.clearNodes(el);
-        const /** @type {?} */ content = parse5$1.parseFragment(value, { treeAdapter });
-        for (let /** @type {?} */ i = 0; i < content.childNodes.length; i++) {
-            treeAdapter.appendChild(el, content.childNodes[i]);
-        }
-    }
-    /**
-     * @param {?} el
-     * @param {?=} isRecursive
-     * @return {?}
-     */
-    getText(el, isRecursive) {
-        if (this.isTextNode(el)) {
-            return el.data;
-        }
-        if (this.isCommentNode(el)) {
-            // In the DOM, comments within an element return an empty string for textContent
-            // However, comment node instances return the comment content for textContent getter
-            return isRecursive ? '' : el.data;
-        }
-        if (!el.childNodes || el.childNodes.length == 0) {
-            return '';
-        }
-        let /** @type {?} */ textContent = '';
-        for (let /** @type {?} */ i = 0; i < el.childNodes.length; i++) {
-            textContent += this.getText(el.childNodes[i], true);
-        }
-        return textContent;
-    }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setText(el, value) {
-        if (this.isTextNode(el) || this.isCommentNode(el)) {
-            el.data = value;
-        }
-        else {
-            this.clearNodes(el);
-            if (value !== '')
-                treeAdapter.insertText(el, value);
-        }
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getValue(el) { return el.value; }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setValue(el, value) { el.value = value; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getChecked(el) { return el.checked; }
-    /**
-     * @param {?} el
-     * @param {?} value
-     * @return {?}
-     */
-    setChecked(el, value) { el.checked = value; }
-    /**
-     * @param {?} text
-     * @return {?}
-     */
-    createComment(text) { return treeAdapter.createCommentNode(text); }
-    /**
-     * @param {?} html
-     * @return {?}
-     */
-    createTemplate(html) {
-        const /** @type {?} */ template = treeAdapter.createElement('template', 'http://www.w3.org/1999/xhtml', []);
-        const /** @type {?} */ content = parse5$1.parseFragment(html, { treeAdapter });
-        treeAdapter.setTemplateContent(template, content);
-        return template;
-    }
-    /**
-     * @param {?} tagName
-     * @return {?}
-     */
-    createElement(tagName) {
-        return treeAdapter.createElement(tagName, 'http://www.w3.org/1999/xhtml', []);
-    }
-    /**
-     * @param {?} ns
-     * @param {?} tagName
-     * @return {?}
-     */
-    createElementNS(ns, tagName) {
-        return treeAdapter.createElement(tagName, ns, []);
-    }
-    /**
-     * @param {?} text
-     * @return {?}
-     */
-    createTextNode(text) {
-        const /** @type {?} */ t = (this.createComment(text));
-        t.type = 'text';
-        return t;
-    }
-    /**
-     * @param {?} attrName
-     * @param {?} attrValue
-     * @return {?}
-     */
-    createScriptTag(attrName, attrValue) {
-        return treeAdapter.createElement('script', 'http://www.w3.org/1999/xhtml', [{ name: attrName, value: attrValue }]);
-    }
-    /**
-     * @param {?} css
-     * @return {?}
-     */
-    createStyleElement(css) {
-        const /** @type {?} */ style = this.createElement('style');
-        this.setText(style, css);
-        return (style);
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    createShadowRoot(el) {
-        el.shadowRoot = treeAdapter.createDocumentFragment();
-        el.shadowRoot.parent = el;
-        return el.shadowRoot;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getShadowRoot(el) { return el.shadowRoot; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getHost(el) { return el.host; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getDistributedNodes(el) { throw _notImplemented('getDistributedNodes'); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    clone(node) {
-        const /** @type {?} */ _recursive = (node) => {
-            const /** @type {?} */ nodeClone = Object.create(Object.getPrototypeOf(node));
-            for (const /** @type {?} */ prop in node) {
-                const /** @type {?} */ desc = Object.getOwnPropertyDescriptor(node, prop);
-                if (desc && 'value' in desc && typeof desc.value !== 'object') {
-                    nodeClone[prop] = node[prop];
-                }
-            }
-            nodeClone.parent = null;
-            nodeClone.prev = null;
-            nodeClone.next = null;
-            nodeClone.children = null;
-            mapProps.forEach(mapName => {
-                if (node[mapName] != null) {
-                    nodeClone[mapName] = {};
-                    for (const /** @type {?} */ prop in node[mapName]) {
-                        nodeClone[mapName][prop] = node[mapName][prop];
-                    }
-                }
-            });
-            const /** @type {?} */ cNodes = node.children;
-            if (cNodes) {
-                const /** @type {?} */ cNodesClone = new Array(cNodes.length);
-                for (let /** @type {?} */ i = 0; i < cNodes.length; i++) {
-                    const /** @type {?} */ childNode = cNodes[i];
-                    const /** @type {?} */ childNodeClone = _recursive(childNode);
-                    cNodesClone[i] = childNodeClone;
-                    if (i > 0) {
-                        childNodeClone.prev = cNodesClone[i - 1];
-                        cNodesClone[i - 1].next = childNodeClone;
-                    }
-                    childNodeClone.parent = nodeClone;
-                }
-                nodeClone.children = cNodesClone;
-            }
-            return nodeClone;
-        };
-        return _recursive(node);
-    }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    getElementsByClassName(element, name) {
-        return this.querySelectorAll(element, '.' + name);
-    }
-    /**
-     * @param {?} element
-     * @param {?} name
-     * @return {?}
-     */
-    getElementsByTagName(element, name) {
-        return this.querySelectorAll(element, name);
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    classList(element) {
-        let /** @type {?} */ classAttrValue = null;
-        const /** @type {?} */ attributes = element.attribs;
-        if (attributes && attributes['class'] != null) {
-            classAttrValue = attributes['class'];
-        }
-        return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
-    }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    addClass(element, className) {
-        const /** @type {?} */ classList = this.classList(element);
-        const /** @type {?} */ index = classList.indexOf(className);
-        if (index == -1) {
-            classList.push(className);
-            element.attribs['class'] = element.className = classList.join(' ');
-        }
-    }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    removeClass(element, className) {
-        const /** @type {?} */ classList = this.classList(element);
-        const /** @type {?} */ index = classList.indexOf(className);
-        if (index > -1) {
-            classList.splice(index, 1);
-            element.attribs['class'] = element.className = classList.join(' ');
-        }
-    }
-    /**
-     * @param {?} element
-     * @param {?} className
-     * @return {?}
-     */
-    hasClass(element, className) {
-        return this.classList(element).indexOf(className) > -1;
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    hasStyle(element, styleName, styleValue) {
-        const /** @type {?} */ value = this.getStyle(element, styleName) || '';
-        return styleValue ? value == styleValue : value.length > 0;
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @return {?}
-     */
-    _readStyleAttribute(element) {
-        const /** @type {?} */ styleMap = {};
-        const /** @type {?} */ attributes = element.attribs;
-        if (attributes && attributes['style'] != null) {
-            const /** @type {?} */ styleAttrValue = attributes['style'];
-            const /** @type {?} */ styleList = styleAttrValue.split(/;+/g);
-            for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
-                if (styleList[i].length > 0) {
-                    const /** @type {?} */ style = (styleList[i]);
-                    const /** @type {?} */ colon = style.indexOf(':');
-                    if (colon === -1) {
-                        throw new Error(`Invalid CSS style: ${style}`);
-                    }
-                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
-                }
-            }
-        }
-        return styleMap;
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @param {?} styleMap
-     * @return {?}
-     */
-    _writeStyleAttribute(element, styleMap) {
-        let /** @type {?} */ styleAttrValue = '';
-        for (const /** @type {?} */ key in styleMap) {
-            const /** @type {?} */ newValue = styleMap[key];
-            if (newValue) {
-                styleAttrValue += key + ':' + styleMap[key] + ';';
-            }
-        }
-        element.attribs['style'] = styleAttrValue;
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    setStyle(element, styleName, styleValue) {
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        ((styleMap))[styleName] = styleValue;
-        this._writeStyleAttribute(element, styleMap);
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    removeStyle(element, styleName) { this.setStyle(element, styleName, null); }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    getStyle(element, styleName) {
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? ((styleMap))[styleName] : '';
-    }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    tagName(element) { return element.tagName == 'style' ? 'STYLE' : element.tagName; }
-    /**
-     * @param {?} element
-     * @return {?}
-     */
-    attributeMap(element) {
-        const /** @type {?} */ res = new Map();
-        const /** @type {?} */ elAttrs = treeAdapter.getAttrList(element);
-        for (let /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-            const /** @type {?} */ attrib = elAttrs[i];
-            res.set(attrib.name, attrib.value);
-        }
-        return res;
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    hasAttribute(element, attribute) {
-        return element.attribs && element.attribs[attribute] != null;
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    hasAttributeNS(element, ns, attribute) {
-        return this.hasAttribute(element, attribute);
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    getAttribute(element, attribute) {
-        return this.hasAttribute(element, attribute) ? element.attribs[attribute] : null;
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @return {?}
-     */
-    getAttributeNS(element, ns, attribute) {
-        return this.getAttribute(element, attribute);
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @param {?} value
-     * @return {?}
-     */
-    setAttribute(element, attribute, value) {
-        if (attribute) {
-            element.attribs[attribute] = value;
-            if (attribute === 'class') {
-                element.className = value;
-            }
-        }
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} attribute
-     * @param {?} value
-     * @return {?}
-     */
-    setAttributeNS(element, ns, attribute, value) {
-        this.setAttribute(element, attribute, value);
-    }
-    /**
-     * @param {?} element
-     * @param {?} attribute
-     * @return {?}
-     */
-    removeAttribute(element, attribute) {
-        if (attribute) {
-            delete element.attribs[attribute];
-        }
-    }
-    /**
-     * @param {?} element
-     * @param {?} ns
-     * @param {?} name
-     * @return {?}
-     */
-    removeAttributeNS(element, ns, name) { throw 'not implemented'; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    templateAwareRoot(el) {
-        return this.isTemplateElement(el) ? treeAdapter.getTemplateContent(el) : el;
-    }
-    /**
-     * @return {?}
-     */
-    createHtmlDocument() {
-        const /** @type {?} */ newDoc = treeAdapter.createDocument();
-        newDoc.title = 'fakeTitle';
-        const /** @type {?} */ head = treeAdapter.createElement('head', null, []);
-        const /** @type {?} */ body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
-        this.appendChild(newDoc, head);
-        this.appendChild(newDoc, body);
-        newDoc['head'] = head;
-        newDoc['body'] = body;
-        newDoc['_window'] = {};
-        return newDoc;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getBoundingClientRect(el) { return { left: 0, top: 0, width: 0, height: 0 }; }
-    /**
-     * @param {?} doc
-     * @return {?}
-     */
-    getTitle(doc) { return this.getText(this.getTitleNode(doc)) || ''; }
-    /**
-     * @param {?} doc
-     * @param {?} newTitle
-     * @return {?}
-     */
-    setTitle(doc, newTitle) {
-        this.setText(this.getTitleNode(doc), newTitle || '');
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    isTemplateElement(el) {
-        return this.isElementNode(el) && this.tagName(el) === 'template';
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isTextNode(node) { return treeAdapter.isTextNode(node); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isCommentNode(node) { return treeAdapter.isCommentNode(node); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isElementNode(node) { return node ? treeAdapter.isElementNode(node) : false; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    hasShadowRoot(node) { return node.shadowRoot != null; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isShadowRoot(node) { return this.getShadowRoot(node) == node; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    importIntoDoc(node) { return this.clone(node); }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    adoptNode(node) { return node; }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getHref(el) { return this.getAttribute(el, 'href'); }
-    /**
-     * @param {?} el
-     * @param {?} baseUrl
-     * @param {?} href
-     * @return {?}
-     */
-    resolveAndSetHref(el, baseUrl, href) {
-        if (href == null) {
-            el.href = baseUrl;
-        }
-        else {
-            el.href = baseUrl + '/../' + href;
-        }
-    }
-    /**
-     * \@internal
-     * @param {?} parsedRules
-     * @param {?=} css
-     * @return {?}
-     */
-    _buildRules(parsedRules, css) {
-        const /** @type {?} */ rules = [];
-        for (let /** @type {?} */ i = 0; i < parsedRules.length; i++) {
-            const /** @type {?} */ parsedRule = parsedRules[i];
-            const /** @type {?} */ rule = {};
-            rule['cssText'] = css;
-            rule['style'] = { content: '', cssText: '' };
-            if (parsedRule.type == 'rule') {
-                rule['type'] = 1;
-                rule['selectorText'] =
-                    parsedRule.selectors.join(', '.replace(/\s{2,}/g, ' ')
-                        .replace(/\s*~\s*/g, ' ~ ')
-                        .replace(/\s*\+\s*/g, ' + ')
-                        .replace(/\s*>\s*/g, ' > ')
-                        .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
-                if (parsedRule.declarations == null) {
-                    continue;
-                }
-                for (let /** @type {?} */ j = 0; j < parsedRule.declarations.length; j++) {
-                    const /** @type {?} */ declaration = parsedRule.declarations[j];
-                    rule['style'] = declaration.property[declaration.value];
-                    rule['style'].cssText += declaration.property + ': ' + declaration.value + ';';
-                }
-            }
-            else if (parsedRule.type == 'media') {
-                rule['type'] = 4;
-                rule['media'] = { mediaText: parsedRule.media };
-                if (parsedRule.rules) {
-                    rule['cssRules'] = this._buildRules(parsedRule.rules);
-                }
-            }
-            rules.push(rule);
-        }
-        return rules;
-    }
-    /**
-     * @return {?}
-     */
-    supportsDOMEvents() { return false; }
-    /**
-     * @return {?}
-     */
-    supportsNativeShadowDOM() { return false; }
-    /**
-     * @param {?} doc
-     * @param {?} target
-     * @return {?}
-     */
-    getGlobalEventTarget(doc, target) {
-        if (target == 'window') {
-            return ((doc))._window;
-        }
-        else if (target == 'document') {
-            return doc;
-        }
-        else if (target == 'body') {
-            return doc.body;
-        }
-    }
-    /**
-     * @param {?} doc
-     * @return {?}
-     */
-    getBaseHref(doc) {
-        const /** @type {?} */ base = this.querySelector(doc, 'base');
-        let /** @type {?} */ href = '';
-        if (base) {
-            href = this.getHref(base);
-        }
-        // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-        return href == null ? null : href;
-    }
-    /**
-     * @return {?}
-     */
-    resetBaseElement() { throw 'not implemented'; }
-    /**
-     * @return {?}
-     */
-    getHistory() { throw 'not implemented'; }
-    /**
-     * @return {?}
-     */
-    getLocation() { throw 'not implemented'; }
-    /**
-     * @return {?}
-     */
-    getUserAgent() { return 'Fake user agent'; }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @return {?}
-     */
-    getData(el, name) { return this.getAttribute(el, 'data-' + name); }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getComputedStyle(el) { throw 'not implemented'; }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setData(el, name, value) { this.setAttribute(el, 'data-' + name, value); }
-    /**
-     * @return {?}
-     */
-    supportsWebAnimation() { return false; }
-    /**
-     * @return {?}
-     */
-    performanceNow() { return Date.now(); }
-    /**
-     * @return {?}
-     */
-    getAnimationPrefix() { return ''; }
-    /**
-     * @return {?}
-     */
-    getTransitionEnd() { return 'transitionend'; }
-    /**
-     * @return {?}
-     */
-    supportsAnimation() { return true; }
-    /**
-     * @param {?} el
-     * @param {?} newNode
-     * @param {?} oldNode
-     * @return {?}
-     */
-    replaceChild(el, newNode, oldNode) { throw new Error('not implemented'); }
-    /**
-     * @param {?} templateHtml
-     * @return {?}
-     */
-    parse(templateHtml) { throw new Error('not implemented'); }
-    /**
-     * @param {?} el
-     * @param {?} methodName
-     * @param {?} args
-     * @return {?}
-     */
-    invoke(el, methodName, args) { throw new Error('not implemented'); }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    getEventKey(event) { throw new Error('not implemented'); }
-    /**
-     * @return {?}
-     */
-    supportsCookies() { return false; }
-    /**
-     * @param {?} name
-     * @return {?}
-     */
-    getCookie(name) { throw new Error('not implemented'); }
-    /**
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setCookie(name, value) { throw new Error('not implemented'); }
-    /**
-     * @param {?} element
-     * @param {?} keyframes
-     * @param {?} options
-     * @return {?}
-     */
-    animate(element, keyframes, options) { throw new Error('not implemented'); }
-    /**
-     * @param {?} doc
-     * @return {?}
-     */
-    getTitleNode(doc) {
-        let /** @type {?} */ title = this.querySelector(doc, 'title');
-        if (!title) {
-            title = (this.createElement('title'));
-            this.appendChild(this.querySelector(doc, 'head'), title);
-        }
-        return title;
-    }
-}
-// TODO: build a proper list, this one is all the keys of a HTMLInputElement
-const _HTMLElementPropertyList = [
-    'webkitEntries',
-    'incremental',
-    'webkitdirectory',
-    'selectionDirection',
-    'selectionEnd',
-    'selectionStart',
-    'labels',
-    'validationMessage',
-    'validity',
-    'willValidate',
-    'width',
-    'valueAsNumber',
-    'valueAsDate',
-    'value',
-    'useMap',
-    'defaultValue',
-    'type',
-    'step',
-    'src',
-    'size',
-    'required',
-    'readOnly',
-    'placeholder',
-    'pattern',
-    'name',
-    'multiple',
-    'min',
-    'minLength',
-    'maxLength',
-    'max',
-    'list',
-    'indeterminate',
-    'height',
-    'formTarget',
-    'formNoValidate',
-    'formMethod',
-    'formEnctype',
-    'formAction',
-    'files',
-    'form',
-    'disabled',
-    'dirName',
-    'checked',
-    'defaultChecked',
-    'autofocus',
-    'autocomplete',
-    'alt',
-    'align',
-    'accept',
-    'onautocompleteerror',
-    'onautocomplete',
-    'onwaiting',
-    'onvolumechange',
-    'ontoggle',
-    'ontimeupdate',
-    'onsuspend',
-    'onsubmit',
-    'onstalled',
-    'onshow',
-    'onselect',
-    'onseeking',
-    'onseeked',
-    'onscroll',
-    'onresize',
-    'onreset',
-    'onratechange',
-    'onprogress',
-    'onplaying',
-    'onplay',
-    'onpause',
-    'onmousewheel',
-    'onmouseup',
-    'onmouseover',
-    'onmouseout',
-    'onmousemove',
-    'onmouseleave',
-    'onmouseenter',
-    'onmousedown',
-    'onloadstart',
-    'onloadedmetadata',
-    'onloadeddata',
-    'onload',
-    'onkeyup',
-    'onkeypress',
-    'onkeydown',
-    'oninvalid',
-    'oninput',
-    'onfocus',
-    'onerror',
-    'onended',
-    'onemptied',
-    'ondurationchange',
-    'ondrop',
-    'ondragstart',
-    'ondragover',
-    'ondragleave',
-    'ondragenter',
-    'ondragend',
-    'ondrag',
-    'ondblclick',
-    'oncuechange',
-    'oncontextmenu',
-    'onclose',
-    'onclick',
-    'onchange',
-    'oncanplaythrough',
-    'oncanplay',
-    'oncancel',
-    'onblur',
-    'onabort',
-    'spellcheck',
-    'isContentEditable',
-    'contentEditable',
-    'outerText',
-    'innerText',
-    'accessKey',
-    'hidden',
-    'webkitdropzone',
-    'draggable',
-    'tabIndex',
-    'dir',
-    'translate',
-    'lang',
-    'title',
-    'childElementCount',
-    'lastElementChild',
-    'firstElementChild',
-    'children',
-    'onwebkitfullscreenerror',
-    'onwebkitfullscreenchange',
-    'nextElementSibling',
-    'previousElementSibling',
-    'onwheel',
-    'onselectstart',
-    'onsearch',
-    'onpaste',
-    'oncut',
-    'oncopy',
-    'onbeforepaste',
-    'onbeforecut',
-    'onbeforecopy',
-    'shadowRoot',
-    'dataset',
-    'classList',
-    'className',
-    'outerHTML',
-    'innerHTML',
-    'scrollHeight',
-    'scrollWidth',
-    'scrollTop',
-    'scrollLeft',
-    'clientHeight',
-    'clientWidth',
-    'clientTop',
-    'clientLeft',
-    'offsetParent',
-    'offsetHeight',
-    'offsetWidth',
-    'offsetTop',
-    'offsetLeft',
-    'localName',
-    'prefix',
-    'namespaceURI',
-    'id',
-    'style',
-    'attributes',
-    'tagName',
-    'parentElement',
-    'textContent',
-    'baseURI',
-    'ownerDocument',
-    'nextSibling',
-    'previousSibling',
-    'lastChild',
-    'firstChild',
-    'childNodes',
-    'parentNode',
-    'nodeType',
-    'nodeValue',
-    'nodeName',
-    'closure_lm_714617',
-    '__jsaction',
-];
-/**
- * @template T
- * @param {?} list
- * @param {?} el
- * @return {?}
- */
-function remove(list, el) {
-    const /** @type {?} */ index = list.indexOf(el);
-    if (index > -1) {
-        list.splice(index, 1);
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const EMPTY_ARRAY = [];
 class ServerRendererFactory2 {
     /**
@@ -2146,7 +1126,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
      * @return {?}
      */
     _addStyle(style) {
-        let /** @type {?} */ adapter = (ɵgetDOM());
+        let /** @type {?} */ adapter = ɵgetDOM();
         const /** @type {?} */ el = adapter.createElement('style');
         adapter.setText(el, style);
         if (!!this.transitionId) {
@@ -2197,7 +1177,7 @@ const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * @return {?}
  */
 function initParse5Adapter(injector) {
-    return () => { Parse5DomAdapter.makeCurrent(); };
+    return () => { DominoAdapter.makeCurrent(); };
 }
 /**
  * @param {?} renderer
@@ -2245,7 +1225,7 @@ ServerModule.ctorParameters = () => [];
 function _document(injector) {
     let /** @type {?} */ config = injector.get(INITIAL_CONFIG, null);
     if (config && config.document) {
-        return parseDocument(config.document);
+        return parseDocument(config.document, config.url);
     }
     else {
         return ɵgetDOM().createHtmlDocument();
@@ -2273,7 +1253,6 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const parse5$2 = require('parse5');
 /**
  * @param {?} platformFactory
  * @param {?} options
@@ -2378,7 +1357,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.5-30d53a8');
+const VERSION = new Version('5.0.0-beta.5-2f2d5f3');
 
 /**
  * @fileoverview added by tsickle

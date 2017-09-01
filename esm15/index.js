@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -14,7 +14,6 @@ import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platf
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { parse } from 'url';
-import * as url from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
@@ -1357,7 +1356,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.5-ee04217');
+const VERSION = new Version('5.0.0-beta.5-fd701b0');
 
 /**
  * @fileoverview added by tsickle
@@ -1385,7 +1384,7 @@ const VERSION = new Version('5.0.0-beta.5-ee04217');
 /**
  * @module
  * @description
- * Entry point for all public APIs of the platform-server package.
+ * Entry point for all public APIs of this package.
  */
 
 // This file only reexports content of the `src` folder. Keep it that way.
@@ -1399,4 +1398,4 @@ const VERSION = new Version('5.0.0-beta.5-ee04217');
  */
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
-//# sourceMappingURL=platform-server.js.map
+//# sourceMappingURL=index.js.map

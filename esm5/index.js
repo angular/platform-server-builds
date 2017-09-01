@@ -1,11 +1,11 @@
-import * as tslib_1 from "tslib";
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
 import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { __extends } from 'tslib';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -19,6 +19,7 @@ import { DomElementSchemaRegistry } from '@angular/compiler';
 import { filter } from 'rxjs/operator/filter';
 import { first } from 'rxjs/operator/first';
 import { toPromise } from 'rxjs/operator/toPromise';
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -62,7 +63,7 @@ function serializeDocument(doc) {
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
 var DominoAdapter = (function (_super) {
-    tslib_1.__extends(DominoAdapter, _super);
+    __extends(DominoAdapter, _super);
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -371,6 +372,7 @@ var DominoAdapter = (function (_super) {
     DominoAdapter.prototype.setCookie = function (name, value) { throw _notImplemented('setCookie'); };
     return DominoAdapter;
 }(ɵBrowserDomAdapter));
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -413,6 +415,7 @@ PlatformState.decorators = [
 PlatformState.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -540,7 +543,7 @@ var ZoneMacroTaskWrapper = (function () {
     return ZoneMacroTaskWrapper;
 }());
 var ZoneMacroTaskConnection = (function (_super) {
-    tslib_1.__extends(ZoneMacroTaskConnection, _super);
+    __extends(ZoneMacroTaskConnection, _super);
     /**
      * @param {?} request
      * @param {?} backend
@@ -590,7 +593,7 @@ var ZoneMacroTaskBackend = (function () {
     return ZoneMacroTaskBackend;
 }());
 var ZoneClientBackend = (function (_super) {
-    tslib_1.__extends(ZoneClientBackend, _super);
+    __extends(ZoneClientBackend, _super);
     /**
      * @param {?} backend
      */
@@ -640,6 +643,7 @@ var SERVER_HTTP_PROVIDERS = [
         deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
     }
 ];
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -664,6 +668,7 @@ function PlatformConfig() { }
  * \@experimental
  */
 var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -814,6 +819,7 @@ ServerPlatformLocation.ctorParameters = function () { return [
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -840,7 +846,7 @@ var ServerRendererFactory2 = (function () {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    ;
+    
     /**
      * @param {?} element
      * @param {?} type
@@ -1094,7 +1100,7 @@ var DefaultServerRenderer2 = (function () {
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        return this.ngZone.runOutsideAngular(function () { /** @type {?} */ return (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -1110,7 +1116,7 @@ function checkNoSyntheticProp(name, nameKind) {
     }
 }
 var EmulatedEncapsulationServerRenderer2 = (function (_super) {
-    tslib_1.__extends(EmulatedEncapsulationServerRenderer2, _super);
+    __extends(EmulatedEncapsulationServerRenderer2, _super);
     /**
      * @param {?} document
      * @param {?} ngZone
@@ -1144,6 +1150,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     };
     return EmulatedEncapsulationServerRenderer2;
 }(DefaultServerRenderer2));
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1156,7 +1163,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var ServerStylesHost = (function (_super) {
-    tslib_1.__extends(ServerStylesHost, _super);
+    __extends(ServerStylesHost, _super);
     /**
      * @param {?} doc
      * @param {?} transitionId
@@ -1200,6 +1207,7 @@ ServerStylesHost.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
 ]; };
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1295,6 +1303,7 @@ var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERV
  * \@experimental
  */
 var platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1377,6 +1386,7 @@ function renderModuleFactory(moduleFactory, options) {
     var /** @type {?} */ platform = _getPlatform(platformServer, options);
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1388,6 +1398,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1407,7 +1418,8 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.5-ee04217');
+var VERSION = new Version('5.0.0-beta.5-fd701b0');
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1419,6 +1431,7 @@ var VERSION = new Version('5.0.0-beta.5-ee04217');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1433,9 +1446,11 @@ var VERSION = new Version('5.0.0-beta.5-ee04217');
 /**
  * @module
  * @description
- * Entry point for all public APIs of the platform-server package.
+ * Entry point for all public APIs of this package.
  */
+
 // This file only reexports content of the `src` folder. Keep it that way.
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -1443,5 +1458,6 @@ var VERSION = new Version('5.0.0-beta.5-ee04217');
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
-//# sourceMappingURL=platform-server.es5.js.map
+//# sourceMappingURL=index.js.map

@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.5-ee04217
+ * @license Angular v5.0.0-beta.5-fd701b0
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,6 +8,10 @@ import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angu
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18,13 +22,13 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
 /**
  * Platform for testing
  *
- * @experimental API related to bootstrapping are still under review.
+ * \@experimental API related to bootstrapping are still under review.
  */
 const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- * @experimental API related to bootstrapping are still under review.
+ * \@experimental API related to bootstrapping are still under review.
  */
 class ServerTestingModule {
 }
@@ -39,6 +43,10 @@ ServerTestingModule.decorators = [
 ServerTestingModule.ctorParameters = () => [];
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -52,6 +60,10 @@ ServerTestingModule.ctorParameters = () => [];
  */
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
@@ -61,8 +73,18 @@ ServerTestingModule.ctorParameters = () => [];
 /**
  * @module
  * @description
- * Entry point for all public APIs of the platform-server/testing package.
+ * Entry point for all public APIs of this package.
+ */
+
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
  */
 
 export { platformServerTesting, ServerTestingModule };
-//# sourceMappingURL=testing.js.map
+//# sourceMappingURL=index.js.map

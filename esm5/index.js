@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-15945c8
+ * @license Angular v5.0.0-beta.6-d2707f1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -668,6 +668,13 @@ function PlatformConfig() { }
  * \@experimental
  */
 var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+/**
+ * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
+ * before current platform state is rendered to string.
+ *
+ * \@experimental
+ */
+var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
@@ -1343,7 +1350,22 @@ function _render(platform, moduleRefPromise) {
         return toPromise
             .call(first.call(filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
             .then(function () {
-            var /** @type {?} */ output = platform.injector.get(PlatformState).renderToString();
+            var /** @type {?} */ platformState = platform.injector.get(PlatformState);
+            // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
+            var /** @type {?} */ callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
+            if (callbacks) {
+                for (var _i = 0, callbacks_1 = callbacks; _i < callbacks_1.length; _i++) {
+                    var callback = callbacks_1[_i];
+                    try {
+                        callback();
+                    }
+                    catch (e) {
+                        // Ignore exceptions.
+                        console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
+                    }
+                }
+            }
+            var /** @type {?} */ output = platformState.renderToString();
             platform.destroy();
             return output;
         });
@@ -1418,7 +1440,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.6-15945c8');
+var VERSION = new Version('5.0.0-beta.6-d2707f1');
 
 /**
  * @fileoverview added by tsickle
@@ -1459,5 +1481,5 @@ var VERSION = new Version('5.0.0-beta.6-15945c8');
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
 //# sourceMappingURL=index.js.map

@@ -1,13 +1,17 @@
 /**
- * @license Angular v4.0.0-rc.5-c5cc3be
+ * @license Angular v5.0.0-beta.6-f2945c6
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { platformCoreDynamicTesting } from '@angular/compiler/testing';
 import { NgModule, createPlatformFactory } from '@angular/core';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -18,19 +22,16 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
 /**
  * Platform for testing
  *
- * @experimental API related to bootstrapping are still under review.
+ * \@experimental API related to bootstrapping are still under review.
  */
-var platformServerTesting = createPlatformFactory(platformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- * @experimental API related to bootstrapping are still under review.
+ * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = (function () {
-    function ServerTestingModule() {
-    }
-    return ServerTestingModule;
-}());
+class ServerTestingModule {
+}
 ServerTestingModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserDynamicTestingModule],
@@ -39,7 +40,12 @@ ServerTestingModule.decorators = [
             },] },
 ];
 /** @nocollapse */
-ServerTestingModule.ctorParameters = function () { return []; };
+ServerTestingModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -52,6 +58,11 @@ ServerTestingModule.ctorParameters = function () { return []; };
  * @description
  * Entry point for all public APIs of the platform-browser-dynamic/testing package.
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -62,7 +73,18 @@ ServerTestingModule.ctorParameters = function () { return []; };
 /**
  * @module
  * @description
- * Entry point for all public APIs of the platform-server/testing package.
+ * Entry point for all public APIs of this package.
  */
+
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+
 export { platformServerTesting, ServerTestingModule };
-//# sourceMappingURL=testing.es5.js.map
+//# sourceMappingURL=index.js.map

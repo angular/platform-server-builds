@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-112e777
+ * @license Angular v5.0.0-beta.6-ca5aeba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -33,17 +33,17 @@ var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 
 var ServerTestingModule = (function () {
     function ServerTestingModule() {
     }
+    ServerTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserDynamicTestingModule],
+                    imports: [NoopAnimationsModule],
+                    providers: ɵSERVER_RENDER_PROVIDERS
+                },] },
+    ];
+    /** @nocollapse */
+    ServerTestingModule.ctorParameters = function () { return []; };
     return ServerTestingModule;
 }());
-ServerTestingModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserDynamicTestingModule],
-                imports: [NoopAnimationsModule],
-                providers: ɵSERVER_RENDER_PROVIDERS
-            },] },
-];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = function () { return []; };
 
 /**
  * @fileoverview added by tsickle

@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-112e777
+ * @license Angular v5.0.0-beta.6-ca5aeba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.6-112e777
+ * @license Angular v5.0.0-beta.6-ca5aeba
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -77,7 +77,7 @@ function parseDocument(html, url$$1) {
  * @return {?}
  */
 function serializeDocument(doc) {
-    return ((doc)).serialize();
+    return (/** @type {?} */ (doc)).serialize();
 }
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
@@ -90,40 +90,70 @@ var DominoAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    DominoAdapter.makeCurrent = function () { _angular_platformBrowser.ɵsetRootDomAdapter(new DominoAdapter()); };
+    DominoAdapter.makeCurrent = /**
+     * @return {?}
+     */
+    function () { _angular_platformBrowser.ɵsetRootDomAdapter(new DominoAdapter()); };
     /**
      * @param {?} error
      * @return {?}
      */
-    DominoAdapter.prototype.logError = function (error) { console.error(error); };
+    DominoAdapter.prototype.logError = /**
+     * @param {?} error
+     * @return {?}
+     */
+    function (error) { console.error(error); };
+    // tslint:disable-next-line:no-console
     /**
      * @param {?} error
      * @return {?}
      */
-    DominoAdapter.prototype.log = function (error) { console.log(error); };
+    DominoAdapter.prototype.log = /**
+     * @param {?} error
+     * @return {?}
+     */
+    function (error) { console.log(error); };
     /**
      * @param {?} error
      * @return {?}
      */
-    DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
+    DominoAdapter.prototype.logGroup = /**
+     * @param {?} error
+     * @return {?}
+     */
+    function (error) { console.error(error); };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.logGroupEnd = function () { };
+    DominoAdapter.prototype.logGroupEnd = /**
+     * @return {?}
+     */
+    function () { };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
+    DominoAdapter.prototype.supportsDOMEvents = /**
+     * @return {?}
+     */
+    function () { return false; };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.supportsNativeShadowDOM = function () { return false; };
+    DominoAdapter.prototype.supportsNativeShadowDOM = /**
+     * @return {?}
+     */
+    function () { return false; };
     /**
      * @param {?} nodeA
      * @param {?} nodeB
      * @return {?}
      */
-    DominoAdapter.prototype.contains = function (nodeA, nodeB) {
+    DominoAdapter.prototype.contains = /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    function (nodeA, nodeB) {
         var /** @type {?} */ inner = nodeB;
         while (inner) {
             if (inner === nodeA)
@@ -135,13 +165,19 @@ var DominoAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.createHtmlDocument = function () {
+    DominoAdapter.prototype.createHtmlDocument = /**
+     * @return {?}
+     */
+    function () {
         return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
     };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getDefaultDocument = function () {
+    DominoAdapter.prototype.getDefaultDocument = /**
+     * @return {?}
+     */
+    function () {
         if (!DominoAdapter.defaultDoc) {
             DominoAdapter.defaultDoc = domino.createDocument();
         }
@@ -152,7 +188,12 @@ var DominoAdapter = (function (_super) {
      * @param {?=} doc
      * @return {?}
      */
-    DominoAdapter.prototype.createShadowRoot = function (el, doc) {
+    DominoAdapter.prototype.createShadowRoot = /**
+     * @param {?} el
+     * @param {?=} doc
+     * @return {?}
+     */
+    function (el, doc) {
         if (doc === void 0) { doc = document; }
         el.shadowRoot = doc.createDocumentFragment();
         el.shadowRoot.parent = el;
@@ -162,48 +203,77 @@ var DominoAdapter = (function (_super) {
      * @param {?} el
      * @return {?}
      */
-    DominoAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
+    DominoAdapter.prototype.getShadowRoot = /**
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) { return el.shadowRoot; };
     /**
      * @param {?} node
      * @return {?}
      */
-    DominoAdapter.prototype.isTextNode = function (node) { return node.nodeType === DominoAdapter.defaultDoc.TEXT_NODE; };
+    DominoAdapter.prototype.isTextNode = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return node.nodeType === DominoAdapter.defaultDoc.TEXT_NODE; };
     /**
      * @param {?} node
      * @return {?}
      */
-    DominoAdapter.prototype.isCommentNode = function (node) {
+    DominoAdapter.prototype.isCommentNode = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) {
         return node.nodeType === DominoAdapter.defaultDoc.COMMENT_NODE;
     };
     /**
      * @param {?} node
      * @return {?}
      */
-    DominoAdapter.prototype.isElementNode = function (node) {
+    DominoAdapter.prototype.isElementNode = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) {
         return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
     };
     /**
      * @param {?} node
      * @return {?}
      */
-    DominoAdapter.prototype.hasShadowRoot = function (node) { return node.shadowRoot != null; };
+    DominoAdapter.prototype.hasShadowRoot = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return node.shadowRoot != null; };
     /**
      * @param {?} node
      * @return {?}
      */
-    DominoAdapter.prototype.isShadowRoot = function (node) { return this.getShadowRoot(node) == node; };
+    DominoAdapter.prototype.isShadowRoot = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return this.getShadowRoot(node) == node; };
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    DominoAdapter.prototype.getProperty = function (el, name) {
+    DominoAdapter.prototype.getProperty = /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function (el, name) {
         // Domino tries tp resolve href-s which we do not want. Just return the
         // atribute value.
         if (name === 'href') {
             return this.getAttribute(el, 'href');
         }
-        return ((el))[name];
+        return (/** @type {?} */ (el))[name];
     };
     /**
      * @param {?} el
@@ -211,20 +281,31 @@ var DominoAdapter = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    DominoAdapter.prototype.setProperty = function (el, name, value) {
+    DominoAdapter.prototype.setProperty = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    function (el, name, value) {
         // Eventhough the server renderer reflects any properties to attributes
         // map 'href' to atribute just to handle when setProperty is directly called.
         if (name === 'href') {
             this.setAttribute(el, 'href', value);
         }
-        ((el))[name] = value;
+        (/** @type {?} */ (el))[name] = value;
     };
     /**
      * @param {?} doc
      * @param {?} target
      * @return {?}
      */
-    DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
+    DominoAdapter.prototype.getGlobalEventTarget = /**
+     * @param {?} doc
+     * @param {?} target
+     * @return {?}
+     */
+    function (doc, target) {
         if (target === 'window') {
             return doc.defaultView;
         }
@@ -240,7 +321,11 @@ var DominoAdapter = (function (_super) {
      * @param {?} doc
      * @return {?}
      */
-    DominoAdapter.prototype.getBaseHref = function (doc) {
+    DominoAdapter.prototype.getBaseHref = /**
+     * @param {?} doc
+     * @return {?}
+     */
+    function (doc) {
         var /** @type {?} */ base = this.querySelector(doc.documentElement, 'base');
         var /** @type {?} */ href = '';
         if (base) {
@@ -249,36 +334,49 @@ var DominoAdapter = (function (_super) {
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
         return href;
     };
+    /** @internal */
     /**
      * \@internal
      * @param {?} element
      * @return {?}
      */
-    DominoAdapter.prototype._readStyleAttribute = function (element) {
+    DominoAdapter.prototype._readStyleAttribute = /**
+     * \@internal
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
         var /** @type {?} */ styleMap = {};
         var /** @type {?} */ styleAttribute = element.getAttribute('style');
         if (styleAttribute) {
             var /** @type {?} */ styleList = styleAttribute.split(/;+/g);
             for (var /** @type {?} */ i = 0; i < styleList.length; i++) {
                 if (styleList[i].length > 0) {
-                    var /** @type {?} */ style = (styleList[i]);
+                    var /** @type {?} */ style = /** @type {?} */ (styleList[i]);
                     var /** @type {?} */ colon = style.indexOf(':');
                     if (colon === -1) {
                         throw new Error("Invalid CSS style: " + style);
                     }
-                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
+                    (/** @type {?} */ (styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
                 }
             }
         }
         return styleMap;
     };
+    /** @internal */
     /**
      * \@internal
      * @param {?} element
      * @param {?} styleMap
      * @return {?}
      */
-    DominoAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
+    DominoAdapter.prototype._writeStyleAttribute = /**
+     * \@internal
+     * @param {?} element
+     * @param {?} styleMap
+     * @return {?}
+     */
+    function (element, styleMap) {
         var /** @type {?} */ styleAttrValue = '';
         for (var /** @type {?} */ key in styleMap) {
             var /** @type {?} */ newValue = styleMap[key];
@@ -294,9 +392,15 @@ var DominoAdapter = (function (_super) {
      * @param {?=} styleValue
      * @return {?}
      */
-    DominoAdapter.prototype.setStyle = function (element, styleName, styleValue) {
+    DominoAdapter.prototype.setStyle = /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    function (element, styleName, styleValue) {
         var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        ((styleMap))[styleName] = styleValue;
+        (/** @type {?} */ (styleMap))[styleName] = styleValue;
         this._writeStyleAttribute(element, styleMap);
     };
     /**
@@ -304,15 +408,25 @@ var DominoAdapter = (function (_super) {
      * @param {?} styleName
      * @return {?}
      */
-    DominoAdapter.prototype.removeStyle = function (element, styleName) { this.setStyle(element, styleName, null); };
+    DominoAdapter.prototype.removeStyle = /**
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    function (element, styleName) { this.setStyle(element, styleName, null); };
     /**
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    DominoAdapter.prototype.getStyle = function (element, styleName) {
+    DominoAdapter.prototype.getStyle = /**
+     * @param {?} element
+     * @param {?} styleName
+     * @return {?}
+     */
+    function (element, styleName) {
         var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? ((styleMap))[styleName] : '';
+        return styleMap.hasOwnProperty(styleName) ? (/** @type {?} */ (styleMap))[styleName] : '';
     };
     /**
      * @param {?} element
@@ -320,7 +434,13 @@ var DominoAdapter = (function (_super) {
      * @param {?=} styleValue
      * @return {?}
      */
-    DominoAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
+    DominoAdapter.prototype.hasStyle = /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    function (element, styleName, styleValue) {
         var /** @type {?} */ value = this.getStyle(element, styleName) || '';
         return styleValue ? value == styleValue : value.length > 0;
     };
@@ -329,11 +449,16 @@ var DominoAdapter = (function (_super) {
      * @param {?} evt
      * @return {?}
      */
-    DominoAdapter.prototype.dispatchEvent = function (el, evt) {
+    DominoAdapter.prototype.dispatchEvent = /**
+     * @param {?} el
+     * @param {?} evt
+     * @return {?}
+     */
+    function (el, evt) {
         el.dispatchEvent(evt);
         // Dispatch the event to the window also.
         var /** @type {?} */ doc = el.ownerDocument || el;
-        var /** @type {?} */ win = ((doc)).defaultView;
+        var /** @type {?} */ win = (/** @type {?} */ (doc)).defaultView;
         if (win) {
             win.dispatchEvent(evt);
         }
@@ -341,55 +466,95 @@ var DominoAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getHistory = function () { throw _notImplemented('getHistory'); };
+    DominoAdapter.prototype.getHistory = /**
+     * @return {?}
+     */
+    function () { throw _notImplemented('getHistory'); };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
+    DominoAdapter.prototype.getLocation = /**
+     * @return {?}
+     */
+    function () { throw _notImplemented('getLocation'); };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
+    DominoAdapter.prototype.getUserAgent = /**
+     * @return {?}
+     */
+    function () { return 'Fake user agent'; };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.supportsWebAnimation = function () { return false; };
+    DominoAdapter.prototype.supportsWebAnimation = /**
+     * @return {?}
+     */
+    function () { return false; };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
+    DominoAdapter.prototype.performanceNow = /**
+     * @return {?}
+     */
+    function () { return Date.now(); };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getAnimationPrefix = function () { return ''; };
+    DominoAdapter.prototype.getAnimationPrefix = /**
+     * @return {?}
+     */
+    function () { return ''; };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };
+    DominoAdapter.prototype.getTransitionEnd = /**
+     * @return {?}
+     */
+    function () { return 'transitionend'; };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.supportsAnimation = function () { return true; };
+    DominoAdapter.prototype.supportsAnimation = /**
+     * @return {?}
+     */
+    function () { return true; };
     /**
      * @param {?} el
      * @return {?}
      */
-    DominoAdapter.prototype.getDistributedNodes = function (el) { throw _notImplemented('getDistributedNodes'); };
+    DominoAdapter.prototype.getDistributedNodes = /**
+     * @param {?} el
+     * @return {?}
+     */
+    function (el) { throw _notImplemented('getDistributedNodes'); };
     /**
      * @return {?}
      */
-    DominoAdapter.prototype.supportsCookies = function () { return false; };
+    DominoAdapter.prototype.supportsCookies = /**
+     * @return {?}
+     */
+    function () { return false; };
     /**
      * @param {?} name
      * @return {?}
      */
-    DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
+    DominoAdapter.prototype.getCookie = /**
+     * @param {?} name
+     * @return {?}
+     */
+    function (name) { throw _notImplemented('getCookie'); };
     /**
      * @param {?} name
      * @param {?} value
      * @return {?}
      */
-    DominoAdapter.prototype.setCookie = function (name, value) { throw _notImplemented('setCookie'); };
+    DominoAdapter.prototype.setCookie = /**
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    function (name, value) { throw _notImplemented('setCookie'); };
     return DominoAdapter;
 }(_angular_platformBrowser.ɵBrowserDomAdapter));
 
@@ -410,31 +575,42 @@ var DominoAdapter = (function (_super) {
  * \@experimental
  */
 var PlatformState = (function () {
-    /**
-     * @param {?} _doc
-     */
     function PlatformState(_doc) {
         this._doc = _doc;
     }
     /**
      * Renders the current state of the platform to string.
+     */
+    /**
+     * Renders the current state of the platform to string.
      * @return {?}
      */
-    PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
+    PlatformState.prototype.renderToString = /**
+     * Renders the current state of the platform to string.
+     * @return {?}
+     */
+    function () { return serializeDocument(this._doc); };
+    /**
+     * Returns the current DOM state.
+     */
     /**
      * Returns the current DOM state.
      * @return {?}
      */
-    PlatformState.prototype.getDocument = function () { return this._doc; };
+    PlatformState.prototype.getDocument = /**
+     * Returns the current DOM state.
+     * @return {?}
+     */
+    function () { return this._doc; };
+    PlatformState.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    PlatformState.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
     return PlatformState;
 }());
-PlatformState.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-PlatformState.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-]; };
 
 /**
  * @fileoverview added by tsickle
@@ -464,14 +640,17 @@ var ServerXhr = (function () {
     /**
      * @return {?}
      */
-    ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
+    ServerXhr.prototype.build = /**
+     * @return {?}
+     */
+    function () { return new xhr2.XMLHttpRequest(); };
+    ServerXhr.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
-ServerXhr.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-ServerXhr.ctorParameters = function () { return []; };
 var ServerXsrfStrategy = (function () {
     function ServerXsrfStrategy() {
     }
@@ -479,14 +658,18 @@ var ServerXsrfStrategy = (function () {
      * @param {?} req
      * @return {?}
      */
-    ServerXsrfStrategy.prototype.configureRequest = function (req) { };
+    ServerXsrfStrategy.prototype.configureRequest = /**
+     * @param {?} req
+     * @return {?}
+     */
+    function (req) { };
+    ServerXsrfStrategy.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerXsrfStrategy.ctorParameters = function () { return []; };
     return ServerXsrfStrategy;
 }());
-ServerXsrfStrategy.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-ServerXsrfStrategy.ctorParameters = function () { return []; };
 /**
  * @abstract
  */
@@ -497,10 +680,14 @@ var ZoneMacroTaskWrapper = (function () {
      * @param {?} request
      * @return {?}
      */
-    ZoneMacroTaskWrapper.prototype.wrap = function (request) {
+    ZoneMacroTaskWrapper.prototype.wrap = /**
+     * @param {?} request
+     * @return {?}
+     */
+    function (request) {
         var _this = this;
         return new rxjs_Observable.Observable(function (observer) {
-            var /** @type {?} */ task = ((null));
+            var /** @type {?} */ task = /** @type {?} */ ((null));
             var /** @type {?} */ scheduled = false;
             var /** @type {?} */ sub = null;
             var /** @type {?} */ savedResult = null;
@@ -564,10 +751,6 @@ var ZoneMacroTaskWrapper = (function () {
 }());
 var ZoneMacroTaskConnection = (function (_super) {
     __extends(ZoneMacroTaskConnection, _super);
-    /**
-     * @param {?} request
-     * @param {?} backend
-     */
     function ZoneMacroTaskConnection(request, backend) {
         var _this = _super.call(this) || this;
         _this.request = request;
@@ -580,15 +763,19 @@ var ZoneMacroTaskConnection = (function (_super) {
      * @param {?} request
      * @return {?}
      */
-    ZoneMacroTaskConnection.prototype.delegate = function (request) {
+    ZoneMacroTaskConnection.prototype.delegate = /**
+     * @param {?} request
+     * @return {?}
+     */
+    function (request) {
         this.lastConnection = this.backend.createConnection(request);
-        return (this.lastConnection.response);
+        return /** @type {?} */ (this.lastConnection.response);
     };
     Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () {
+        function () {
             return !!this.lastConnection ? this.lastConnection.readyState : _angular_http.ReadyState.Unsent;
         },
         enumerable: true,
@@ -597,9 +784,6 @@ var ZoneMacroTaskConnection = (function (_super) {
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
 var ZoneMacroTaskBackend = (function () {
-    /**
-     * @param {?} backend
-     */
     function ZoneMacroTaskBackend(backend) {
         this.backend = backend;
     }
@@ -607,16 +791,17 @@ var ZoneMacroTaskBackend = (function () {
      * @param {?} request
      * @return {?}
      */
-    ZoneMacroTaskBackend.prototype.createConnection = function (request) {
+    ZoneMacroTaskBackend.prototype.createConnection = /**
+     * @param {?} request
+     * @return {?}
+     */
+    function (request) {
         return new ZoneMacroTaskConnection(request, this.backend);
     };
     return ZoneMacroTaskBackend;
 }());
 var ZoneClientBackend = (function (_super) {
     __extends(ZoneClientBackend, _super);
-    /**
-     * @param {?} backend
-     */
     function ZoneClientBackend(backend) {
         var _this = _super.call(this) || this;
         _this.backend = backend;
@@ -626,12 +811,20 @@ var ZoneClientBackend = (function (_super) {
      * @param {?} request
      * @return {?}
      */
-    ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+    ZoneClientBackend.prototype.handle = /**
+     * @param {?} request
+     * @return {?}
+     */
+    function (request) { return this.wrap(request); };
     /**
      * @param {?} request
      * @return {?}
      */
-    ZoneClientBackend.prototype.delegate = function (request) {
+    ZoneClientBackend.prototype.delegate = /**
+     * @param {?} request
+     * @return {?}
+     */
+    function (request) {
         return this.backend.handle(request);
     };
     return ZoneClientBackend;
@@ -681,7 +874,7 @@ var SERVER_HTTP_PROVIDERS = [
  * \@experimental
  * @record
  */
-function PlatformConfig() { }
+
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -717,17 +910,13 @@ function parseUrl(urlStr) {
  * but not the state stack.
  */
 var ServerPlatformLocation = (function () {
-    /**
-     * @param {?} _doc
-     * @param {?} _config
-     */
     function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
         this._path = '/';
         this._search = '';
         this._hash = '';
         this._hashUpdate = new rxjs_Subject.Subject();
-        var /** @type {?} */ config = (_config);
+        var /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             var /** @type {?} */ parsedUrl = parseUrl(config.url);
             this._path = parsedUrl.pathname;
@@ -738,12 +927,19 @@ var ServerPlatformLocation = (function () {
     /**
      * @return {?}
      */
-    ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return ((_angular_platformBrowser.ɵgetDOM().getBaseHref(this._doc))); };
+    ServerPlatformLocation.prototype.getBaseHrefFromDOM = /**
+     * @return {?}
+     */
+    function () { return /** @type {?} */ ((_angular_platformBrowser.ɵgetDOM().getBaseHref(this._doc))); };
     /**
      * @param {?} fn
      * @return {?}
      */
-    ServerPlatformLocation.prototype.onPopState = function (fn) {
+    ServerPlatformLocation.prototype.onPopState = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
         // No-op: a state stack is not implemented, so
         // no events will ever come.
     };
@@ -751,36 +947,40 @@ var ServerPlatformLocation = (function () {
      * @param {?} fn
      * @return {?}
      */
-    ServerPlatformLocation.prototype.onHashChange = function (fn) { this._hashUpdate.subscribe(fn); };
+    ServerPlatformLocation.prototype.onHashChange = /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) { this._hashUpdate.subscribe(fn); };
     Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._path; },
+        function () { return this._path; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ServerPlatformLocation.prototype, "search", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._search; },
+        function () { return this._search; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._hash; },
+        function () { return this._hash; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ServerPlatformLocation.prototype, "url", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return "" + this.pathname + this.search + this.hash; },
+        function () { return "" + this.pathname + this.search + this.hash; },
         enumerable: true,
         configurable: true
     });
@@ -789,7 +989,12 @@ var ServerPlatformLocation = (function () {
      * @param {?} oldUrl
      * @return {?}
      */
-    ServerPlatformLocation.prototype.setHash = function (value, oldUrl) {
+    ServerPlatformLocation.prototype.setHash = /**
+     * @param {?} value
+     * @param {?} oldUrl
+     * @return {?}
+     */
+    function (value, oldUrl) {
         var _this = this;
         if (this._hash === value) {
             // Don't fire events if the hash has not changed.
@@ -805,7 +1010,13 @@ var ServerPlatformLocation = (function () {
      * @param {?} newUrl
      * @return {?}
      */
-    ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
+    ServerPlatformLocation.prototype.replaceState = /**
+     * @param {?} state
+     * @param {?} title
+     * @param {?} newUrl
+     * @return {?}
+     */
+    function (state, title, newUrl) {
         var /** @type {?} */ oldUrl = this.url;
         var /** @type {?} */ parsedUrl = parseUrl(newUrl);
         this._path = parsedUrl.pathname;
@@ -818,27 +1029,39 @@ var ServerPlatformLocation = (function () {
      * @param {?} newUrl
      * @return {?}
      */
-    ServerPlatformLocation.prototype.pushState = function (state, title, newUrl) {
+    ServerPlatformLocation.prototype.pushState = /**
+     * @param {?} state
+     * @param {?} title
+     * @param {?} newUrl
+     * @return {?}
+     */
+    function (state, title, newUrl) {
         this.replaceState(state, title, newUrl);
     };
     /**
      * @return {?}
      */
-    ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
+    ServerPlatformLocation.prototype.forward = /**
+     * @return {?}
+     */
+    function () { throw new Error('Not implemented'); };
     /**
      * @return {?}
      */
-    ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+    ServerPlatformLocation.prototype.back = /**
+     * @return {?}
+     */
+    function () { throw new Error('Not implemented'); };
+    ServerPlatformLocation.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerPlatformLocation.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
+    ]; };
     return ServerPlatformLocation;
 }());
-ServerPlatformLocation.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-ServerPlatformLocation.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
-]; };
 /**
  * @param {?} fn
  * @return {?}
@@ -860,11 +1083,6 @@ function scheduleMicroTask(fn) {
  */
 var EMPTY_ARRAY = [];
 var ServerRendererFactory2 = (function () {
-    /**
-     * @param {?} ngZone
-     * @param {?} document
-     * @param {?} sharedStylesHost
-     */
     function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
         this.ngZone = ngZone;
         this.document = document;
@@ -879,7 +1097,12 @@ var ServerRendererFactory2 = (function () {
      * @param {?} type
      * @return {?}
      */
-    ServerRendererFactory2.prototype.createRenderer = function (element, type) {
+    ServerRendererFactory2.prototype.createRenderer = /**
+     * @param {?} element
+     * @param {?} type
+     * @return {?}
+     */
+    function (element, type) {
         if (!element || !type) {
             return this.defaultRenderer;
         }
@@ -891,7 +1114,7 @@ var ServerRendererFactory2 = (function () {
                     renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
-                ((renderer)).applyToHost(element);
+                (/** @type {?} */ (renderer)).applyToHost(element);
                 return renderer;
             }
             case _angular_core.ViewEncapsulation.Native:
@@ -909,28 +1132,29 @@ var ServerRendererFactory2 = (function () {
     /**
      * @return {?}
      */
-    ServerRendererFactory2.prototype.begin = function () { };
+    ServerRendererFactory2.prototype.begin = /**
+     * @return {?}
+     */
+    function () { };
     /**
      * @return {?}
      */
-    ServerRendererFactory2.prototype.end = function () { };
+    ServerRendererFactory2.prototype.end = /**
+     * @return {?}
+     */
+    function () { };
+    ServerRendererFactory2.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerRendererFactory2.ctorParameters = function () { return [
+        { type: _angular_core.NgZone, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: _angular_platformBrowser.ɵSharedStylesHost, },
+    ]; };
     return ServerRendererFactory2;
 }());
-ServerRendererFactory2.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-ServerRendererFactory2.ctorParameters = function () { return [
-    { type: _angular_core.NgZone, },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-    { type: _angular_platformBrowser.ɵSharedStylesHost, },
-]; };
 var DefaultServerRenderer2 = (function () {
-    /**
-     * @param {?} document
-     * @param {?} ngZone
-     * @param {?} schema
-     */
     function DefaultServerRenderer2(document, ngZone, schema) {
         this.document = document;
         this.ngZone = ngZone;
@@ -940,14 +1164,23 @@ var DefaultServerRenderer2 = (function () {
     /**
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.destroy = function () { };
+    DefaultServerRenderer2.prototype.destroy = /**
+     * @return {?}
+     */
+    function () { };
     /**
      * @param {?} name
      * @param {?=} namespace
      * @param {?=} debugInfo
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
+    DefaultServerRenderer2.prototype.createElement = /**
+     * @param {?} name
+     * @param {?=} namespace
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    function (name, namespace, debugInfo) {
         if (namespace) {
             return _angular_platformBrowser.ɵgetDOM().createElementNS(_angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name);
         }
@@ -958,26 +1191,47 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} debugInfo
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createComment(value); };
+    DefaultServerRenderer2.prototype.createComment = /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createComment(value); };
     /**
      * @param {?} value
      * @param {?=} debugInfo
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createTextNode(value); };
+    DefaultServerRenderer2.prototype.createText = /**
+     * @param {?} value
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createTextNode(value); };
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { _angular_platformBrowser.ɵgetDOM().appendChild(parent, newChild); };
+    DefaultServerRenderer2.prototype.appendChild = /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @return {?}
+     */
+    function (parent, newChild) { _angular_platformBrowser.ɵgetDOM().appendChild(parent, newChild); };
     /**
      * @param {?} parent
      * @param {?} newChild
      * @param {?} refChild
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
+    DefaultServerRenderer2.prototype.insertBefore = /**
+     * @param {?} parent
+     * @param {?} newChild
+     * @param {?} refChild
+     * @return {?}
+     */
+    function (parent, newChild, refChild) {
         if (parent) {
             _angular_platformBrowser.ɵgetDOM().insertBefore(parent, refChild, newChild);
         }
@@ -987,7 +1241,12 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} oldChild
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.removeChild = function (parent, oldChild) {
+    DefaultServerRenderer2.prototype.removeChild = /**
+     * @param {?} parent
+     * @param {?} oldChild
+     * @return {?}
+     */
+    function (parent, oldChild) {
         if (parent) {
             _angular_platformBrowser.ɵgetDOM().removeChild(parent, oldChild);
         }
@@ -997,7 +1256,12 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} debugInfo
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
+    DefaultServerRenderer2.prototype.selectRootElement = /**
+     * @param {?} selectorOrNode
+     * @param {?=} debugInfo
+     * @return {?}
+     */
+    function (selectorOrNode, debugInfo) {
         var /** @type {?} */ el;
         if (typeof selectorOrNode === 'string') {
             el = _angular_platformBrowser.ɵgetDOM().querySelector(this.document, selectorOrNode);
@@ -1015,12 +1279,20 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} node
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.parentNode = function (node) { return _angular_platformBrowser.ɵgetDOM().parentElement(node); };
+    DefaultServerRenderer2.prototype.parentNode = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return _angular_platformBrowser.ɵgetDOM().parentElement(node); };
     /**
      * @param {?} node
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.nextSibling = function (node) { return _angular_platformBrowser.ɵgetDOM().nextSibling(node); };
+    DefaultServerRenderer2.prototype.nextSibling = /**
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) { return _angular_platformBrowser.ɵgetDOM().nextSibling(node); };
     /**
      * @param {?} el
      * @param {?} name
@@ -1028,7 +1300,14 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
+    DefaultServerRenderer2.prototype.setAttribute = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @param {?=} namespace
+     * @return {?}
+     */
+    function (el, name, value, namespace) {
         if (namespace) {
             _angular_platformBrowser.ɵgetDOM().setAttributeNS(el, _angular_platformBrowser.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
         }
@@ -1042,7 +1321,13 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} namespace
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
+    DefaultServerRenderer2.prototype.removeAttribute = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?=} namespace
+     * @return {?}
+     */
+    function (el, name, namespace) {
         if (namespace) {
             _angular_platformBrowser.ɵgetDOM().removeAttributeNS(el, _angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name);
         }
@@ -1055,13 +1340,23 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} name
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.addClass = function (el, name) { _angular_platformBrowser.ɵgetDOM().addClass(el, name); };
+    DefaultServerRenderer2.prototype.addClass = /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function (el, name) { _angular_platformBrowser.ɵgetDOM().addClass(el, name); };
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.removeClass = function (el, name) { _angular_platformBrowser.ɵgetDOM().removeClass(el, name); };
+    DefaultServerRenderer2.prototype.removeClass = /**
+     * @param {?} el
+     * @param {?} name
+     * @return {?}
+     */
+    function (el, name) { _angular_platformBrowser.ɵgetDOM().removeClass(el, name); };
     /**
      * @param {?} el
      * @param {?} style
@@ -1069,7 +1364,14 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} flags
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
+    DefaultServerRenderer2.prototype.setStyle = /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} value
+     * @param {?} flags
+     * @return {?}
+     */
+    function (el, style, value, flags) {
         _angular_platformBrowser.ɵgetDOM().setStyle(el, style, value);
     };
     /**
@@ -1078,7 +1380,13 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} flags
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
+    DefaultServerRenderer2.prototype.removeStyle = /**
+     * @param {?} el
+     * @param {?} style
+     * @param {?} flags
+     * @return {?}
+     */
+    function (el, style, flags) {
         _angular_platformBrowser.ɵgetDOM().removeStyle(el, style);
     };
     /**
@@ -1086,7 +1394,12 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} propertyName
      * @return {?}
      */
-    DefaultServerRenderer2.prototype._isSafeToReflectProperty = function (tagName, propertyName) {
+    DefaultServerRenderer2.prototype._isSafeToReflectProperty = /**
+     * @param {?} tagName
+     * @param {?} propertyName
+     * @return {?}
+     */
+    function (tagName, propertyName) {
         return this.schema.securityContext(tagName, propertyName, true) ===
             this.schema.securityContext(tagName, propertyName, false);
     };
@@ -1096,11 +1409,17 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} value
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.setProperty = function (el, name, value) {
+    DefaultServerRenderer2.prototype.setProperty = /**
+     * @param {?} el
+     * @param {?} name
+     * @param {?} value
+     * @return {?}
+     */
+    function (el, name, value) {
         checkNoSyntheticProp(name, 'property');
         _angular_platformBrowser.ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
-        var /** @type {?} */ tagName = ((el.tagName)).toLowerCase();
+        var /** @type {?} */ tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
             this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
@@ -1113,21 +1432,32 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} value
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.setValue = function (node, value) { _angular_platformBrowser.ɵgetDOM().setText(node, value); };
+    DefaultServerRenderer2.prototype.setValue = /**
+     * @param {?} node
+     * @param {?} value
+     * @return {?}
+     */
+    function (node, value) { _angular_platformBrowser.ɵgetDOM().setText(node, value); };
     /**
      * @param {?} target
      * @param {?} eventName
      * @param {?} callback
      * @return {?}
      */
-    DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
+    DefaultServerRenderer2.prototype.listen = /**
+     * @param {?} target
+     * @param {?} eventName
+     * @param {?} callback
+     * @return {?}
+     */
+    function (target, eventName, callback) {
         var _this = this;
         // Note: We are not using the EventsPlugin here as this is not needed
         // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? _angular_platformBrowser.ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { /** @type {?} */ return (_angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (_angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -1144,13 +1474,6 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
-    /**
-     * @param {?} document
-     * @param {?} ngZone
-     * @param {?} sharedStylesHost
-     * @param {?} schema
-     * @param {?} component
-     */
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
         _this.component = component;
@@ -1164,13 +1487,22 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
      * @param {?} element
      * @return {?}
      */
-    EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+    EmulatedEncapsulationServerRenderer2.prototype.applyToHost = /**
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
     /**
      * @param {?} parent
      * @param {?} name
      * @return {?}
      */
-    EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
+    EmulatedEncapsulationServerRenderer2.prototype.createElement = /**
+     * @param {?} parent
+     * @param {?} name
+     * @return {?}
+     */
+    function (parent, name) {
         var /** @type {?} */ el = _super.prototype.createElement.call(this, parent, name);
         _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
         return el;
@@ -1191,10 +1523,6 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  */
 var ServerStylesHost = (function (_super) {
     __extends(ServerStylesHost, _super);
-    /**
-     * @param {?} doc
-     * @param {?} transitionId
-     */
     function ServerStylesHost(doc, transitionId) {
         var _this = _super.call(this) || this;
         _this.doc = doc;
@@ -1207,7 +1535,11 @@ var ServerStylesHost = (function (_super) {
      * @param {?} style
      * @return {?}
      */
-    ServerStylesHost.prototype._addStyle = function (style) {
+    ServerStylesHost.prototype._addStyle = /**
+     * @param {?} style
+     * @return {?}
+     */
+    function (style) {
         var /** @type {?} */ adapter = _angular_platformBrowser.ɵgetDOM();
         var /** @type {?} */ el = adapter.createElement('style');
         adapter.setText(el, style);
@@ -1220,20 +1552,24 @@ var ServerStylesHost = (function (_super) {
      * @param {?} additions
      * @return {?}
      */
-    ServerStylesHost.prototype.onStylesAdded = function (additions) {
+    ServerStylesHost.prototype.onStylesAdded = /**
+     * @param {?} additions
+     * @return {?}
+     */
+    function (additions) {
         var _this = this;
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
+    ServerStylesHost.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerStylesHost.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
+    ]; };
     return ServerStylesHost;
 }(_angular_platformBrowser.ɵSharedStylesHost));
-ServerStylesHost.decorators = [
-    { type: _angular_core.Injectable },
-];
-/** @nocollapse */
-ServerStylesHost.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
-]; };
 
 /**
  * @fileoverview added by tsickle
@@ -1292,21 +1628,21 @@ var SERVER_RENDER_PROVIDERS = [
 var ServerModule = (function () {
     function ServerModule() {
     }
+    ServerModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowser.BrowserModule],
+                    imports: [_angular_http.HttpModule, _angular_common_http.HttpClientModule, _angular_platformBrowser_animations.NoopAnimationsModule],
+                    providers: [
+                        SERVER_RENDER_PROVIDERS,
+                        SERVER_HTTP_PROVIDERS,
+                        { provide: _angular_core.Testability, useValue: null },
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    ServerModule.ctorParameters = function () { return []; };
     return ServerModule;
 }());
-ServerModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [_angular_platformBrowser.BrowserModule],
-                imports: [_angular_http.HttpModule, _angular_common_http.HttpClientModule, _angular_platformBrowser_animations.NoopAnimationsModule],
-                providers: [
-                    SERVER_RENDER_PROVIDERS,
-                    SERVER_HTTP_PROVIDERS,
-                    { provide: _angular_core.Testability, useValue: null },
-                ],
-            },] },
-];
-/** @nocollapse */
-ServerModule.ctorParameters = function () { return []; };
 /**
  * @param {?} injector
  * @return {?}
@@ -1379,7 +1715,7 @@ function _render(platform, moduleRefPromise) {
                     try {
                         callback();
                     }
-                    catch (e) {
+                    catch (/** @type {?} */ e) {
                         // Ignore exceptions.
                         console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
                     }
@@ -1460,7 +1796,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.6-112e777');
+var VERSION = new _angular_core.Version('5.0.0-beta.6-ca5aeba');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;
@@ -1468,7 +1804,6 @@ exports.platformDynamicServer = platformDynamicServer;
 exports.platformServer = platformServer;
 exports.BEFORE_APP_SERIALIZED = BEFORE_APP_SERIALIZED;
 exports.INITIAL_CONFIG = INITIAL_CONFIG;
-exports.PlatformConfig = PlatformConfig;
 exports.renderModule = renderModule;
 exports.renderModuleFactory = renderModuleFactory;
 exports.VERSION = VERSION;

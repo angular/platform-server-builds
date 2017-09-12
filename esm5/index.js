@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.6-9ab9437
+ * @license Angular v5.0.0-beta.6-c8f742e
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -248,10 +248,14 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (el, name) {
-        // Domino tries tp resolve href-s which we do not want. Just return the
-        // atribute value.
         if (name === 'href') {
+            // Domino tries tp resolve href-s which we do not want. Just return the
+            // atribute value.
             return this.getAttribute(el, 'href');
+        }
+        else if (name === 'innerText') {
+            // Domino does not support innerText. Just map it to textContent.
+            return el.textContent;
         }
         return (/** @type {?} */ (el))[name];
     };
@@ -268,10 +272,14 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (el, name, value) {
-        // Eventhough the server renderer reflects any properties to attributes
-        // map 'href' to atribute just to handle when setProperty is directly called.
         if (name === 'href') {
+            // Eventhough the server renderer reflects any properties to attributes
+            // map 'href' to atribute just to handle when setProperty is directly called.
             this.setAttribute(el, 'href', value);
+        }
+        else if (name === 'innerText') {
+            // Domino does not support innerText. Just map it to textContent.
+            el.textContent = value;
         }
         (/** @type {?} */ (el))[name] = value;
     };
@@ -1565,7 +1573,7 @@ var ServerStylesHost = (function (_super) {
 var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
-    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] }, {
+    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector] }, {
         provide: PlatformLocation,
         useClass: ServerPlatformLocation,
         deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
@@ -1578,7 +1586,7 @@ var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * @param {?} injector
  * @return {?}
  */
-function initParse5Adapter(injector) {
+function initDominoAdapter(injector) {
     return function () { DominoAdapter.makeCurrent(); };
 }
 /**
@@ -1776,7 +1784,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.6-9ab9437');
+var VERSION = new Version('5.0.0-beta.6-c8f742e');
 
 /**
  * @fileoverview added by tsickle

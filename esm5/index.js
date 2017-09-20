@@ -3,43 +3,23 @@
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('@angular/compiler'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', '@angular/compiler', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.core,global.ng.platformBrowser,global._angular_animations_browser,global.ng.common,global._angular_common_http,global._angular_http,global._angular_platformBrowserDynamic,global._angular_platformBrowser_animations,global.Rx,global.Rx,global.url,global.ng.compiler,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,_angular_compiler,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { __extends } from 'tslib';
+import { ɵAnimationEngine } from '@angular/animations/browser';
+import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
+import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
+import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
+import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { parse } from 'url';
+import { DomElementSchemaRegistry } from '@angular/compiler';
+import { filter } from 'rxjs/operator/filter';
+import { first } from 'rxjs/operator/first';
+import { toPromise } from 'rxjs/operator/toPromise';
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = Object.setPrototypeOf ||
-    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-/**
- * @license Angular v5.0.0-beta.7-3215c4b
- * (c) 2010-2017 Google, Inc. https://angular.io/
- * License: MIT
- */
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -93,7 +73,7 @@ var DominoAdapter = (function (_super) {
     DominoAdapter.makeCurrent = /**
      * @return {?}
      */
-    function () { _angular_platformBrowser.ɵsetRootDomAdapter(new DominoAdapter()); };
+    function () { ɵsetRootDomAdapter(new DominoAdapter()); };
     /**
      * @param {?} error
      * @return {?}
@@ -564,7 +544,7 @@ var DominoAdapter = (function (_super) {
      */
     function (name, value) { throw _notImplemented('setCookie'); };
     return DominoAdapter;
-}(_angular_platformBrowser.ɵBrowserDomAdapter));
+}(ɵBrowserDomAdapter));
 
 /**
  * @fileoverview added by tsickle
@@ -611,11 +591,11 @@ var PlatformState = (function () {
      */
     function () { return this._doc; };
     PlatformState.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     PlatformState.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     ]; };
     return PlatformState;
 }());
@@ -653,7 +633,7 @@ var ServerXhr = (function () {
      */
     function () { return new xhr2.XMLHttpRequest(); };
     ServerXhr.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServerXhr.ctorParameters = function () { return []; };
@@ -672,7 +652,7 @@ var ServerXsrfStrategy = (function () {
      */
     function (req) { };
     ServerXsrfStrategy.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServerXsrfStrategy.ctorParameters = function () { return []; };
@@ -694,7 +674,7 @@ var ZoneMacroTaskWrapper = (function () {
      */
     function (request) {
         var _this = this;
-        return new rxjs_Observable.Observable(function (observer) {
+        return new Observable(function (observer) {
             var /** @type {?} */ task = /** @type {?} */ ((null));
             var /** @type {?} */ scheduled = false;
             var /** @type {?} */ sub = null;
@@ -784,7 +764,7 @@ var ZoneMacroTaskConnection = (function (_super) {
          * @return {?}
          */
         function () {
-            return !!this.lastConnection ? this.lastConnection.readyState : _angular_http.ReadyState.Unsent;
+            return !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
         },
         enumerable: true,
         configurable: true
@@ -844,7 +824,7 @@ var ZoneClientBackend = (function (_super) {
  */
 function httpFactory(xhrBackend, options) {
     var /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
-    return new _angular_http.Http(macroBackend, options);
+    return new Http(macroBackend, options);
 }
 /**
  * @param {?} backend
@@ -852,16 +832,16 @@ function httpFactory(xhrBackend, options) {
  * @return {?}
  */
 function zoneWrappedInterceptingHandler(backend, interceptors) {
-    var /** @type {?} */ realBackend = _angular_common_http.ɵinterceptingHandler(backend, interceptors);
+    var /** @type {?} */ realBackend = ɵinterceptingHandler(backend, interceptors);
     return new ZoneClientBackend(realBackend);
 }
 var SERVER_HTTP_PROVIDERS = [
-    { provide: _angular_http.Http, useFactory: httpFactory, deps: [_angular_http.XHRBackend, _angular_http.RequestOptions] },
-    { provide: _angular_http.BrowserXhr, useClass: ServerXhr }, { provide: _angular_http.XSRFStrategy, useClass: ServerXsrfStrategy },
-    { provide: _angular_common_http.XhrFactory, useClass: ServerXhr }, {
-        provide: _angular_common_http.HttpHandler,
+    { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
+    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
+    { provide: XhrFactory, useClass: ServerXhr }, {
+        provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [_angular_common_http.HttpBackend, [new _angular_core.Optional(), _angular_common_http.HTTP_INTERCEPTORS]]
+        deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
     }
 ];
 
@@ -888,14 +868,14 @@ var SERVER_HTTP_PROVIDERS = [
  *
  * \@experimental
  */
-var INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
+var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /**
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
  * \@experimental
  */
-var BEFORE_APP_SERIALIZED = new _angular_core.InjectionToken('Server.RENDER_MODULE_HOOK');
+var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
@@ -906,7 +886,7 @@ var BEFORE_APP_SERIALIZED = new _angular_core.InjectionToken('Server.RENDER_MODU
  * @return {?}
  */
 function parseUrl(urlStr) {
-    var /** @type {?} */ parsedUrl = url.parse(urlStr);
+    var /** @type {?} */ parsedUrl = parse(urlStr);
     return {
         pathname: parsedUrl.pathname || '',
         search: parsedUrl.search || '',
@@ -923,7 +903,7 @@ var ServerPlatformLocation = (function () {
         this._path = '/';
         this._search = '';
         this._hash = '';
-        this._hashUpdate = new rxjs_Subject.Subject();
+        this._hashUpdate = new Subject();
         var /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             var /** @type {?} */ parsedUrl = parseUrl(config.url);
@@ -938,7 +918,7 @@ var ServerPlatformLocation = (function () {
     ServerPlatformLocation.prototype.getBaseHrefFromDOM = /**
      * @return {?}
      */
-    function () { return /** @type {?} */ ((_angular_platformBrowser.ɵgetDOM().getBaseHref(this._doc))); };
+    function () { return /** @type {?} */ ((ɵgetDOM().getBaseHref(this._doc))); };
     /**
      * @param {?} fn
      * @return {?}
@@ -1061,12 +1041,12 @@ var ServerPlatformLocation = (function () {
      */
     function () { throw new Error('Not implemented'); };
     ServerPlatformLocation.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServerPlatformLocation.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
     ]; };
     return ServerPlatformLocation;
 }());
@@ -1096,7 +1076,7 @@ var ServerRendererFactory2 = (function () {
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
-        this.schema = new _angular_compiler.DomElementSchemaRegistry();
+        this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
     
@@ -1115,8 +1095,8 @@ var ServerRendererFactory2 = (function () {
             return this.defaultRenderer;
         }
         switch (type.encapsulation) {
-            case _angular_core.ViewEncapsulation.Native:
-            case _angular_core.ViewEncapsulation.Emulated: {
+            case ViewEncapsulation.Native:
+            case ViewEncapsulation.Emulated: {
                 var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
                     renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
@@ -1125,11 +1105,11 @@ var ServerRendererFactory2 = (function () {
                 (/** @type {?} */ (renderer)).applyToHost(element);
                 return renderer;
             }
-            case _angular_core.ViewEncapsulation.Native:
+            case ViewEncapsulation.Native:
                 throw new Error('Native encapsulation is not supported on the server!');
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
-                    var /** @type {?} */ styles = _angular_platformBrowser.ɵflattenStyles(type.id, type.styles, []);
+                    var /** @type {?} */ styles = ɵflattenStyles(type.id, type.styles, []);
                     this.sharedStylesHost.addStyles(styles);
                     this.rendererByCompId.set(type.id, this.defaultRenderer);
                 }
@@ -1152,13 +1132,13 @@ var ServerRendererFactory2 = (function () {
      */
     function () { };
     ServerRendererFactory2.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServerRendererFactory2.ctorParameters = function () { return [
-        { type: _angular_core.NgZone, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: _angular_platformBrowser.ɵSharedStylesHost, },
+        { type: NgZone, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+        { type: ɵSharedStylesHost, },
     ]; };
     return ServerRendererFactory2;
 }());
@@ -1190,9 +1170,9 @@ var DefaultServerRenderer2 = (function () {
      */
     function (name, namespace, debugInfo) {
         if (namespace) {
-            return _angular_platformBrowser.ɵgetDOM().createElementNS(_angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name);
         }
-        return _angular_platformBrowser.ɵgetDOM().createElement(name);
+        return ɵgetDOM().createElement(name);
     };
     /**
      * @param {?} value
@@ -1204,7 +1184,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} debugInfo
      * @return {?}
      */
-    function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createComment(value); };
+    function (value, debugInfo) { return ɵgetDOM().createComment(value); };
     /**
      * @param {?} value
      * @param {?=} debugInfo
@@ -1215,7 +1195,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?=} debugInfo
      * @return {?}
      */
-    function (value, debugInfo) { return _angular_platformBrowser.ɵgetDOM().createTextNode(value); };
+    function (value, debugInfo) { return ɵgetDOM().createTextNode(value); };
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -1226,7 +1206,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} newChild
      * @return {?}
      */
-    function (parent, newChild) { _angular_platformBrowser.ɵgetDOM().appendChild(parent, newChild); };
+    function (parent, newChild) { ɵgetDOM().appendChild(parent, newChild); };
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -1241,7 +1221,7 @@ var DefaultServerRenderer2 = (function () {
      */
     function (parent, newChild, refChild) {
         if (parent) {
-            _angular_platformBrowser.ɵgetDOM().insertBefore(parent, refChild, newChild);
+            ɵgetDOM().insertBefore(parent, refChild, newChild);
         }
     };
     /**
@@ -1256,7 +1236,7 @@ var DefaultServerRenderer2 = (function () {
      */
     function (parent, oldChild) {
         if (parent) {
-            _angular_platformBrowser.ɵgetDOM().removeChild(parent, oldChild);
+            ɵgetDOM().removeChild(parent, oldChild);
         }
     };
     /**
@@ -1272,7 +1252,7 @@ var DefaultServerRenderer2 = (function () {
     function (selectorOrNode, debugInfo) {
         var /** @type {?} */ el;
         if (typeof selectorOrNode === 'string') {
-            el = _angular_platformBrowser.ɵgetDOM().querySelector(this.document, selectorOrNode);
+            el = ɵgetDOM().querySelector(this.document, selectorOrNode);
             if (!el) {
                 throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
             }
@@ -1280,7 +1260,7 @@ var DefaultServerRenderer2 = (function () {
         else {
             el = selectorOrNode;
         }
-        _angular_platformBrowser.ɵgetDOM().clearNodes(el);
+        ɵgetDOM().clearNodes(el);
         return el;
     };
     /**
@@ -1291,7 +1271,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} node
      * @return {?}
      */
-    function (node) { return _angular_platformBrowser.ɵgetDOM().parentElement(node); };
+    function (node) { return ɵgetDOM().parentElement(node); };
     /**
      * @param {?} node
      * @return {?}
@@ -1300,7 +1280,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} node
      * @return {?}
      */
-    function (node) { return _angular_platformBrowser.ɵgetDOM().nextSibling(node); };
+    function (node) { return ɵgetDOM().nextSibling(node); };
     /**
      * @param {?} el
      * @param {?} name
@@ -1317,10 +1297,10 @@ var DefaultServerRenderer2 = (function () {
      */
     function (el, name, value, namespace) {
         if (namespace) {
-            _angular_platformBrowser.ɵgetDOM().setAttributeNS(el, _angular_platformBrowser.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
+            ɵgetDOM().setAttributeNS(el, ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
         }
         else {
-            _angular_platformBrowser.ɵgetDOM().setAttribute(el, name, value);
+            ɵgetDOM().setAttribute(el, name, value);
         }
     };
     /**
@@ -1337,10 +1317,10 @@ var DefaultServerRenderer2 = (function () {
      */
     function (el, name, namespace) {
         if (namespace) {
-            _angular_platformBrowser.ɵgetDOM().removeAttributeNS(el, _angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+            ɵgetDOM().removeAttributeNS(el, ɵNAMESPACE_URIS[namespace], name);
         }
         else {
-            _angular_platformBrowser.ɵgetDOM().removeAttribute(el, name);
+            ɵgetDOM().removeAttribute(el, name);
         }
     };
     /**
@@ -1353,7 +1333,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} name
      * @return {?}
      */
-    function (el, name) { _angular_platformBrowser.ɵgetDOM().addClass(el, name); };
+    function (el, name) { ɵgetDOM().addClass(el, name); };
     /**
      * @param {?} el
      * @param {?} name
@@ -1364,7 +1344,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} name
      * @return {?}
      */
-    function (el, name) { _angular_platformBrowser.ɵgetDOM().removeClass(el, name); };
+    function (el, name) { ɵgetDOM().removeClass(el, name); };
     /**
      * @param {?} el
      * @param {?} style
@@ -1380,7 +1360,7 @@ var DefaultServerRenderer2 = (function () {
      * @return {?}
      */
     function (el, style, value, flags) {
-        _angular_platformBrowser.ɵgetDOM().setStyle(el, style, value);
+        ɵgetDOM().setStyle(el, style, value);
     };
     /**
      * @param {?} el
@@ -1395,7 +1375,7 @@ var DefaultServerRenderer2 = (function () {
      * @return {?}
      */
     function (el, style, flags) {
-        _angular_platformBrowser.ɵgetDOM().removeStyle(el, style);
+        ɵgetDOM().removeStyle(el, style);
     };
     /**
      * @param {?} tagName
@@ -1425,7 +1405,7 @@ var DefaultServerRenderer2 = (function () {
      */
     function (el, name, value) {
         checkNoSyntheticProp(name, 'property');
-        _angular_platformBrowser.ɵgetDOM().setProperty(el, name, value);
+        ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
         var /** @type {?} */ tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
@@ -1445,7 +1425,7 @@ var DefaultServerRenderer2 = (function () {
      * @param {?} value
      * @return {?}
      */
-    function (node, value) { _angular_platformBrowser.ɵgetDOM().setText(node, value); };
+    function (node, value) { ɵgetDOM().setText(node, value); };
     /**
      * @param {?} target
      * @param {?} eventName
@@ -1463,9 +1443,9 @@ var DefaultServerRenderer2 = (function () {
         // Note: We are not using the EventsPlugin here as this is not needed
         // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
-        var /** @type {?} */ el = typeof target === 'string' ? _angular_platformBrowser.ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
+        var /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (_angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -1485,10 +1465,10 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
         _this.component = component;
-        var /** @type {?} */ styles = _angular_platformBrowser.ɵflattenStyles(component.id, component.styles, []);
+        var /** @type {?} */ styles = ɵflattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = _angular_platformBrowser.ɵshimContentAttribute(component.id);
-        _this.hostAttr = _angular_platformBrowser.ɵshimHostAttribute(component.id);
+        _this.contentAttr = ɵshimContentAttribute(component.id);
+        _this.hostAttr = ɵshimHostAttribute(component.id);
         return _this;
     }
     /**
@@ -1536,7 +1516,7 @@ var ServerStylesHost = (function (_super) {
         _this.doc = doc;
         _this.transitionId = transitionId;
         _this.head = null;
-        _this.head = _angular_platformBrowser.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
+        _this.head = ɵgetDOM().getElementsByTagName(doc, 'head')[0];
         return _this;
     }
     /**
@@ -1548,7 +1528,7 @@ var ServerStylesHost = (function (_super) {
      * @return {?}
      */
     function (style) {
-        var /** @type {?} */ adapter = _angular_platformBrowser.ɵgetDOM();
+        var /** @type {?} */ adapter = ɵgetDOM();
         var /** @type {?} */ el = adapter.createElement('style');
         adapter.setText(el, style);
         if (!!this.transitionId) {
@@ -1569,15 +1549,15 @@ var ServerStylesHost = (function (_super) {
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
     ServerStylesHost.decorators = [
-        { type: _angular_core.Injectable },
+        { type: Injectable },
     ];
     /** @nocollapse */
     ServerStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
     ]; };
     return ServerStylesHost;
-}(_angular_platformBrowser.ɵSharedStylesHost));
+}(ɵSharedStylesHost));
 
 /**
  * @fileoverview added by tsickle
@@ -1591,16 +1571,16 @@ var ServerStylesHost = (function (_super) {
  * found in the LICENSE file at https://angular.io/license
  */
 var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-    { provide: _angular_platformBrowser.DOCUMENT, useFactory: _document, deps: [_angular_core.Injector] },
-    { provide: _angular_core.PLATFORM_ID, useValue: _angular_common.ɵPLATFORM_SERVER_ID },
-    { provide: _angular_core.PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [_angular_core.Injector] }, {
-        provide: _angular_common.PlatformLocation,
+    { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
+    { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
+    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector] }, {
+        provide: PlatformLocation,
         useClass: ServerPlatformLocation,
-        deps: [_angular_platformBrowser.DOCUMENT, [_angular_core.Optional, INITIAL_CONFIG]]
+        deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
     },
-    { provide: PlatformState, deps: [_angular_platformBrowser.DOCUMENT] },
+    { provide: PlatformState, deps: [DOCUMENT] },
     // Add special provider that allows multiple instances of platformServer* to be created.
-    { provide: _angular_core.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
+    { provide: ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
 /**
  * @param {?} injector
@@ -1616,17 +1596,17 @@ function initDominoAdapter(injector) {
  * @return {?}
  */
 function instantiateServerRendererFactory(renderer, engine, zone) {
-    return new _angular_platformBrowser_animations.ɵAnimationRendererFactory(renderer, engine, zone);
+    return new ɵAnimationRendererFactory(renderer, engine, zone);
 }
 var SERVER_RENDER_PROVIDERS = [
     ServerRendererFactory2,
     {
-        provide: _angular_core.RendererFactory2,
+        provide: RendererFactory2,
         useFactory: instantiateServerRendererFactory,
-        deps: [ServerRendererFactory2, _angular_animations_browser.ɵAnimationEngine, _angular_core.NgZone]
+        deps: [ServerRendererFactory2, ɵAnimationEngine, NgZone]
     },
     ServerStylesHost,
-    { provide: _angular_platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost },
+    { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
 ];
 /**
  * The ng module for the server.
@@ -1637,13 +1617,13 @@ var ServerModule = (function () {
     function ServerModule() {
     }
     ServerModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    exports: [_angular_platformBrowser.BrowserModule],
-                    imports: [_angular_http.HttpModule, _angular_common_http.HttpClientModule, _angular_platformBrowser_animations.NoopAnimationsModule],
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
                     providers: [
                         SERVER_RENDER_PROVIDERS,
                         SERVER_HTTP_PROVIDERS,
-                        { provide: _angular_core.Testability, useValue: null },
+                        { provide: Testability, useValue: null },
                     ],
                 },] },
     ];
@@ -1661,19 +1641,19 @@ function _document(injector) {
         return parseDocument(config.document, config.url);
     }
     else {
-        return _angular_platformBrowser.ɵgetDOM().createHtmlDocument();
+        return ɵgetDOM().createHtmlDocument();
     }
 }
 /**
  * \@experimental
  */
-var platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
  * \@experimental
  */
-var platformDynamicServer = _angular_core.createPlatformFactory(_angular_platformBrowserDynamic.ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
  * @fileoverview added by tsickle
@@ -1706,13 +1686,13 @@ function _getPlatform(platformFactory, options) {
  */
 function _render(platform, moduleRefPromise) {
     return moduleRefPromise.then(function (moduleRef) {
-        var /** @type {?} */ transitionId = moduleRef.injector.get(_angular_platformBrowser.ɵTRANSITION_ID, null);
+        var /** @type {?} */ transitionId = moduleRef.injector.get(ɵTRANSITION_ID, null);
         if (!transitionId) {
             throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
         }
-        var /** @type {?} */ applicationRef = moduleRef.injector.get(_angular_core.ApplicationRef);
-        return rxjs_operator_toPromise.toPromise
-            .call(rxjs_operator_first.first.call(rxjs_operator_filter.filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+        var /** @type {?} */ applicationRef = moduleRef.injector.get(ApplicationRef);
+        return toPromise
+            .call(first.call(filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
             .then(function () {
             var /** @type {?} */ platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
@@ -1804,29 +1784,46 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-3215c4b');
+var VERSION = new Version('5.0.0-beta.7-3215c4b');
 
-exports.PlatformState = PlatformState;
-exports.ServerModule = ServerModule;
-exports.platformDynamicServer = platformDynamicServer;
-exports.platformServer = platformServer;
-exports.BEFORE_APP_SERIALIZED = BEFORE_APP_SERIALIZED;
-exports.INITIAL_CONFIG = INITIAL_CONFIG;
-exports.renderModule = renderModule;
-exports.renderModuleFactory = renderModuleFactory;
-exports.VERSION = VERSION;
-exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
-exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
-exports.ɵServerRendererFactory2 = ServerRendererFactory2;
-exports.ɵg = SERVER_HTTP_PROVIDERS;
-exports.ɵc = ServerXhr;
-exports.ɵd = ServerXsrfStrategy;
-exports.ɵe = httpFactory;
-exports.ɵf = zoneWrappedInterceptingHandler;
-exports.ɵa = instantiateServerRendererFactory;
-exports.ɵb = ServerStylesHost;
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
-Object.defineProperty(exports, '__esModule', { value: true });
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
+ */
 
-})));
-//# sourceMappingURL=platform-server.umd.js.map
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+//# sourceMappingURL=index.js.map

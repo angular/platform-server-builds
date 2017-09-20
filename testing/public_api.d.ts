@@ -10,4 +10,4 @@
  * @description
  * Entry point for all public APIs of this package.
  */
-export * from './src/platform-server';
+export * from './src/testing';

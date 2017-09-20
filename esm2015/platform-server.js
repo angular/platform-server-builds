@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-5751865
+ * @license Angular v5.0.0-beta.7-b14c2d1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -681,16 +681,16 @@ class ServerPlatformLocation {
      */
     constructor(_doc, _config) {
         this._doc = _doc;
-        this._path = '/';
-        this._search = '';
-        this._hash = '';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
         this._hashUpdate = new Subject();
         const /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             const /** @type {?} */ parsedUrl = parseUrl(config.url);
-            this._path = parsedUrl.pathname;
-            this._search = parsedUrl.search;
-            this._hash = parsedUrl.hash;
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
+            this.hash = parsedUrl.hash;
         }
     }
     /**
@@ -713,18 +713,6 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    get pathname() { return this._path; }
-    /**
-     * @return {?}
-     */
-    get search() { return this._search; }
-    /**
-     * @return {?}
-     */
-    get hash() { return this._hash; }
-    /**
-     * @return {?}
-     */
     get url() { return `${this.pathname}${this.search}${this.hash}`; }
     /**
      * @param {?} value
@@ -732,11 +720,11 @@ class ServerPlatformLocation {
      * @return {?}
      */
     setHash(value, oldUrl) {
-        if (this._hash === value) {
+        if (this.hash === value) {
             // Don't fire events if the hash has not changed.
             return;
         }
-        this._hash = value;
+        (/** @type {?} */ (this)).hash = value;
         const /** @type {?} */ newUrl = this.url;
         scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl, newUrl })));
     }
@@ -749,8 +737,8 @@ class ServerPlatformLocation {
     replaceState(state, title, newUrl) {
         const /** @type {?} */ oldUrl = this.url;
         const /** @type {?} */ parsedUrl = parseUrl(newUrl);
-        this._path = parsedUrl.pathname;
-        this._search = parsedUrl.search;
+        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
+        (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     }
     /**
@@ -1385,7 +1373,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-5751865');
+const VERSION = new Version('5.0.0-beta.7-b14c2d1');
 
 /**
  * @fileoverview added by tsickle

@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-5751865
+ * @license Angular v5.0.0-beta.7-b14c2d1
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -900,16 +900,16 @@ function parseUrl(urlStr) {
 var ServerPlatformLocation = (function () {
     function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
-        this._path = '/';
-        this._search = '';
-        this._hash = '';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
         this._hashUpdate = new Subject();
         var /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             var /** @type {?} */ parsedUrl = parseUrl(config.url);
-            this._path = parsedUrl.pathname;
-            this._search = parsedUrl.search;
-            this._hash = parsedUrl.hash;
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
+            this.hash = parsedUrl.hash;
         }
     }
     /**
@@ -940,30 +940,6 @@ var ServerPlatformLocation = (function () {
      * @return {?}
      */
     function (fn) { this._hashUpdate.subscribe(fn); };
-    Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._path; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ServerPlatformLocation.prototype, "search", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._hash; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ServerPlatformLocation.prototype, "url", {
         get: /**
          * @return {?}
@@ -984,11 +960,11 @@ var ServerPlatformLocation = (function () {
      */
     function (value, oldUrl) {
         var _this = this;
-        if (this._hash === value) {
+        if (this.hash === value) {
             // Don't fire events if the hash has not changed.
             return;
         }
-        this._hash = value;
+        (/** @type {?} */ (this)).hash = value;
         var /** @type {?} */ newUrl = this.url;
         scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
     };
@@ -1007,8 +983,8 @@ var ServerPlatformLocation = (function () {
     function (state, title, newUrl) {
         var /** @type {?} */ oldUrl = this.url;
         var /** @type {?} */ parsedUrl = parseUrl(newUrl);
-        this._path = parsedUrl.pathname;
-        this._search = parsedUrl.search;
+        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
+        (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     };
     /**
@@ -1784,7 +1760,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-5751865');
+var VERSION = new Version('5.0.0-beta.7-b14c2d1');
 
 /**
  * @fileoverview added by tsickle

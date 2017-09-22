@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-9bbf009
+ * @license Angular v5.0.0-beta.7-0f5c70d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -74,7 +74,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} error
      * @return {?}
      */
-    log(error) { console.log(error); }
+    log(error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -801,7 +804,6 @@ class ServerRendererFactory2 {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    ;
     /**
      * @param {?} element
      * @param {?} type
@@ -1422,7 +1424,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-9bbf009');
+const VERSION = new Version('5.0.0-beta.7-0f5c70d');
 
 /**
  * @fileoverview added by tsickle

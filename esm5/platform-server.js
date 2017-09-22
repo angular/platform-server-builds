@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-9bbf009
+ * @license Angular v5.0.0-beta.7-0f5c70d
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -83,7 +83,6 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (error) { console.error(error); };
-    // tslint:disable-next-line:no-console
     /**
      * @param {?} error
      * @return {?}
@@ -92,7 +91,10 @@ var DominoAdapter = (function (_super) {
      * @param {?} error
      * @return {?}
      */
-    function (error) { console.log(error); };
+    function (error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -1055,7 +1057,6 @@ var ServerRendererFactory2 = (function () {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    
     /**
      * @param {?} element
      * @param {?} type
@@ -1812,7 +1813,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-9bbf009');
+var VERSION = new Version('5.0.0-beta.7-0f5c70d');
 
 /**
  * @fileoverview added by tsickle

@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -1256,6 +1256,55 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * @param {?} doc
+ * @param {?} appId
+ * @param {?} transferStore
+ * @return {?}
+ */
+function serializeTransferStateFactory(doc, appId, transferStore) {
+    return () => {
+        const /** @type {?} */ script = doc.createElement('script');
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        script.textContent = ɵescapeHtml(transferStore.toJson());
+        doc.body.appendChild(script);
+    };
+}
+/**
+ * NgModule to install on the server side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+class ServerTransferStateModule {
+}
+ServerTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [DOCUMENT, APP_ID, TransferState],
+                        multi: true,
+                    }
+                ]
+            },] },
+];
+/** @nocollapse */
+ServerTransferStateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -1373,7 +1422,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-4c73b52');
+const VERSION = new Version('5.0.0-beta.7-6e1896b');
 
 /**
  * @fileoverview added by tsickle
@@ -1414,5 +1463,5 @@ const VERSION = new Version('5.0.0-beta.7-4c73b52');
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵd, ServerXsrfStrategy as ɵe, httpFactory as ɵf, zoneWrappedInterceptingHandler as ɵg, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵc, serializeTransferStateFactory as ɵb };
 //# sourceMappingURL=platform-server.js.map

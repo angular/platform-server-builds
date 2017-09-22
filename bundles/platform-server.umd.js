@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.7-4c73b52
+ * @license Angular v5.0.0-beta.7-6e1896b
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1663,6 +1663,58 @@ var platformDynamicServer = _angular_core.createPlatformFactory(_angular_platfor
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * @param {?} doc
+ * @param {?} appId
+ * @param {?} transferStore
+ * @return {?}
+ */
+function serializeTransferStateFactory(doc, appId, transferStore) {
+    return function () {
+        var /** @type {?} */ script = doc.createElement('script');
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        script.textContent = _angular_platformBrowser.ɵescapeHtml(transferStore.toJson());
+        doc.body.appendChild(script);
+    };
+}
+/**
+ * NgModule to install on the server side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+var ServerTransferStateModule = (function () {
+    function ServerTransferStateModule() {
+    }
+    ServerTransferStateModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    providers: [
+                        _angular_platformBrowser.TransferState, {
+                            provide: BEFORE_APP_SERIALIZED,
+                            useFactory: serializeTransferStateFactory,
+                            deps: [_angular_platformBrowser.DOCUMENT, _angular_core.APP_ID, _angular_platformBrowser.TransferState],
+                            multi: true,
+                        }
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    ServerTransferStateModule.ctorParameters = function () { return []; };
+    return ServerTransferStateModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -1780,7 +1832,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-4c73b52');
+var VERSION = new _angular_core.Version('5.0.0-beta.7-6e1896b');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;
@@ -1788,19 +1840,21 @@ exports.platformDynamicServer = platformDynamicServer;
 exports.platformServer = platformServer;
 exports.BEFORE_APP_SERIALIZED = BEFORE_APP_SERIALIZED;
 exports.INITIAL_CONFIG = INITIAL_CONFIG;
+exports.ServerTransferStateModule = ServerTransferStateModule;
 exports.renderModule = renderModule;
 exports.renderModuleFactory = renderModuleFactory;
 exports.VERSION = VERSION;
 exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
 exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
 exports.ɵServerRendererFactory2 = ServerRendererFactory2;
-exports.ɵg = SERVER_HTTP_PROVIDERS;
-exports.ɵc = ServerXhr;
-exports.ɵd = ServerXsrfStrategy;
-exports.ɵe = httpFactory;
-exports.ɵf = zoneWrappedInterceptingHandler;
+exports.ɵh = SERVER_HTTP_PROVIDERS;
+exports.ɵd = ServerXhr;
+exports.ɵe = ServerXsrfStrategy;
+exports.ɵf = httpFactory;
+exports.ɵg = zoneWrappedInterceptingHandler;
 exports.ɵa = instantiateServerRendererFactory;
-exports.ɵb = ServerStylesHost;
+exports.ɵc = ServerStylesHost;
+exports.ɵb = serializeTransferStateFactory;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -17,9 +17,9 @@ export declare class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper<Reques
     private backend;
     response: Observable<Response>;
     lastConnection: Connection;
+    readonly readyState: ReadyState;
     constructor(request: Request, backend: XHRBackend);
     delegate(request: Request): Observable<Response>;
-    readonly readyState: ReadyState;
 }
 export declare class ZoneMacroTaskBackend implements ConnectionBackend {
     private backend;

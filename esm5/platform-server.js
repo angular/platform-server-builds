@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-bed8ac7
+ * @license Angular v5.0.0-beta.7-14e8e88
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -759,10 +759,18 @@ var ZoneMacroTaskConnection = (function (_super) {
      */
     function (request) {
         this.lastConnection = this.backend.createConnection(request);
-        (/** @type {?} */ (this)).readyState =
-            !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
         return /** @type {?} */ (this.lastConnection.response);
     };
+    Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
 var ZoneMacroTaskBackend = (function () {
@@ -1805,7 +1813,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-bed8ac7');
+var VERSION = new Version('5.0.0-beta.7-14e8e88');
 
 /**
  * @fileoverview added by tsickle

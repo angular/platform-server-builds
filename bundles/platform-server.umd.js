@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.0-beta.7-bed8ac7
+ * @license Angular v5.0.0-beta.7-14e8e88
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.0.0-beta.7-bed8ac7
+ * @license Angular v5.0.0-beta.7-14e8e88
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -779,10 +779,18 @@ var ZoneMacroTaskConnection = (function (_super) {
      */
     function (request) {
         this.lastConnection = this.backend.createConnection(request);
-        (/** @type {?} */ (this)).readyState =
-            !!this.lastConnection ? this.lastConnection.readyState : _angular_http.ReadyState.Unsent;
         return /** @type {?} */ (this.lastConnection.response);
     };
+    Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !!this.lastConnection ? this.lastConnection.readyState : _angular_http.ReadyState.Unsent;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
 var ZoneMacroTaskBackend = (function () {
@@ -1825,7 +1833,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.0.0-beta.7-bed8ac7');
+var VERSION = new _angular_core.Version('5.0.0-beta.7-14e8e88');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

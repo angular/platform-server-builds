@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 /**
- * @license Angular v4.4.4-f98eb35
+ * @license Angular v4.4.4-8f66880
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -2403,7 +2403,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('4.4.4-f98eb35');
+var VERSION = new Version('4.4.4-8f66880');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

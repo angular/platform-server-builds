@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "5.0.0-rc.8-54480f7",
+  "version": "5.0.0-rc.8-13f8648",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./esm5/platform-server.js",
@@ -9,12 +9,12 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "5.0.0-rc.8-54480f7",
-    "@angular/core": "5.0.0-rc.8-54480f7",
-    "@angular/common": "5.0.0-rc.8-54480f7",
-    "@angular/compiler": "5.0.0-rc.8-54480f7",
-    "@angular/platform-browser": "5.0.0-rc.8-54480f7",
-    "@angular/platform-browser-dynamic": "5.0.0-rc.8-54480f7"
+    "@angular/animations": "5.0.0-rc.8-13f8648",
+    "@angular/core": "5.0.0-rc.8-13f8648",
+    "@angular/common": "5.0.0-rc.8-13f8648",
+    "@angular/compiler": "5.0.0-rc.8-13f8648",
+    "@angular/platform-browser": "5.0.0-rc.8-13f8648",
+    "@angular/platform-browser-dynamic": "5.0.0-rc.8-13f8648"
   },
   "dependencies": {
     "tslib": "^1.7.1",

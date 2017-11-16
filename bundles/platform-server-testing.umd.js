@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.0-f8658cd
+ * @license Angular v5.1.0-beta.0-336041a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -10,7 +10,7 @@
 }(this, (function (exports,_angular_core,_angular_platformBrowserDynamic_testing,_angular_platformBrowser_animations,_angular_platformServer) { 'use strict';
 
 /**
- * @license Angular v5.1.0-beta.0-f8658cd
+ * @license Angular v5.1.0-beta.0-336041a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ var platformServerTesting = _angular_core.createPlatformFactory(_angular_platfor
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = (function () {
+var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
     ServerTestingModule.decorators = [

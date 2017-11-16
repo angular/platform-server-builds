@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.1.0-beta.0-f8658cd
+ * @license Angular v5.1.0-beta.0-336041a
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -62,7 +62,7 @@ function serializeDocument(doc) {
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
-var DominoAdapter = (function (_super) {
+var DominoAdapter = /** @class */ (function (_super) {
     __extends(DominoAdapter, _super);
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -564,7 +564,7 @@ var DominoAdapter = (function (_super) {
  *
  * \@experimental
  */
-var PlatformState = (function () {
+var PlatformState = /** @class */ (function () {
     function PlatformState(_doc) {
         this._doc = _doc;
     }
@@ -624,7 +624,7 @@ function validateRequestUrl(url$$1) {
         throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
     }
 }
-var ServerXhr = (function () {
+var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     /**
@@ -641,7 +641,7 @@ var ServerXhr = (function () {
     ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
-var ServerXsrfStrategy = (function () {
+var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
     /**
@@ -663,7 +663,7 @@ var ServerXsrfStrategy = (function () {
 /**
  * @abstract
  */
-var ZoneMacroTaskWrapper = (function () {
+var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
     }
     /**
@@ -739,7 +739,7 @@ var ZoneMacroTaskWrapper = (function () {
     };
     return ZoneMacroTaskWrapper;
 }());
-var ZoneMacroTaskConnection = (function (_super) {
+var ZoneMacroTaskConnection = /** @class */ (function (_super) {
     __extends(ZoneMacroTaskConnection, _super);
     function ZoneMacroTaskConnection(request, backend) {
         var _this = _super.call(this) || this;
@@ -773,7 +773,7 @@ var ZoneMacroTaskConnection = (function (_super) {
     });
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
-var ZoneMacroTaskBackend = (function () {
+var ZoneMacroTaskBackend = /** @class */ (function () {
     function ZoneMacroTaskBackend(backend) {
         this.backend = backend;
     }
@@ -790,7 +790,7 @@ var ZoneMacroTaskBackend = (function () {
     };
     return ZoneMacroTaskBackend;
 }());
-var ZoneClientBackend = (function (_super) {
+var ZoneClientBackend = /** @class */ (function (_super) {
     __extends(ZoneClientBackend, _super);
     function ZoneClientBackend(backend) {
         var _this = _super.call(this) || this;
@@ -884,6 +884,13 @@ var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} urlStr
  * @return {?}
  */
@@ -899,7 +906,7 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-var ServerPlatformLocation = (function () {
+var ServerPlatformLocation = /** @class */ (function () {
     function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
         this.pathname = '/';
@@ -1048,7 +1055,7 @@ function scheduleMicroTask(fn) {
  * found in the LICENSE file at https://angular.io/license
  */
 var EMPTY_ARRAY = [];
-var ServerRendererFactory2 = (function () {
+var ServerRendererFactory2 = /** @class */ (function () {
     function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
         this.ngZone = ngZone;
         this.document = document;
@@ -1119,7 +1126,7 @@ var ServerRendererFactory2 = (function () {
     ]; };
     return ServerRendererFactory2;
 }());
-var DefaultServerRenderer2 = (function () {
+var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(document, ngZone, schema) {
         this.document = document;
         this.ngZone = ngZone;
@@ -1422,7 +1429,7 @@ var DefaultServerRenderer2 = (function () {
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        return this.ngZone.runOutsideAngular(function () { return (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -1437,7 +1444,7 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
     }
 }
-var EmulatedEncapsulationServerRenderer2 = (function (_super) {
+var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
@@ -1486,7 +1493,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ServerStylesHost = (function (_super) {
+var ServerStylesHost = /** @class */ (function (_super) {
     __extends(ServerStylesHost, _super);
     function ServerStylesHost(doc, transitionId) {
         var _this = _super.call(this) || this;
@@ -1590,7 +1597,7 @@ var SERVER_RENDER_PROVIDERS = [
  *
  * \@experimental
  */
-var ServerModule = (function () {
+var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
     ServerModule.decorators = [
@@ -1664,7 +1671,7 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *
  * \@experimental
  */
-var ServerTransferStateModule = (function () {
+var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
     }
     ServerTransferStateModule.decorators = [
@@ -1813,7 +1820,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.1.0-beta.0-f8658cd');
+var VERSION = new Version('5.1.0-beta.0-336041a');
 
 /**
  * @fileoverview added by tsickle

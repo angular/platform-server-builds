@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.0.4-cbd93fe
+ * @license Angular v5.0.4-445d833
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1813,7 +1813,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.4-cbd93fe');
+var VERSION = new Version('5.0.4-445d833');
 
 /**
  * @fileoverview added by tsickle

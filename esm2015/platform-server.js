@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.7-3215c4b
+ * @license Angular v5.1.0-5a0076f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -74,7 +74,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} error
      * @return {?}
      */
-    log(error) { console.log(error); }
+    log(error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -659,6 +662,13 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} urlStr
  * @return {?}
  */
@@ -681,16 +691,16 @@ class ServerPlatformLocation {
      */
     constructor(_doc, _config) {
         this._doc = _doc;
-        this._path = '/';
-        this._search = '';
-        this._hash = '';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
         this._hashUpdate = new Subject();
         const /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             const /** @type {?} */ parsedUrl = parseUrl(config.url);
-            this._path = parsedUrl.pathname;
-            this._search = parsedUrl.search;
-            this._hash = parsedUrl.hash;
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
+            this.hash = parsedUrl.hash;
         }
     }
     /**
@@ -713,18 +723,6 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    get pathname() { return this._path; }
-    /**
-     * @return {?}
-     */
-    get search() { return this._search; }
-    /**
-     * @return {?}
-     */
-    get hash() { return this._hash; }
-    /**
-     * @return {?}
-     */
     get url() { return `${this.pathname}${this.search}${this.hash}`; }
     /**
      * @param {?} value
@@ -732,11 +730,11 @@ class ServerPlatformLocation {
      * @return {?}
      */
     setHash(value, oldUrl) {
-        if (this._hash === value) {
+        if (this.hash === value) {
             // Don't fire events if the hash has not changed.
             return;
         }
-        this._hash = value;
+        (/** @type {?} */ (this)).hash = value;
         const /** @type {?} */ newUrl = this.url;
         scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl, newUrl })));
     }
@@ -749,8 +747,8 @@ class ServerPlatformLocation {
     replaceState(state, title, newUrl) {
         const /** @type {?} */ oldUrl = this.url;
         const /** @type {?} */ parsedUrl = parseUrl(newUrl);
-        this._path = parsedUrl.pathname;
-        this._search = parsedUrl.search;
+        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
+        (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     }
     /**
@@ -813,7 +811,6 @@ class ServerRendererFactory2 {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    ;
     /**
      * @param {?} element
      * @param {?} type
@@ -1268,6 +1265,55 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * @param {?} doc
+ * @param {?} appId
+ * @param {?} transferStore
+ * @return {?}
+ */
+function serializeTransferStateFactory(doc, appId, transferStore) {
+    return () => {
+        const /** @type {?} */ script = doc.createElement('script');
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        script.textContent = ɵescapeHtml(transferStore.toJson());
+        doc.body.appendChild(script);
+    };
+}
+/**
+ * NgModule to install on the server side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+class ServerTransferStateModule {
+}
+ServerTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [DOCUMENT, APP_ID, TransferState],
+                        multi: true,
+                    }
+                ]
+            },] },
+];
+/** @nocollapse */
+ServerTransferStateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -1385,7 +1431,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.7-3215c4b');
+const VERSION = new Version('5.1.0-5a0076f');
 
 /**
  * @fileoverview added by tsickle
@@ -1426,5 +1472,5 @@ const VERSION = new Version('5.0.0-beta.7-3215c4b');
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
-//# sourceMappingURL=index.js.map
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵd, ServerXsrfStrategy as ɵe, httpFactory as ɵf, zoneWrappedInterceptingHandler as ɵg, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵc, serializeTransferStateFactory as ɵb };
+//# sourceMappingURL=platform-server.js.map

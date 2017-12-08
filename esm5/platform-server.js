@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.7-3215c4b
+ * @license Angular v5.1.0-5a0076f
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { __extends } from 'tslib';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
@@ -62,7 +62,7 @@ function serializeDocument(doc) {
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
-var DominoAdapter = (function (_super) {
+var DominoAdapter = /** @class */ (function (_super) {
     __extends(DominoAdapter, _super);
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -83,7 +83,6 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (error) { console.error(error); };
-    // tslint:disable-next-line:no-console
     /**
      * @param {?} error
      * @return {?}
@@ -92,7 +91,10 @@ var DominoAdapter = (function (_super) {
      * @param {?} error
      * @return {?}
      */
-    function (error) { console.log(error); };
+    function (error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -562,7 +564,7 @@ var DominoAdapter = (function (_super) {
  *
  * \@experimental
  */
-var PlatformState = (function () {
+var PlatformState = /** @class */ (function () {
     function PlatformState(_doc) {
         this._doc = _doc;
     }
@@ -622,7 +624,7 @@ function validateRequestUrl(url$$1) {
         throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
     }
 }
-var ServerXhr = (function () {
+var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     /**
@@ -639,7 +641,7 @@ var ServerXhr = (function () {
     ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
-var ServerXsrfStrategy = (function () {
+var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
     /**
@@ -661,7 +663,7 @@ var ServerXsrfStrategy = (function () {
 /**
  * @abstract
  */
-var ZoneMacroTaskWrapper = (function () {
+var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
     }
     /**
@@ -737,7 +739,7 @@ var ZoneMacroTaskWrapper = (function () {
     };
     return ZoneMacroTaskWrapper;
 }());
-var ZoneMacroTaskConnection = (function (_super) {
+var ZoneMacroTaskConnection = /** @class */ (function (_super) {
     __extends(ZoneMacroTaskConnection, _super);
     function ZoneMacroTaskConnection(request, backend) {
         var _this = _super.call(this) || this;
@@ -771,7 +773,7 @@ var ZoneMacroTaskConnection = (function (_super) {
     });
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
-var ZoneMacroTaskBackend = (function () {
+var ZoneMacroTaskBackend = /** @class */ (function () {
     function ZoneMacroTaskBackend(backend) {
         this.backend = backend;
     }
@@ -788,7 +790,7 @@ var ZoneMacroTaskBackend = (function () {
     };
     return ZoneMacroTaskBackend;
 }());
-var ZoneClientBackend = (function (_super) {
+var ZoneClientBackend = /** @class */ (function (_super) {
     __extends(ZoneClientBackend, _super);
     function ZoneClientBackend(backend) {
         var _this = _super.call(this) || this;
@@ -882,6 +884,13 @@ var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} urlStr
  * @return {?}
  */
@@ -897,19 +906,19 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-var ServerPlatformLocation = (function () {
+var ServerPlatformLocation = /** @class */ (function () {
     function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
-        this._path = '/';
-        this._search = '';
-        this._hash = '';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
         this._hashUpdate = new Subject();
         var /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             var /** @type {?} */ parsedUrl = parseUrl(config.url);
-            this._path = parsedUrl.pathname;
-            this._search = parsedUrl.search;
-            this._hash = parsedUrl.hash;
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
+            this.hash = parsedUrl.hash;
         }
     }
     /**
@@ -940,30 +949,6 @@ var ServerPlatformLocation = (function () {
      * @return {?}
      */
     function (fn) { this._hashUpdate.subscribe(fn); };
-    Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._path; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ServerPlatformLocation.prototype, "search", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._search; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._hash; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ServerPlatformLocation.prototype, "url", {
         get: /**
          * @return {?}
@@ -984,11 +969,11 @@ var ServerPlatformLocation = (function () {
      */
     function (value, oldUrl) {
         var _this = this;
-        if (this._hash === value) {
+        if (this.hash === value) {
             // Don't fire events if the hash has not changed.
             return;
         }
-        this._hash = value;
+        (/** @type {?} */ (this)).hash = value;
         var /** @type {?} */ newUrl = this.url;
         scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
     };
@@ -1007,8 +992,8 @@ var ServerPlatformLocation = (function () {
     function (state, title, newUrl) {
         var /** @type {?} */ oldUrl = this.url;
         var /** @type {?} */ parsedUrl = parseUrl(newUrl);
-        this._path = parsedUrl.pathname;
-        this._search = parsedUrl.search;
+        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
+        (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     };
     /**
@@ -1070,7 +1055,7 @@ function scheduleMicroTask(fn) {
  * found in the LICENSE file at https://angular.io/license
  */
 var EMPTY_ARRAY = [];
-var ServerRendererFactory2 = (function () {
+var ServerRendererFactory2 = /** @class */ (function () {
     function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
         this.ngZone = ngZone;
         this.document = document;
@@ -1079,7 +1064,6 @@ var ServerRendererFactory2 = (function () {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    
     /**
      * @param {?} element
      * @param {?} type
@@ -1142,7 +1126,7 @@ var ServerRendererFactory2 = (function () {
     ]; };
     return ServerRendererFactory2;
 }());
-var DefaultServerRenderer2 = (function () {
+var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(document, ngZone, schema) {
         this.document = document;
         this.ngZone = ngZone;
@@ -1445,7 +1429,7 @@ var DefaultServerRenderer2 = (function () {
         checkNoSyntheticProp(eventName, 'listener');
         var /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        return this.ngZone.runOutsideAngular(function () { return (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
     };
     return DefaultServerRenderer2;
 }());
@@ -1460,7 +1444,7 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
     }
 }
-var EmulatedEncapsulationServerRenderer2 = (function (_super) {
+var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
     function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, document, ngZone, schema) || this;
@@ -1509,7 +1493,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ServerStylesHost = (function (_super) {
+var ServerStylesHost = /** @class */ (function (_super) {
     __extends(ServerStylesHost, _super);
     function ServerStylesHost(doc, transitionId) {
         var _this = _super.call(this) || this;
@@ -1613,7 +1597,7 @@ var SERVER_RENDER_PROVIDERS = [
  *
  * \@experimental
  */
-var ServerModule = (function () {
+var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
     ServerModule.decorators = [
@@ -1654,6 +1638,58 @@ var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERV
  * \@experimental
  */
 var platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @param {?} doc
+ * @param {?} appId
+ * @param {?} transferStore
+ * @return {?}
+ */
+function serializeTransferStateFactory(doc, appId, transferStore) {
+    return function () {
+        var /** @type {?} */ script = doc.createElement('script');
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        script.textContent = ɵescapeHtml(transferStore.toJson());
+        doc.body.appendChild(script);
+    };
+}
+/**
+ * NgModule to install on the server side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+var ServerTransferStateModule = /** @class */ (function () {
+    function ServerTransferStateModule() {
+    }
+    ServerTransferStateModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [
+                        TransferState, {
+                            provide: BEFORE_APP_SERIALIZED,
+                            useFactory: serializeTransferStateFactory,
+                            deps: [DOCUMENT, APP_ID, TransferState],
+                            multi: true,
+                        }
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    ServerTransferStateModule.ctorParameters = function () { return []; };
+    return ServerTransferStateModule;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -1784,7 +1820,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.0.0-beta.7-3215c4b');
+var VERSION = new Version('5.1.0-5a0076f');
 
 /**
  * @fileoverview added by tsickle
@@ -1825,5 +1861,5 @@ var VERSION = new Version('5.0.0-beta.7-3215c4b');
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
-//# sourceMappingURL=index.js.map
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵd, ServerXsrfStrategy as ɵe, httpFactory as ɵf, zoneWrappedInterceptingHandler as ɵg, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵc, serializeTransferStateFactory as ɵb };
+//# sourceMappingURL=platform-server.js.map

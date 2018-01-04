@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.1.3-5efb751
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v5.1.3-d3c0425
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
@@ -1431,7 +1431,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.1.3-5efb751');
+const VERSION = new Version('5.1.3-d3c0425');
 
 /**
  * @fileoverview added by tsickle

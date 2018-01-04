@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.2.0-rc.0-b5934fc
- * (c) 2010-2018 Google, Inc. https://angular.io/
+ * @license Angular v5.2.0-rc.0-03d16fc
+ * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
@@ -1815,7 +1815,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.0-rc.0-b5934fc');
+var VERSION = new Version('5.2.0-rc.0-03d16fc');
 
 /**
  * @fileoverview added by tsickle

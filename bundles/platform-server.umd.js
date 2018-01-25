@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.9.9-6-beta.0-e4b11b2
+ * @license Angular v6.0.0-beta.1-d08785d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.9.9-6-beta.0-e4b11b2
+ * @license Angular v6.0.0-beta.1-d08785d
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1835,7 +1835,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.9.9-6-beta.0-e4b11b2');
+var VERSION = new _angular_core.Version('6.0.0-beta.1-d08785d');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.1-c3fb820
+ * @license Angular v6.0.0-beta.1-ede9cb7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v6.0.0-beta.1-c3fb820
+ * @license Angular v6.0.0-beta.1-ede9cb7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -995,11 +995,7 @@ var ServerPlatformLocation = /** @class */ (function () {
         }
         (/** @type {?} */ (this)).hash = value;
         var /** @type {?} */ newUrl = this.url;
-        scheduleMicroTask(function () {
-            return _this._hashUpdate.next(/** @type {?} */ ({
-                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
-            }));
-        });
+        scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
     };
     /**
      * @param {?} state
@@ -1839,7 +1835,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.1-c3fb820');
+var VERSION = new _angular_core.Version('6.0.0-beta.1-ede9cb7');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.1-c3fb820
+ * @license Angular v6.0.0-beta.1-ede9cb7
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -736,9 +736,7 @@ class ServerPlatformLocation {
         }
         (/** @type {?} */ (this)).hash = value;
         const /** @type {?} */ newUrl = this.url;
-        scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({
-            type: 'hashchange', state: null, oldUrl, newUrl
-        })));
+        scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl, newUrl })));
     }
     /**
      * @param {?} state
@@ -1428,7 +1426,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('6.0.0-beta.1-c3fb820');
+const VERSION = new Version('6.0.0-beta.1-ede9cb7');
 
 /**
  * @fileoverview added by tsickle

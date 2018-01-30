@@ -8,5 +8,7 @@ export declare class ServerRendererFactory2 implements RendererFactory2 {
     private defaultRenderer;
     private schema;
     constructor(ngZone: NgZone, document: any, sharedStylesHost: SharedStylesHost);
-    createRenderer(element: any, type: RendererType2): Renderer2;
+    createRenderer(element: any, type: RendererType2 | null): Renderer2;
+    begin(): void;
+    end(): void;
 }

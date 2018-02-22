@@ -1,0 +1,28 @@
+{
+  "name": "@angular/platform-server",
+  "version": "6.0.0-beta.5-5fc630a",
+  "description": "Angular - library for using Angular in Node.js",
+  "main": "./bundles/platform-server.umd.js",
+  "module": "./esm5/platform-server.js",
+  "es2015": "./esm2015/platform-server.js",
+  "typings": "./platform-server.d.ts",
+  "author": "angular",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/animations": "6.0.0-beta.5-5fc630a",
+    "@angular/core": "6.0.0-beta.5-5fc630a",
+    "@angular/common": "6.0.0-beta.5-5fc630a",
+    "@angular/compiler": "6.0.0-beta.5-5fc630a",
+    "@angular/platform-browser": "6.0.0-beta.5-5fc630a",
+    "@angular/platform-browser-dynamic": "6.0.0-beta.5-5fc630a"
+  },
+  "dependencies": {
+    "tslib": "^1.7.1",
+    "domino": "^1.0.29",
+    "xhr2": "^0.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angular/angular.git"
+  }
+}

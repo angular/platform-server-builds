@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.0-2717a3e
+ * @license Angular v6.0.0-beta.6-371ec91
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.2.0-2717a3e
+ * @license Angular v6.0.0-beta.6-371ec91
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -344,58 +344,6 @@ var DominoAdapter = /** @class */ (function (_super) {
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
         return href;
     };
-    /** @internal */
-    /**
-     * \@internal
-     * @param {?} element
-     * @return {?}
-     */
-    DominoAdapter.prototype._readStyleAttribute = /**
-     * \@internal
-     * @param {?} element
-     * @return {?}
-     */
-    function (element) {
-        var /** @type {?} */ styleMap = {};
-        var /** @type {?} */ styleAttribute = element.getAttribute('style');
-        if (styleAttribute) {
-            var /** @type {?} */ styleList = styleAttribute.split(/;+/g);
-            for (var /** @type {?} */ i = 0; i < styleList.length; i++) {
-                if (styleList[i].length > 0) {
-                    var /** @type {?} */ style = /** @type {?} */ (styleList[i]);
-                    var /** @type {?} */ colon = style.indexOf(':');
-                    if (colon === -1) {
-                        throw new Error("Invalid CSS style: " + style);
-                    }
-                    (/** @type {?} */ (styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
-                }
-            }
-        }
-        return styleMap;
-    };
-    /** @internal */
-    /**
-     * \@internal
-     * @param {?} element
-     * @param {?} styleMap
-     * @return {?}
-     */
-    DominoAdapter.prototype._writeStyleAttribute = /**
-     * \@internal
-     * @param {?} element
-     * @param {?} styleMap
-     * @return {?}
-     */
-    function (element, styleMap) {
-        var /** @type {?} */ styleAttrValue = '';
-        for (var /** @type {?} */ key in styleMap) {
-            var /** @type {?} */ newValue = styleMap[key];
-            if (newValue) {
-                styleAttrValue += key + ':' + styleMap[key] + ';';
-            }
-        }
-        element.setAttribute('style', styleAttrValue);
-    };
     /**
      * @param {?} element
      * @param {?} styleName
@@ -409,9 +357,8 @@ var DominoAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (element, styleName, styleValue) {
-        var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        (/** @type {?} */ (styleMap))[styleName] = styleValue;
-        this._writeStyleAttribute(element, styleMap);
+        styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        element.style[styleName] = styleValue;
     };
     /**
      * @param {?} element
@@ -423,7 +370,11 @@ var DominoAdapter = /** @class */ (function (_super) {
      * @param {?} styleName
      * @return {?}
      */
-    function (element, styleName) { this.setStyle(element, styleName, null); };
+    function (element, styleName) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        element.style[styleName] = '';
+    };
     /**
      * @param {?} element
      * @param {?} styleName
@@ -435,8 +386,7 @@ var DominoAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (element, styleName) {
-        var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? (/** @type {?} */ (styleMap))[styleName] : '';
+        return element.style[styleName] || element.style.getPropertyValue(styleName);
     };
     /**
      * @param {?} element
@@ -451,7 +401,7 @@ var DominoAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (element, styleName, styleValue) {
-        var /** @type {?} */ value = this.getStyle(element, styleName) || '';
+        var /** @type {?} */ value = this.getStyle(element, styleName);
         return styleValue ? value == styleValue : value.length > 0;
     };
     /**
@@ -995,7 +945,11 @@ var ServerPlatformLocation = /** @class */ (function () {
         }
         (/** @type {?} */ (this)).hash = value;
         var /** @type {?} */ newUrl = this.url;
-        scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
+        scheduleMicroTask(function () {
+            return _this._hashUpdate.next(/** @type {?} */ ({
+                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
+            }));
+        });
     };
     /**
      * @param {?} state
@@ -1835,7 +1789,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('5.2.0-2717a3e');
+var VERSION = new _angular_core.Version('6.0.0-beta.6-371ec91');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

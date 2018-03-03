@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "5.2.0-2717a3e",
+  "version": "6.0.0-beta.6-371ec91",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./esm5/platform-server.js",
@@ -9,20 +9,23 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "5.2.0-2717a3e",
-    "@angular/core": "5.2.0-2717a3e",
-    "@angular/common": "5.2.0-2717a3e",
-    "@angular/compiler": "5.2.0-2717a3e",
-    "@angular/platform-browser": "5.2.0-2717a3e",
-    "@angular/platform-browser-dynamic": "5.2.0-2717a3e"
+    "@angular/animations": "6.0.0-beta.6-371ec91",
+    "@angular/common": "6.0.0-beta.6-371ec91",
+    "@angular/compiler": "6.0.0-beta.6-371ec91",
+    "@angular/core": "6.0.0-beta.6-371ec91",
+    "@angular/platform-browser": "6.0.0-beta.6-371ec91",
+    "@angular/platform-browser-dynamic": "6.0.0-beta.6-371ec91"
   },
   "dependencies": {
+    "domino": "^2.0.1",
     "tslib": "^1.7.1",
-    "domino": "^1.0.29",
     "xhr2": "^0.1.4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/angular.git"
+  },
+  "ng-update": {
+    "packageGroup": ["/core", "/compiler", "/common", "/animations", "/platform-browser", "/platform-browser-dynamic", "/forms", "/http", "/platform-server", "/platform-webworker", "/platform-webworker-dynamic", "/upgrade", "/router", "/compiler-cli", "/language-service", "/benchpress", "/service-worker"]
   }
 }

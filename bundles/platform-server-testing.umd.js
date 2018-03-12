@@ -1,17 +1,17 @@
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser-dynamic/testing'), require('@angular/platform-browser/animations'), require('@angular/platform-server')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser-dynamic/testing', '@angular/platform-browser/animations', '@angular/platform-server'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}, global.ng.platformServer.testing = {}),global.ng.core,global.ng.platformBrowserDynamic.testing,global._angular_platformBrowser_animations,global.ng.platformServer));
+	typeof define === 'function' && define.amd ? define('@angular/platform-server/testing', ['exports', '@angular/core', '@angular/platform-browser-dynamic/testing', '@angular/platform-browser/animations', '@angular/platform-server'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}, global.ng.platformServer.testing = {}),global.ng.core,global.ng.platformBrowserDynamic.testing,global.ng.platformBrowser.animations,global.ng.platformServer));
 }(this, (function (exports,_angular_core,_angular_platformBrowserDynamic_testing,_angular_platformBrowser_animations,_angular_platformServer) { 'use strict';
 
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
@@ -36,20 +36,20 @@ var platformServerTesting = _angular_core.createPlatformFactory(_angular_platfor
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = (function () {
+var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
+    ServerTestingModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule],
+                    imports: [_angular_platformBrowser_animations.NoopAnimationsModule],
+                    providers: _angular_platformServer.ɵSERVER_RENDER_PROVIDERS
+                },] },
+    ];
+    /** @nocollapse */
+    ServerTestingModule.ctorParameters = function () { return []; };
     return ServerTestingModule;
 }());
-ServerTestingModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule],
-                imports: [_angular_platformBrowser_animations.NoopAnimationsModule],
-                providers: _angular_platformServer.ɵSERVER_RENDER_PROVIDERS
-            },] },
-];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = function () { return []; };
 
 exports.platformServerTesting = platformServerTesting;
 exports.ServerTestingModule = ServerTestingModule;

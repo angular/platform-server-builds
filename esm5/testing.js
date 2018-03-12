@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { NgModule, createPlatformFactory } from '@angular/core';
@@ -24,23 +24,26 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-class ServerTestingModule {
-}
-ServerTestingModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserDynamicTestingModule],
-                imports: [NoopAnimationsModule],
-                providers: ɵSERVER_RENDER_PROVIDERS
-            },] },
-];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = () => [];
+var ServerTestingModule = /** @class */ (function () {
+    function ServerTestingModule() {
+    }
+    ServerTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserDynamicTestingModule],
+                    imports: [NoopAnimationsModule],
+                    providers: ɵSERVER_RENDER_PROVIDERS
+                },] },
+    ];
+    /** @nocollapse */
+    ServerTestingModule.ctorParameters = function () { return []; };
+    return ServerTestingModule;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -87,4 +90,4 @@ ServerTestingModule.ctorParameters = () => [];
  */
 
 export { platformServerTesting, ServerTestingModule };
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=testing.js.map

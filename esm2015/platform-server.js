@@ -1,10 +1,10 @@
 /**
- * @license Angular v5.0.0-beta.6-f2945c6
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-beta.7-63cad11
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
-import { ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
+import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -55,7 +55,7 @@ function parseDocument(html, url$$1 = '/') {
  * @return {?}
  */
 function serializeDocument(doc) {
-    return ((doc)).serialize();
+    return (/** @type {?} */ (doc)).serialize();
 }
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
@@ -74,7 +74,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} error
      * @return {?}
      */
-    log(error) { console.log(error); }
+    log(error) {
+        // tslint:disable-next-line:no-console
+        console.log(error);
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -171,12 +174,16 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     getProperty(el, name) {
-        // Domino tries tp resolve href-s which we do not want. Just return the
-        // atribute value.
         if (name === 'href') {
+            // Domino tries tp resolve href-s which we do not want. Just return the
+            // atribute value.
             return this.getAttribute(el, 'href');
         }
-        return ((el))[name];
+        else if (name === 'innerText') {
+            // Domino does not support innerText. Just map it to textContent.
+            return el.textContent;
+        }
+        return (/** @type {?} */ (el))[name];
     }
     /**
      * @param {?} el
@@ -185,12 +192,16 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     setProperty(el, name, value) {
-        // Eventhough the server renderer reflects any properties to attributes
-        // map 'href' to atribute just to handle when setProperty is directly called.
         if (name === 'href') {
+            // Eventhough the server renderer reflects any properties to attributes
+            // map 'href' to atribute just to handle when setProperty is directly called.
             this.setAttribute(el, 'href', value);
         }
-        ((el))[name] = value;
+        else if (name === 'innerText') {
+            // Domino does not support innerText. Just map it to textContent.
+            el.textContent = value;
+        }
+        (/** @type {?} */ (el))[name] = value;
     }
     /**
      * @param {?} doc
@@ -223,69 +234,32 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return href;
     }
     /**
-     * \@internal
-     * @param {?} element
-     * @return {?}
-     */
-    _readStyleAttribute(element) {
-        const /** @type {?} */ styleMap = {};
-        const /** @type {?} */ styleAttribute = element.getAttribute('style');
-        if (styleAttribute) {
-            const /** @type {?} */ styleList = styleAttribute.split(/;+/g);
-            for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
-                if (styleList[i].length > 0) {
-                    const /** @type {?} */ style = (styleList[i]);
-                    const /** @type {?} */ colon = style.indexOf(':');
-                    if (colon === -1) {
-                        throw new Error(`Invalid CSS style: ${style}`);
-                    }
-                    ((styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
-                }
-            }
-        }
-        return styleMap;
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @param {?} styleMap
-     * @return {?}
-     */
-    _writeStyleAttribute(element, styleMap) {
-        let /** @type {?} */ styleAttrValue = '';
-        for (const /** @type {?} */ key in styleMap) {
-            const /** @type {?} */ newValue = styleMap[key];
-            if (newValue) {
-                styleAttrValue += key + ':' + styleMap[key] + ';';
-            }
-        }
-        element.setAttribute('style', styleAttrValue);
-    }
-    /**
      * @param {?} element
      * @param {?} styleName
      * @param {?=} styleValue
      * @return {?}
      */
     setStyle(element, styleName, styleValue) {
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        ((styleMap))[styleName] = styleValue;
-        this._writeStyleAttribute(element, styleMap);
+        styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        element.style[styleName] = styleValue;
     }
     /**
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
-    removeStyle(element, styleName) { this.setStyle(element, styleName, null); }
+    removeStyle(element, styleName) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        element.style[styleName] = '';
+    }
     /**
      * @param {?} element
      * @param {?} styleName
      * @return {?}
      */
     getStyle(element, styleName) {
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? ((styleMap))[styleName] : '';
+        return element.style[styleName] || element.style.getPropertyValue(styleName);
     }
     /**
      * @param {?} element
@@ -294,7 +268,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     hasStyle(element, styleName, styleValue) {
-        const /** @type {?} */ value = this.getStyle(element, styleName) || '';
+        const /** @type {?} */ value = this.getStyle(element, styleName);
         return styleValue ? value == styleValue : value.length > 0;
     }
     /**
@@ -306,7 +280,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         el.dispatchEvent(evt);
         // Dispatch the event to the window also.
         const /** @type {?} */ doc = el.ownerDocument || el;
-        const /** @type {?} */ win = ((doc)).defaultView;
+        const /** @type {?} */ win = (/** @type {?} */ (doc)).defaultView;
         if (win) {
             win.dispatchEvent(evt);
         }
@@ -462,7 +436,7 @@ class ZoneMacroTaskWrapper {
      */
     wrap(request) {
         return new Observable((observer) => {
-            let /** @type {?} */ task = ((null));
+            let /** @type {?} */ task = /** @type {?} */ ((null));
             let /** @type {?} */ scheduled = false;
             let /** @type {?} */ sub = null;
             let /** @type {?} */ savedResult = null;
@@ -541,7 +515,7 @@ class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
      */
     delegate(request) {
         this.lastConnection = this.backend.createConnection(request);
-        return (this.lastConnection.response);
+        return /** @type {?} */ (this.lastConnection.response);
     }
     /**
      * @return {?}
@@ -631,7 +605,7 @@ const SERVER_HTTP_PROVIDERS = [
  * \@experimental
  * @record
  */
-function PlatformConfig() { }
+
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -649,6 +623,13 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * @param {?} urlStr
@@ -673,22 +654,22 @@ class ServerPlatformLocation {
      */
     constructor(_doc, _config) {
         this._doc = _doc;
-        this._path = '/';
-        this._search = '';
-        this._hash = '';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
         this._hashUpdate = new Subject();
-        const /** @type {?} */ config = (_config);
+        const /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             const /** @type {?} */ parsedUrl = parseUrl(config.url);
-            this._path = parsedUrl.pathname;
-            this._search = parsedUrl.search;
-            this._hash = parsedUrl.hash;
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
+            this.hash = parsedUrl.hash;
         }
     }
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return ((ɵgetDOM().getBaseHref(this._doc))); }
+    getBaseHrefFromDOM() { return /** @type {?} */ ((ɵgetDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
@@ -705,18 +686,6 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    get pathname() { return this._path; }
-    /**
-     * @return {?}
-     */
-    get search() { return this._search; }
-    /**
-     * @return {?}
-     */
-    get hash() { return this._hash; }
-    /**
-     * @return {?}
-     */
     get url() { return `${this.pathname}${this.search}${this.hash}`; }
     /**
      * @param {?} value
@@ -724,13 +693,15 @@ class ServerPlatformLocation {
      * @return {?}
      */
     setHash(value, oldUrl) {
-        if (this._hash === value) {
+        if (this.hash === value) {
             // Don't fire events if the hash has not changed.
             return;
         }
-        this._hash = value;
+        (/** @type {?} */ (this)).hash = value;
         const /** @type {?} */ newUrl = this.url;
-        scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl, newUrl })));
+        scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({
+            type: 'hashchange', state: null, oldUrl, newUrl
+        })));
     }
     /**
      * @param {?} state
@@ -741,8 +712,8 @@ class ServerPlatformLocation {
     replaceState(state, title, newUrl) {
         const /** @type {?} */ oldUrl = this.url;
         const /** @type {?} */ parsedUrl = parseUrl(newUrl);
-        this._path = parsedUrl.pathname;
-        this._search = parsedUrl.search;
+        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
+        (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     }
     /**
@@ -805,7 +776,6 @@ class ServerRendererFactory2 {
         this.schema = new DomElementSchemaRegistry();
         this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
     }
-    ;
     /**
      * @param {?} element
      * @param {?} type
@@ -823,7 +793,7 @@ class ServerRendererFactory2 {
                     renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
-                ((renderer)).applyToHost(element);
+                (/** @type {?} */ (renderer)).applyToHost(element);
                 return renderer;
             }
             case ViewEncapsulation.Native:
@@ -1031,7 +1001,7 @@ class DefaultServerRenderer2 {
         checkNoSyntheticProp(name, 'property');
         ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
-        const /** @type {?} */ tagName = ((el.tagName)).toLowerCase();
+        const /** @type {?} */ tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
             this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
@@ -1057,7 +1027,7 @@ class DefaultServerRenderer2 {
         checkNoSyntheticProp(eventName, 'listener');
         const /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
         const /** @type {?} */ outsideHandler = (event) => this.ngZone.runGuarded(() => callback(event));
-        return this.ngZone.runOutsideAngular(() => (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)));
+        return this.ngZone.runOutsideAngular(() => /** @type {?} */ (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)));
     }
 }
 const AT_CHARCODE = '@'.charCodeAt(0);
@@ -1169,7 +1139,7 @@ ServerStylesHost.ctorParameters = () => [
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
-    { provide: PLATFORM_INITIALIZER, useFactory: initParse5Adapter, multi: true, deps: [Injector] }, {
+    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector] }, {
         provide: PlatformLocation,
         useClass: ServerPlatformLocation,
         deps: [DOCUMENT, [Optional, INITIAL_CONFIG]]
@@ -1182,7 +1152,7 @@ const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * @param {?} injector
  * @return {?}
  */
-function initParse5Adapter(injector) {
+function initDominoAdapter(injector) {
     return () => { DominoAdapter.makeCurrent(); };
 }
 /**
@@ -1260,6 +1230,55 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * @param {?} doc
+ * @param {?} appId
+ * @param {?} transferStore
+ * @return {?}
+ */
+function serializeTransferStateFactory(doc, appId, transferStore) {
+    return () => {
+        const /** @type {?} */ script = doc.createElement('script');
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        script.textContent = ɵescapeHtml(transferStore.toJson());
+        doc.body.appendChild(script);
+    };
+}
+/**
+ * NgModule to install on the server side while using the `TransferState` to transfer state from
+ * server to client.
+ *
+ * \@experimental
+ */
+class ServerTransferStateModule {
+}
+ServerTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [DOCUMENT, APP_ID, TransferState],
+                        multi: true,
+                    }
+                ]
+            },] },
+];
+/** @nocollapse */
+ServerTransferStateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -1296,7 +1315,7 @@ the server-rendered app can be properly bootstrapped into a client app.`);
                     try {
                         callback();
                     }
-                    catch (e) {
+                    catch (/** @type {?} */ e) {
                         // Ignore exceptions.
                         console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
                     }
@@ -1370,14 +1389,9 @@ function renderModuleFactory(moduleFactory, options) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-/**
  * \@stable
  */
-const VERSION = new Version('5.0.0-beta.6-f2945c6');
+const VERSION = new Version('6.0.0-beta.7-63cad11');
 
 /**
  * @fileoverview added by tsickle
@@ -1418,5 +1432,5 @@ const VERSION = new Version('5.0.0-beta.6-f2945c6');
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformConfig, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵg, ServerXhr as ɵc, ServerXsrfStrategy as ɵd, httpFactory as ɵe, zoneWrappedInterceptingHandler as ɵf, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵb };
-//# sourceMappingURL=index.js.map
+export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵd, ServerXsrfStrategy as ɵe, httpFactory as ɵf, zoneWrappedInterceptingHandler as ɵg, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵc, serializeTransferStateFactory as ɵb };
+//# sourceMappingURL=platform-server.js.map

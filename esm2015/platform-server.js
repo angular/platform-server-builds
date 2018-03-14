@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.8-c0670ef
+ * @license Angular v5.2.8-fc6dfc2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -234,6 +234,46 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return href;
     }
     /**
+     * \@internal
+     * @param {?} element
+     * @return {?}
+     */
+    _readStyleAttribute(element) {
+        const /** @type {?} */ styleMap = {};
+        const /** @type {?} */ styleAttribute = element.getAttribute('style');
+        if (styleAttribute) {
+            const /** @type {?} */ styleList = styleAttribute.split(/;+/g);
+            for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
+                const /** @type {?} */ style = styleList[i].trim();
+                if (style.length > 0) {
+                    const /** @type {?} */ colonIndex = style.indexOf(':');
+                    if (colonIndex === -1) {
+                        throw new Error(`Invalid CSS style: ${style}`);
+                    }
+                    const /** @type {?} */ name = style.substr(0, colonIndex).trim();
+                    styleMap[name] = style.substr(colonIndex + 1).trim();
+                }
+            }
+        }
+        return styleMap;
+    }
+    /**
+     * \@internal
+     * @param {?} element
+     * @param {?} styleMap
+     * @return {?}
+     */
+    _writeStyleAttribute(element, styleMap) {
+        let /** @type {?} */ styleAttrValue = '';
+        for (const /** @type {?} */ key in styleMap) {
+            const /** @type {?} */ newValue = styleMap[key];
+            if (newValue) {
+                styleAttrValue += key + ':' + styleMap[key] + ';';
+            }
+        }
+        element.setAttribute('style', styleAttrValue);
+    }
+    /**
      * @param {?} element
      * @param {?} styleName
      * @param {?=} styleValue
@@ -241,7 +281,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     setStyle(element, styleName, styleValue) {
         styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        element.style[styleName] = styleValue;
+        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        styleMap[styleName] = styleValue || '';
+        this._writeStyleAttribute(element, styleMap);
     }
     /**
      * @param {?} element
@@ -251,7 +293,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     removeStyle(element, styleName) {
         // IE requires '' instead of null
         // see https://github.com/angular/angular/issues/7916
-        element.style[styleName] = '';
+        this.setStyle(element, styleName, '');
     }
     /**
      * @param {?} element
@@ -259,7 +301,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     getStyle(element, styleName) {
-        return element.style[styleName] || element.style.getPropertyValue(styleName);
+        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        return styleMap[styleName] || '';
     }
     /**
      * @param {?} element
@@ -1389,7 +1432,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.2.8-c0670ef');
+const VERSION = new Version('5.2.8-fc6dfc2');
 
 /**
  * @fileoverview added by tsickle

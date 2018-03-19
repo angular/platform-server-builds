@@ -12,7 +12,6 @@
     "@angular/common": "file:../../../dist/packages-dist/common",
     "@angular/compiler": "file:../../../dist/packages-dist/compiler",
     "@angular/compiler-cli": "file:../../../dist/packages-dist/compiler-cli",
-    "@angular/tsc-wrapped": "file:../../../dist/packages-dist/tsc-wrapped",
     "@angular/core": "file:../../../dist/packages-dist/core",
     "@angular/http": "file:../../../dist/packages-dist/http",
     "@angular/platform-browser": "file:../../../dist/packages-dist/platform-browser",
@@ -34,7 +33,7 @@
     "webpack": "^2.2.1"
   },
   "scripts": {
-    "postinstall": "webdriver-manager update --gecko false",
+    "postinstall": "webdriver-manager update --gecko false --standalone false $CHROMEDRIVER_VERSION_ARG",
     "build": "./build.sh",
     "test": "npm run build && concurrently \"npm run serve\" \"npm run protractor\" --kill-others --success first",
     "serve": "node built/server-bundle.js",

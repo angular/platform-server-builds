@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.9-7d9de17
+ * @license Angular v5.2.9-aca4735
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -668,6 +668,7 @@ var ServerXsrfStrategy = /** @class */ (function () {
 }());
 /**
  * @abstract
+ * @template S, R
  */
 var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
@@ -1821,7 +1822,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.9-7d9de17');
+var VERSION = new Version('5.2.9-aca4735');
 
 /**
  * @fileoverview added by tsickle

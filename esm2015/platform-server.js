@@ -1,5 +1,5 @@
 /**
- * @license Angular v5.2.9-7d9de17
+ * @license Angular v5.2.9-aca4735
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -471,6 +471,7 @@ ServerXsrfStrategy.decorators = [
 ServerXsrfStrategy.ctorParameters = () => [];
 /**
  * @abstract
+ * @template S, R
  */
 class ZoneMacroTaskWrapper {
     /**
@@ -1432,7 +1433,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('5.2.9-7d9de17');
+const VERSION = new Version('5.2.9-aca4735');
 
 /**
  * @fileoverview added by tsickle

@@ -13,7 +13,7 @@ const /** @type {?} */ xhr2 = require('xhr2');
 import { Injectable, Optional } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { HttpHandler, HTTP_INTERCEPTORS, HttpBackend, XhrFactory, ɵinterceptingHandler as interceptingHandler } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 const /** @type {?} */ isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 /**
  * @param {?} url

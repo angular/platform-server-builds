@@ -11,7 +11,7 @@
  */
 import { Inject, Injectable, Optional } from '@angular/core';
 import { DOCUMENT, ɵgetDOM as getDOM } from '@angular/platform-browser';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import * as url from 'url';
 import { INITIAL_CONFIG } from './tokens';
 /**

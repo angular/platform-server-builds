@@ -11,9 +11,7 @@
  */
 import { ApplicationRef } from '@angular/core';
 import { ɵTRANSITION_ID } from '@angular/platform-browser';
-import { filter } from 'rxjs/operator/filter';
-import { first } from 'rxjs/operator/first';
-import { toPromise } from 'rxjs/operator/toPromise';
+import { first } from 'rxjs/operators';
 import { PlatformState } from './platform_state';
 import { platformDynamicServer, platformServer } from './server';
 import { BEFORE_APP_SERIALIZED, INITIAL_CONFIG } from './tokens';
@@ -54,8 +52,8 @@ function _render(platform, moduleRefPromise) {
             throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
         }
         var /** @type {?} */ applicationRef = moduleRef.injector.get(ApplicationRef);
-        return toPromise
-            .call(first.call(filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+        return applicationRef.isStable.pipe((first(function (isStable) { return isStable; })))
+            .toPromise()
             .then(function () {
             var /** @type {?} */ platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.

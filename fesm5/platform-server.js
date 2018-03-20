@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-beta.7-2b3de63
+ * @license Angular v6.0.0-beta.7-4648597
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -12,13 +12,10 @@ import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFacto
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 import { parse } from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
-import { filter } from 'rxjs/operator/filter';
-import { first } from 'rxjs/operator/first';
-import { toPromise } from 'rxjs/operator/toPromise';
+import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -1738,8 +1735,8 @@ function _render(platform, moduleRefPromise) {
             throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
         }
         var /** @type {?} */ applicationRef = moduleRef.injector.get(ApplicationRef);
-        return toPromise
-            .call(first.call(filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+        return applicationRef.isStable.pipe((first(function (isStable) { return isStable; })))
+            .toPromise()
             .then(function () {
             var /** @type {?} */ platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
@@ -1826,7 +1823,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new Version('6.0.0-beta.7-2b3de63');
+var VERSION = new Version('6.0.0-beta.7-4648597');
 
 /**
  * @fileoverview added by tsickle

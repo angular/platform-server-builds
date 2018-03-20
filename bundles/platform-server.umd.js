@@ -1,13 +1,13 @@
 /**
- * @license Angular v6.0.0-beta.7-2b3de63
+ * @license Angular v6.0.0-beta.7-4648597
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('@angular/compiler'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
-	typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', '@angular/compiler', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations.browser,global.ng.common,global.ng.common.http,global.ng.http,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.Rx,global.Rx,global.url,global.ng.compiler,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,_angular_compiler,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations.browser,global.ng.common,global.ng.common.http,global.ng.http,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.rxjs,global.url,global.ng.compiler,global.rxjs.operators));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs,url,_angular_compiler,rxjs_operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v6.0.0-beta.7-2b3de63
+ * @license Angular v6.0.0-beta.7-4648597
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -703,7 +703,7 @@ var ZoneMacroTaskWrapper = /** @class */ (function () {
      */
     function (request) {
         var _this = this;
-        return new rxjs_Observable.Observable(function (observer) {
+        return new rxjs.Observable(function (observer) {
             var /** @type {?} */ task = /** @type {?} */ ((null));
             var /** @type {?} */ scheduled = false;
             var /** @type {?} */ sub = null;
@@ -939,7 +939,7 @@ var ServerPlatformLocation = /** @class */ (function () {
         this.pathname = '/';
         this.search = '';
         this.hash = '';
-        this._hashUpdate = new rxjs_Subject.Subject();
+        this._hashUpdate = new rxjs.Subject();
         var /** @type {?} */ config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
             var /** @type {?} */ parsedUrl = parseUrl(config.url);
@@ -1758,8 +1758,8 @@ function _render(platform, moduleRefPromise) {
             throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
         }
         var /** @type {?} */ applicationRef = moduleRef.injector.get(_angular_core.ApplicationRef);
-        return rxjs_operator_toPromise.toPromise
-            .call(rxjs_operator_first.first.call(rxjs_operator_filter.filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+        return applicationRef.isStable.pipe((rxjs_operators.first(function (isStable) { return isStable; })))
+            .toPromise()
             .then(function () {
             var /** @type {?} */ platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
@@ -1846,7 +1846,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.7-2b3de63');
+var VERSION = new _angular_core.Version('6.0.0-beta.7-4648597');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

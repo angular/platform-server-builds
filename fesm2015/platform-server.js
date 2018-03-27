@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.0-f739f75
+ * @license Angular v6.0.0-rc.0-ab348ee
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -173,7 +173,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     getProperty(el, name) {
         if (name === 'href') {
             // Domino tries tp resolve href-s which we do not want. Just return the
-            // atribute value.
+            // attribute value.
             return this.getAttribute(el, 'href');
         }
         else if (name === 'innerText') {
@@ -190,8 +190,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     setProperty(el, name, value) {
         if (name === 'href') {
-            // Eventhough the server renderer reflects any properties to attributes
-            // map 'href' to atribute just to handle when setProperty is directly called.
+            // Even though the server renderer reflects any properties to attributes
+            // map 'href' to attribute just to handle when setProperty is directly called.
             this.setAttribute(el, 'href', value);
         }
         else if (name === 'innerText') {
@@ -1432,7 +1432,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-const VERSION = new Version('6.0.0-rc.0-f739f75');
+const VERSION = new Version('6.0.0-rc.0-ab348ee');
 
 /**
  * @fileoverview added by tsickle

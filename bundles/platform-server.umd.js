@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.0-0ebdb3d
+ * @license Angular v6.0.0-rc.0-f739f75
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -36,7 +36,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v6.0.0-rc.0-0ebdb3d
+ * @license Angular v6.0.0-rc.0-f739f75
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -272,7 +272,7 @@ var DominoAdapter = /** @class */ (function (_super) {
     function (el, name) {
         if (name === 'href') {
             // Domino tries tp resolve href-s which we do not want. Just return the
-            // attribute value.
+            // atribute value.
             return this.getAttribute(el, 'href');
         }
         else if (name === 'innerText') {
@@ -295,8 +295,8 @@ var DominoAdapter = /** @class */ (function (_super) {
      */
     function (el, name, value) {
         if (name === 'href') {
-            // Even though the server renderer reflects any properties to attributes
-            // map 'href' to attribute just to handle when setProperty is directly called.
+            // Eventhough the server renderer reflects any properties to attributes
+            // map 'href' to atribute just to handle when setProperty is directly called.
             this.setAttribute(el, 'href', value);
         }
         else if (name === 'innerText') {
@@ -1846,7 +1846,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * \@stable
  */
-var VERSION = new _angular_core.Version('6.0.0-rc.0-0ebdb3d');
+var VERSION = new _angular_core.Version('6.0.0-rc.0-f739f75');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

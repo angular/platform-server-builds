@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.1.0-5a0076f
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-rc.3-5992fe6
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 import { NgModule, createPlatformFactory } from '@angular/core';
@@ -24,26 +24,23 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = /** @class */ (function () {
-    function ServerTestingModule() {
-    }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserDynamicTestingModule],
-                    imports: [NoopAnimationsModule],
-                    providers: ɵSERVER_RENDER_PROVIDERS
-                },] },
-    ];
-    /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
-    return ServerTestingModule;
-}());
+class ServerTestingModule {
+}
+ServerTestingModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserDynamicTestingModule],
+                imports: [NoopAnimationsModule],
+                providers: ɵSERVER_RENDER_PROVIDERS
+            },] },
+];
+/** @nocollapse */
+ServerTestingModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

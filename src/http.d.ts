@@ -1,7 +1,7 @@
 import { Provider } from '@angular/core';
 import { BrowserXhr, Connection, ConnectionBackend, Http, ReadyState, Request, RequestOptions, Response, XHRBackend, XSRFStrategy } from '@angular/http';
 import { HttpEvent, HttpRequest, HttpInterceptor, HttpBackend } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 export declare class ServerXhr implements BrowserXhr {
     build(): XMLHttpRequest;
 }

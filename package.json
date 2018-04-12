@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "6.0.0-rc.3-58faa0c",
+  "version": "6.0.0-rc.3-bbfa1d3",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,12 +13,12 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "6.0.0-rc.3-58faa0c",
-    "@angular/common": "6.0.0-rc.3-58faa0c",
-    "@angular/compiler": "6.0.0-rc.3-58faa0c",
-    "@angular/core": "6.0.0-rc.3-58faa0c",
-    "@angular/platform-browser": "6.0.0-rc.3-58faa0c",
-    "@angular/platform-browser-dynamic": "6.0.0-rc.3-58faa0c"
+    "@angular/animations": "6.0.0-rc.3-bbfa1d3",
+    "@angular/common": "6.0.0-rc.3-bbfa1d3",
+    "@angular/compiler": "6.0.0-rc.3-bbfa1d3",
+    "@angular/core": "6.0.0-rc.3-bbfa1d3",
+    "@angular/platform-browser": "6.0.0-rc.3-bbfa1d3",
+    "@angular/platform-browser-dynamic": "6.0.0-rc.3-bbfa1d3"
   },
   "dependencies": {
     "domino": "^2.0.1",
@@ -32,5 +32,8 @@
   "ng-update": {
     "packageGroup": ["@angular/core", "@angular/compiler", "@angular/common", "@angular/animations", "@angular/platform-browser", "@angular/platform-browser-dynamic", "@angular/forms", "@angular/http", "@angular/platform-server", "@angular/platform-webworker", "@angular/platform-webworker-dynamic", "@angular/upgrade", "@angular/router", "@angular/compiler-cli", "@angular/language-service", "@angular/benchpress", "@angular/service-worker", "@angular/elements"]
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "engines" : {
+    "node" : ">=8.0"
+  }
 }

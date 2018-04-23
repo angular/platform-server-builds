@@ -1,8 +1,9 @@
 /**
- * @license Angular v6.0.0-rc.5-60e5507
+ * @license Angular v6.0.0-rc.5+73.sha-ace6440
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
 import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
@@ -414,7 +415,7 @@ class PlatformState {
     getDocument() { return this._doc; }
 }
 PlatformState.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 PlatformState.ctorParameters = () => [
@@ -450,7 +451,7 @@ class ServerXhr {
     build() { return new xhr2.XMLHttpRequest(); }
 }
 ServerXhr.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 ServerXhr.ctorParameters = () => [];
@@ -462,7 +463,7 @@ class ServerXsrfStrategy {
     configureRequest(req) { }
 }
 ServerXsrfStrategy.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 ServerXsrfStrategy.ctorParameters = () => [];
@@ -776,7 +777,7 @@ class ServerPlatformLocation {
     back() { throw new Error('Not implemented'); }
 }
 ServerPlatformLocation.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 ServerPlatformLocation.ctorParameters = () => [
@@ -859,7 +860,7 @@ class ServerRendererFactory2 {
     end() { }
 }
 ServerRendererFactory2.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
@@ -1158,7 +1159,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
     onStylesAdded(additions) { additions.forEach(style => this._addStyle(style)); }
 }
 ServerStylesHost.decorators = [
-    { type: Injectable },
+    { type: Injectable }
 ];
 /** @nocollapse */
 ServerStylesHost.ctorParameters = () => [
@@ -1231,7 +1232,7 @@ ServerModule.decorators = [
                     SERVER_HTTP_PROVIDERS,
                     { provide: Testability, useValue: null },
                 ],
-            },] },
+            },] }
 ];
 /** @nocollapse */
 ServerModule.ctorParameters = () => [];
@@ -1303,7 +1304,7 @@ ServerTransferStateModule.decorators = [
                         multi: true,
                     }
                 ]
-            },] },
+            },] }
 ];
 /** @nocollapse */
 ServerTransferStateModule.ctorParameters = () => [];
@@ -1432,7 +1433,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  *
  */
-const VERSION = new Version('6.0.0-rc.5-60e5507');
+const VERSION = new Version('6.0.0-rc.5+73.sha-ace6440');
 
 /**
  * @fileoverview added by tsickle
@@ -1470,8 +1471,20 @@ const VERSION = new Version('6.0.0-rc.5-60e5507');
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
+/**
  * Generated bundle index. Do not edit.
  */
 
-export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, SERVER_HTTP_PROVIDERS as ɵh, ServerXhr as ɵd, ServerXsrfStrategy as ɵe, httpFactory as ɵf, zoneWrappedInterceptingHandler as ɵg, instantiateServerRendererFactory as ɵa, ServerStylesHost as ɵc, serializeTransferStateFactory as ɵb };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_h, ServerXhr as ɵangular_packages_platform_server_platform_server_d, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_e, httpFactory as ɵangular_packages_platform_server_platform_server_f, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_g, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

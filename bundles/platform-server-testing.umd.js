@@ -1,23 +1,15 @@
 /**
- * @license Angular v6.0.0-rc.5-60e5507
+ * @license Angular v6.0.0-rc.5+73.sha-ace6440
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser-dynamic/testing'), require('@angular/platform-browser/animations'), require('@angular/platform-server')) :
 	typeof define === 'function' && define.amd ? define('@angular/platform-server/testing', ['exports', '@angular/core', '@angular/platform-browser-dynamic/testing', '@angular/platform-browser/animations', '@angular/platform-server'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}, global.ng.platformServer.testing = {}),global.ng.core,global.ng.platformBrowserDynamic.testing,global.ng.platformBrowser.animations,global.ng.platformServer));
-}(this, (function (exports,_angular_core,_angular_platformBrowserDynamic_testing,_angular_platformBrowser_animations,_angular_platformServer) { 'use strict';
+}(this, (function (exports,core,testing,animations,platformServer) { 'use strict';
 
-/**
- * @license Angular v6.0.0-rc.5-60e5507
- * (c) 2010-2018 Google, Inc. https://angular.io/
- * License: MIT
- */
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -28,28 +20,58 @@
 /**
  * Platform for testing
  *
- * \@experimental API related to bootstrapping are still under review.
+ * @experimental API related to bootstrapping are still under review.
  */
-var platformServerTesting = _angular_core.createPlatformFactory(_angular_platformBrowserDynamic_testing.ɵplatformCoreDynamicTesting, 'serverTesting', _angular_platformServer.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformServerTesting = core.createPlatformFactory(testing.ɵplatformCoreDynamicTesting, 'serverTesting', platformServer.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- * \@experimental API related to bootstrapping are still under review.
+ * @experimental API related to bootstrapping are still under review.
  */
 var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
     ServerTestingModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    exports: [_angular_platformBrowserDynamic_testing.BrowserDynamicTestingModule],
-                    imports: [_angular_platformBrowser_animations.NoopAnimationsModule],
-                    providers: _angular_platformServer.ɵSERVER_RENDER_PROVIDERS
-                },] },
+        { type: core.NgModule, args: [{
+                    exports: [testing.BrowserDynamicTestingModule],
+                    imports: [animations.NoopAnimationsModule],
+                    providers: platformServer.ɵSERVER_RENDER_PROVIDERS
+                },] }
     ];
     /** @nocollapse */
     ServerTestingModule.ctorParameters = function () { return []; };
     return ServerTestingModule;
 }());
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+// This file only reexports content of the `src` folder. Keep it that way.
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
 
 exports.platformServerTesting = platformServerTesting;
 exports.ServerTestingModule = ServerTestingModule;

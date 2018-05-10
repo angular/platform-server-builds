@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+156.sha-858e48a
+ * @license Angular v6.0.0-rc.5+158.sha-89f64e5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1038,7 +1038,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  *
  */
-var VERSION = new core.Version('6.0.0-rc.5+156.sha-858e48a');
+var VERSION = new core.Version('6.0.0-rc.5+158.sha-89f64e5');
 
 /**
  * @license

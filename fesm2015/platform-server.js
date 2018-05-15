@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+184.sha-e5e5c24
+ * @license Angular v6.0.0-rc.5+185.sha-5cf82f8
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -453,8 +453,6 @@ class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-ServerXhr.ctorParameters = () => [];
 class ServerXsrfStrategy {
     /**
      * @param {?} req
@@ -465,8 +463,6 @@ class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-ServerXsrfStrategy.ctorParameters = () => [];
 /**
  * @abstract
  * @template S, R
@@ -1234,8 +1230,6 @@ ServerModule.decorators = [
                 ],
             },] }
 ];
-/** @nocollapse */
-ServerModule.ctorParameters = () => [];
 /**
  * @param {?} injector
  * @return {?}
@@ -1306,8 +1300,6 @@ ServerTransferStateModule.decorators = [
                 ]
             },] }
 ];
-/** @nocollapse */
-ServerTransferStateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1430,7 +1422,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+184.sha-e5e5c24');
+const VERSION = new Version('6.0.0-rc.5+185.sha-5cf82f8');
 
 /**
  * @fileoverview added by tsickle

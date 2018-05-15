@@ -33,8 +33,6 @@ ServerTestingModule.decorators = [
                 providers: SERVER_RENDER_PROVIDERS
             },] }
 ];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = () => [];
 function ServerTestingModule_tsickle_Closure_declarations() {
     /** @type {!Array<{type: !Function, args: (undefined|!Array<?>)}>} */
     ServerTestingModule.decorators;

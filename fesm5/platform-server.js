@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+78.sha-e1c4930
+ * @license Angular v6.0.0-rc.5+215.sha-23a98b9
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -286,8 +286,6 @@ var ServerXhr = /** @class */ (function () {
     ServerXhr.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
-    ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
 var ServerXsrfStrategy = /** @class */ (function () {
@@ -297,8 +295,6 @@ var ServerXsrfStrategy = /** @class */ (function () {
     ServerXsrfStrategy.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
-    ServerXsrfStrategy.ctorParameters = function () { return []; };
     return ServerXsrfStrategy;
 }());
 var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -824,8 +820,6 @@ var ServerModule = /** @class */ (function () {
                     ],
                 },] }
     ];
-    /** @nocollapse */
-    ServerModule.ctorParameters = function () { return []; };
     return ServerModule;
 }());
 function _document(injector) {
@@ -885,8 +879,6 @@ var ServerTransferStateModule = /** @class */ (function () {
                     ]
                 },] }
     ];
-    /** @nocollapse */
-    ServerTransferStateModule.ctorParameters = function () { return []; };
     return ServerTransferStateModule;
 }());
 
@@ -990,10 +982,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- *
- */
-var VERSION = new Version('6.0.0-rc.5+78.sha-e1c4930');
+var VERSION = new Version('6.0.0-rc.5+215.sha-23a98b9');
 
 /**
  * @license

@@ -1,8 +1,9 @@
 /**
- * @license Angular v5.1.0-beta.0-9a69a7c
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-rc.5+217.sha-5dafa1a
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { NgModule, createPlatformFactory } from '@angular/core';
 import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,10 +38,8 @@ ServerTestingModule.decorators = [
                 exports: [BrowserDynamicTestingModule],
                 imports: [NoopAnimationsModule],
                 providers: ɵSERVER_RENDER_PROVIDERS
-            },] },
+            },] }
 ];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -82,6 +81,18 @@ ServerTestingModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
 /**
  * Generated bundle index. Do not edit.
  */

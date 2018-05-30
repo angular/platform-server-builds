@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.0.3+29.sha-f04aef4
+ * @license Angular v6.0.3+33.sha-e9f2203
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { BrowserModule, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { __extends, __values } from 'tslib';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
@@ -28,6 +28,11 @@ import { first } from 'rxjs/operators';
 var domino = require('domino');
 function _notImplemented(methodName) {
     return new Error('This method is not implemented in DominoAdapter: ' + methodName);
+}
+function setDomTypes() {
+    // Make all Domino types available as types in the global env.
+    Object.assign(global, domino.impl);
+    global['KeyboardEvent'] = domino.impl.Event;
 }
 /**
  * Parses a document string to a Document object.
@@ -52,7 +57,10 @@ var DominoAdapter = /** @class */ (function (_super) {
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DominoAdapter.makeCurrent = function () { ɵsetRootDomAdapter(new DominoAdapter()); };
+    DominoAdapter.makeCurrent = function () {
+        setDomTypes();
+        ɵsetRootDomAdapter(new DominoAdapter());
+    };
     DominoAdapter.prototype.logError = function (error) { console.error(error); };
     DominoAdapter.prototype.log = function (error) {
         // tslint:disable-next-line:no-console
@@ -545,15 +553,52 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ServerEventManagerPlugin = /** @class */ (function () {
+    function ServerEventManagerPlugin(doc) {
+        this.doc = doc;
+    }
+    // Handle all events on the server.
+    // Handle all events on the server.
+    ServerEventManagerPlugin.prototype.supports = 
+    // Handle all events on the server.
+    function (eventName) { return true; };
+    ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        return ɵgetDOM().onAndCancel(element, eventName, handler);
+    };
+    ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+        var target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(target, eventName, handler);
+    };
+    ServerEventManagerPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    ServerEventManagerPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    ]; };
+    return ServerEventManagerPlugin;
+}());
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var EMPTY_ARRAY = [];
 var ServerRendererFactory2 = /** @class */ (function () {
-    function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
+    function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
         this.ngZone = ngZone;
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     ServerRendererFactory2.prototype.createRenderer = function (element, type) {
         if (!element || !type) {
@@ -564,7 +609,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
             case ViewEncapsulation.Emulated: {
                 var renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 renderer.applyToHost(element);
@@ -589,6 +634,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
     ];
     /** @nocollapse */
     ServerRendererFactory2.ctorParameters = function () { return [
+        { type: EventManager, },
         { type: NgZone, },
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
         { type: ɵSharedStylesHost, },
@@ -596,7 +642,8 @@ var ServerRendererFactory2 = /** @class */ (function () {
     return ServerRendererFactory2;
 }());
 var DefaultServerRenderer2 = /** @class */ (function () {
-    function DefaultServerRenderer2(document, ngZone, schema) {
+    function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
+        this.eventManager = eventManager;
         this.document = document;
         this.ngZone = ngZone;
         this.schema = schema;
@@ -605,9 +652,9 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     DefaultServerRenderer2.prototype.destroy = function () { };
     DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
         if (namespace) {
-            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name);
+            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name, this.document);
         }
-        return ɵgetDOM().createElement(name);
+        return ɵgetDOM().createElement(name, this.document);
     };
     DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return ɵgetDOM().createComment(value); };
     DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return ɵgetDOM().createTextNode(value); };
@@ -693,13 +740,23 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     };
     DefaultServerRenderer2.prototype.setValue = function (node, value) { ɵgetDOM().setText(node, value); };
     DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
-        var _this = this;
-        // Note: We are not using the EventsPlugin here as this is not needed
-        // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
-        var el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
-        var outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return ɵgetDOM().onAndCancel(el, eventName, outsideHandler); });
+        if (typeof target === 'string') {
+            return this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback));
+        }
+        return this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback));
+    };
+    DefaultServerRenderer2.prototype.decoratePreventDefault = function (eventHandler) {
+        var _this = this;
+        return function (event) {
+            // Run the event handler inside the ngZone because event handlers are not patched
+            // by Zone on the server. This is required only for tests.
+            var allowDefaultBehavior = _this.ngZone.runGuarded(function () { return eventHandler(event); });
+            if (allowDefaultBehavior === false) {
+                event.preventDefault();
+                event.returnValue = false;
+            }
+        };
     };
     return DefaultServerRenderer2;
 }());
@@ -711,18 +768,20 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
-    function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
-        var _this = _super.call(this, document, ngZone, schema) || this;
+    function EmulatedEncapsulationServerRenderer2(eventManager, document, ngZone, sharedStylesHost, schema, component) {
+        var _this = _super.call(this, eventManager, document, ngZone, schema) || this;
         _this.component = component;
-        var styles = ɵflattenStyles(component.id, component.styles, []);
+        // Add a 's' prefix to style attributes to indicate server.
+        var componentId = 's' + component.id;
+        var styles = ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = ɵshimContentAttribute(component.id);
-        _this.hostAttr = ɵshimHostAttribute(component.id);
+        _this.contentAttr = ɵshimContentAttribute(componentId);
+        _this.hostAttr = ɵshimHostAttribute(componentId);
         return _this;
     }
     EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
     EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
-        var el = _super.prototype.createElement.call(this, parent, name);
+        var el = _super.prototype.createElement.call(this, parent, name, this.document);
         _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
         return el;
     };
@@ -804,6 +863,7 @@ var SERVER_RENDER_PROVIDERS = [
     },
     ServerStylesHost,
     { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
+    { provide: EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
 ];
 /**
  * The ng module for the server.
@@ -990,7 +1050,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.0.3+29.sha-f04aef4');
+var VERSION = new Version('6.0.3+33.sha-e9f2203');
 
 /**
  * @license
@@ -1022,5 +1082,5 @@ var VERSION = new Version('6.0.3+29.sha-f04aef4');
  * Generated bundle index. Do not edit.
  */
 
-export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_h, ServerXhr as ɵangular_packages_platform_server_platform_server_d, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_e, httpFactory as ɵangular_packages_platform_server_platform_server_f, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_g, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_i, ServerXhr as ɵangular_packages_platform_server_platform_server_e, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_f, httpFactory as ɵangular_packages_platform_server_platform_server_g, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_h, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

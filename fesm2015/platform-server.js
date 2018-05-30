@@ -1,11 +1,11 @@
 /**
- * @license Angular v6.0.0-rc.5+253.sha-3ed7fc6
+ * @license Angular v6.0.0-rc.5+255.sha-d6595eb
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
+import { BrowserModule, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
@@ -799,20 +799,76 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class ServerEventManagerPlugin {
+    /**
+     * @param {?} doc
+     */
+    constructor(doc) {
+        this.doc = doc;
+    }
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    supports(eventName) { return true; }
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    addEventListener(element, eventName, handler) {
+        return ɵgetDOM().onAndCancel(element, eventName, handler);
+    }
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    addGlobalEventListener(element, eventName, handler) {
+        const /** @type {?} */ target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+        }
+        return this.addEventListener(target, eventName, handler);
+    }
+}
+ServerEventManagerPlugin.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ServerEventManagerPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 const EMPTY_ARRAY = [];
 class ServerRendererFactory2 {
     /**
+     * @param {?} eventManager
      * @param {?} ngZone
      * @param {?} document
      * @param {?} sharedStylesHost
      */
-    constructor(ngZone, document, sharedStylesHost) {
+    constructor(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
         this.ngZone = ngZone;
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     /**
      * @param {?} element
@@ -828,7 +884,7 @@ class ServerRendererFactory2 {
             case ViewEncapsulation.Emulated: {
                 let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 (/** @type {?} */ (renderer)).applyToHost(element);
@@ -860,17 +916,20 @@ ServerRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
+    { type: EventManager, },
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     { type: ɵSharedStylesHost, },
 ];
 class DefaultServerRenderer2 {
     /**
+     * @param {?} eventManager
      * @param {?} document
      * @param {?} ngZone
      * @param {?} schema
      */
-    constructor(document, ngZone, schema) {
+    constructor(eventManager, document, ngZone, schema) {
+        this.eventManager = eventManager;
         this.document = document;
         this.ngZone = ngZone;
         this.schema = schema;
@@ -888,9 +947,9 @@ class DefaultServerRenderer2 {
      */
     createElement(name, namespace, debugInfo) {
         if (namespace) {
-            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name);
+            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name, this.document);
         }
-        return ɵgetDOM().createElement(name);
+        return ɵgetDOM().createElement(name, this.document);
     }
     /**
      * @param {?} value
@@ -1060,12 +1119,26 @@ class DefaultServerRenderer2 {
      * @return {?}
      */
     listen(target, eventName, callback) {
-        // Note: We are not using the EventsPlugin here as this is not needed
-        // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
-        const /** @type {?} */ el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
-        const /** @type {?} */ outsideHandler = (event) => this.ngZone.runGuarded(() => callback(event));
-        return this.ngZone.runOutsideAngular(() => /** @type {?} */ (ɵgetDOM().onAndCancel(el, eventName, outsideHandler)));
+        if (typeof target === 'string') {
+            return /** @type {?} */ (this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback)));
+        }
+        return /** @type {?} */ ((this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback))));
+    }
+    /**
+     * @param {?} eventHandler
+     * @return {?}
+     */
+    decoratePreventDefault(eventHandler) {
+        return (event) => {
+            // Run the event handler inside the ngZone because event handlers are not patched
+            // by Zone on the server. This is required only for tests.
+            const /** @type {?} */ allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
+            if (allowDefaultBehavior === false) {
+                event.preventDefault();
+                event.returnValue = false;
+            }
+        };
     }
 }
 const AT_CHARCODE = '@'.charCodeAt(0);
@@ -1081,14 +1154,15 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     /**
+     * @param {?} eventManager
      * @param {?} document
      * @param {?} ngZone
      * @param {?} sharedStylesHost
      * @param {?} schema
      * @param {?} component
      */
-    constructor(document, ngZone, sharedStylesHost, schema, component) {
-        super(document, ngZone, schema);
+    constructor(eventManager, document, ngZone, sharedStylesHost, schema, component) {
+        super(eventManager, document, ngZone, schema);
         this.component = component;
         const /** @type {?} */ styles = ɵflattenStyles(component.id, component.styles, []);
         sharedStylesHost.addStyles(styles);
@@ -1106,7 +1180,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
      * @return {?}
      */
     createElement(parent, name) {
-        const /** @type {?} */ el = super.createElement(parent, name);
+        const /** @type {?} */ el = super.createElement(parent, name, this.document);
         super.setAttribute(el, this.contentAttr, '');
         return el;
     }
@@ -1211,6 +1285,7 @@ const SERVER_RENDER_PROVIDERS = [
     },
     ServerStylesHost,
     { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
+    { provide: EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
 ];
 /**
  * The ng module for the server.
@@ -1422,7 +1497,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+253.sha-3ed7fc6');
+const VERSION = new Version('6.0.0-rc.5+255.sha-d6595eb');
 
 /**
  * @fileoverview added by tsickle
@@ -1475,5 +1550,5 @@ const VERSION = new Version('6.0.0-rc.5+253.sha-3ed7fc6');
  * Generated bundle index. Do not edit.
  */
 
-export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_h, ServerXhr as ɵangular_packages_platform_server_platform_server_d, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_e, httpFactory as ɵangular_packages_platform_server_platform_server_f, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_g, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_i, ServerXhr as ɵangular_packages_platform_server_platform_server_e, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_f, httpFactory as ɵangular_packages_platform_server_platform_server_g, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_h, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

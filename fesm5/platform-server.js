@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+255.sha-d6595eb
+ * @license Angular v6.0.0-rc.5+272.sha-accda00
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -29,6 +29,11 @@ var domino = require('domino');
 function _notImplemented(methodName) {
     return new Error('This method is not implemented in DominoAdapter: ' + methodName);
 }
+function setDomTypes() {
+    // Make all Domino types available as types in the global env.
+    Object.assign(global, domino.impl);
+    global['KeyboardEvent'] = domino.impl.Event;
+}
 /**
  * Parses a document string to a Document object.
  */
@@ -52,7 +57,10 @@ var DominoAdapter = /** @class */ (function (_super) {
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DominoAdapter.makeCurrent = function () { ɵsetRootDomAdapter(new DominoAdapter()); };
+    DominoAdapter.makeCurrent = function () {
+        setDomTypes();
+        ɵsetRootDomAdapter(new DominoAdapter());
+    };
     DominoAdapter.prototype.logError = function (error) { console.error(error); };
     DominoAdapter.prototype.log = function (error) {
         // tslint:disable-next-line:no-console
@@ -759,10 +767,12 @@ var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     function EmulatedEncapsulationServerRenderer2(eventManager, document, ngZone, sharedStylesHost, schema, component) {
         var _this = _super.call(this, eventManager, document, ngZone, schema) || this;
         _this.component = component;
-        var styles = ɵflattenStyles(component.id, component.styles, []);
+        // Add a 's' prefix to style attributes to indicate server.
+        var componentId = 's' + component.id;
+        var styles = ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = ɵshimContentAttribute(component.id);
-        _this.hostAttr = ɵshimHostAttribute(component.id);
+        _this.contentAttr = ɵshimContentAttribute(componentId);
+        _this.hostAttr = ɵshimHostAttribute(componentId);
         return _this;
     }
     EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -1032,7 +1042,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.0.0-rc.5+255.sha-d6595eb');
+var VERSION = new Version('6.0.0-rc.5+272.sha-accda00');
 
 /**
  * @license

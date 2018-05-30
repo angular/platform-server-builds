@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+255.sha-d6595eb
+ * @license Angular v6.0.0-rc.5+272.sha-accda00
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -37,6 +37,14 @@ function _notImplemented(methodName) {
     return new Error('This method is not implemented in DominoAdapter: ' + methodName);
 }
 /**
+ * @return {?}
+ */
+function setDomTypes() {
+    // Make all Domino types available as types in the global env.
+    Object.assign(global, domino.impl);
+    (/** @type {?} */ (global))['KeyboardEvent'] = domino.impl.Event;
+}
+/**
  * Parses a document string to a Document object.
  * @param {?} html
  * @param {?=} url
@@ -62,7 +70,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     /**
      * @return {?}
      */
-    static makeCurrent() { ɵsetRootDomAdapter(new DominoAdapter()); }
+    static makeCurrent() {
+        setDomTypes();
+        ɵsetRootDomAdapter(new DominoAdapter());
+    }
     /**
      * @param {?} error
      * @return {?}
@@ -1164,10 +1175,12 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     constructor(eventManager, document, ngZone, sharedStylesHost, schema, component) {
         super(eventManager, document, ngZone, schema);
         this.component = component;
-        const /** @type {?} */ styles = ɵflattenStyles(component.id, component.styles, []);
+        // Add a 's' prefix to style attributes to indicate server.
+        const /** @type {?} */ componentId = 's' + component.id;
+        const /** @type {?} */ styles = ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        this.contentAttr = ɵshimContentAttribute(component.id);
-        this.hostAttr = ɵshimHostAttribute(component.id);
+        this.contentAttr = ɵshimContentAttribute(componentId);
+        this.hostAttr = ɵshimHostAttribute(componentId);
     }
     /**
      * @param {?} element
@@ -1497,7 +1510,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+255.sha-d6595eb');
+const VERSION = new Version('6.0.0-rc.5+272.sha-accda00');
 
 /**
  * @fileoverview added by tsickle

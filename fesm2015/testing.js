@@ -1,8 +1,9 @@
 /**
- * @license Angular v5.1.0-b20e271
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-rc.5+285.sha-438547c
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { NgModule, createPlatformFactory } from '@angular/core';
 import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,26 +25,21 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = /** @class */ (function () {
-    function ServerTestingModule() {
-    }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserDynamicTestingModule],
-                    imports: [NoopAnimationsModule],
-                    providers: ɵSERVER_RENDER_PROVIDERS
-                },] },
-    ];
-    /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
-    return ServerTestingModule;
-}());
+class ServerTestingModule {
+}
+ServerTestingModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserDynamicTestingModule],
+                imports: [NoopAnimationsModule],
+                providers: ɵSERVER_RENDER_PROVIDERS
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -85,6 +81,18 @@ var ServerTestingModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
+
 /**
  * Generated bundle index. Do not edit.
  */

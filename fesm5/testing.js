@@ -1,17 +1,14 @@
 /**
- * @license Angular v5.1.0-b20e271
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v6.0.0-rc.5+285.sha-438547c
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 import { NgModule, createPlatformFactory } from '@angular/core';
 import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -22,30 +19,27 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
 /**
  * Platform for testing
  *
- * \@experimental API related to bootstrapping are still under review.
+ * @experimental API related to bootstrapping are still under review.
  */
-const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
+var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- * \@experimental API related to bootstrapping are still under review.
+ * @experimental API related to bootstrapping are still under review.
  */
-class ServerTestingModule {
-}
-ServerTestingModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserDynamicTestingModule],
-                imports: [NoopAnimationsModule],
-                providers: ɵSERVER_RENDER_PROVIDERS
-            },] },
-];
-/** @nocollapse */
-ServerTestingModule.ctorParameters = () => [];
+var ServerTestingModule = /** @class */ (function () {
+    function ServerTestingModule() {
+    }
+    ServerTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserDynamicTestingModule],
+                    imports: [NoopAnimationsModule],
+                    providers: ɵSERVER_RENDER_PROVIDERS
+                },] }
+    ];
+    return ServerTestingModule;
+}());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -53,35 +47,25 @@ ServerTestingModule.ctorParameters = () => [];
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the platform-browser-dynamic/testing package.
- */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
  */
 
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+
 /**
  * Generated bundle index. Do not edit.
  */

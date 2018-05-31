@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+286.sha-ec57133
+ * @license Angular v6.0.0-rc.5+287.sha-6a663a4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -771,9 +771,11 @@ var DefaultServerRenderer2 = /** @class */ (function () {
         checkNoSyntheticProp(name, 'property');
         platformBrowser.ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
+        // Skip `innerhtml` which is conservatively marked as an attribute for security
+        // purposes but is not actually an attribute.
         var tagName = el.tagName.toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
-            this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+            name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
             this._isSafeToReflectProperty(tagName, name)) {
             this.setAttribute(el, name, value.toString());
@@ -1087,7 +1089,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.0-rc.5+286.sha-ec57133');
+var VERSION = new core.Version('6.0.0-rc.5+287.sha-6a663a4');
 
 /**
  * @license

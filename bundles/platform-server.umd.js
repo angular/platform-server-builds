@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+48.sha-b18cf21
+ * @license Angular v6.0.3+49.sha-2991b1b
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -471,8 +471,8 @@ function httpFactory(xhrBackend, options) {
     var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new http$1.Http(macroBackend, options);
 }
-function zoneWrappedInterceptingHandler(backend, interceptors) {
-    var realBackend = http.ɵinterceptingHandler(backend, interceptors);
+function zoneWrappedInterceptingHandler(backend, injector) {
+    var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
 var SERVER_HTTP_PROVIDERS = [
@@ -481,7 +481,7 @@ var SERVER_HTTP_PROVIDERS = [
     { provide: http.XhrFactory, useClass: ServerXhr }, {
         provide: http.HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [http.HttpBackend, [new core.Optional(), http.HTTP_INTERCEPTORS]]
+        deps: [http.HttpBackend, core.Injector]
     }
 ];
 
@@ -1097,7 +1097,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.3+48.sha-b18cf21');
+var VERSION = new core.Version('6.0.3+49.sha-2991b1b');
 
 /**
  * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+294.sha-60aa943
+ * @license Angular v6.0.0-rc.5+295.sha-f69ac67
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -430,7 +430,7 @@ PlatformState.decorators = [
 ];
 /** @nocollapse */
 PlatformState.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -788,8 +788,8 @@ ServerPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 ServerPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
 ];
 /**
  * @param {?} fn
@@ -850,7 +850,7 @@ ServerEventManagerPlugin.decorators = [
 ];
 /** @nocollapse */
 ServerEventManagerPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -927,10 +927,10 @@ ServerRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
-    { type: EventManager, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: ɵSharedStylesHost, },
+    { type: EventManager },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: ɵSharedStylesHost }
 ];
 class DefaultServerRenderer2 {
     /**
@@ -1248,8 +1248,8 @@ ServerStylesHost.decorators = [
 ];
 /** @nocollapse */
 ServerStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
 
 /**
@@ -1512,7 +1512,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+294.sha-60aa943');
+const VERSION = new Version('6.0.0-rc.5+295.sha-f69ac67');
 
 /**
  * @fileoverview added by tsickle

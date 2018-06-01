@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -195,9 +195,7 @@ var DominoAdapter = /** @class */ (function (_super) {
         return href;
     };
     /** @internal */
-    /** @internal */
-    DominoAdapter.prototype._readStyleAttribute = /** @internal */
-    function (element) {
+    DominoAdapter.prototype._readStyleAttribute = function (element) {
         var styleMap = {};
         var styleAttribute = element.getAttribute('style');
         if (styleAttribute) {
@@ -217,9 +215,7 @@ var DominoAdapter = /** @class */ (function (_super) {
         return styleMap;
     };
     /** @internal */
-    /** @internal */
-    DominoAdapter.prototype._writeStyleAttribute = /** @internal */
-    function (element, styleMap) {
+    DominoAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
         var styleAttrValue = '';
         for (var key in styleMap) {
             var newValue = styleMap[key];
@@ -291,29 +287,17 @@ var PlatformState = /** @class */ (function () {
     /**
      * Renders the current state of the platform to string.
      */
-    /**
-       * Renders the current state of the platform to string.
-       */
-    PlatformState.prototype.renderToString = /**
-       * Renders the current state of the platform to string.
-       */
-    function () { return serializeDocument(this._doc); };
+    PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
     /**
      * Returns the current DOM state.
      */
-    /**
-       * Returns the current DOM state.
-       */
-    PlatformState.prototype.getDocument = /**
-       * Returns the current DOM state.
-       */
-    function () { return this._doc; };
+    PlatformState.prototype.getDocument = function () { return this._doc; };
     PlatformState.decorators = [
         { type: core.Injectable }
     ];
     /** @nocollapse */
     PlatformState.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] }
     ]; };
     return PlatformState;
 }());
@@ -339,8 +323,6 @@ var ServerXhr = /** @class */ (function () {
     ServerXhr.decorators = [
         { type: core.Injectable }
     ];
-    /** @nocollapse */
-    ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
 var ServerXsrfStrategy = /** @class */ (function () {
@@ -350,8 +332,6 @@ var ServerXsrfStrategy = /** @class */ (function () {
     ServerXsrfStrategy.decorators = [
         { type: core.Injectable }
     ];
-    /** @nocollapse */
-    ServerXsrfStrategy.ctorParameters = function () { return []; };
     return ServerXsrfStrategy;
 }());
 var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -360,7 +340,7 @@ var ZoneMacroTaskWrapper = /** @class */ (function () {
     ZoneMacroTaskWrapper.prototype.wrap = function (request) {
         var _this = this;
         return new rxjs.Observable(function (observer) {
-            var task = (null);
+            var task = null;
             var scheduled = false;
             var sub = null;
             var savedResult = null;
@@ -559,11 +539,9 @@ var ServerPlatformLocation = /** @class */ (function () {
         }
         this.hash = value;
         var newUrl = this.url;
-        scheduleMicroTask(function () {
-            return _this._hashUpdate.next({
-                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
-            });
-        });
+        scheduleMicroTask(function () { return _this._hashUpdate.next({
+            type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
+        }); });
     };
     ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
         var oldUrl = this.url;
@@ -582,8 +560,8 @@ var ServerPlatformLocation = /** @class */ (function () {
     ];
     /** @nocollapse */
     ServerPlatformLocation.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [INITIAL_CONFIG,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [INITIAL_CONFIG,] }] }
     ]; };
     return ServerPlatformLocation;
 }());
@@ -603,10 +581,7 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         this.doc = doc;
     }
     // Handle all events on the server.
-    // Handle all events on the server.
-    ServerEventManagerPlugin.prototype.supports = 
-    // Handle all events on the server.
-    function (eventName) { return true; };
+    ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
     ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
         return platformBrowser.ɵgetDOM().onAndCancel(element, eventName, handler);
     };
@@ -622,7 +597,7 @@ var ServerEventManagerPlugin = /** @class */ (function () {
     ];
     /** @nocollapse */
     ServerEventManagerPlugin.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] }
     ]; };
     return ServerEventManagerPlugin;
 }());
@@ -679,10 +654,10 @@ var ServerRendererFactory2 = /** @class */ (function () {
     ];
     /** @nocollapse */
     ServerRendererFactory2.ctorParameters = function () { return [
-        { type: platformBrowser.EventManager, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
-        { type: platformBrowser.ɵSharedStylesHost, },
+        { type: platformBrowser.EventManager },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
+        { type: platformBrowser.ɵSharedStylesHost }
     ]; };
     return ServerRendererFactory2;
 }());
@@ -758,16 +733,7 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     // To know this value is safe to use as an attribute, the security context of the
     // attribute with the given name is checked against that security context of the
     // property.
-    // The value was validated already as a property binding, against the property name.
-    // To know this value is safe to use as an attribute, the security context of the
-    // attribute with the given name is checked against that security context of the
-    // property.
-    DefaultServerRenderer2.prototype._isSafeToReflectProperty = 
-    // The value was validated already as a property binding, against the property name.
-    // To know this value is safe to use as an attribute, the security context of the
-    // attribute with the given name is checked against that security context of the
-    // property.
-    function (tagName, propertyName) {
+    DefaultServerRenderer2.prototype._isSafeToReflectProperty = function (tagName, propertyName) {
         return this.schema.securityContext(tagName, propertyName, true) ===
             this.schema.securityContext(tagName, propertyName, false);
     };
@@ -870,8 +836,8 @@ var ServerStylesHost = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     ServerStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.ɵTRANSITION_ID,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.ɵTRANSITION_ID,] }] }
     ]; };
     return ServerStylesHost;
 }(platformBrowser.ɵSharedStylesHost));
@@ -931,8 +897,6 @@ var ServerModule = /** @class */ (function () {
                     ],
                 },] }
     ];
-    /** @nocollapse */
-    ServerModule.ctorParameters = function () { return []; };
     return ServerModule;
 }());
 function _document(injector) {
@@ -992,8 +956,6 @@ var ServerTransferStateModule = /** @class */ (function () {
                     ]
                 },] }
     ];
-    /** @nocollapse */
-    ServerTransferStateModule.ctorParameters = function () { return []; };
     return ServerTransferStateModule;
 }());
 
@@ -1097,7 +1059,12 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new core.Version('6.0.3+49.sha-2991b1b');
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the common package.
+ */
+var VERSION = new core.Version('6.0.3+50.sha-d69ba73');
 
 /**
  * @license
@@ -1113,6 +1080,11 @@ var VERSION = new core.Version('6.0.3+49.sha-2991b1b');
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of this package.
  */
 
 // This file only reexports content of the `src` folder. Keep it that way.
@@ -1124,6 +1096,10 @@ var VERSION = new core.Version('6.0.3+49.sha-2991b1b');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+// This file is not used to build this module. It is only used during editing
+// by the TypeScript language service and during build for verification. `ngc`
+// replaces this file with production index.ts when it rewrites private symbol
+// names.
 
 /**
  * Generated bundle index. Do not edit.

@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+49.sha-2991b1b
+ * @license Angular v6.0.3+50.sha-d69ba73
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -430,7 +430,7 @@ PlatformState.decorators = [
 ];
 /** @nocollapse */
 PlatformState.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -464,8 +464,6 @@ class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-ServerXhr.ctorParameters = () => [];
 class ServerXsrfStrategy {
     /**
      * @param {?} req
@@ -476,8 +474,6 @@ class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable }
 ];
-/** @nocollapse */
-ServerXsrfStrategy.ctorParameters = () => [];
 /**
  * @abstract
  * @template S, R
@@ -792,8 +788,8 @@ ServerPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 ServerPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
 ];
 /**
  * @param {?} fn
@@ -854,7 +850,7 @@ ServerEventManagerPlugin.decorators = [
 ];
 /** @nocollapse */
 ServerEventManagerPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -931,10 +927,10 @@ ServerRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
-    { type: EventManager, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: ɵSharedStylesHost, },
+    { type: EventManager },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: ɵSharedStylesHost }
 ];
 class DefaultServerRenderer2 {
     /**
@@ -1252,8 +1248,8 @@ ServerStylesHost.decorators = [
 ];
 /** @nocollapse */
 ServerStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
 
 /**
@@ -1324,8 +1320,6 @@ ServerModule.decorators = [
                 ],
             },] }
 ];
-/** @nocollapse */
-ServerModule.ctorParameters = () => [];
 /**
  * @param {?} injector
  * @return {?}
@@ -1396,8 +1390,6 @@ ServerTransferStateModule.decorators = [
                 ]
             },] }
 ];
-/** @nocollapse */
-ServerTransferStateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1520,7 +1512,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.3+49.sha-2991b1b');
+const VERSION = new Version('6.0.3+50.sha-d69ba73');
 
 /**
  * @fileoverview added by tsickle

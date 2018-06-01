@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.0-rc.5+288.sha-7e3f8f7
+ * @license Angular v6.0.0-rc.5+297.sha-6948ef1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@ import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, N
 import { BrowserModule, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
+import { HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵHttpInterceptingHandler } from '@angular/common/http';
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
@@ -430,7 +430,7 @@ PlatformState.decorators = [
 ];
 /** @nocollapse */
 PlatformState.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -620,11 +620,11 @@ function httpFactory(xhrBackend, options) {
 }
 /**
  * @param {?} backend
- * @param {?} interceptors
+ * @param {?} injector
  * @return {?}
  */
-function zoneWrappedInterceptingHandler(backend, interceptors) {
-    const /** @type {?} */ realBackend = ɵinterceptingHandler(backend, interceptors);
+function zoneWrappedInterceptingHandler(backend, injector) {
+    const /** @type {?} */ realBackend = new ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
 const SERVER_HTTP_PROVIDERS = [
@@ -633,7 +633,7 @@ const SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
+        deps: [HttpBackend, Injector]
     }
 ];
 
@@ -788,8 +788,8 @@ ServerPlatformLocation.decorators = [
 ];
 /** @nocollapse */
 ServerPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
 ];
 /**
  * @param {?} fn
@@ -850,7 +850,7 @@ ServerEventManagerPlugin.decorators = [
 ];
 /** @nocollapse */
 ServerEventManagerPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
@@ -927,10 +927,10 @@ ServerRendererFactory2.decorators = [
 ];
 /** @nocollapse */
 ServerRendererFactory2.ctorParameters = () => [
-    { type: EventManager, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: ɵSharedStylesHost, },
+    { type: EventManager },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: ɵSharedStylesHost }
 ];
 class DefaultServerRenderer2 {
     /**
@@ -1248,8 +1248,8 @@ ServerStylesHost.decorators = [
 ];
 /** @nocollapse */
 ServerStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
 
 /**
@@ -1512,7 +1512,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.0-rc.5+288.sha-7e3f8f7');
+const VERSION = new Version('6.0.0-rc.5+297.sha-6948ef1');
 
 /**
  * @fileoverview added by tsickle

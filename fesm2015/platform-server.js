@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.0.3+58.sha-faf60d9
+ * @license Angular v6.0.3+62.sha-ea3127e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1512,7 +1512,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const VERSION = new Version('6.0.3+58.sha-faf60d9');
+const VERSION = new Version('6.0.3+62.sha-ea3127e');
 
 /**
  * @fileoverview added by tsickle

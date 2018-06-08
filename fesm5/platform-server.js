@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.0+26.sha-1b253e1
+ * @license Angular v6.1.0-beta.0+27.sha-49c5234
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@ import { __decorate, __extends, __metadata, __param, __values } from 'tslib';
 import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
 import { BrowserModule, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
+import { PlatformLocation, ViewportScroller, ɵNullViewportScroller, ɵPLATFORM_SERVER_ID } from '@angular/common';
 import { HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵHttpInterceptingHandler } from '@angular/common/http';
 import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
@@ -835,6 +835,7 @@ var ServerModule = /** @class */ (function () {
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: Testability, useValue: null },
+                { provide: ViewportScroller, useClass: ɵNullViewportScroller },
             ],
         })
     ], ServerModule);
@@ -1005,7 +1006,7 @@ function renderModuleFactory(moduleFactory, options) {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new Version('6.1.0-beta.0+26.sha-1b253e1');
+var VERSION = new Version('6.1.0-beta.0+27.sha-49c5234');
 
 /**
  * @license

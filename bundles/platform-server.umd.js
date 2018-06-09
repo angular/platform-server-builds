@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.0+23.sha-1135563
+ * @license Angular v6.1.0-beta.0+27.sha-49c5234
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -889,6 +889,7 @@ var ServerModule = /** @class */ (function () {
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: core.Testability, useValue: null },
+                { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
             ],
         })
     ], ServerModule);
@@ -1059,7 +1060,7 @@ function renderModuleFactory(moduleFactory, options) {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new core.Version('6.1.0-beta.0+23.sha-1135563');
+var VERSION = new core.Version('6.1.0-beta.0+27.sha-49c5234');
 
 /**
  * @license

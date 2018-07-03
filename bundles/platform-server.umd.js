@@ -1,5 +1,5 @@
 /**
- * @license Angular v6.1.0-beta.3+28.sha-0922228
+ * @license Angular v6.1.0-beta.3+30.sha-e3064d5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -984,6 +984,7 @@ function _render(platform, moduleRefPromise) {
         return applicationRef.isStable.pipe((operators.first(function (isStable) { return isStable; })))
             .toPromise()
             .then(function () {
+            var e_1, _a;
             var platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
             var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
@@ -1011,7 +1012,6 @@ function _render(platform, moduleRefPromise) {
             var output = platformState.renderToString();
             platform.destroy();
             return output;
-            var e_1, _a;
         });
     });
 }
@@ -1065,7 +1065,7 @@ function renderModuleFactory(moduleFactory, options) {
  * @description
  * Entry point for all public APIs of the common package.
  */
-var VERSION = new core.Version('6.1.0-beta.3+28.sha-0922228');
+var VERSION = new core.Version('6.1.0-beta.3+30.sha-e3064d5');
 
 /**
  * @license

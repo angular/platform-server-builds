@@ -1,33 +1,33 @@
 /**
- * @license Angular v6.1.0-beta.1+46.sha-a5799e6
+ * @license Angular v6.1.0-beta.3+80.sha-6c604bd
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, EVENT_MANAGER_PLUGINS, EventManager, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { PlatformLocation, ViewportScroller, ɵNullViewportScroller, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵHttpInterceptingHandler } from '@angular/common/http';
-import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
-import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
-import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
+import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
+import { Inject, Injectable, Injector, InjectionToken, Optional, NgZone, ViewEncapsulation, NgModule, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, APP_ID, ApplicationRef, Version } from '@angular/core';
+import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
+import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { parse } from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
+import { ɵAnimationEngine } from '@angular/animations/browser';
+import { PlatformLocation, ViewportScroller, ɵNullViewportScroller, ɵPLATFORM_SERVER_ID } from '@angular/common';
+import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
+import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
+/** *
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
+  @type {?} */
 const domino = require('domino');
 /**
  * @param {?} methodName
@@ -50,9 +50,11 @@ function setDomTypes() {
  * @param {?=} url
  * @return {?}
  */
-function parseDocument(html, url$$1 = '/') {
-    let /** @type {?} */ window = domino.createWindow(html, url$$1);
-    let /** @type {?} */ doc = window.document;
+function parseDocument(html, url = '/') {
+    /** @type {?} */
+    let window = domino.createWindow(html, url);
+    /** @type {?} */
+    let doc = window.document;
     return doc;
 }
 /**
@@ -110,7 +112,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     contains(nodeA, nodeB) {
-        let /** @type {?} */ inner = nodeB;
+        /** @type {?} */
+        let inner = nodeB;
         while (inner) {
             if (inner === nodeA)
                 return true;
@@ -234,8 +237,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     getBaseHref(doc) {
-        const /** @type {?} */ base = this.querySelector(doc.documentElement, 'base');
-        let /** @type {?} */ href = '';
+        /** @type {?} */
+        const base = this.querySelector(doc.documentElement, 'base');
+        /** @type {?} */
+        let href = '';
         if (base) {
             href = this.getHref(base);
         }
@@ -248,18 +253,24 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     _readStyleAttribute(element) {
-        const /** @type {?} */ styleMap = {};
-        const /** @type {?} */ styleAttribute = element.getAttribute('style');
+        /** @type {?} */
+        const styleMap = {};
+        /** @type {?} */
+        const styleAttribute = element.getAttribute('style');
         if (styleAttribute) {
-            const /** @type {?} */ styleList = styleAttribute.split(/;+/g);
-            for (let /** @type {?} */ i = 0; i < styleList.length; i++) {
-                const /** @type {?} */ style = styleList[i].trim();
+            /** @type {?} */
+            const styleList = styleAttribute.split(/;+/g);
+            for (let i = 0; i < styleList.length; i++) {
+                /** @type {?} */
+                const style = styleList[i].trim();
                 if (style.length > 0) {
-                    const /** @type {?} */ colonIndex = style.indexOf(':');
+                    /** @type {?} */
+                    const colonIndex = style.indexOf(':');
                     if (colonIndex === -1) {
                         throw new Error(`Invalid CSS style: ${style}`);
                     }
-                    const /** @type {?} */ name = style.substr(0, colonIndex).trim();
+                    /** @type {?} */
+                    const name = style.substr(0, colonIndex).trim();
                     styleMap[name] = style.substr(colonIndex + 1).trim();
                 }
             }
@@ -273,9 +284,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     _writeStyleAttribute(element, styleMap) {
-        let /** @type {?} */ styleAttrValue = '';
-        for (const /** @type {?} */ key in styleMap) {
-            const /** @type {?} */ newValue = styleMap[key];
+        /** @type {?} */
+        let styleAttrValue = '';
+        for (const key in styleMap) {
+            /** @type {?} */
+            const newValue = styleMap[key];
             if (newValue) {
                 styleAttrValue += key + ':' + styleMap[key] + ';';
             }
@@ -290,7 +303,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     setStyle(element, styleName, styleValue) {
         styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        /** @type {?} */
+        const styleMap = this._readStyleAttribute(element);
         styleMap[styleName] = styleValue || '';
         this._writeStyleAttribute(element, styleMap);
     }
@@ -310,7 +324,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     getStyle(element, styleName) {
-        const /** @type {?} */ styleMap = this._readStyleAttribute(element);
+        /** @type {?} */
+        const styleMap = this._readStyleAttribute(element);
         return styleMap[styleName] || '';
     }
     /**
@@ -320,7 +335,8 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     hasStyle(element, styleName, styleValue) {
-        const /** @type {?} */ value = this.getStyle(element, styleName);
+        /** @type {?} */
+        const value = this.getStyle(element, styleName);
         return styleValue ? value == styleValue : value.length > 0;
     }
     /**
@@ -330,9 +346,10 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     dispatchEvent(el, evt) {
         el.dispatchEvent(evt);
-        // Dispatch the event to the window also.
-        const /** @type {?} */ doc = el.ownerDocument || el;
-        const /** @type {?} */ win = (/** @type {?} */ (doc)).defaultView;
+        /** @type {?} */
+        const doc = el.ownerDocument || el;
+        /** @type {?} */
+        const win = (/** @type {?} */ (doc)).defaultView;
         if (win) {
             win.dispatchEvent(evt);
         }
@@ -393,14 +410,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Representation of the current platform state.
@@ -435,7 +445,7 @@ PlatformState.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -444,15 +454,17 @@ PlatformState.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** @type {?} */
 const xhr2 = require('xhr2');
+/** @type {?} */
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 /**
  * @param {?} url
  * @return {?}
  */
-function validateRequestUrl(url$$1) {
-    if (!isAbsoluteUrl.test(url$$1)) {
-        throw new Error(`URLs requested via Http on the server must be absolute. URL: ${url$$1}`);
+function validateRequestUrl(url) {
+    if (!isAbsoluteUrl.test(url)) {
+        throw new Error(`URLs requested via Http on the server must be absolute. URL: ${url}`);
     }
 }
 class ServerXhr {
@@ -485,15 +497,22 @@ class ZoneMacroTaskWrapper {
      */
     wrap(request) {
         return new Observable((observer) => {
-            let /** @type {?} */ task = /** @type {?} */ ((null));
-            let /** @type {?} */ scheduled = false;
-            let /** @type {?} */ sub = null;
-            let /** @type {?} */ savedResult = null;
-            let /** @type {?} */ savedError = null;
-            const /** @type {?} */ scheduleTask = (_task) => {
+            /** @type {?} */
+            let task = /** @type {?} */ ((null));
+            /** @type {?} */
+            let scheduled = false;
+            /** @type {?} */
+            let sub = null;
+            /** @type {?} */
+            let savedResult = null;
+            /** @type {?} */
+            let savedError = null;
+            /** @type {?} */
+            const scheduleTask = (_task) => {
                 task = _task;
                 scheduled = true;
-                const /** @type {?} */ delegate = this.delegate(request);
+                /** @type {?} */
+                const delegate = this.delegate(request);
                 sub = delegate.subscribe(res => savedResult = res, err => {
                     if (!scheduled) {
                         throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
@@ -509,7 +528,8 @@ class ZoneMacroTaskWrapper {
                     task.invoke();
                 });
             };
-            const /** @type {?} */ cancelTask = (_task) => {
+            /** @type {?} */
+            const cancelTask = (_task) => {
                 if (!scheduled) {
                     return;
                 }
@@ -519,7 +539,8 @@ class ZoneMacroTaskWrapper {
                     sub = null;
                 }
             };
-            const /** @type {?} */ onComplete = () => {
+            /** @type {?} */
+            const onComplete = () => {
                 if (savedError !== null) {
                     observer.error(savedError);
                 }
@@ -528,10 +549,8 @@ class ZoneMacroTaskWrapper {
                     observer.complete();
                 }
             };
-            // MockBackend for Http is synchronous, which means that if scheduleTask is by
-            // scheduleMacroTask, the request will hit MockBackend and the response will be
-            // sent, causing task.invoke() to be called.
-            const /** @type {?} */ _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, () => null, cancelTask);
+            /** @type {?} */
+            const _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, () => null, cancelTask);
             scheduleTask(_task);
             return () => {
                 if (scheduled && task) {
@@ -615,7 +634,8 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
  * @return {?}
  */
 function httpFactory(xhrBackend, options) {
-    const /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
+    /** @type {?} */
+    const macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new Http(macroBackend, options);
 }
 /**
@@ -624,9 +644,11 @@ function httpFactory(xhrBackend, options) {
  * @return {?}
  */
 function zoneWrappedInterceptingHandler(backend, injector) {
-    const /** @type {?} */ realBackend = new ɵHttpInterceptingHandler(backend, injector);
+    /** @type {?} */
+    const realBackend = new ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
+/** @type {?} */
 const SERVER_HTTP_PROVIDERS = [
     { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
     { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
@@ -639,53 +661,33 @@ const SERVER_HTTP_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Config object passed to initialize the platform.
- *
- * \@experimental
- * @record
- */
-
-/**
+/** *
  * The DI token for setting the initial config for the platform.
  *
  * \@experimental
- */
+  @type {?} */
 const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
-/**
+/** *
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
  * \@experimental
- */
+  @type {?} */
 const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @param {?} urlStr
  * @return {?}
  */
 function parseUrl(urlStr) {
-    const /** @type {?} */ parsedUrl = parse(urlStr);
+    /** @type {?} */
+    const parsedUrl = parse(urlStr);
     return {
         pathname: parsedUrl.pathname || '',
         search: parsedUrl.search || '',
@@ -707,9 +709,11 @@ class ServerPlatformLocation {
         this.search = '';
         this.hash = '';
         this._hashUpdate = new Subject();
-        const /** @type {?} */ config = /** @type {?} */ (_config);
+        /** @type {?} */
+        const config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
-            const /** @type {?} */ parsedUrl = parseUrl(config.url);
+            /** @type {?} */
+            const parsedUrl = parseUrl(config.url);
             this.pathname = parsedUrl.pathname;
             this.search = parsedUrl.search;
             this.hash = parsedUrl.hash;
@@ -747,7 +751,8 @@ class ServerPlatformLocation {
             return;
         }
         (/** @type {?} */ (this)).hash = value;
-        const /** @type {?} */ newUrl = this.url;
+        /** @type {?} */
+        const newUrl = this.url;
         scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({
             type: 'hashchange', state: null, oldUrl, newUrl
         })));
@@ -759,8 +764,10 @@ class ServerPlatformLocation {
      * @return {?}
      */
     replaceState(state, title, newUrl) {
-        const /** @type {?} */ oldUrl = this.url;
-        const /** @type {?} */ parsedUrl = parseUrl(newUrl);
+        /** @type {?} */
+        const oldUrl = this.url;
+        /** @type {?} */
+        const parsedUrl = parseUrl(newUrl);
         (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
         (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
@@ -801,14 +808,7 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class ServerEventManagerPlugin {
     /**
@@ -838,7 +838,8 @@ class ServerEventManagerPlugin {
      * @return {?}
      */
     addGlobalEventListener(element, eventName, handler) {
-        const /** @type {?} */ target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        /** @type {?} */
+        const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
         if (!target) {
             throw new Error(`Unsupported event target ${target} for event ${eventName}`);
         }
@@ -855,15 +856,9 @@ ServerEventManagerPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+/** @type {?} */
 const EMPTY_ARRAY = [];
 class ServerRendererFactory2 {
     /**
@@ -893,7 +888,8 @@ class ServerRendererFactory2 {
         switch (type.encapsulation) {
             case ViewEncapsulation.Native:
             case ViewEncapsulation.Emulated: {
-                let /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+                /** @type {?} */
+                let renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
                     renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
@@ -905,7 +901,8 @@ class ServerRendererFactory2 {
                 throw new Error('Native encapsulation is not supported on the server!');
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
-                    const /** @type {?} */ styles = ɵflattenStyles(type.id, type.styles, []);
+                    /** @type {?} */
+                    const styles = ɵflattenStyles(type.id, type.styles, []);
                     this.sharedStylesHost.addStyles(styles);
                     this.rendererByCompId.set(type.id, this.defaultRenderer);
                 }
@@ -1007,7 +1004,8 @@ class DefaultServerRenderer2 {
      * @return {?}
      */
     selectRootElement(selectorOrNode, debugInfo) {
-        let /** @type {?} */ el;
+        /** @type {?} */
+        let el;
         if (typeof selectorOrNode === 'string') {
             el = ɵgetDOM().querySelector(this.document, selectorOrNode);
             if (!el) {
@@ -1108,10 +1106,8 @@ class DefaultServerRenderer2 {
     setProperty(el, name, value) {
         checkNoSyntheticProp(name, 'property');
         ɵgetDOM().setProperty(el, name, value);
-        // Mirror property values for known HTML element properties in the attributes.
-        // Skip `innerhtml` which is conservatively marked as an attribute for security
-        // purposes but is not actually an attribute.
-        const /** @type {?} */ tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
+        /** @type {?} */
+        const tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
             name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
@@ -1144,9 +1140,8 @@ class DefaultServerRenderer2 {
      */
     decoratePreventDefault(eventHandler) {
         return (event) => {
-            // Run the event handler inside the ngZone because event handlers are not patched
-            // by Zone on the server. This is required only for tests.
-            const /** @type {?} */ allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
+            /** @type {?} */
+            const allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
             if (allowDefaultBehavior === false) {
                 event.preventDefault();
                 event.returnValue = false;
@@ -1154,6 +1149,7 @@ class DefaultServerRenderer2 {
         };
     }
 }
+/** @type {?} */
 const AT_CHARCODE = '@'.charCodeAt(0);
 /**
  * @param {?} name
@@ -1177,9 +1173,10 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     constructor(eventManager, document, ngZone, sharedStylesHost, schema, component) {
         super(eventManager, document, ngZone, schema);
         this.component = component;
-        // Add a 's' prefix to style attributes to indicate server.
-        const /** @type {?} */ componentId = 's' + component.id;
-        const /** @type {?} */ styles = ɵflattenStyles(componentId, component.styles, []);
+        /** @type {?} */
+        const componentId = 's' + component.id;
+        /** @type {?} */
+        const styles = ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
         this.contentAttr = ɵshimContentAttribute(componentId);
         this.hostAttr = ɵshimHostAttribute(componentId);
@@ -1195,7 +1192,8 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
      * @return {?}
      */
     createElement(parent, name) {
-        const /** @type {?} */ el = super.createElement(parent, name, this.document);
+        /** @type {?} */
+        const el = super.createElement(parent, name, this.document);
         super.setAttribute(el, this.contentAttr, '');
         return el;
     }
@@ -1203,14 +1201,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class ServerStylesHost extends ɵSharedStylesHost {
     /**
@@ -1229,8 +1220,10 @@ class ServerStylesHost extends ɵSharedStylesHost {
      * @return {?}
      */
     _addStyle(style) {
-        let /** @type {?} */ adapter = ɵgetDOM();
-        const /** @type {?} */ el = adapter.createElement('style');
+        /** @type {?} */
+        let adapter = ɵgetDOM();
+        /** @type {?} */
+        const el = adapter.createElement('style');
         adapter.setText(el, style);
         if (!!this.transitionId) {
             adapter.setAttribute(el, 'ng-transition', this.transitionId);
@@ -1254,15 +1247,9 @@ ServerStylesHost.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+/** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
@@ -1291,6 +1278,7 @@ function initDominoAdapter(injector) {
 function instantiateServerRendererFactory(renderer, engine, zone) {
     return new ɵAnimationRendererFactory(renderer, engine, zone);
 }
+/** @type {?} */
 const SERVER_RENDER_PROVIDERS = [
     ServerRendererFactory2,
     {
@@ -1326,7 +1314,8 @@ ServerModule.decorators = [
  * @return {?}
  */
 function _document(injector) {
-    let /** @type {?} */ config = injector.get(INITIAL_CONFIG, null);
+    /** @type {?} */
+    let config = injector.get(INITIAL_CONFIG, null);
     if (config && config.document) {
         return parseDocument(config.document, config.url);
     }
@@ -1334,27 +1323,20 @@ function _document(injector) {
         return ɵgetDOM().createHtmlDocument();
     }
 }
-/**
+/** *
  * \@experimental
- */
+  @type {?} */
 const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-/**
+/** *
  * The server platform that supports the runtime compiler.
  *
  * \@experimental
- */
+  @type {?} */
 const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @param {?} doc
@@ -1364,7 +1346,8 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  */
 function serializeTransferStateFactory(doc, appId, transferStore) {
     return () => {
-        const /** @type {?} */ script = doc.createElement('script');
+        /** @type {?} */
+        const script = doc.createElement('script');
         script.id = appId + '-state';
         script.setAttribute('type', 'application/json');
         script.textContent = ɵescapeHtml(transferStore.toJson());
@@ -1394,14 +1377,7 @@ ServerTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @param {?} platformFactory
@@ -1409,7 +1385,8 @@ ServerTransferStateModule.decorators = [
  * @return {?}
  */
 function _getPlatform(platformFactory, options) {
-    const /** @type {?} */ extraProviders = options.extraProviders ? options.extraProviders : [];
+    /** @type {?} */
+    const extraProviders = options.extraProviders ? options.extraProviders : [];
     return platformFactory([
         { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
         extraProviders
@@ -1423,30 +1400,34 @@ function _getPlatform(platformFactory, options) {
  */
 function _render(platform, moduleRefPromise) {
     return moduleRefPromise.then((moduleRef) => {
-        const /** @type {?} */ transitionId = moduleRef.injector.get(ɵTRANSITION_ID, null);
+        /** @type {?} */
+        const transitionId = moduleRef.injector.get(ɵTRANSITION_ID, null);
         if (!transitionId) {
             throw new Error(`renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure
 the server-rendered app can be properly bootstrapped into a client app.`);
         }
-        const /** @type {?} */ applicationRef = moduleRef.injector.get(ApplicationRef);
+        /** @type {?} */
+        const applicationRef = moduleRef.injector.get(ApplicationRef);
         return applicationRef.isStable.pipe((first((isStable) => isStable)))
             .toPromise()
             .then(() => {
-            const /** @type {?} */ platformState = platform.injector.get(PlatformState);
-            // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
-            const /** @type {?} */ callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
+            /** @type {?} */
+            const platformState = platform.injector.get(PlatformState);
+            /** @type {?} */
+            const callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
             if (callbacks) {
-                for (const /** @type {?} */ callback of callbacks) {
+                for (const callback of callbacks) {
                     try {
                         callback();
                     }
-                    catch (/** @type {?} */ e) {
+                    catch (e) {
                         // Ignore exceptions.
                         console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
                     }
                 }
             }
-            const /** @type {?} */ output = platformState.renderToString();
+            /** @type {?} */
+            const output = platformState.renderToString();
             platform.destroy();
             return output;
         });
@@ -1469,7 +1450,8 @@ the server-rendered app can be properly bootstrapped into a client app.`);
  * @return {?}
  */
 function renderModule(module, options) {
-    const /** @type {?} */ platform = _getPlatform(platformDynamicServer, options);
+    /** @type {?} */
+    const platform = _getPlatform(platformDynamicServer, options);
     return _render(platform, platform.bootstrapModule(module));
 }
 /**
@@ -1486,81 +1468,38 @@ function renderModule(module, options) {
  * @return {?}
  */
 function renderModuleFactory(moduleFactory, options) {
-    const /** @type {?} */ platform = _getPlatform(platformServer, options);
+    /** @type {?} */
+    const platform = _getPlatform(platformServer, options);
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-const VERSION = new Version('6.1.0-beta.1+46.sha-a5799e6');
+/** @type {?} */
+const VERSION = new Version('6.1.0-beta.3+80.sha-6c604bd');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-// This file is not used to build this module. It is only used during editing
-// by the TypeScript language service and during build for verification. `ngc`
-// replaces this file with production index.ts when it rewrites private symbol
-// names.
 
 /**
  * Generated bundle index. Do not edit.

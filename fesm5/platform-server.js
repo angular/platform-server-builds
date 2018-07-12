@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.1.0-beta.3+108.sha-80a74b4
+ * @license Angular v6.1.0-beta.3+107.sha-9a6f27c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __values, __param, __metadata, __extends } from 'tslib';
+import { __decorate, __param, __metadata, __values, __extends } from 'tslib';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { Inject, Injectable, Injector, InjectionToken, Optional, NgZone, ViewEncapsulation, NgModule, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, APP_ID, ApplicationRef, Version } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
@@ -1001,7 +1001,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.0-beta.3+108.sha-80a74b4');
+var VERSION = new Version('6.1.0-beta.3+107.sha-9a6f27c');
 
 /**
  * @license

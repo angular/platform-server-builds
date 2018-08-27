@@ -1,9 +1,10 @@
 /**
- * @license Angular v7.0.0-beta.3+30.sha-3d41739
+ * @license Angular v7.0.0-beta.3+39.sha-9bcd8c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import { __decorate } from 'tslib';
 import { NgModule, createPlatformFactory } from '@angular/core';
 import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,13 +31,13 @@ var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 
 var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserDynamicTestingModule],
-                    imports: [NoopAnimationsModule],
-                    providers: ɵSERVER_RENDER_PROVIDERS
-                },] }
-    ];
+    ServerTestingModule = __decorate([
+        NgModule({
+            exports: [BrowserDynamicTestingModule],
+            imports: [NoopAnimationsModule],
+            providers: ɵSERVER_RENDER_PROVIDERS
+        })
+    ], ServerTestingModule);
     return ServerTestingModule;
 }());
 

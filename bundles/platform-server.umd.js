@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.3+30.sha-3d41739
+ * @license Angular v7.0.0-beta.3+39.sha-9bcd8c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -37,6 +37,21 @@
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
     }
 
     function __values(o) {
@@ -279,13 +294,11 @@
          * Returns the current DOM state.
          */
         PlatformState.prototype.getDocument = function () { return this._doc; };
-        PlatformState.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        PlatformState.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] }
-        ]; };
+        PlatformState = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __metadata("design:paramtypes", [Object])
+        ], PlatformState);
         return PlatformState;
     }());
 
@@ -307,18 +320,18 @@
         function ServerXhr() {
         }
         ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
-        ServerXhr.decorators = [
-            { type: core.Injectable }
-        ];
+        ServerXhr = __decorate([
+            core.Injectable()
+        ], ServerXhr);
         return ServerXhr;
     }());
     var ServerXsrfStrategy = /** @class */ (function () {
         function ServerXsrfStrategy() {
         }
         ServerXsrfStrategy.prototype.configureRequest = function (req) { };
-        ServerXsrfStrategy.decorators = [
-            { type: core.Injectable }
-        ];
+        ServerXsrfStrategy = __decorate([
+            core.Injectable()
+        ], ServerXsrfStrategy);
         return ServerXsrfStrategy;
     }());
     var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -542,14 +555,11 @@
         };
         ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
-        ServerPlatformLocation.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ServerPlatformLocation.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [INITIAL_CONFIG,] }] }
-        ]; };
+        ServerPlatformLocation = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(platformBrowser.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
+            __metadata("design:paramtypes", [Object, Object])
+        ], ServerPlatformLocation);
         return ServerPlatformLocation;
     }());
     function scheduleMicroTask(fn) {
@@ -579,13 +589,11 @@
             }
             return this.addEventListener(target, eventName, handler);
         };
-        ServerEventManagerPlugin.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ServerEventManagerPlugin.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] }
-        ]; };
+        ServerEventManagerPlugin = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __metadata("design:paramtypes", [Object])
+        ], ServerEventManagerPlugin);
         return ServerEventManagerPlugin;
     }());
 
@@ -636,16 +644,11 @@
         };
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
-        ServerRendererFactory2.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ServerRendererFactory2.ctorParameters = function () { return [
-            { type: platformBrowser.EventManager },
-            { type: core.NgZone },
-            { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
-            { type: platformBrowser.ɵSharedStylesHost }
-        ]; };
+        ServerRendererFactory2 = __decorate([
+            core.Injectable(),
+            __param(2, core.Inject(platformBrowser.DOCUMENT)),
+            __metadata("design:paramtypes", [platformBrowser.EventManager, core.NgZone, Object, platformBrowser.ɵSharedStylesHost])
+        ], ServerRendererFactory2);
         return ServerRendererFactory2;
     }());
     var DefaultServerRenderer2 = /** @class */ (function () {
@@ -818,14 +821,12 @@
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
-        ServerStylesHost.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        ServerStylesHost.ctorParameters = function () { return [
-            { type: undefined, decorators: [{ type: core.Inject, args: [platformBrowser.DOCUMENT,] }] },
-            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.ɵTRANSITION_ID,] }] }
-        ]; };
+        ServerStylesHost = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __param(1, core.Optional()), __param(1, core.Inject(platformBrowser.ɵTRANSITION_ID)),
+            __metadata("design:paramtypes", [Object, String])
+        ], ServerStylesHost);
         return ServerStylesHost;
     }(platformBrowser.ɵSharedStylesHost));
 
@@ -873,18 +874,18 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.decorators = [
-            { type: core.NgModule, args: [{
-                        exports: [platformBrowser.BrowserModule],
-                        imports: [http.HttpModule, http$1.HttpClientModule, animations.NoopAnimationsModule],
-                        providers: [
-                            SERVER_RENDER_PROVIDERS,
-                            SERVER_HTTP_PROVIDERS,
-                            { provide: core.Testability, useValue: null },
-                            { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-                        ],
-                    },] }
-        ];
+        ServerModule = __decorate([
+            core.NgModule({
+                exports: [platformBrowser.BrowserModule],
+                imports: [http.HttpModule, http$1.HttpClientModule, animations.NoopAnimationsModule],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                    SERVER_HTTP_PROVIDERS,
+                    { provide: core.Testability, useValue: null },
+                    { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
+                ],
+            })
+        ], ServerModule);
         return ServerModule;
     }());
     function _document(injector) {
@@ -932,18 +933,18 @@
     var ServerTransferStateModule = /** @class */ (function () {
         function ServerTransferStateModule() {
         }
-        ServerTransferStateModule.decorators = [
-            { type: core.NgModule, args: [{
-                        providers: [
-                            platformBrowser.TransferState, {
-                                provide: BEFORE_APP_SERIALIZED,
-                                useFactory: serializeTransferStateFactory,
-                                deps: [platformBrowser.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
-                                multi: true,
-                            }
-                        ]
-                    },] }
-        ];
+        ServerTransferStateModule = __decorate([
+            core.NgModule({
+                providers: [
+                    platformBrowser.TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [platformBrowser.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
+                        multi: true,
+                    }
+                ]
+            })
+        ], ServerTransferStateModule);
         return ServerTransferStateModule;
     }());
 
@@ -1047,7 +1048,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('7.0.0-beta.3+30.sha-3d41739');
+    var VERSION = new core.Version('7.0.0-beta.3+39.sha-9bcd8c2');
 
     /**
      * @license

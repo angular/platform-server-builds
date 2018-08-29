@@ -1,21 +1,21 @@
 /**
- * @license Angular v6.0.0-rc.5+217.sha-5dafa1a
+ * @license Angular v7.0.0-beta.3+76.sha-693c387
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { APP_ID, ApplicationRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, Version, ViewEncapsulation, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
-import { BrowserModule, DOCUMENT, TransferState, ɵBrowserDomAdapter, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵTRANSITION_ID, ɵescapeHtml, ɵflattenStyles, ɵgetDOM, ɵsetRootDomAdapter, ɵshimContentAttribute, ɵshimHostAttribute } from '@angular/platform-browser';
-import { __extends, __values } from 'tslib';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { PlatformLocation, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpHandler, XhrFactory, ɵinterceptingHandler } from '@angular/common/http';
-import { BrowserXhr, Http, HttpModule, ReadyState, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
-import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
-import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
+import { __decorate, __extends, __param, __metadata, __values } from 'tslib';
+import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
+import { Inject, Injectable, Injector, InjectionToken, Optional, NgZone, ViewEncapsulation, NgModule, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, APP_ID, ApplicationRef, Version } from '@angular/core';
+import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
+import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { parse } from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
+import { ɵAnimationEngine } from '@angular/animations/browser';
+import { PlatformLocation, ViewportScroller, ɵNullViewportScroller, ɵPLATFORM_SERVER_ID } from '@angular/common';
+import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
+import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { first } from 'rxjs/operators';
 
 /**
@@ -29,12 +29,17 @@ var domino = require('domino');
 function _notImplemented(methodName) {
     return new Error('This method is not implemented in DominoAdapter: ' + methodName);
 }
+function setDomTypes() {
+    // Make all Domino types available as types in the global env.
+    Object.assign(global, domino.impl);
+    global['KeyboardEvent'] = domino.impl.Event;
+}
 /**
  * Parses a document string to a Document object.
  */
-function parseDocument(html, url$$1) {
-    if (url$$1 === void 0) { url$$1 = '/'; }
-    var window = domino.createWindow(html, url$$1);
+function parseDocument(html, url) {
+    if (url === void 0) { url = '/'; }
+    var window = domino.createWindow(html, url);
     var doc = window.document;
     return doc;
 }
@@ -52,7 +57,10 @@ var DominoAdapter = /** @class */ (function (_super) {
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DominoAdapter.makeCurrent = function () { ɵsetRootDomAdapter(new DominoAdapter()); };
+    DominoAdapter.makeCurrent = function () {
+        setDomTypes();
+        ɵsetRootDomAdapter(new DominoAdapter());
+    };
     DominoAdapter.prototype.logError = function (error) { console.error(error); };
     DominoAdapter.prototype.log = function (error) {
         // tslint:disable-next-line:no-console
@@ -142,9 +150,7 @@ var DominoAdapter = /** @class */ (function (_super) {
         return href;
     };
     /** @internal */
-    /** @internal */
-    DominoAdapter.prototype._readStyleAttribute = /** @internal */
-    function (element) {
+    DominoAdapter.prototype._readStyleAttribute = function (element) {
         var styleMap = {};
         var styleAttribute = element.getAttribute('style');
         if (styleAttribute) {
@@ -164,9 +170,7 @@ var DominoAdapter = /** @class */ (function (_super) {
         return styleMap;
     };
     /** @internal */
-    /** @internal */
-    DominoAdapter.prototype._writeStyleAttribute = /** @internal */
-    function (element, styleMap) {
+    DominoAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
         var styleAttrValue = '';
         for (var key in styleMap) {
             var newValue = styleMap[key];
@@ -238,30 +242,16 @@ var PlatformState = /** @class */ (function () {
     /**
      * Renders the current state of the platform to string.
      */
-    /**
-       * Renders the current state of the platform to string.
-       */
-    PlatformState.prototype.renderToString = /**
-       * Renders the current state of the platform to string.
-       */
-    function () { return serializeDocument(this._doc); };
+    PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
     /**
      * Returns the current DOM state.
      */
-    /**
-       * Returns the current DOM state.
-       */
-    PlatformState.prototype.getDocument = /**
-       * Returns the current DOM state.
-       */
-    function () { return this._doc; };
-    PlatformState.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    PlatformState.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    ]; };
+    PlatformState.prototype.getDocument = function () { return this._doc; };
+    PlatformState = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [Object])
+    ], PlatformState);
     return PlatformState;
 }());
 
@@ -274,27 +264,27 @@ var PlatformState = /** @class */ (function () {
  */
 var xhr2 = require('xhr2');
 var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-function validateRequestUrl(url$$1) {
-    if (!isAbsoluteUrl.test(url$$1)) {
-        throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
+function validateRequestUrl(url) {
+    if (!isAbsoluteUrl.test(url)) {
+        throw new Error("URLs requested via Http on the server must be absolute. URL: " + url);
     }
 }
 var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
-    ServerXhr.decorators = [
-        { type: Injectable }
-    ];
+    ServerXhr = __decorate([
+        Injectable()
+    ], ServerXhr);
     return ServerXhr;
 }());
 var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
     ServerXsrfStrategy.prototype.configureRequest = function (req) { };
-    ServerXsrfStrategy.decorators = [
-        { type: Injectable }
-    ];
+    ServerXsrfStrategy = __decorate([
+        Injectable()
+    ], ServerXsrfStrategy);
     return ServerXsrfStrategy;
 }());
 var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -303,7 +293,7 @@ var ZoneMacroTaskWrapper = /** @class */ (function () {
     ZoneMacroTaskWrapper.prototype.wrap = function (request) {
         var _this = this;
         return new Observable(function (observer) {
-            var task = (null);
+            var task = null;
             var scheduled = false;
             var sub = null;
             var savedResult = null;
@@ -414,8 +404,8 @@ function httpFactory(xhrBackend, options) {
     var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new Http(macroBackend, options);
 }
-function zoneWrappedInterceptingHandler(backend, interceptors) {
-    var realBackend = ɵinterceptingHandler(backend, interceptors);
+function zoneWrappedInterceptingHandler(backend, injector) {
+    var realBackend = new ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
 var SERVER_HTTP_PROVIDERS = [
@@ -424,7 +414,7 @@ var SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, [new Optional(), HTTP_INTERCEPTORS]]
+        deps: [HttpBackend, Injector]
     }
 ];
 
@@ -502,11 +492,9 @@ var ServerPlatformLocation = /** @class */ (function () {
         }
         this.hash = value;
         var newUrl = this.url;
-        scheduleMicroTask(function () {
-            return _this._hashUpdate.next({
-                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
-            });
-        });
+        scheduleMicroTask(function () { return _this._hashUpdate.next({
+            type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
+        }); });
     };
     ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
         var oldUrl = this.url;
@@ -520,14 +508,11 @@ var ServerPlatformLocation = /** @class */ (function () {
     };
     ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
     ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
-    ServerPlatformLocation.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerPlatformLocation.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] },] },
-    ]; };
+    ServerPlatformLocation = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)), __param(1, Optional()), __param(1, Inject(INITIAL_CONFIG)),
+        __metadata("design:paramtypes", [Object, Object])
+    ], ServerPlatformLocation);
     return ServerPlatformLocation;
 }());
 function scheduleMicroTask(fn) {
@@ -541,15 +526,47 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ServerEventManagerPlugin = /** @class */ (function () {
+    function ServerEventManagerPlugin(doc) {
+        this.doc = doc;
+    }
+    // Handle all events on the server.
+    ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
+    ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
+        return ɵgetDOM().onAndCancel(element, eventName, handler);
+    };
+    ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+        var target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(target, eventName, handler);
+    };
+    ServerEventManagerPlugin = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [Object])
+    ], ServerEventManagerPlugin);
+    return ServerEventManagerPlugin;
+}());
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 var EMPTY_ARRAY = [];
 var ServerRendererFactory2 = /** @class */ (function () {
-    function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
+    function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
         this.ngZone = ngZone;
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     ServerRendererFactory2.prototype.createRenderer = function (element, type) {
         if (!element || !type) {
@@ -560,7 +577,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
             case ViewEncapsulation.Emulated: {
                 var renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 renderer.applyToHost(element);
@@ -580,19 +597,16 @@ var ServerRendererFactory2 = /** @class */ (function () {
     };
     ServerRendererFactory2.prototype.begin = function () { };
     ServerRendererFactory2.prototype.end = function () { };
-    ServerRendererFactory2.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerRendererFactory2.ctorParameters = function () { return [
-        { type: NgZone, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-        { type: ɵSharedStylesHost, },
-    ]; };
+    ServerRendererFactory2 = __decorate([
+        Injectable(),
+        __param(2, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [EventManager, NgZone, Object, ɵSharedStylesHost])
+    ], ServerRendererFactory2);
     return ServerRendererFactory2;
 }());
 var DefaultServerRenderer2 = /** @class */ (function () {
-    function DefaultServerRenderer2(document, ngZone, schema) {
+    function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
+        this.eventManager = eventManager;
         this.document = document;
         this.ngZone = ngZone;
         this.schema = schema;
@@ -601,9 +615,9 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     DefaultServerRenderer2.prototype.destroy = function () { };
     DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
         if (namespace) {
-            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name);
+            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name, this.document);
         }
-        return ɵgetDOM().createElement(name);
+        return ɵgetDOM().createElement(name, this.document);
     };
     DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return ɵgetDOM().createComment(value); };
     DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return ɵgetDOM().createTextNode(value); };
@@ -662,16 +676,7 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     // To know this value is safe to use as an attribute, the security context of the
     // attribute with the given name is checked against that security context of the
     // property.
-    // The value was validated already as a property binding, against the property name.
-    // To know this value is safe to use as an attribute, the security context of the
-    // attribute with the given name is checked against that security context of the
-    // property.
-    DefaultServerRenderer2.prototype._isSafeToReflectProperty = 
-    // The value was validated already as a property binding, against the property name.
-    // To know this value is safe to use as an attribute, the security context of the
-    // attribute with the given name is checked against that security context of the
-    // property.
-    function (tagName, propertyName) {
+    DefaultServerRenderer2.prototype._isSafeToReflectProperty = function (tagName, propertyName) {
         return this.schema.securityContext(tagName, propertyName, true) ===
             this.schema.securityContext(tagName, propertyName, false);
     };
@@ -679,9 +684,11 @@ var DefaultServerRenderer2 = /** @class */ (function () {
         checkNoSyntheticProp(name, 'property');
         ɵgetDOM().setProperty(el, name, value);
         // Mirror property values for known HTML element properties in the attributes.
+        // Skip `innerhtml` which is conservatively marked as an attribute for security
+        // purposes but is not actually an attribute.
         var tagName = el.tagName.toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
-            this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+            name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
             this._isSafeToReflectProperty(tagName, name)) {
             this.setAttribute(el, name, value.toString());
@@ -689,13 +696,23 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     };
     DefaultServerRenderer2.prototype.setValue = function (node, value) { ɵgetDOM().setText(node, value); };
     DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
-        var _this = this;
-        // Note: We are not using the EventsPlugin here as this is not needed
-        // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
-        var el = typeof target === 'string' ? ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
-        var outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return ɵgetDOM().onAndCancel(el, eventName, outsideHandler); });
+        if (typeof target === 'string') {
+            return this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback));
+        }
+        return this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback));
+    };
+    DefaultServerRenderer2.prototype.decoratePreventDefault = function (eventHandler) {
+        var _this = this;
+        return function (event) {
+            // Run the event handler inside the ngZone because event handlers are not patched
+            // by Zone on the server. This is required only for tests.
+            var allowDefaultBehavior = _this.ngZone.runGuarded(function () { return eventHandler(event); });
+            if (allowDefaultBehavior === false) {
+                event.preventDefault();
+                event.returnValue = false;
+            }
+        };
     };
     return DefaultServerRenderer2;
 }());
@@ -707,18 +724,20 @@ function checkNoSyntheticProp(name, nameKind) {
 }
 var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
-    function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
-        var _this = _super.call(this, document, ngZone, schema) || this;
+    function EmulatedEncapsulationServerRenderer2(eventManager, document, ngZone, sharedStylesHost, schema, component) {
+        var _this = _super.call(this, eventManager, document, ngZone, schema) || this;
         _this.component = component;
-        var styles = ɵflattenStyles(component.id, component.styles, []);
+        // Add a 's' prefix to style attributes to indicate server.
+        var componentId = 's' + component.id;
+        var styles = ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = ɵshimContentAttribute(component.id);
-        _this.hostAttr = ɵshimHostAttribute(component.id);
+        _this.contentAttr = ɵshimContentAttribute(componentId);
+        _this.hostAttr = ɵshimHostAttribute(componentId);
         return _this;
     }
     EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
     EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
-        var el = _super.prototype.createElement.call(this, parent, name);
+        var el = _super.prototype.createElement.call(this, parent, name, this.document);
         _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
         return el;
     };
@@ -755,14 +774,12 @@ var ServerStylesHost = /** @class */ (function (_super) {
         var _this = this;
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
-    ServerStylesHost.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] },] },
-    ]; };
+    ServerStylesHost = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __param(1, Optional()), __param(1, Inject(ɵTRANSITION_ID)),
+        __metadata("design:paramtypes", [Object, String])
+    ], ServerStylesHost);
     return ServerStylesHost;
 }(ɵSharedStylesHost));
 
@@ -800,6 +817,7 @@ var SERVER_RENDER_PROVIDERS = [
     },
     ServerStylesHost,
     { provide: ɵSharedStylesHost, useExisting: ServerStylesHost },
+    { provide: EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
 ];
 /**
  * The ng module for the server.
@@ -809,17 +827,18 @@ var SERVER_RENDER_PROVIDERS = [
 var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
-    ServerModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
-                    providers: [
-                        SERVER_RENDER_PROVIDERS,
-                        SERVER_HTTP_PROVIDERS,
-                        { provide: Testability, useValue: null },
-                    ],
-                },] }
-    ];
+    ServerModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+            providers: [
+                SERVER_RENDER_PROVIDERS,
+                SERVER_HTTP_PROVIDERS,
+                { provide: Testability, useValue: null },
+                { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+            ],
+        })
+    ], ServerModule);
     return ServerModule;
 }());
 function _document(injector) {
@@ -867,18 +886,18 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
 var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
     }
-    ServerTransferStateModule.decorators = [
-        { type: NgModule, args: [{
-                    providers: [
-                        TransferState, {
-                            provide: BEFORE_APP_SERIALIZED,
-                            useFactory: serializeTransferStateFactory,
-                            deps: [DOCUMENT, APP_ID, TransferState],
-                            multi: true,
-                        }
-                    ]
-                },] }
-    ];
+    ServerTransferStateModule = __decorate([
+        NgModule({
+            providers: [
+                TransferState, {
+                    provide: BEFORE_APP_SERIALIZED,
+                    useFactory: serializeTransferStateFactory,
+                    deps: [DOCUMENT, APP_ID, TransferState],
+                    multi: true,
+                }
+            ]
+        })
+    ], ServerTransferStateModule);
     return ServerTransferStateModule;
 }());
 
@@ -906,6 +925,7 @@ function _render(platform, moduleRefPromise) {
         return applicationRef.isStable.pipe((first(function (isStable) { return isStable; })))
             .toPromise()
             .then(function () {
+            var e_1, _a;
             var platformState = platform.injector.get(PlatformState);
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
             var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
@@ -933,7 +953,6 @@ function _render(platform, moduleRefPromise) {
             var output = platformState.renderToString();
             platform.destroy();
             return output;
-            var e_1, _a;
         });
     });
 }
@@ -982,7 +1001,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.0.0-rc.5+217.sha-5dafa1a');
+var VERSION = new Version('7.0.0-beta.3+76.sha-693c387');
 
 /**
  * @license
@@ -999,7 +1018,6 @@ var VERSION = new Version('6.0.0-rc.5+217.sha-5dafa1a');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**
@@ -1014,5 +1032,5 @@ var VERSION = new Version('6.0.0-rc.5+217.sha-5dafa1a');
  * Generated bundle index. Do not edit.
  */
 
-export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_h, ServerXhr as ɵangular_packages_platform_server_platform_server_d, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_e, httpFactory as ɵangular_packages_platform_server_platform_server_f, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_g, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_i, ServerXhr as ɵangular_packages_platform_server_platform_server_e, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_f, httpFactory as ɵangular_packages_platform_server_platform_server_g, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_h, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

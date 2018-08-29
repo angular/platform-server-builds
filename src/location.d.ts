@@ -21,7 +21,7 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
     readonly url: string;
-    private setHash(value, oldUrl);
+    private setHash;
     replaceState(state: any, title: string, newUrl: string): void;
     pushState(state: any, title: string, newUrl: string): void;
     forward(): void;

@@ -1,9 +1,10 @@
 /**
- * @license Angular v6.0.0-rc.5+217.sha-5dafa1a
+ * @license Angular v7.0.0-beta.3+76.sha-693c387
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
+import { __decorate } from 'tslib';
 import { NgModule, createPlatformFactory } from '@angular/core';
 import { BrowserDynamicTestingModule, ɵplatformCoreDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,13 +31,13 @@ var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 
 var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserDynamicTestingModule],
-                    imports: [NoopAnimationsModule],
-                    providers: ɵSERVER_RENDER_PROVIDERS
-                },] }
-    ];
+    ServerTestingModule = __decorate([
+        NgModule({
+            exports: [BrowserDynamicTestingModule],
+            imports: [NoopAnimationsModule],
+            providers: ɵSERVER_RENDER_PROVIDERS
+        })
+    ], ServerTestingModule);
     return ServerTestingModule;
 }());
 
@@ -55,7 +56,6 @@ var ServerTestingModule = /** @class */ (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
 // This file only reexports content of the `src` folder. Keep it that way.
 
 /**

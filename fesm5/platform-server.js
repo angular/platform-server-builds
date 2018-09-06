@@ -1,10 +1,10 @@
 /**
- * @license Angular v6.1.6+28.sha-d1063c6
+ * @license Angular v6.1.7+8.sha-b9a5ce1
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __extends, __values } from 'tslib';
+import { __decorate, __param, __metadata, __extends, __values } from 'tslib';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { Inject, Injectable, Injector, InjectionToken, Optional, NgZone, ViewEncapsulation, NgModule, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, APP_ID, ApplicationRef, Version } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
@@ -247,13 +247,11 @@ var PlatformState = /** @class */ (function () {
      * Returns the current DOM state.
      */
     PlatformState.prototype.getDocument = function () { return this._doc; };
-    PlatformState.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    PlatformState.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-    ]; };
+    PlatformState = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [Object])
+    ], PlatformState);
     return PlatformState;
 }());
 
@@ -275,18 +273,18 @@ var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
-    ServerXhr.decorators = [
-        { type: Injectable }
-    ];
+    ServerXhr = __decorate([
+        Injectable()
+    ], ServerXhr);
     return ServerXhr;
 }());
 var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
     ServerXsrfStrategy.prototype.configureRequest = function (req) { };
-    ServerXsrfStrategy.decorators = [
-        { type: Injectable }
-    ];
+    ServerXsrfStrategy = __decorate([
+        Injectable()
+    ], ServerXsrfStrategy);
     return ServerXsrfStrategy;
 }());
 var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -510,14 +508,11 @@ var ServerPlatformLocation = /** @class */ (function () {
     };
     ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
     ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
-    ServerPlatformLocation.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerPlatformLocation.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
-    ]; };
+    ServerPlatformLocation = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)), __param(1, Optional()), __param(1, Inject(INITIAL_CONFIG)),
+        __metadata("design:paramtypes", [Object, Object])
+    ], ServerPlatformLocation);
     return ServerPlatformLocation;
 }());
 function scheduleMicroTask(fn) {
@@ -547,13 +542,11 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         }
         return this.addEventListener(target, eventName, handler);
     };
-    ServerEventManagerPlugin.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerEventManagerPlugin.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-    ]; };
+    ServerEventManagerPlugin = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [Object])
+    ], ServerEventManagerPlugin);
     return ServerEventManagerPlugin;
 }());
 
@@ -604,16 +597,11 @@ var ServerRendererFactory2 = /** @class */ (function () {
     };
     ServerRendererFactory2.prototype.begin = function () { };
     ServerRendererFactory2.prototype.end = function () { };
-    ServerRendererFactory2.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerRendererFactory2.ctorParameters = function () { return [
-        { type: EventManager },
-        { type: NgZone },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: ɵSharedStylesHost }
-    ]; };
+    ServerRendererFactory2 = __decorate([
+        Injectable(),
+        __param(2, Inject(DOCUMENT)),
+        __metadata("design:paramtypes", [EventManager, NgZone, Object, ɵSharedStylesHost])
+    ], ServerRendererFactory2);
     return ServerRendererFactory2;
 }());
 var DefaultServerRenderer2 = /** @class */ (function () {
@@ -786,14 +774,12 @@ var ServerStylesHost = /** @class */ (function (_super) {
         var _this = this;
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
-    ServerStylesHost.decorators = [
-        { type: Injectable }
-    ];
-    /** @nocollapse */
-    ServerStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
-    ]; };
+    ServerStylesHost = __decorate([
+        Injectable(),
+        __param(0, Inject(DOCUMENT)),
+        __param(1, Optional()), __param(1, Inject(ɵTRANSITION_ID)),
+        __metadata("design:paramtypes", [Object, String])
+    ], ServerStylesHost);
     return ServerStylesHost;
 }(ɵSharedStylesHost));
 
@@ -841,18 +827,18 @@ var SERVER_RENDER_PROVIDERS = [
 var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
-    ServerModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
-                    providers: [
-                        SERVER_RENDER_PROVIDERS,
-                        SERVER_HTTP_PROVIDERS,
-                        { provide: Testability, useValue: null },
-                        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-                    ],
-                },] }
-    ];
+    ServerModule = __decorate([
+        NgModule({
+            exports: [BrowserModule],
+            imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+            providers: [
+                SERVER_RENDER_PROVIDERS,
+                SERVER_HTTP_PROVIDERS,
+                { provide: Testability, useValue: null },
+                { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+            ],
+        })
+    ], ServerModule);
     return ServerModule;
 }());
 function _document(injector) {
@@ -900,18 +886,18 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
 var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
     }
-    ServerTransferStateModule.decorators = [
-        { type: NgModule, args: [{
-                    providers: [
-                        TransferState, {
-                            provide: BEFORE_APP_SERIALIZED,
-                            useFactory: serializeTransferStateFactory,
-                            deps: [DOCUMENT, APP_ID, TransferState],
-                            multi: true,
-                        }
-                    ]
-                },] }
-    ];
+    ServerTransferStateModule = __decorate([
+        NgModule({
+            providers: [
+                TransferState, {
+                    provide: BEFORE_APP_SERIALIZED,
+                    useFactory: serializeTransferStateFactory,
+                    deps: [DOCUMENT, APP_ID, TransferState],
+                    multi: true,
+                }
+            ]
+        })
+    ], ServerTransferStateModule);
     return ServerTransferStateModule;
 }());
 
@@ -1015,7 +1001,7 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('6.1.6+28.sha-d1063c6');
+var VERSION = new Version('6.1.7+8.sha-b9a5ce1');
 
 /**
  * @license

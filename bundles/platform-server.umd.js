@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.5+39.sha-f47f262
+ * @license Angular v7.0.0-beta.5+50.sha-96ee898
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/http'), require('@angular/common/http'), require('rxjs'), require('url'), require('@angular/compiler'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/platform-browser', '@angular/core', '@angular/http', '@angular/common/http', 'rxjs', 'url', '@angular/compiler', '@angular/animations/browser', '@angular/common', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/operators'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.platformBrowser,global.ng.core,global.ng.http,global.ng.common.http,global.rxjs,null,global.ng.compiler,global.ng.animations.browser,global.ng.common,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.rxjs.operators));
+    (factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.platformBrowser,global.ng.core,global.ng.http,global.ng.common.http,global.rxjs,global.url,global.ng.compiler,global.ng.animations.browser,global.ng.common,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.rxjs.operators));
 }(this, (function (exports,platformBrowser,core,http,http$1,rxjs,url,compiler,browser,common,platformBrowserDynamic,animations,operators) { 'use strict';
 
     /*! *****************************************************************************
@@ -1048,7 +1048,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var VERSION = new core.Version('7.0.0-beta.5+39.sha-f47f262');
+    var VERSION = new core.Version('7.0.0-beta.5+50.sha-96ee898');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.0+27.sha-aaaa340
+ * @license Angular v7.0.0-rc.0+46.sha-fdaf573
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1483,7 +1483,7 @@ function renderModuleFactory(moduleFactory, options) {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
-const VERSION = new Version('7.0.0-rc.0+27.sha-aaaa340');
+const VERSION = new Version('7.0.0-rc.0+46.sha-fdaf573');
 
 /**
  * @fileoverview added by tsickle

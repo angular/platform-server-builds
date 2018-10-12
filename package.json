@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "6.1.10+5.sha-4f09f7d",
+  "version": "6.1.10+8.sha-db49bea",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,12 +13,12 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "6.1.10+5.sha-4f09f7d",
-    "@angular/common": "6.1.10+5.sha-4f09f7d",
-    "@angular/compiler": "6.1.10+5.sha-4f09f7d",
-    "@angular/core": "6.1.10+5.sha-4f09f7d",
-    "@angular/platform-browser": "6.1.10+5.sha-4f09f7d",
-    "@angular/platform-browser-dynamic": "6.1.10+5.sha-4f09f7d"
+    "@angular/animations": "6.1.10+8.sha-db49bea",
+    "@angular/common": "6.1.10+8.sha-db49bea",
+    "@angular/compiler": "6.1.10+8.sha-db49bea",
+    "@angular/core": "6.1.10+8.sha-db49bea",
+    "@angular/platform-browser": "6.1.10+8.sha-db49bea",
+    "@angular/platform-browser-dynamic": "6.1.10+8.sha-db49bea"
   },
   "dependencies": {
     "domino": "^2.0.1",

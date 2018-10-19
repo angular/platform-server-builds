@@ -9,7 +9,7 @@ import { InjectionToken } from '@angular/core';
 /**
  * Config object passed to initialize the platform.
  *
- * @experimental
+ * @publicApi
  */
 export interface PlatformConfig {
     document?: string;
@@ -18,13 +18,13 @@ export interface PlatformConfig {
 /**
  * The DI token for setting the initial config for the platform.
  *
- * @experimental
+ * @publicApi
  */
 export declare const INITIAL_CONFIG: InjectionToken<PlatformConfig>;
 /**
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
- * @experimental
+ * @publicApi
  */
 export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void)[]>;

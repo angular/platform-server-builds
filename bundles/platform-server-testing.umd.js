@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+118.sha-31022cb
+ * @license Angular v7.0.0-rc.1+137.sha-4c2ce4e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -42,13 +42,13 @@
     /**
      * Platform for testing
      *
-     * @experimental API related to bootstrapping are still under review.
+     * @publicApi
      */
     var platformServerTesting = core.createPlatformFactory(testing.ɵplatformCoreDynamicTesting, 'serverTesting', platformServer.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
     /**
      * NgModule for testing.
      *
-     * @experimental API related to bootstrapping are still under review.
+     * @publicApi
      */
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {

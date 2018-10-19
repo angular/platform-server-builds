@@ -11,7 +11,7 @@ export declare function serializeTransferStateFactory(doc: Document, appId: stri
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
  *
- * @experimental
+ * @publicApi
  */
 export declare class ServerTransferStateModule {
 }

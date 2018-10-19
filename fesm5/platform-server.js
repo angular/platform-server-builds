@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0+32.sha-3f94759
+ * @license Angular v7.0.0+52.sha-778e1c2
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -233,7 +233,7 @@ var DominoAdapter = /** @class */ (function (_super) {
 /**
  * Representation of the current platform state.
  *
- * @experimental
+ * @publicApi
  */
 var PlatformState = /** @class */ (function () {
     function PlatformState(_doc) {
@@ -428,14 +428,14 @@ var SERVER_HTTP_PROVIDERS = [
 /**
  * The DI token for setting the initial config for the platform.
  *
- * @experimental
+ * @publicApi
  */
 var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /**
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
- * @experimental
+ * @publicApi
  */
 var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
@@ -822,7 +822,7 @@ var SERVER_RENDER_PROVIDERS = [
 /**
  * The ng module for the server.
  *
- * @experimental
+ * @publicApi
  */
 var ServerModule = /** @class */ (function () {
     function ServerModule() {
@@ -851,13 +851,13 @@ function _document(injector) {
     }
 }
 /**
- * @experimental
+ * @publicApi
  */
 var platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * The server platform that supports the runtime compiler.
  *
- * @experimental
+ * @publicApi
  */
 var platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
@@ -881,7 +881,7 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
  *
- * @experimental
+ * @publicApi
  */
 var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
@@ -966,7 +966,7 @@ function _render(platform, moduleRefPromise) {
  * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
  * {@link renderModuleFactory} instead.
  *
- * @experimental
+ * @publicApi
  */
 function renderModule(module, options) {
     var platform = _getPlatform(platformDynamicServer, options);
@@ -979,7 +979,7 @@ function renderModule(module, options) {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * @experimental
+ * @publicApi
  */
 function renderModuleFactory(moduleFactory, options) {
     var platform = _getPlatform(platformServer, options);
@@ -1001,7 +1001,10 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var VERSION = new Version('7.0.0+32.sha-3f94759');
+/**
+ * @publicApi
+ */
+var VERSION = new Version('7.0.0+52.sha-778e1c2');
 
 /**
  * @license

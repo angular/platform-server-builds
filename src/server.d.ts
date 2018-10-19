@@ -14,17 +14,17 @@ export declare const SERVER_RENDER_PROVIDERS: Provider[];
 /**
  * The ng module for the server.
  *
- * @experimental
+ * @publicApi
  */
 export declare class ServerModule {
 }
 /**
- * @experimental
+ * @publicApi
  */
 export declare const platformServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
 /**
  * The server platform that supports the runtime compiler.
  *
- * @experimental
+ * @publicApi
  */
 export declare const platformDynamicServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;

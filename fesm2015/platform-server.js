@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-rc.1+118.sha-31022cb
+ * @license Angular v7.0.0-rc.1+137.sha-4c2ce4e
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -415,7 +415,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 /**
  * Representation of the current platform state.
  *
- * \@experimental
+ * \@publicApi
  */
 class PlatformState {
     /**
@@ -666,14 +666,14 @@ const SERVER_HTTP_PROVIDERS = [
 /** *
  * The DI token for setting the initial config for the platform.
  *
- * \@experimental
+ * \@publicApi
   @type {?} */
 const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
 /** *
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
- * \@experimental
+ * \@publicApi
   @type {?} */
 const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
@@ -1293,7 +1293,7 @@ const SERVER_RENDER_PROVIDERS = [
 /**
  * The ng module for the server.
  *
- * \@experimental
+ * \@publicApi
  */
 class ServerModule {
 }
@@ -1324,13 +1324,13 @@ function _document(injector) {
     }
 }
 /** *
- * \@experimental
+ * \@publicApi
   @type {?} */
 const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 /** *
  * The server platform that supports the runtime compiler.
  *
- * \@experimental
+ * \@publicApi
   @type {?} */
 const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
@@ -1358,7 +1358,7 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
  *
- * \@experimental
+ * \@publicApi
  */
 class ServerTransferStateModule {
 }
@@ -1443,7 +1443,7 @@ the server-rendered app can be properly bootstrapped into a client app.`);
  * Do not use this in a production server environment. Use pre-compiled {\@link NgModuleFactory} with
  * {\@link renderModuleFactory} instead.
  *
- * \@experimental
+ * \@publicApi
  * @template T
  * @param {?} module
  * @param {?} options
@@ -1461,7 +1461,7 @@ function renderModule(module, options) {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * \@experimental
+ * \@publicApi
  * @template T
  * @param {?} moduleFactory
  * @param {?} options
@@ -1482,8 +1482,10 @@ function renderModuleFactory(moduleFactory, options) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/** @type {?} */
-const VERSION = new Version('7.0.0-rc.1+118.sha-31022cb');
+/** *
+ * \@publicApi
+  @type {?} */
+const VERSION = new Version('7.0.0-rc.1+137.sha-4c2ce4e');
 
 /**
  * @fileoverview added by tsickle

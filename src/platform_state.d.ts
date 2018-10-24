@@ -8,7 +8,7 @@
 /**
  * Representation of the current platform state.
  *
- * @experimental
+ * @publicApi
  */
 export declare class PlatformState {
     private _doc;

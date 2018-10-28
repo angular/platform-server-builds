@@ -16,7 +16,7 @@ import { NgModuleFactory, StaticProvider, Type } from '@angular/core';
  * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
  * {@link renderModuleFactory} instead.
  *
- * @experimental
+ * @publicApi
  */
 export declare function renderModule<T>(module: Type<T>, options: {
     document?: string;
@@ -30,7 +30,7 @@ export declare function renderModule<T>(module: Type<T>, options: {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * @experimental
+ * @publicApi
  */
 export declare function renderModuleFactory<T>(moduleFactory: NgModuleFactory<T>, options: {
     document?: string;

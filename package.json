@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "7.1.0-beta.0+77.sha-d042c4a",
+  "version": "7.1.0-beta.0+78.sha-ec29fd3",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,12 +13,12 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "7.1.0-beta.0+77.sha-d042c4a",
-    "@angular/common": "7.1.0-beta.0+77.sha-d042c4a",
-    "@angular/compiler": "7.1.0-beta.0+77.sha-d042c4a",
-    "@angular/core": "7.1.0-beta.0+77.sha-d042c4a",
-    "@angular/platform-browser": "7.1.0-beta.0+77.sha-d042c4a",
-    "@angular/platform-browser-dynamic": "7.1.0-beta.0+77.sha-d042c4a"
+    "@angular/animations": "7.1.0-beta.0+78.sha-ec29fd3",
+    "@angular/common": "7.1.0-beta.0+78.sha-ec29fd3",
+    "@angular/compiler": "7.1.0-beta.0+78.sha-ec29fd3",
+    "@angular/core": "7.1.0-beta.0+78.sha-ec29fd3",
+    "@angular/platform-browser": "7.1.0-beta.0+78.sha-ec29fd3",
+    "@angular/platform-browser-dynamic": "7.1.0-beta.0+78.sha-ec29fd3"
   },
   "dependencies": {
     "domino": "^2.1.0",

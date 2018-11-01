@@ -1,12 +1,12 @@
 /**
- * @license Angular v7.1.0-beta.1+6.sha-4e9f2e5
+ * @license Angular v7.1.0-beta.1+14.sha-2e7b5c5
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __values, __extends } from 'tslib';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
-import { InjectionToken, APP_ID, Version, Optional, defineInjectable, inject, ɵdefineNgModule, defineInjector, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ApplicationRef, ViewEncapsulation } from '@angular/core';
+import { Inject, Injectable, InjectionToken, APP_ID, NgModule, Version, Optional, defineInjectable, inject, ɵsetClassMetadata, ɵdefineNgModule, defineInjector, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ApplicationRef, ViewEncapsulation } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
 import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -250,6 +250,15 @@ var PlatformState = /** @class */ (function () {
     PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(inject(DOCUMENT)); }, providedIn: null });
     return PlatformState;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }], null);
 
 /**
  * @license
@@ -272,6 +281,9 @@ var ServerXhr = /** @class */ (function () {
     ServerXhr.ngInjectableDef = defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
     return ServerXhr;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
+        type: Injectable
+    }], null, null);
 var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
@@ -279,6 +291,9 @@ var ServerXsrfStrategy = /** @class */ (function () {
     ServerXsrfStrategy.ngInjectableDef = defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
     return ServerXsrfStrategy;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerXsrfStrategy, [{
+        type: Injectable
+    }], null, null);
 var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
     }
@@ -496,6 +511,23 @@ var ServerPlatformLocation = /** @class */ (function () {
     ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(inject(DOCUMENT), inject(INITIAL_CONFIG, 8)); }, providedIn: null });
     return ServerPlatformLocation;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Optional
+            }, {
+                type: Inject,
+                args: [INITIAL_CONFIG]
+            }]
+    }], null);
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
@@ -526,6 +558,15 @@ var ServerEventManagerPlugin = /** @class */ (function () {
     ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(inject(DOCUMENT)); }, providedIn: null });
     return ServerEventManagerPlugin;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }], null);
 
 var EMPTY_ARRAY = [];
 var ServerRendererFactory2 = /** @class */ (function () {
@@ -570,6 +611,21 @@ var ServerRendererFactory2 = /** @class */ (function () {
     ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(inject(EventManager), inject(NgZone), inject(DOCUMENT), inject(ɵSharedStylesHost)); }, providedIn: null });
     return ServerRendererFactory2;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
+        type: Injectable
+    }], [{
+        type: EventManager
+    }, {
+        type: NgZone
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }, {
+        type: ɵSharedStylesHost
+    }], null);
 var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;
@@ -736,6 +792,23 @@ var ServerStylesHost = /** @class */ (function (_super) {
     ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(inject(DOCUMENT), inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
     return ServerStylesHost;
 }(ɵSharedStylesHost));
+/*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
+        type: Injectable
+    }], [{
+        type: undefined,
+        decorators: [{
+                type: Inject,
+                args: [DOCUMENT]
+            }]
+    }, {
+        type: undefined,
+        decorators: [{
+                type: Optional
+            }, {
+                type: Inject,
+                args: [ɵTRANSITION_ID]
+            }]
+    }], null);
 
 /**
  * @license
@@ -791,6 +864,19 @@ var ServerModule = /** @class */ (function () {
             [BrowserModule]] });
     return ServerModule;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerModule, [{
+        type: NgModule,
+        args: [{
+                exports: [BrowserModule],
+                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                    SERVER_HTTP_PROVIDERS,
+                    { provide: Testability, useValue: null },
+                    { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+                ],
+            }]
+    }], null, null);
 function _document(injector) {
     var config = injector.get(INITIAL_CONFIG, null);
     if (config && config.document) {
@@ -847,6 +933,19 @@ var ServerTransferStateModule = /** @class */ (function () {
         ], imports: [] });
     return ServerTransferStateModule;
 }());
+/*@__PURE__*/ ɵsetClassMetadata(ServerTransferStateModule, [{
+        type: NgModule,
+        args: [{
+                providers: [
+                    TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [DOCUMENT, APP_ID, TransferState],
+                        multi: true,
+                    }
+                ]
+            }]
+    }], null, null);
 
 /**
  * @license
@@ -951,7 +1050,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.1.0-beta.1+6.sha-4e9f2e5');
+var VERSION = new Version('7.1.0-beta.1+14.sha-2e7b5c5');
 
 /**
  * @license

@@ -1,11 +1,11 @@
 /**
- * @license Angular v7.2.0-beta.1+5.sha-6316051
+ * @license Angular v7.2.0-beta.1+6.sha-dcb44e6
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
-import { Inject, Injectable, InjectionToken, APP_ID, NgModule, Version, ApplicationRef, Optional, Injector, defineInjectable, inject, ɵsetClassMetadata, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ViewEncapsulation } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Version, APP_ID, NgModule, ApplicationRef, Optional, Injector, defineInjectable, inject, ɵsetClassMetadata, ɵdefineNgModule, defineInjector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ViewEncapsulation } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
 import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -1646,7 +1646,7 @@ function renderModuleFactory(moduleFactory, options) {
 /** *
  * \@publicApi
   @type {?} */
-const VERSION = new Version('7.2.0-beta.1+5.sha-6316051');
+const VERSION = new Version('7.2.0-beta.1+6.sha-dcb44e6');
 
 /**
  * @fileoverview added by tsickle

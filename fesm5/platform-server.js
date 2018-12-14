@@ -1,12 +1,12 @@
 /**
- * @license Angular v7.2.0-beta.2+39.sha-d0d351c
+ * @license Angular v7.2.0-beta.2+37.sha-a8ebc83
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 import { __values, __extends } from 'tslib';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
-import { Inject, Injectable, InjectionToken, APP_ID, NgModule, Version, Optional, defineInjectable, inject, ɵsetClassMetadata, ɵdefineNgModule, defineInjector, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ApplicationRef, ViewEncapsulation } from '@angular/core';
+import { Inject, Injectable, InjectionToken, APP_ID, NgModule, Version, Optional, ɵdefineNgModule, defineInjector, ɵsetClassMetadata, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ApplicationRef, defineInjectable, inject, ViewEncapsulation } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
 import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -252,13 +252,13 @@ var PlatformState = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -513,7 +513,7 @@ var ServerPlatformLocation = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -527,7 +527,7 @@ var ServerPlatformLocation = /** @class */ (function () {
                 type: Inject,
                 args: [INITIAL_CONFIG]
             }]
-    }]; }, null);
+    }], null);
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
@@ -560,13 +560,13 @@ var ServerEventManagerPlugin = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 
 var EMPTY_ARRAY = [];
 var ServerRendererFactory2 = /** @class */ (function () {
@@ -613,7 +613,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: EventManager
     }, {
         type: NgZone
@@ -625,7 +625,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
             }]
     }, {
         type: ɵSharedStylesHost
-    }]; }, null);
+    }], null);
 var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;
@@ -794,7 +794,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
 }(ɵSharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -808,7 +808,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
                 type: Inject,
                 args: [ɵTRANSITION_ID]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @license
@@ -1050,7 +1050,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0-beta.2+39.sha-d0d351c');
+var VERSION = new Version('7.2.0-beta.2+37.sha-a8ebc83');
 
 /**
  * @license

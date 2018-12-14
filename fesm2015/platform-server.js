@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+39.sha-d0d351c
+ * @license Angular v7.2.0-beta.2+37.sha-a8ebc83
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -454,13 +454,13 @@ PlatformState.ctorParameters = () => [
 PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -840,7 +840,7 @@ ServerPlatformLocation.ctorParameters = () => [
 ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(inject(DOCUMENT), inject(INITIAL_CONFIG, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -854,7 +854,7 @@ ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatfor
                 type: Inject,
                 args: [INITIAL_CONFIG]
             }]
-    }]; }, null);
+    }], null);
 /**
  * @param {?} fn
  * @return {?}
@@ -921,13 +921,13 @@ ServerEventManagerPlugin.ctorParameters = () => [
 ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
             }]
-    }]; }, null);
+    }], null);
 
 /**
  * @fileoverview added by tsickle
@@ -1014,7 +1014,7 @@ ServerRendererFactory2.ctorParameters = () => [
 ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(inject(EventManager), inject(NgZone), inject(DOCUMENT), inject(ɵSharedStylesHost)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: EventManager
     }, {
         type: NgZone
@@ -1026,7 +1026,7 @@ ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendere
             }]
     }, {
         type: ɵSharedStylesHost
-    }]; }, null);
+    }], null);
 class DefaultServerRenderer2 {
     /**
      * @param {?} eventManager
@@ -1362,7 +1362,7 @@ ServerStylesHost.ctorParameters = () => [
 ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(inject(DOCUMENT), inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -1376,7 +1376,7 @@ ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, f
                 type: Inject,
                 args: [ɵTRANSITION_ID]
             }]
-    }]; }, null);
+    }], null);
 
 /** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
@@ -1668,7 +1668,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0-beta.2+39.sha-d0d351c');
+const VERSION = new Version('7.2.0-beta.2+37.sha-a8ebc83');
 
 /**
  * @fileoverview added by tsickle

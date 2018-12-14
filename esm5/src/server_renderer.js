@@ -56,7 +56,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
 export { ServerRendererFactory2 };
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: EventManager
     }, {
         type: NgZone
@@ -68,7 +68,7 @@ export { ServerRendererFactory2 };
             }]
     }, {
         type: SharedStylesHost
-    }], null);
+    }]; }, null);
 var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;

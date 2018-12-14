@@ -135,7 +135,7 @@ ServerPlatformLocation.ctorParameters = () => [
 ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.inject(DOCUMENT), i0.inject(INITIAL_CONFIG, 8)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -149,7 +149,7 @@ ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlat
                 type: Inject,
                 args: [INITIAL_CONFIG]
             }]
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     ServerPlatformLocation.prototype.pathname;

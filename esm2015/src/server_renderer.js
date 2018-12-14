@@ -87,7 +87,7 @@ ServerRendererFactory2.ctorParameters = () => [
 ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.inject(EventManager), i0.inject(NgZone), i0.inject(DOCUMENT), i0.inject(SharedStylesHost)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
+    }], [{
         type: EventManager
     }, {
         type: NgZone
@@ -99,7 +99,7 @@ ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRend
             }]
     }, {
         type: SharedStylesHost
-    }]; }, null);
+    }], null);
 if (false) {
     /** @type {?} */
     ServerRendererFactory2.prototype.rendererByCompId;

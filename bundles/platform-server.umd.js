@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+33.sha-d528e30
+ * @license Angular v7.2.0-beta.2+38.sha-a954345
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -284,13 +284,13 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [platformBrowser.DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -545,7 +545,7 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -559,7 +559,7 @@
                     type: i0.Inject,
                     args: [INITIAL_CONFIG]
                 }]
-        }], null);
+        }]; }, null);
     function scheduleMicroTask(fn) {
         Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
     }
@@ -592,13 +592,13 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
                     args: [platformBrowser.DOCUMENT]
                 }]
-        }], null);
+        }]; }, null);
 
     var EMPTY_ARRAY = [];
     var ServerRendererFactory2 = /** @class */ (function () {
@@ -645,7 +645,7 @@
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: platformBrowser.EventManager
         }, {
             type: i0.NgZone
@@ -657,7 +657,7 @@
                 }]
         }, {
             type: platformBrowser.ɵSharedStylesHost
-        }], null);
+        }]; }, null);
     var DefaultServerRenderer2 = /** @class */ (function () {
         function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
             this.eventManager = eventManager;
@@ -826,7 +826,7 @@
     }(platformBrowser.ɵSharedStylesHost));
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
             type: i0.Injectable
-        }], [{
+        }], function () { return [{
             type: undefined,
             decorators: [{
                     type: i0.Inject,
@@ -840,7 +840,7 @@
                     type: i0.Inject,
                     args: [platformBrowser.ɵTRANSITION_ID]
                 }]
-        }], null);
+        }]; }, null);
 
     /**
      * @license
@@ -1082,7 +1082,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('7.2.0-beta.2+33.sha-d528e30');
+    var VERSION = new i0.Version('7.2.0-beta.2+38.sha-a954345');
 
     /**
      * @license

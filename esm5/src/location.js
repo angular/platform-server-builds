@@ -72,7 +72,7 @@ var ServerPlatformLocation = /** @class */ (function () {
 export { ServerPlatformLocation };
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], [{
+    }], function () { return [{
         type: undefined,
         decorators: [{
                 type: Inject,
@@ -86,7 +86,7 @@ export { ServerPlatformLocation };
                 type: Inject,
                 args: [INITIAL_CONFIG]
             }]
-    }], null);
+    }]; }, null);
 export function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }

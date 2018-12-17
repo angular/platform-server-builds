@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+202.sha-3fa2a5f
+ * @license Angular v7.2.0-beta.2+63.sha-19508c4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -11,13 +11,14 @@ import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from 
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-/** *
+/**
  * Platform for testing
  *
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
@@ -36,18 +37,17 @@ ServerTestingModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-// This file only reexports content of the `src` folder. Keep it that way.
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**

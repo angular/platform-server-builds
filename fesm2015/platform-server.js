@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.1.0+202.sha-3fa2a5f
+ * @license Angular v7.2.0-beta.2+63.sha-19508c4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -19,15 +19,16 @@ import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-/** *
+/**
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
-  @type {?} */
+ * @type {?}
+ */
 const domino = require('domino');
 /**
  * @param {?} methodName
@@ -42,7 +43,7 @@ function _notImplemented(methodName) {
 function setDomTypes() {
     // Make all Domino types available as types in the global env.
     Object.assign(global, domino.impl);
-    (/** @type {?} */ (global))['KeyboardEvent'] = domino.impl.Event;
+    ((/** @type {?} */ (global)))['KeyboardEvent'] = domino.impl.Event;
 }
 /**
  * Parses a document string to a Document object.
@@ -63,7 +64,7 @@ function parseDocument(html, url = '/') {
  * @return {?}
  */
 function serializeDocument(doc) {
-    return (/** @type {?} */ (doc)).serialize();
+    return ((/** @type {?} */ (doc))).serialize();
 }
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
@@ -195,7 +196,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
             // Domino does not support innerText. Just map it to textContent.
             return el.textContent;
         }
-        return (/** @type {?} */ (el))[name];
+        return ((/** @type {?} */ (el)))[name];
     }
     /**
      * @param {?} el
@@ -213,7 +214,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
             // Domino does not support innerText. Just map it to textContent.
             el.textContent = value;
         }
-        (/** @type {?} */ (el))[name] = value;
+        ((/** @type {?} */ (el)))[name] = value;
     }
     /**
      * @param {?} doc
@@ -238,7 +239,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     getBaseHref(doc) {
         /** @type {?} */
-        const base = this.querySelector(/** @type {?} */ ((doc.documentElement)), 'base');
+        const base = this.querySelector((/** @type {?} */ (doc.documentElement)), 'base');
         /** @type {?} */
         let href = '';
         if (base) {
@@ -346,10 +347,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     dispatchEvent(el, evt) {
         el.dispatchEvent(evt);
+        // Dispatch the event to the window also.
         /** @type {?} */
         const doc = el.ownerDocument || el;
         /** @type {?} */
-        const win = (/** @type {?} */ (doc)).defaultView;
+        const win = ((/** @type {?} */ (doc))).defaultView;
         if (win) {
             win.dispatchEvent(evt);
         }
@@ -410,7 +412,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * Representation of the current platform state.
@@ -445,7 +447,7 @@ PlatformState.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -498,7 +500,7 @@ class ZoneMacroTaskWrapper {
     wrap(request) {
         return new Observable((observer) => {
             /** @type {?} */
-            let task = /** @type {?} */ ((null));
+            let task = (/** @type {?} */ (null));
             /** @type {?} */
             let scheduled = false;
             /** @type {?} */
@@ -549,6 +551,9 @@ class ZoneMacroTaskWrapper {
                     observer.complete();
                 }
             };
+            // MockBackend for Http is synchronous, which means that if scheduleTask is by
+            // scheduleMacroTask, the request will hit MockBackend and the response will be
+            // sent, causing task.invoke() to be called.
             /** @type {?} */
             const _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, () => null, cancelTask);
             scheduleTask(_task);
@@ -583,7 +588,7 @@ class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
      */
     delegate(request) {
         this.lastConnection = this.backend.createConnection(request);
-        return /** @type {?} */ (this.lastConnection.response);
+        return (/** @type {?} */ (this.lastConnection.response));
     }
     /**
      * @return {?}
@@ -661,25 +666,27 @@ const SERVER_HTTP_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-/** *
+/**
  * The DI token for setting the initial config for the platform.
  *
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
-/** *
+/**
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * @param {?} urlStr
@@ -710,7 +717,7 @@ class ServerPlatformLocation {
         this.hash = '';
         this._hashUpdate = new Subject();
         /** @type {?} */
-        const config = /** @type {?} */ (_config);
+        const config = (/** @type {?} */ (_config));
         if (!!config && !!config.url) {
             /** @type {?} */
             const parsedUrl = parseUrl(config.url);
@@ -722,7 +729,7 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return /** @type {?} */ ((ɵgetDOM().getBaseHref(this._doc))); }
+    getBaseHrefFromDOM() { return (/** @type {?} */ (ɵgetDOM().getBaseHref(this._doc))); }
     /**
      * @param {?} fn
      * @return {?}
@@ -750,12 +757,12 @@ class ServerPlatformLocation {
             // Don't fire events if the hash has not changed.
             return;
         }
-        (/** @type {?} */ (this)).hash = value;
+        ((/** @type {?} */ (this))).hash = value;
         /** @type {?} */
         const newUrl = this.url;
-        scheduleMicroTask(() => this._hashUpdate.next(/** @type {?} */ ({
+        scheduleMicroTask(() => this._hashUpdate.next((/** @type {?} */ ({
             type: 'hashchange', state: null, oldUrl, newUrl
-        })));
+        }))));
     }
     /**
      * @param {?} state
@@ -768,8 +775,8 @@ class ServerPlatformLocation {
         const oldUrl = this.url;
         /** @type {?} */
         const parsedUrl = parseUrl(newUrl);
-        (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
-        (/** @type {?} */ (this)).search = parsedUrl.search;
+        ((/** @type {?} */ (this))).pathname = parsedUrl.pathname;
+        ((/** @type {?} */ (this))).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
     }
     /**
@@ -808,15 +815,16 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-class ServerEventManagerPlugin {
+class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
     /**
      * @param {?} doc
      */
     constructor(doc) {
         this.doc = doc;
     }
+    // Handle all events on the server.
     /**
      * @param {?} eventName
      * @return {?}
@@ -856,7 +864,7 @@ ServerEventManagerPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /** @type {?} */
 const EMPTY_ARRAY = [];
@@ -894,7 +902,7 @@ class ServerRendererFactory2 {
                     renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
-                (/** @type {?} */ (renderer)).applyToHost(element);
+                ((/** @type {?} */ (renderer))).applyToHost(element);
                 return renderer;
             }
             case ViewEncapsulation.Native:
@@ -1088,6 +1096,10 @@ class DefaultServerRenderer2 {
     removeStyle(el, style, flags) {
         ɵgetDOM().removeStyle(el, style);
     }
+    // The value was validated already as a property binding, against the property name.
+    // To know this value is safe to use as an attribute, the security context of the
+    // attribute with the given name is checked against that security context of the
+    // property.
     /**
      * @param {?} tagName
      * @param {?} propertyName
@@ -1106,8 +1118,11 @@ class DefaultServerRenderer2 {
     setProperty(el, name, value) {
         checkNoSyntheticProp(name, 'property');
         ɵgetDOM().setProperty(el, name, value);
+        // Mirror property values for known HTML element properties in the attributes.
+        // Skip `innerhtml` which is conservatively marked as an attribute for security
+        // purposes but is not actually an attribute.
         /** @type {?} */
-        const tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
+        const tagName = ((/** @type {?} */ (el.tagName))).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
             name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
@@ -1130,9 +1145,9 @@ class DefaultServerRenderer2 {
     listen(target, eventName, callback) {
         checkNoSyntheticProp(eventName, 'listener');
         if (typeof target === 'string') {
-            return /** @type {?} */ (this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback)));
+            return (/** @type {?} */ (this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback))));
         }
-        return /** @type {?} */ ((this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback))));
+        return (/** @type {?} */ ((/** @type {?} */ (this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback))))));
     }
     /**
      * @param {?} eventHandler
@@ -1140,6 +1155,8 @@ class DefaultServerRenderer2 {
      */
     decoratePreventDefault(eventHandler) {
         return (event) => {
+            // Run the event handler inside the ngZone because event handlers are not patched
+            // by Zone on the server. This is required only for tests.
             /** @type {?} */
             const allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
             if (allowDefaultBehavior === false) {
@@ -1173,6 +1190,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
     constructor(eventManager, document, ngZone, sharedStylesHost, schema, component) {
         super(eventManager, document, ngZone, schema);
         this.component = component;
+        // Add a 's' prefix to style attributes to indicate server.
         /** @type {?} */
         const componentId = 's' + component.id;
         /** @type {?} */
@@ -1201,7 +1219,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 class ServerStylesHost extends ɵSharedStylesHost {
     /**
@@ -1247,7 +1265,7 @@ ServerStylesHost.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
@@ -1323,20 +1341,22 @@ function _document(injector) {
         return ɵgetDOM().createHtmlDocument();
     }
 }
-/** *
+/**
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-/** *
+/**
  * The server platform that supports the runtime compiler.
  *
  * \@publicApi
-  @type {?} */
+ * @type {?}
+ */
 const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * @param {?} doc
@@ -1377,7 +1397,7 @@ ServerTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 /**
  * @param {?} platformFactory
@@ -1413,6 +1433,7 @@ the server-rendered app can be properly bootstrapped into a client app.`);
             .then(() => {
             /** @type {?} */
             const platformState = platform.injector.get(PlatformState);
+            // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
             /** @type {?} */
             const callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
             if (callbacks) {
@@ -1475,32 +1496,32 @@ function renderModuleFactory(moduleFactory, options) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-/** *
+/**
  * \@publicApi
-  @type {?} */
-const VERSION = new Version('7.1.0+202.sha-3fa2a5f');
+ * @type {?}
+ */
+const VERSION = new Version('7.2.0-beta.2+63.sha-19508c4');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
-// This file only reexports content of the `src` folder. Keep it that way.
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
  */
 
 /**

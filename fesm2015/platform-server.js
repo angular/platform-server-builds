@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0-beta.2+83.sha-b04bc5d
+ * @license Angular v7.2.0-beta.2+89.sha-69198ba
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -19,7 +19,7 @@ import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -412,7 +412,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -464,7 +464,7 @@ PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -651,6 +651,7 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
      */
     handle(request) { return this.wrap(request); }
     /**
+     * @protected
      * @param {?} request
      * @return {?}
      */
@@ -691,7 +692,7 @@ const SERVER_HTTP_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The DI token for setting the initial config for the platform.
@@ -711,7 +712,7 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -780,6 +781,7 @@ class ServerPlatformLocation {
      */
     get url() { return `${this.pathname}${this.search}${this.hash}`; }
     /**
+     * @private
      * @param {?} value
      * @param {?} oldUrl
      * @return {?}
@@ -865,7 +867,7 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -931,7 +933,7 @@ ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEvent
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1191,6 +1193,7 @@ class DefaultServerRenderer2 {
     // attribute with the given name is checked against that security context of the
     // property.
     /**
+     * @private
      * @param {?} tagName
      * @param {?} propertyName
      * @return {?}
@@ -1240,6 +1243,7 @@ class DefaultServerRenderer2 {
         return (/** @type {?} */ ((/** @type {?} */ (this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback))))));
     }
     /**
+     * @private
      * @param {?} eventHandler
      * @return {?}
      */
@@ -1309,7 +1313,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1331,6 +1335,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
         this.head = ɵgetDOM().getElementsByTagName(doc, 'head')[0];
     }
     /**
+     * @private
      * @param {?} style
      * @return {?}
      */
@@ -1488,7 +1493,7 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1558,7 +1563,7 @@ ServerTransferStateModule.ngInjectorDef = defineInjector({ factory: function Ser
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @param {?} platformFactory
@@ -1657,32 +1662,32 @@ function renderModuleFactory(moduleFactory, options) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0-beta.2+83.sha-b04bc5d');
+const VERSION = new Version('7.2.0-beta.2+89.sha-69198ba');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };

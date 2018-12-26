@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "7.2.0-rc.0+15.sha-92d3942",
+  "version": "7.2.0-rc.0+16.sha-213e01b",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,13 +13,13 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/common": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/compiler": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/core": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/http": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/platform-browser": "7.2.0-rc.0+15.sha-92d3942",
-    "@angular/platform-browser-dynamic": "7.2.0-rc.0+15.sha-92d3942"
+    "@angular/animations": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/common": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/compiler": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/core": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/http": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/platform-browser": "7.2.0-rc.0+16.sha-213e01b",
+    "@angular/platform-browser-dynamic": "7.2.0-rc.0+16.sha-213e01b"
   },
   "dependencies": {
     "domino": "^2.1.0",

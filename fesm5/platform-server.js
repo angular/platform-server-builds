@@ -1,10 +1,10 @@
 /**
- * @license Angular v7.2.0-rc.0+54.sha-4890b1d
+ * @license Angular v7.2.0-rc.0+54.sha-a78a590
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata, __extends, __values } from 'tslib';
+import { __extends, __decorate, __param, __metadata, __values } from 'tslib';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { Inject, Injectable, Injector, InjectionToken, Optional, NgZone, ViewEncapsulation, NgModule, PLATFORM_ID, PLATFORM_INITIALIZER, RendererFactory2, Testability, createPlatformFactory, platformCore, ɵALLOW_MULTIPLE_PLATFORMS, APP_ID, ApplicationRef, Version } from '@angular/core';
 import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
@@ -1004,7 +1004,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0-rc.0+54.sha-4890b1d');
+var VERSION = new Version('7.2.0-rc.0+54.sha-a78a590');
 
 /**
  * @license

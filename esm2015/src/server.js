@@ -93,8 +93,8 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
-/** @nocollapse */ ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },

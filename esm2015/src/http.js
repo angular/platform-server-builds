@@ -36,7 +36,7 @@ export class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ ServerXhr.ngInjectableDef = i0.defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
+ServerXhr.ngInjectableDef = i0.defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
     }], null, null);
@@ -50,7 +50,7 @@ export class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ ServerXsrfStrategy.ngInjectableDef = i0.defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
+ServerXsrfStrategy.ngInjectableDef = i0.defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXsrfStrategy, [{
         type: Injectable
     }], null, null);

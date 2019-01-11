@@ -54,7 +54,7 @@ ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
-/** @nocollapse */ ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(DOCUMENT), i0.inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
+ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(DOCUMENT), i0.inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{

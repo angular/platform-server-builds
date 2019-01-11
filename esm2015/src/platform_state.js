@@ -43,7 +43,7 @@ PlatformState.decorators = [
 PlatformState.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(DOCUMENT)); }, providedIn: null });
+PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{

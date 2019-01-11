@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0+128.sha-091a8a6
+ * @license Angular v7.2.0+126.sha-df292c2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -451,7 +451,7 @@ PlatformState.decorators = [
 PlatformState.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(inject(DOCUMENT)); }, providedIn: null });
+PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{
@@ -495,7 +495,7 @@ class ServerXhr {
 ServerXhr.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ ServerXhr.ngInjectableDef = defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
+ServerXhr.ngInjectableDef = defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
     }], null, null);
@@ -509,7 +509,7 @@ class ServerXsrfStrategy {
 ServerXsrfStrategy.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */ ServerXsrfStrategy.ngInjectableDef = defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
+ServerXsrfStrategy.ngInjectableDef = defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerXsrfStrategy, [{
         type: Injectable
     }], null, null);
@@ -839,7 +839,7 @@ ServerPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
 ];
-/** @nocollapse */ ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(inject(DOCUMENT), inject(INITIAL_CONFIG, 8)); }, providedIn: null });
+ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(inject(DOCUMENT), inject(INITIAL_CONFIG, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
     }], function () { return [{
@@ -920,7 +920,7 @@ ServerEventManagerPlugin.decorators = [
 ServerEventManagerPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
-/** @nocollapse */ ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(inject(DOCUMENT)); }, providedIn: null });
+ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
     }], function () { return [{
@@ -1013,7 +1013,7 @@ ServerRendererFactory2.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: ɵSharedStylesHost }
 ];
-/** @nocollapse */ ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(inject(EventManager), inject(NgZone), inject(DOCUMENT), inject(ɵSharedStylesHost)); }, providedIn: null });
+ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(inject(EventManager), inject(NgZone), inject(DOCUMENT), inject(ɵSharedStylesHost)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{
@@ -1364,7 +1364,7 @@ ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
-/** @nocollapse */ ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(inject(DOCUMENT), inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
+ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(inject(DOCUMENT), inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{
@@ -1443,8 +1443,8 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
-/** @nocollapse */ ServerModule.ngInjectorDef = defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+ServerModule.ngInjectorDef = defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
@@ -1538,8 +1538,8 @@ ServerTransferStateModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */ ServerTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: ServerTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
-/** @nocollapse */ ServerTransferStateModule.ngInjectorDef = defineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+ServerTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: ServerTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
+ServerTransferStateModule.ngInjectorDef = defineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
             useFactory: serializeTransferStateFactory,
@@ -1673,7 +1673,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0+128.sha-091a8a6');
+const VERSION = new Version('7.2.0+126.sha-df292c2');
 
 /**
  * @fileoverview added by tsickle

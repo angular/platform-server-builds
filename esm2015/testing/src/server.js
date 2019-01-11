@@ -35,8 +35,8 @@ ServerTestingModule.decorators = [
                 providers: SERVER_RENDER_PROVIDERS
             },] },
 ];
-/** @nocollapse */ ServerTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTestingModule, bootstrap: [], declarations: [], imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
-/** @nocollapse */ ServerTestingModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: SERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
+ServerTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTestingModule, bootstrap: [], declarations: [], imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
+ServerTestingModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: SERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
         [BrowserDynamicTestingModule]] });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,

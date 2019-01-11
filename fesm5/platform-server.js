@@ -1,21 +1,21 @@
 /**
- * @license Angular v7.2.0+103.sha-885f1af
+ * @license Angular v7.2.0+104.sha-b78351c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
-import { __values, __extends } from 'tslib';
-import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, EventManager, ɵNAMESPACE_URIS, ɵSharedStylesHost, ɵflattenStyles, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, BrowserModule, EVENT_MANAGER_PLUGINS, TransferState, ɵescapeHtml } from '@angular/platform-browser';
-import { Inject, Injectable, InjectionToken, APP_ID, NgModule, Version, Optional, defineInjectable, inject, ɵsetClassMetadata, ɵdefineNgModule, defineInjector, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, createPlatformFactory, platformCore, ApplicationRef, ViewEncapsulation } from '@angular/core';
-import { BrowserXhr, Http, ReadyState, RequestOptions, XHRBackend, XSRFStrategy, HttpModule } from '@angular/http';
-import { HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
+import { defineInjectable, inject, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵdefineNgModule, defineInjector, Testability, NgModule, createPlatformFactory, platformCore, APP_ID, ApplicationRef, Version } from '@angular/core';
+import { ɵsetRootDomAdapter, ɵBrowserDomAdapter, DOCUMENT, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
+import { __extends, __values } from 'tslib';
+import { ɵAnimationEngine } from '@angular/animations/browser';
+import { ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
+import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
+import { ReadyState, Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, HttpModule } from '@angular/http';
+import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
+import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
 import { parse } from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { PlatformLocation, ViewportScroller, ɵNullViewportScroller, ɵPLATFORM_SERVER_ID } from '@angular/common';
-import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
-import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { first } from 'rxjs/operators';
 
 /**
@@ -1050,7 +1050,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0+103.sha-885f1af');
+var VERSION = new Version('7.2.0+104.sha-b78351c');
 
 /**
  * @license

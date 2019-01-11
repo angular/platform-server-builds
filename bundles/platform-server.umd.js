@@ -1,14 +1,14 @@
 /**
- * @license Angular v7.2.0+103.sha-885f1af
+ * @license Angular v7.2.0+104.sha-b78351c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/platform-browser'), require('@angular/core'), require('@angular/http'), require('@angular/common/http'), require('rxjs'), require('url'), require('@angular/compiler'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/platform-browser', '@angular/core', '@angular/http', '@angular/common/http', 'rxjs', 'url', '@angular/compiler', '@angular/animations/browser', '@angular/common', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/operators'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.platformBrowser,global.ng.core,global.ng.http,global.ng.common.http,global.rxjs,global.url,global.ng.compiler,global.ng.animations.browser,global.ng.common,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.rxjs.operators));
-}(this, (function (exports,platformBrowser,i0,http,http$1,rxjs,url,compiler,browser,common,platformBrowserDynamic,animations,operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
+}(this, function (exports, i0, platformBrowser, browser, common, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -410,7 +410,7 @@
         };
         Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
             get: function () {
-                return !!this.lastConnection ? this.lastConnection.readyState : http.ReadyState.Unsent;
+                return !!this.lastConnection ? this.lastConnection.readyState : http$1.ReadyState.Unsent;
             },
             enumerable: true,
             configurable: true
@@ -441,19 +441,19 @@
     }(ZoneMacroTaskWrapper));
     function httpFactory(xhrBackend, options) {
         var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
-        return new http.Http(macroBackend, options);
+        return new http$1.Http(macroBackend, options);
     }
     function zoneWrappedInterceptingHandler(backend, injector) {
-        var realBackend = new http$1.ɵHttpInterceptingHandler(backend, injector);
+        var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
         return new ZoneClientBackend(realBackend);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http.Http, useFactory: httpFactory, deps: [http.XHRBackend, http.RequestOptions] },
-        { provide: http.BrowserXhr, useClass: ServerXhr }, { provide: http.XSRFStrategy, useClass: ServerXsrfStrategy },
-        { provide: http$1.XhrFactory, useClass: ServerXhr }, {
-            provide: http$1.HttpHandler,
+        { provide: http$1.Http, useFactory: httpFactory, deps: [http$1.XHRBackend, http$1.RequestOptions] },
+        { provide: http$1.BrowserXhr, useClass: ServerXhr }, { provide: http$1.XSRFStrategy, useClass: ServerXsrfStrategy },
+        { provide: http.XhrFactory, useClass: ServerXhr }, {
+            provide: http.HttpHandler,
             useFactory: zoneWrappedInterceptingHandler,
-            deps: [http$1.HttpBackend, i0.Injector]
+            deps: [http.HttpBackend, i0.Injector]
         }
     ];
 
@@ -886,13 +886,13 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [http.HttpModule, http$1.HttpClientModule, animations.NoopAnimationsModule], exports: [platformBrowser.BrowserModule] });
+        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule], exports: [platformBrowser.BrowserModule] });
         ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
                 { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-            ], imports: [[http.HttpModule, http$1.HttpClientModule, animations.NoopAnimationsModule],
+            ], imports: [[http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
                 [platformBrowser.BrowserModule]] });
         return ServerModule;
     }());
@@ -900,7 +900,7 @@
             type: i0.NgModule,
             args: [{
                     exports: [platformBrowser.BrowserModule],
-                    imports: [http.HttpModule, http$1.HttpClientModule, animations.NoopAnimationsModule],
+                    imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
                     providers: [
                         SERVER_RENDER_PROVIDERS,
                         SERVER_HTTP_PROVIDERS,
@@ -1082,7 +1082,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('7.2.0+103.sha-885f1af');
+    var VERSION = new i0.Version('7.2.0+104.sha-b78351c');
 
     /**
      * @license
@@ -1125,5 +1125,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=platform-server.umd.js.map

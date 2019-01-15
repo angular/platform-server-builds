@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0+187.sha-bc02e31
+ * @license Angular v7.2.0+188.sha-ce3a746
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -605,6 +605,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var EMPTY_ARRAY = [];
+    var DEFAULT_SCHEMA = new compiler.DomElementSchemaRegistry();
     var ServerRendererFactory2 = /** @class */ (function () {
         function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
             this.eventManager = eventManager;
@@ -612,7 +613,7 @@
             this.document = document;
             this.sharedStylesHost = sharedStylesHost;
             this.rendererByCompId = new Map();
-            this.schema = new compiler.DomElementSchemaRegistry();
+            this.schema = DEFAULT_SCHEMA;
             this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
         }
         ServerRendererFactory2.prototype.createRenderer = function (element, type) {
@@ -1051,7 +1052,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('7.2.0+187.sha-bc02e31');
+    var VERSION = new core.Version('7.2.0+188.sha-ce3a746');
 
     /**
      * @license

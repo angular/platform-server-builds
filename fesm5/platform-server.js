@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0+170.sha-f1fb62d
+ * @license Angular v8.0.0-beta.0+3.sha-808898d
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -558,6 +558,7 @@ var ServerEventManagerPlugin = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 var EMPTY_ARRAY = [];
+var DEFAULT_SCHEMA = new DomElementSchemaRegistry();
 var ServerRendererFactory2 = /** @class */ (function () {
     function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
         this.eventManager = eventManager;
@@ -565,7 +566,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
-        this.schema = new DomElementSchemaRegistry();
+        this.schema = DEFAULT_SCHEMA;
         this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     ServerRendererFactory2.prototype.createRenderer = function (element, type) {
@@ -1004,7 +1005,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('7.2.0+170.sha-f1fb62d');
+var VERSION = new Version('8.0.0-beta.0+3.sha-808898d');
 
 /**
  * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.2.0+170.sha-f1fb62d
+ * @license Angular v8.0.0-beta.0+3.sha-808898d
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -870,6 +870,8 @@ ServerEventManagerPlugin.ctorParameters = () => [
  */
 /** @type {?} */
 const EMPTY_ARRAY = [];
+/** @type {?} */
+const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
 class ServerRendererFactory2 {
     /**
      * @param {?} eventManager
@@ -883,7 +885,7 @@ class ServerRendererFactory2 {
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
-        this.schema = new DomElementSchemaRegistry();
+        this.schema = DEFAULT_SCHEMA;
         this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     /**
@@ -1512,7 +1514,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('7.2.0+170.sha-f1fb62d');
+const VERSION = new Version('8.0.0-beta.0+3.sha-808898d');
 
 /**
  * @fileoverview added by tsickle

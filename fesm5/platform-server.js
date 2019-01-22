@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.0+29.sha-6bd20e8
+ * @license Angular v8.0.0-beta.0+31.sha-058aafc
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -595,8 +595,6 @@ var ServerRendererFactory2 = /** @class */ (function () {
                 renderer.applyToHost(element);
                 return renderer;
             }
-            case ViewEncapsulation.Native:
-                throw new Error('Native encapsulation is not supported on the server!');
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
                     var styles = ɵflattenStyles(type.id, type.styles, []);
@@ -1051,7 +1049,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.0+29.sha-6bd20e8');
+var VERSION = new Version('8.0.0-beta.0+31.sha-058aafc');
 
 /**
  * @license

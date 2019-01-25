@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.0+21.sha-45bf911
+ * @license Angular v8.0.0-beta.1+43.sha-3d5a919
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -909,8 +909,6 @@ class ServerRendererFactory2 {
                 ((/** @type {?} */ (renderer))).applyToHost(element);
                 return renderer;
             }
-            case ViewEncapsulation.Native:
-                throw new Error('Native encapsulation is not supported on the server!');
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
                     /** @type {?} */
@@ -1514,7 +1512,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.0+21.sha-45bf911');
+const VERSION = new Version('8.0.0-beta.1+43.sha-3d5a919');
 
 /**
  * @fileoverview added by tsickle

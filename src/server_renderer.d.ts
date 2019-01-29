@@ -1,13 +1,6 @@
-import * as i0 from '@angular/core';
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { NgZone, Renderer2, RendererFactory2, RendererType2 } from '@angular/core';
 import { EventManager, ɵSharedStylesHost as SharedStylesHost } from '@angular/platform-browser';
+import * as i0 from "@angular/core";
 export declare class ServerRendererFactory2 implements RendererFactory2 {
     private eventManager;
     private ngZone;

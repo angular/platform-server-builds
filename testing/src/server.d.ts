@@ -1,6 +1,3 @@
-import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser/animations';
-import * as i2 from '@angular/platform-browser-dynamic/testing';
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9,6 +6,9 @@ import * as i2 from '@angular/platform-browser-dynamic/testing';
  * found in the LICENSE file at https://angular.io/license
  */
 import { PlatformRef, StaticProvider } from '@angular/core';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/platform-browser/animations";
+import * as i2 from "@angular/platform-browser-dynamic/testing";
 /**
  * Platform for testing
  *

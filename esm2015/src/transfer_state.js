@@ -49,7 +49,7 @@ ServerTransferStateModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */ ServerTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
+/** @nocollapse */ ServerTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTransferStateModule });
 /** @nocollapse */ ServerTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,

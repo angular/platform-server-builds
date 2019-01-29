@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.1+68.sha-6e16338
+ * @license Angular v8.0.0-beta.1+83.sha-e18a52e
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1443,7 +1443,7 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, bootstrap: [], declarations: [], imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
 /** @nocollapse */ ServerModule.ngInjectorDef = defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
@@ -1538,7 +1538,7 @@ ServerTransferStateModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */ ServerTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: ServerTransferStateModule, bootstrap: [], declarations: [], imports: [], exports: [] });
+/** @nocollapse */ ServerTransferStateModule.ngModuleDef = ɵdefineNgModule({ type: ServerTransferStateModule });
 /** @nocollapse */ ServerTransferStateModule.ngInjectorDef = defineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
@@ -1673,7 +1673,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.1+68.sha-6e16338');
+const VERSION = new Version('8.0.0-beta.1+83.sha-e18a52e');
 
 /**
  * @fileoverview added by tsickle

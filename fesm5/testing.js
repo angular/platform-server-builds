@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.1+68.sha-6e16338
+ * @license Angular v8.0.0-beta.1+83.sha-e18a52e
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -30,7 +30,7 @@ var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 
 var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
-    ServerTestingModule.ngModuleDef = ɵdefineNgModule({ type: ServerTestingModule, bootstrap: [], declarations: [], imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
+    ServerTestingModule.ngModuleDef = ɵdefineNgModule({ type: ServerTestingModule, imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
     ServerTestingModule.ngInjectorDef = defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
             [BrowserDynamicTestingModule]] });
     return ServerTestingModule;

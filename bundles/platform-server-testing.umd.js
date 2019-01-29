@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.1+68.sha-6e16338
+ * @license Angular v8.0.0-beta.1+83.sha-e18a52e
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,7 +31,7 @@
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTestingModule, bootstrap: [], declarations: [], imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] });
+        ServerTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTestingModule, imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] });
         ServerTestingModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule],
                 [testing.BrowserDynamicTestingModule]] });
         return ServerTestingModule;

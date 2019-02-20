@@ -1,4 +1,25 @@
 /**
- * Generated bundle index. Do not edit.
+ * @license Angular v8.0.0-beta.4+56.sha-a7e1c0c
+ * (c) 2010-2019 Google LLC. https://angular.io/
+ * License: MIT
  */
-export * from './index';
+
+import { PlatformRef } from '@angular/core';
+import { StaticProvider } from '@angular/core';
+
+/**
+ * Platform for testing
+ *
+ * @publicApi
+ */
+export declare const platformServerTesting: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
+
+/**
+ * NgModule for testing.
+ *
+ * @publicApi
+ */
+export declare class ServerTestingModule {
+}
+
+export { }

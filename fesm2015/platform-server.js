@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.7+3.sha-6b98b53.with-local-changes
+ * @license Angular v8.0.0-beta.7+5.sha-dc6192c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵdefineNgModule, defineInjector, createPlatformFactory, platformCore, APP_ID, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵdefineNgModule, defineInjector, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
@@ -1576,13 +1576,19 @@ the server-rendered app can be properly bootstrapped into a client app.`);
             .then(() => {
             /** @type {?} */
             const platformState = platform.injector.get(PlatformState);
+            /** @type {?} */
+            const asyncPromises = [];
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
             /** @type {?} */
             const callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
             if (callbacks) {
                 for (const callback of callbacks) {
                     try {
-                        callback();
+                        /** @type {?} */
+                        const callbackResult = callback();
+                        if (ɵisPromise(callbackResult)) {
+                            asyncPromises.push(callbackResult);
+                        }
                     }
                     catch (e) {
                         // Ignore exceptions.
@@ -1591,9 +1597,20 @@ the server-rendered app can be properly bootstrapped into a client app.`);
                 }
             }
             /** @type {?} */
-            const output = platformState.renderToString();
-            platform.destroy();
-            return output;
+            const complete = () => {
+                /** @type {?} */
+                const output = platformState.renderToString();
+                platform.destroy();
+                return output;
+            };
+            if (asyncPromises.length === 0) {
+                return complete();
+            }
+            return Promise
+                .all(asyncPromises.map(asyncPromise => {
+                return asyncPromise.catch(e => { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+            }))
+                .then(complete);
         });
     });
 }
@@ -1650,7 +1667,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.7+3.sha-6b98b53.with-local-changes');
+const VERSION = new Version('8.0.0-beta.7+5.sha-dc6192c.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

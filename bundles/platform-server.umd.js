@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.7+3.sha-6b98b53.with-local-changes
+ * @license Angular v8.0.0-beta.7+5.sha-dc6192c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -977,6 +977,7 @@
                 .then(function () {
                 var e_1, _a;
                 var platformState = platform.injector.get(PlatformState);
+                var asyncPromises = [];
                 // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
                 var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
                 if (callbacks) {
@@ -984,7 +985,10 @@
                         for (var callbacks_1 = __values(callbacks), callbacks_1_1 = callbacks_1.next(); !callbacks_1_1.done; callbacks_1_1 = callbacks_1.next()) {
                             var callback = callbacks_1_1.value;
                             try {
-                                callback();
+                                var callbackResult = callback();
+                                if (i0.ɵisPromise(callbackResult)) {
+                                    asyncPromises.push(callbackResult);
+                                }
                             }
                             catch (e) {
                                 // Ignore exceptions.
@@ -1000,9 +1004,19 @@
                         finally { if (e_1) throw e_1.error; }
                     }
                 }
-                var output = platformState.renderToString();
-                platform.destroy();
-                return output;
+                var complete = function () {
+                    var output = platformState.renderToString();
+                    platform.destroy();
+                    return output;
+                };
+                if (asyncPromises.length === 0) {
+                    return complete();
+                }
+                return Promise
+                    .all(asyncPromises.map(function (asyncPromise) {
+                    return asyncPromise.catch(function (e) { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+                }))
+                    .then(complete);
             });
         });
     }
@@ -1054,7 +1068,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.7+3.sha-6b98b53.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.7+5.sha-dc6192c.with-local-changes');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
-}(this, function (exports, i0, platformBrowser, browser, common, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+}(this, function (exports, i0, i1, browser, common, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -91,7 +91,7 @@
         }
         DominoAdapter.makeCurrent = function () {
             setDomTypes();
-            platformBrowser.ɵsetRootDomAdapter(new DominoAdapter());
+            i1.ɵsetRootDomAdapter(new DominoAdapter());
         };
         DominoAdapter.prototype.logError = function (error) { console.error(error); };
         DominoAdapter.prototype.log = function (error) {
@@ -253,7 +253,7 @@
         DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
         DominoAdapter.prototype.setCookie = function (name, value) { throw _notImplemented('setCookie'); };
         return DominoAdapter;
-    }(platformBrowser.ɵBrowserDomAdapter));
+    }(i1.ɵBrowserDomAdapter));
 
     /**
      * @license
@@ -279,18 +279,15 @@
          * Returns the current DOM state.
          */
         PlatformState.prototype.getDocument = function () { return this._doc; };
-        PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(platformBrowser.DOCUMENT)); }, providedIn: null });
+        PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(i1.DOCUMENT)); }, providedIn: null });
         return PlatformState;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
-                }]
-        }]; }, null);
+                    args: [i1.DOCUMENT]
+                }] }]; }, null);
 
     /**
      * @license
@@ -505,7 +502,7 @@
                 this.hash = parsedUrl.hash;
             }
         }
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return platformBrowser.ɵgetDOM().getBaseHref(this._doc); };
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return i1.ɵgetDOM().getBaseHref(this._doc); };
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
@@ -540,26 +537,20 @@
         };
         ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
-        ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.inject(platformBrowser.DOCUMENT), i0.inject(INITIAL_CONFIG, 8)); }, providedIn: null });
+        ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.inject(i1.DOCUMENT), i0.inject(INITIAL_CONFIG, 8)); }, providedIn: null });
         return ServerPlatformLocation;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
-                }]
-        }, {
-            type: undefined,
-            decorators: [{
+                    args: [i1.DOCUMENT]
+                }] }, { type: undefined, decorators: [{
                     type: i0.Optional
                 }, {
                     type: i0.Inject,
                     args: [INITIAL_CONFIG]
-                }]
-        }]; }, null);
+                }] }]; }, null);
     function scheduleMicroTask(fn) {
         Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
     }
@@ -578,27 +569,24 @@
         // Handle all events on the server.
         ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
         ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            return platformBrowser.ɵgetDOM().onAndCancel(element, eventName, handler);
+            return i1.ɵgetDOM().onAndCancel(element, eventName, handler);
         };
         ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            var target = platformBrowser.ɵgetDOM().getGlobalEventTarget(this.doc, element);
+            var target = i1.ɵgetDOM().getGlobalEventTarget(this.doc, element);
             if (!target) {
                 throw new Error("Unsupported event target " + target + " for event " + eventName);
             }
             return this.addEventListener(target, eventName, handler);
         };
-        ServerEventManagerPlugin.ngInjectableDef = i0.defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.inject(platformBrowser.DOCUMENT)); }, providedIn: null });
+        ServerEventManagerPlugin.ngInjectableDef = i0.defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.inject(i1.DOCUMENT)); }, providedIn: null });
         return ServerEventManagerPlugin;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
-                }]
-        }]; }, null);
+                    args: [i1.DOCUMENT]
+                }] }]; }, null);
 
     var EMPTY_ARRAY = [];
     var DEFAULT_SCHEMA = new compiler.DomElementSchemaRegistry();
@@ -629,7 +617,7 @@
                 }
                 default: {
                     if (!this.rendererByCompId.has(type.id)) {
-                        var styles = platformBrowser.ɵflattenStyles(type.id, type.styles, []);
+                        var styles = i1.ɵflattenStyles(type.id, type.styles, []);
                         this.sharedStylesHost.addStyles(styles);
                         this.rendererByCompId.set(type.id, this.defaultRenderer);
                     }
@@ -639,24 +627,15 @@
         };
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
-        ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.inject(platformBrowser.EventManager), i0.inject(i0.NgZone), i0.inject(platformBrowser.DOCUMENT), i0.inject(platformBrowser.ɵSharedStylesHost)); }, providedIn: null });
+        ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.inject(i1.EventManager), i0.inject(i0.NgZone), i0.inject(i1.DOCUMENT), i0.inject(i1.ɵSharedStylesHost)); }, providedIn: null });
         return ServerRendererFactory2;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: platformBrowser.EventManager
-        }, {
-            type: i0.NgZone
-        }, {
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
-                }]
-        }, {
-            type: platformBrowser.ɵSharedStylesHost
-        }]; }, null);
+                    args: [i1.DOCUMENT]
+                }] }, { type: i1.ɵSharedStylesHost }]; }, null);
     var DefaultServerRenderer2 = /** @class */ (function () {
         function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
             this.eventManager = eventManager;
@@ -668,27 +647,27 @@
         DefaultServerRenderer2.prototype.destroy = function () { };
         DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
             if (namespace) {
-                return platformBrowser.ɵgetDOM().createElementNS(platformBrowser.ɵNAMESPACE_URIS[namespace], name, this.document);
+                return i1.ɵgetDOM().createElementNS(i1.ɵNAMESPACE_URIS[namespace], name, this.document);
             }
-            return platformBrowser.ɵgetDOM().createElement(name, this.document);
+            return i1.ɵgetDOM().createElement(name, this.document);
         };
-        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return platformBrowser.ɵgetDOM().createComment(value); };
-        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return platformBrowser.ɵgetDOM().createTextNode(value); };
-        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { platformBrowser.ɵgetDOM().appendChild(parent, newChild); };
+        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return i1.ɵgetDOM().createComment(value); };
+        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return i1.ɵgetDOM().createTextNode(value); };
+        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { i1.ɵgetDOM().appendChild(parent, newChild); };
         DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
             if (parent) {
-                platformBrowser.ɵgetDOM().insertBefore(parent, refChild, newChild);
+                i1.ɵgetDOM().insertBefore(parent, refChild, newChild);
             }
         };
         DefaultServerRenderer2.prototype.removeChild = function (parent, oldChild) {
             if (parent) {
-                platformBrowser.ɵgetDOM().removeChild(parent, oldChild);
+                i1.ɵgetDOM().removeChild(parent, oldChild);
             }
         };
         DefaultServerRenderer2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
             var el;
             if (typeof selectorOrNode === 'string') {
-                el = platformBrowser.ɵgetDOM().querySelector(this.document, selectorOrNode);
+                el = i1.ɵgetDOM().querySelector(this.document, selectorOrNode);
                 if (!el) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
@@ -696,34 +675,34 @@
             else {
                 el = selectorOrNode;
             }
-            platformBrowser.ɵgetDOM().clearNodes(el);
+            i1.ɵgetDOM().clearNodes(el);
             return el;
         };
-        DefaultServerRenderer2.prototype.parentNode = function (node) { return platformBrowser.ɵgetDOM().parentElement(node); };
-        DefaultServerRenderer2.prototype.nextSibling = function (node) { return platformBrowser.ɵgetDOM().nextSibling(node); };
+        DefaultServerRenderer2.prototype.parentNode = function (node) { return i1.ɵgetDOM().parentElement(node); };
+        DefaultServerRenderer2.prototype.nextSibling = function (node) { return i1.ɵgetDOM().nextSibling(node); };
         DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
-                platformBrowser.ɵgetDOM().setAttributeNS(el, platformBrowser.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
+                i1.ɵgetDOM().setAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
             }
             else {
-                platformBrowser.ɵgetDOM().setAttribute(el, name, value);
+                i1.ɵgetDOM().setAttribute(el, name, value);
             }
         };
         DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
             if (namespace) {
-                platformBrowser.ɵgetDOM().removeAttributeNS(el, platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+                i1.ɵgetDOM().removeAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], name);
             }
             else {
-                platformBrowser.ɵgetDOM().removeAttribute(el, name);
+                i1.ɵgetDOM().removeAttribute(el, name);
             }
         };
-        DefaultServerRenderer2.prototype.addClass = function (el, name) { platformBrowser.ɵgetDOM().addClass(el, name); };
-        DefaultServerRenderer2.prototype.removeClass = function (el, name) { platformBrowser.ɵgetDOM().removeClass(el, name); };
+        DefaultServerRenderer2.prototype.addClass = function (el, name) { i1.ɵgetDOM().addClass(el, name); };
+        DefaultServerRenderer2.prototype.removeClass = function (el, name) { i1.ɵgetDOM().removeClass(el, name); };
         DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            platformBrowser.ɵgetDOM().setStyle(el, style, value);
+            i1.ɵgetDOM().setStyle(el, style, value);
         };
         DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
-            platformBrowser.ɵgetDOM().removeStyle(el, style);
+            i1.ɵgetDOM().removeStyle(el, style);
         };
         // The value was validated already as a property binding, against the property name.
         // To know this value is safe to use as an attribute, the security context of the
@@ -735,7 +714,7 @@
         };
         DefaultServerRenderer2.prototype.setProperty = function (el, name, value) {
             checkNoSyntheticProp(name, 'property');
-            platformBrowser.ɵgetDOM().setProperty(el, name, value);
+            i1.ɵgetDOM().setProperty(el, name, value);
             // Mirror property values for known HTML element properties in the attributes.
             // Skip `innerhtml` which is conservatively marked as an attribute for security
             // purposes but is not actually an attribute.
@@ -747,7 +726,7 @@
                 this.setAttribute(el, name, value.toString());
             }
         };
-        DefaultServerRenderer2.prototype.setValue = function (node, value) { platformBrowser.ɵgetDOM().setText(node, value); };
+        DefaultServerRenderer2.prototype.setValue = function (node, value) { i1.ɵgetDOM().setText(node, value); };
         DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
             checkNoSyntheticProp(eventName, 'listener');
             if (typeof target === 'string') {
@@ -782,10 +761,10 @@
             _this.component = component;
             // Add a 's' prefix to style attributes to indicate server.
             var componentId = 's' + component.id;
-            var styles = platformBrowser.ɵflattenStyles(componentId, component.styles, []);
+            var styles = i1.ɵflattenStyles(componentId, component.styles, []);
             sharedStylesHost.addStyles(styles);
-            _this.contentAttr = platformBrowser.ɵshimContentAttribute(componentId);
-            _this.hostAttr = platformBrowser.ɵshimHostAttribute(componentId);
+            _this.contentAttr = i1.ɵshimContentAttribute(componentId);
+            _this.hostAttr = i1.ɵshimHostAttribute(componentId);
             return _this;
         }
         EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
@@ -804,11 +783,11 @@
             _this.doc = doc;
             _this.transitionId = transitionId;
             _this.head = null;
-            _this.head = platformBrowser.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
+            _this.head = i1.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
             return _this;
         }
         ServerStylesHost.prototype._addStyle = function (style) {
-            var adapter = platformBrowser.ɵgetDOM();
+            var adapter = i1.ɵgetDOM();
             var el = adapter.createElement('style');
             adapter.setText(el, style);
             if (!!this.transitionId) {
@@ -820,26 +799,20 @@
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
-        ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(platformBrowser.DOCUMENT), i0.inject(platformBrowser.ɵTRANSITION_ID, 8)); }, providedIn: null });
+        ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(i1.DOCUMENT), i0.inject(i1.ɵTRANSITION_ID, 8)); }, providedIn: null });
         return ServerStylesHost;
-    }(platformBrowser.ɵSharedStylesHost));
+    }(i1.ɵSharedStylesHost));
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
             type: i0.Injectable
-        }], function () { return [{
-            type: undefined,
-            decorators: [{
+        }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [platformBrowser.DOCUMENT]
-                }]
-        }, {
-            type: undefined,
-            decorators: [{
+                    args: [i1.DOCUMENT]
+                }] }, { type: undefined, decorators: [{
                     type: i0.Optional
                 }, {
                     type: i0.Inject,
-                    args: [platformBrowser.ɵTRANSITION_ID]
-                }]
-        }]; }, null);
+                    args: [i1.ɵTRANSITION_ID]
+                }] }]; }, null);
 
     /**
      * @license
@@ -849,14 +822,14 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-        { provide: platformBrowser.DOCUMENT, useFactory: _document, deps: [i0.Injector] },
+        { provide: i1.DOCUMENT, useFactory: _document, deps: [i0.Injector] },
         { provide: i0.PLATFORM_ID, useValue: common.ɵPLATFORM_SERVER_ID },
         { provide: i0.PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [i0.Injector] }, {
             provide: common.PlatformLocation,
             useClass: ServerPlatformLocation,
-            deps: [platformBrowser.DOCUMENT, [i0.Optional, INITIAL_CONFIG]]
+            deps: [i1.DOCUMENT, [i0.Optional, INITIAL_CONFIG]]
         },
-        { provide: PlatformState, deps: [platformBrowser.DOCUMENT] },
+        { provide: PlatformState, deps: [i1.DOCUMENT] },
         // Add special provider that allows multiple instances of platformServer* to be created.
         { provide: i0.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
     ];
@@ -874,8 +847,8 @@
             deps: [ServerRendererFactory2, browser.ɵAnimationEngine, i0.NgZone]
         },
         ServerStylesHost,
-        { provide: platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost },
-        { provide: platformBrowser.EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
+        { provide: i1.ɵSharedStylesHost, useExisting: ServerStylesHost },
+        { provide: i1.EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
     ];
     /**
      * The ng module for the server.
@@ -885,20 +858,20 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule], exports: [platformBrowser.BrowserModule] });
+        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
         ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
                 { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
             ], imports: [[http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
-                [platformBrowser.BrowserModule]] });
+                [i1.BrowserModule]] });
         return ServerModule;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerModule, [{
             type: i0.NgModule,
             args: [{
-                    exports: [platformBrowser.BrowserModule],
+                    exports: [i1.BrowserModule],
                     imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
                     providers: [
                         SERVER_RENDER_PROVIDERS,
@@ -914,7 +887,7 @@
             return parseDocument(config.document, config.url);
         }
         else {
-            return platformBrowser.ɵgetDOM().createHtmlDocument();
+            return i1.ɵgetDOM().createHtmlDocument();
         }
     }
     /**
@@ -940,7 +913,7 @@
             var script = doc.createElement('script');
             script.id = appId + '-state';
             script.setAttribute('type', 'application/json');
-            script.textContent = platformBrowser.ɵescapeHtml(transferStore.toJson());
+            script.textContent = i1.ɵescapeHtml(transferStore.toJson());
             doc.body.appendChild(script);
         };
     }
@@ -955,10 +928,10 @@
         }
         ServerTransferStateModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTransferStateModule });
         ServerTransferStateModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
-                platformBrowser.TransferState, {
+                i1.TransferState, {
                     provide: BEFORE_APP_SERIALIZED,
                     useFactory: serializeTransferStateFactory,
-                    deps: [platformBrowser.DOCUMENT, i0.APP_ID, platformBrowser.TransferState],
+                    deps: [i1.DOCUMENT, i0.APP_ID, i1.TransferState],
                     multi: true,
                 }
             ], imports: [] });
@@ -968,10 +941,10 @@
             type: i0.NgModule,
             args: [{
                     providers: [
-                        platformBrowser.TransferState, {
+                        i1.TransferState, {
                             provide: BEFORE_APP_SERIALIZED,
                             useFactory: serializeTransferStateFactory,
-                            deps: [platformBrowser.DOCUMENT, i0.APP_ID, platformBrowser.TransferState],
+                            deps: [i1.DOCUMENT, i0.APP_ID, i1.TransferState],
                             multi: true,
                         }
                     ]
@@ -994,7 +967,7 @@
     }
     function _render(platform, moduleRefPromise) {
         return moduleRefPromise.then(function (moduleRef) {
-            var transitionId = moduleRef.injector.get(platformBrowser.ɵTRANSITION_ID, null);
+            var transitionId = moduleRef.injector.get(i1.ɵTRANSITION_ID, null);
             if (!transitionId) {
                 throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
             }
@@ -1081,7 +1054,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.6+85.sha-20a9dbe.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.6+86.sha-881807d.with-local-changes');
 
     /**
      * @license

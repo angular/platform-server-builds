@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -252,13 +252,10 @@ var PlatformState = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 /**
  * @license
@@ -513,21 +510,15 @@ var ServerPlatformLocation = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: undefined,
-        decorators: [{
+            }] }, { type: undefined, decorators: [{
                 type: Optional
             }, {
                 type: Inject,
                 args: [INITIAL_CONFIG]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
@@ -560,13 +551,10 @@ var ServerEventManagerPlugin = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 var EMPTY_ARRAY = [];
 var DEFAULT_SCHEMA = new DomElementSchemaRegistry();
@@ -612,19 +600,10 @@ var ServerRendererFactory2 = /** @class */ (function () {
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
-        type: EventManager
-    }, {
-        type: NgZone
-    }, {
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: ɵSharedStylesHost
-    }]; }, null);
+            }] }, { type: ɵSharedStylesHost }]; }, null);
 var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;
@@ -793,21 +772,15 @@ var ServerStylesHost = /** @class */ (function (_super) {
 }(ɵSharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: undefined,
-        decorators: [{
+            }] }, { type: undefined, decorators: [{
                 type: Optional
             }, {
                 type: Inject,
                 args: [ɵTRANSITION_ID]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 /**
  * @license
@@ -1049,7 +1022,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.6+85.sha-20a9dbe.with-local-changes');
+var VERSION = new Version('8.0.0-beta.6+86.sha-881807d.with-local-changes');
 
 /**
  * @license

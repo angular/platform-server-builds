@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.6+85.sha-20a9dbe.with-local-changes
+ * @license Angular v8.0.0-beta.6+86.sha-881807d.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -454,13 +454,10 @@ PlatformState.ctorParameters = () => [
 /** @nocollapse */ PlatformState.ngInjectableDef = defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 /**
  * @fileoverview added by tsickle
@@ -842,21 +839,15 @@ ServerPlatformLocation.ctorParameters = () => [
 /** @nocollapse */ ServerPlatformLocation.ngInjectableDef = defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(inject(DOCUMENT), inject(INITIAL_CONFIG, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: undefined,
-        decorators: [{
+            }] }, { type: undefined, decorators: [{
                 type: Optional
             }, {
                 type: Inject,
                 args: [INITIAL_CONFIG]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 /**
  * @param {?} fn
  * @return {?}
@@ -923,13 +914,10 @@ ServerEventManagerPlugin.ctorParameters = () => [
 /** @nocollapse */ ServerEventManagerPlugin.ngInjectableDef = defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(inject(DOCUMENT)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 /**
  * @fileoverview added by tsickle
@@ -1016,19 +1004,10 @@ ServerRendererFactory2.ctorParameters = () => [
 /** @nocollapse */ ServerRendererFactory2.ngInjectableDef = defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(inject(EventManager), inject(NgZone), inject(DOCUMENT), inject(ɵSharedStylesHost)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
-    }], function () { return [{
-        type: EventManager
-    }, {
-        type: NgZone
-    }, {
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: ɵSharedStylesHost
-    }]; }, null);
+            }] }, { type: ɵSharedStylesHost }]; }, null);
 class DefaultServerRenderer2 {
     /**
      * @param {?} eventManager
@@ -1367,21 +1346,15 @@ ServerStylesHost.ctorParameters = () => [
 /** @nocollapse */ ServerStylesHost.ngInjectableDef = defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(inject(DOCUMENT), inject(ɵTRANSITION_ID, 8)); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
-    }], function () { return [{
-        type: undefined,
-        decorators: [{
+    }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }]
-    }, {
-        type: undefined,
-        decorators: [{
+            }] }, { type: undefined, decorators: [{
                 type: Optional
             }, {
                 type: Inject,
                 args: [ɵTRANSITION_ID]
-            }]
-    }]; }, null);
+            }] }]; }, null);
 
 /**
  * @fileoverview added by tsickle
@@ -1677,7 +1650,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.6+85.sha-20a9dbe.with-local-changes');
+const VERSION = new Version('8.0.0-beta.6+86.sha-881807d.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

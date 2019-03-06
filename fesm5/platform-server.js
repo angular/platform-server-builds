@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.0.0-beta.6+84.sha-25166d4.with-local-changes
+ * @license Angular v8.0.0-beta.7+7.sha-22ddbf4.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { __extends, __decorate, __param, __metadata, __values } from 'tslib';
-import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, createPlatformFactory, platformCore, APP_ID, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵsetRootDomAdapter, ɵBrowserDomAdapter, DOCUMENT, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
@@ -926,6 +926,7 @@ function _render(platform, moduleRefPromise) {
             .then(function () {
             var e_1, _a;
             var platformState = platform.injector.get(PlatformState);
+            var asyncPromises = [];
             // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
             var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
             if (callbacks) {
@@ -933,7 +934,10 @@ function _render(platform, moduleRefPromise) {
                     for (var callbacks_1 = __values(callbacks), callbacks_1_1 = callbacks_1.next(); !callbacks_1_1.done; callbacks_1_1 = callbacks_1.next()) {
                         var callback = callbacks_1_1.value;
                         try {
-                            callback();
+                            var callbackResult = callback();
+                            if (ɵisPromise(callbackResult)) {
+                                asyncPromises.push(callbackResult);
+                            }
                         }
                         catch (e) {
                             // Ignore exceptions.
@@ -949,9 +953,19 @@ function _render(platform, moduleRefPromise) {
                     finally { if (e_1) throw e_1.error; }
                 }
             }
-            var output = platformState.renderToString();
-            platform.destroy();
-            return output;
+            var complete = function () {
+                var output = platformState.renderToString();
+                platform.destroy();
+                return output;
+            };
+            if (asyncPromises.length === 0) {
+                return complete();
+            }
+            return Promise
+                .all(asyncPromises.map(function (asyncPromise) {
+                return asyncPromise.catch(function (e) { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+            }))
+                .then(complete);
         });
     });
 }
@@ -1003,7 +1017,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.6+84.sha-25166d4.with-local-changes');
+var VERSION = new Version('8.0.0-beta.7+7.sha-22ddbf4.with-local-changes');
 
 /**
  * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+8.sha-9a7f560.with-local-changes
+ * @license Angular v8.0.0-beta.8+11.sha-7b20cec.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -19,7 +19,7 @@ import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -412,7 +412,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -461,7 +461,7 @@ PlatformState.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -520,7 +520,11 @@ class ZoneMacroTaskWrapper {
      * @return {?}
      */
     wrap(request) {
-        return new Observable((observer) => {
+        return new Observable((/**
+         * @param {?} observer
+         * @return {?}
+         */
+        (observer) => {
             /** @type {?} */
             let task = (/** @type {?} */ (null));
             /** @type {?} */
@@ -532,28 +536,47 @@ class ZoneMacroTaskWrapper {
             /** @type {?} */
             let savedError = null;
             /** @type {?} */
-            const scheduleTask = (_task) => {
+            const scheduleTask = (/**
+             * @param {?} _task
+             * @return {?}
+             */
+            (_task) => {
                 task = _task;
                 scheduled = true;
                 /** @type {?} */
                 const delegate = this.delegate(request);
-                sub = delegate.subscribe(res => savedResult = res, err => {
+                sub = delegate.subscribe((/**
+                 * @param {?} res
+                 * @return {?}
+                 */
+                res => savedResult = res), (/**
+                 * @param {?} err
+                 * @return {?}
+                 */
+                err => {
                     if (!scheduled) {
                         throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     savedError = err;
                     scheduled = false;
                     task.invoke();
-                }, () => {
+                }), (/**
+                 * @return {?}
+                 */
+                () => {
                     if (!scheduled) {
                         throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
                     }
                     scheduled = false;
                     task.invoke();
-                });
-            };
+                }));
+            });
             /** @type {?} */
-            const cancelTask = (_task) => {
+            const cancelTask = (/**
+             * @param {?} _task
+             * @return {?}
+             */
+            (_task) => {
                 if (!scheduled) {
                     return;
                 }
@@ -562,9 +585,12 @@ class ZoneMacroTaskWrapper {
                     sub.unsubscribe();
                     sub = null;
                 }
-            };
+            });
             /** @type {?} */
-            const onComplete = () => {
+            const onComplete = (/**
+             * @return {?}
+             */
+            () => {
                 if (savedError !== null) {
                     observer.error(savedError);
                 }
@@ -572,14 +598,20 @@ class ZoneMacroTaskWrapper {
                     observer.next(savedResult);
                     observer.complete();
                 }
-            };
+            });
             // MockBackend for Http is synchronous, which means that if scheduleTask is by
             // scheduleMacroTask, the request will hit MockBackend and the response will be
             // sent, causing task.invoke() to be called.
             /** @type {?} */
-            const _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, () => null, cancelTask);
+            const _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, (/**
+             * @return {?}
+             */
+            () => null), cancelTask);
             scheduleTask(_task);
-            return () => {
+            return (/**
+             * @return {?}
+             */
+            () => {
                 if (scheduled && task) {
                     task.zone.cancelTask(task);
                     scheduled = false;
@@ -588,8 +620,8 @@ class ZoneMacroTaskWrapper {
                     sub.unsubscribe();
                     sub = null;
                 }
-            };
-        });
+            });
+        }));
     }
 }
 class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
@@ -689,7 +721,7 @@ const SERVER_HTTP_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * The DI token for setting the initial config for the platform.
@@ -709,7 +741,7 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -791,9 +823,12 @@ class ServerPlatformLocation {
         ((/** @type {?} */ (this))).hash = value;
         /** @type {?} */
         const newUrl = this.url;
-        scheduleMicroTask(() => this._hashUpdate.next((/** @type {?} */ ({
+        scheduleMicroTask((/**
+         * @return {?}
+         */
+        () => this._hashUpdate.next((/** @type {?} */ ({
             type: 'hashchange', state: null, oldUrl, newUrl
-        }))));
+        })))));
     }
     /**
      * @param {?} state
@@ -858,7 +893,7 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -921,7 +956,7 @@ ServerEventManagerPlugin.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1227,16 +1262,23 @@ class DefaultServerRenderer2 {
      * @return {?}
      */
     decoratePreventDefault(eventHandler) {
-        return (event) => {
+        return (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
             // Run the event handler inside the ngZone because event handlers are not patched
             // by Zone on the server. This is required only for tests.
             /** @type {?} */
-            const allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
+            const allowDefaultBehavior = this.ngZone.runGuarded((/**
+             * @return {?}
+             */
+            () => eventHandler(event)));
             if (allowDefaultBehavior === false) {
                 event.preventDefault();
                 event.returnValue = false;
             }
-        };
+        });
     }
 }
 /** @type {?} */
@@ -1292,7 +1334,7 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1333,7 +1375,11 @@ class ServerStylesHost extends ɵSharedStylesHost {
      * @param {?} additions
      * @return {?}
      */
-    onStylesAdded(additions) { additions.forEach(style => this._addStyle(style)); }
+    onStylesAdded(additions) { additions.forEach((/**
+     * @param {?} style
+     * @return {?}
+     */
+    style => this._addStyle(style))); }
 }
 ServerStylesHost.decorators = [
     { type: Injectable },
@@ -1358,7 +1404,7 @@ ServerStylesHost.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
@@ -1378,7 +1424,10 @@ const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
  * @return {?}
  */
 function initDominoAdapter(injector) {
-    return () => { DominoAdapter.makeCurrent(); };
+    return (/**
+     * @return {?}
+     */
+    () => { DominoAdapter.makeCurrent(); });
 }
 /**
  * @param {?} renderer
@@ -1470,7 +1519,7 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1486,14 +1535,17 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
  * @return {?}
  */
 function serializeTransferStateFactory(doc, appId, transferStore) {
-    return () => {
+    return (/**
+     * @return {?}
+     */
+    () => {
         /** @type {?} */
         const script = doc.createElement('script');
         script.id = appId + '-state';
         script.setAttribute('type', 'application/json');
         script.textContent = ɵescapeHtml(transferStore.toJson());
         doc.body.appendChild(script);
-    };
+    });
 }
 /**
  * NgModule to install on the server side while using the `TransferState` to transfer state from
@@ -1540,7 +1592,7 @@ ServerTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * @param {?} platformFactory
@@ -1562,7 +1614,11 @@ function _getPlatform(platformFactory, options) {
  * @return {?}
  */
 function _render(platform, moduleRefPromise) {
-    return moduleRefPromise.then((moduleRef) => {
+    return moduleRefPromise.then((/**
+     * @param {?} moduleRef
+     * @return {?}
+     */
+    (moduleRef) => {
         /** @type {?} */
         const transitionId = moduleRef.injector.get(ɵTRANSITION_ID, null);
         if (!transitionId) {
@@ -1571,9 +1627,16 @@ the server-rendered app can be properly bootstrapped into a client app.`);
         }
         /** @type {?} */
         const applicationRef = moduleRef.injector.get(ApplicationRef);
-        return applicationRef.isStable.pipe((first((isStable) => isStable)))
+        return applicationRef.isStable.pipe((first((/**
+         * @param {?} isStable
+         * @return {?}
+         */
+        (isStable) => isStable))))
             .toPromise()
-            .then(() => {
+            .then((/**
+         * @return {?}
+         */
+        () => {
             /** @type {?} */
             const platformState = platform.injector.get(PlatformState);
             /** @type {?} */
@@ -1597,22 +1660,33 @@ the server-rendered app can be properly bootstrapped into a client app.`);
                 }
             }
             /** @type {?} */
-            const complete = () => {
+            const complete = (/**
+             * @return {?}
+             */
+            () => {
                 /** @type {?} */
                 const output = platformState.renderToString();
                 platform.destroy();
                 return output;
-            };
+            });
             if (asyncPromises.length === 0) {
                 return complete();
             }
             return Promise
-                .all(asyncPromises.map(asyncPromise => {
-                return asyncPromise.catch(e => { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
-            }))
+                .all(asyncPromises.map((/**
+             * @param {?} asyncPromise
+             * @return {?}
+             */
+            asyncPromise => {
+                return asyncPromise.catch((/**
+                 * @param {?} e
+                 * @return {?}
+                 */
+                e => { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); }));
+            })))
                 .then(complete);
-        });
-    });
+        }));
+    }));
 }
 /**
  * Renders a Module to string.
@@ -1656,32 +1730,32 @@ function renderModuleFactory(moduleFactory, options) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.8+8.sha-9a7f560.with-local-changes');
+const VERSION = new Version('8.0.0-beta.8+11.sha-7b20cec.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 export { PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };

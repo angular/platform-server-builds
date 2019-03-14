@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.8+20.sha-a3e1054.with-local-changes
+ * @license Angular v8.0.0-beta.8+25.sha-410ccac.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -69,9 +69,9 @@
     /**
      * Parses a document string to a Document object.
      */
-    function parseDocument(html, url$$1) {
-        if (url$$1 === void 0) { url$$1 = '/'; }
-        var window = domino.createWindow(html, url$$1);
+    function parseDocument(html, url) {
+        if (url === void 0) { url = '/'; }
+        var window = domino.createWindow(html, url);
         var doc = window.document;
         return doc;
     }
@@ -298,9 +298,9 @@
      */
     var xhr2 = require('xhr2');
     var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-    function validateRequestUrl(url$$1) {
-        if (!isAbsoluteUrl.test(url$$1)) {
-            throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
+    function validateRequestUrl(url) {
+        if (!isAbsoluteUrl.test(url)) {
+            throw new Error("URLs requested via Http on the server must be absolute. URL: " + url);
         }
     }
     var ServerXhr = /** @class */ (function () {
@@ -1068,7 +1068,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.8+20.sha-a3e1054.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.8+25.sha-410ccac.with-local-changes');
 
     /**
      * @license

@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
+ * @license Angular v8.0.0-beta.8+31.sha-90df7de.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
+import { DOCUMENT, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { defineInjectable, inject, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵdefineNgModule, defineInjector, Testability, NgModule, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
-import { ɵsetRootDomAdapter, ɵBrowserDomAdapter, DOCUMENT, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { __extends, __values } from 'tslib';
+import { ɵsetRootDomAdapter, ɵBrowserDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { ReadyState, Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, HttpModule } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
@@ -443,6 +443,13 @@ var INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
  */
 var BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 function parseUrl(urlStr) {
     var parsedUrl = parse(urlStr);
     return {
@@ -1036,7 +1043,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes');
+var VERSION = new Version('8.0.0-beta.8+31.sha-90df7de.with-local-changes');
 
 /**
  * @license

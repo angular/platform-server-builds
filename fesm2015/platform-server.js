@@ -1,13 +1,13 @@
 /**
- * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
+ * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { DOCUMENT, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵdefineNgModule, defineInjector, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
-import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
+import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
+import { ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
 import { Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, ReadyState, HttpModule } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
@@ -1741,7 +1741,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.8+29.sha-7b70760.with-local-changes');
+const VERSION = new Version('8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

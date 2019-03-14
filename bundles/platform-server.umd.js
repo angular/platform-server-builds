@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.8+26.sha-a5c747f.with-local-changes
+ * @license Angular v8.0.0-beta.8+29.sha-7b70760.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
-}(this, function (exports, i0, i1, browser, common, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
+}(this, function (exports, common, i0, i1, browser, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -279,14 +279,14 @@
          * Returns the current DOM state.
          */
         PlatformState.prototype.getDocument = function () { return this._doc; };
-        PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(i1.DOCUMENT)); }, providedIn: null });
+        PlatformState.ngInjectableDef = i0.defineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(i0.inject(common.DOCUMENT)); }, providedIn: null });
         return PlatformState;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [i1.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }]; }, null);
 
     /**
@@ -475,6 +475,13 @@
      */
     var BEFORE_APP_SERIALIZED = new i0.InjectionToken('Server.RENDER_MODULE_HOOK');
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     function parseUrl(urlStr) {
         var parsedUrl = url.parse(urlStr);
         return {
@@ -537,14 +544,14 @@
         };
         ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
-        ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.inject(i1.DOCUMENT), i0.inject(INITIAL_CONFIG, 8)); }, providedIn: null });
+        ServerPlatformLocation.ngInjectableDef = i0.defineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.inject(common.DOCUMENT), i0.inject(INITIAL_CONFIG, 8)); }, providedIn: null });
         return ServerPlatformLocation;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [i1.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }, { type: undefined, decorators: [{
                     type: i0.Optional
                 }, {
@@ -578,14 +585,14 @@
             }
             return this.addEventListener(target, eventName, handler);
         };
-        ServerEventManagerPlugin.ngInjectableDef = i0.defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.inject(i1.DOCUMENT)); }, providedIn: null });
+        ServerEventManagerPlugin.ngInjectableDef = i0.defineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.inject(common.DOCUMENT)); }, providedIn: null });
         return ServerEventManagerPlugin;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [i1.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }]; }, null);
 
     var EMPTY_ARRAY = [];
@@ -627,14 +634,14 @@
         };
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
-        ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.inject(i1.EventManager), i0.inject(i0.NgZone), i0.inject(i1.DOCUMENT), i0.inject(i1.ɵSharedStylesHost)); }, providedIn: null });
+        ServerRendererFactory2.ngInjectableDef = i0.defineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.inject(i1.EventManager), i0.inject(i0.NgZone), i0.inject(common.DOCUMENT), i0.inject(i1.ɵSharedStylesHost)); }, providedIn: null });
         return ServerRendererFactory2;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
             type: i0.Injectable
         }], function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [i1.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }, { type: i1.ɵSharedStylesHost }]; }, null);
     var DefaultServerRenderer2 = /** @class */ (function () {
         function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
@@ -799,14 +806,14 @@
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
-        ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(i1.DOCUMENT), i0.inject(i1.ɵTRANSITION_ID, 8)); }, providedIn: null });
+        ServerStylesHost.ngInjectableDef = i0.defineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.inject(common.DOCUMENT), i0.inject(i1.ɵTRANSITION_ID, 8)); }, providedIn: null });
         return ServerStylesHost;
     }(i1.ɵSharedStylesHost));
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
-                    args: [i1.DOCUMENT]
+                    args: [common.DOCUMENT]
                 }] }, { type: undefined, decorators: [{
                     type: i0.Optional
                 }, {
@@ -822,14 +829,14 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-        { provide: i1.DOCUMENT, useFactory: _document, deps: [i0.Injector] },
+        { provide: common.DOCUMENT, useFactory: _document, deps: [i0.Injector] },
         { provide: i0.PLATFORM_ID, useValue: common.ɵPLATFORM_SERVER_ID },
         { provide: i0.PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [i0.Injector] }, {
             provide: common.PlatformLocation,
             useClass: ServerPlatformLocation,
-            deps: [i1.DOCUMENT, [i0.Optional, INITIAL_CONFIG]]
+            deps: [common.DOCUMENT, [i0.Optional, INITIAL_CONFIG]]
         },
-        { provide: PlatformState, deps: [i1.DOCUMENT] },
+        { provide: PlatformState, deps: [common.DOCUMENT] },
         // Add special provider that allows multiple instances of platformServer* to be created.
         { provide: i0.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
     ];
@@ -931,7 +938,7 @@
                 i1.TransferState, {
                     provide: BEFORE_APP_SERIALIZED,
                     useFactory: serializeTransferStateFactory,
-                    deps: [i1.DOCUMENT, i0.APP_ID, i1.TransferState],
+                    deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
                     multi: true,
                 }
             ], imports: [] });
@@ -944,7 +951,7 @@
                         i1.TransferState, {
                             provide: BEFORE_APP_SERIALIZED,
                             useFactory: serializeTransferStateFactory,
-                            deps: [i1.DOCUMENT, i0.APP_ID, i1.TransferState],
+                            deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
                             multi: true,
                         }
                     ]
@@ -1068,7 +1075,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.8+26.sha-a5c747f.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.8+29.sha-7b70760.with-local-changes');
 
     /**
      * @license

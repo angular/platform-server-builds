@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes
+ * @license Angular v8.0.0-beta.8+31.sha-90df7de.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
-}(this, function (exports, core, platformBrowser, browser, common, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
+}(this, function (exports, common, core, platformBrowser, browser, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -296,7 +296,7 @@
         PlatformState.prototype.getDocument = function () { return this._doc; };
         PlatformState = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], PlatformState);
         return PlatformState;
@@ -557,7 +557,7 @@
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
         ServerPlatformLocation = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(platformBrowser.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
+            __param(0, core.Inject(common.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
             __metadata("design:paramtypes", [Object, Object])
         ], ServerPlatformLocation);
         return ServerPlatformLocation;
@@ -591,7 +591,7 @@
         };
         ServerEventManagerPlugin = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [Object])
         ], ServerEventManagerPlugin);
         return ServerEventManagerPlugin;
@@ -645,7 +645,7 @@
         ServerRendererFactory2.prototype.end = function () { };
         ServerRendererFactory2 = __decorate([
             core.Injectable(),
-            __param(2, core.Inject(platformBrowser.DOCUMENT)),
+            __param(2, core.Inject(common.DOCUMENT)),
             __metadata("design:paramtypes", [platformBrowser.EventManager, core.NgZone, Object, platformBrowser.ɵSharedStylesHost])
         ], ServerRendererFactory2);
         return ServerRendererFactory2;
@@ -822,7 +822,7 @@
         };
         ServerStylesHost = __decorate([
             core.Injectable(),
-            __param(0, core.Inject(platformBrowser.DOCUMENT)),
+            __param(0, core.Inject(common.DOCUMENT)),
             __param(1, core.Optional()), __param(1, core.Inject(platformBrowser.ɵTRANSITION_ID)),
             __metadata("design:paramtypes", [Object, String])
         ], ServerStylesHost);
@@ -837,14 +837,14 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-        { provide: platformBrowser.DOCUMENT, useFactory: _document, deps: [core.Injector] },
+        { provide: common.DOCUMENT, useFactory: _document, deps: [core.Injector] },
         { provide: core.PLATFORM_ID, useValue: common.ɵPLATFORM_SERVER_ID },
         { provide: core.PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [core.Injector] }, {
             provide: common.PlatformLocation,
             useClass: ServerPlatformLocation,
-            deps: [platformBrowser.DOCUMENT, [core.Optional, INITIAL_CONFIG]]
+            deps: [common.DOCUMENT, [core.Optional, INITIAL_CONFIG]]
         },
-        { provide: PlatformState, deps: [platformBrowser.DOCUMENT] },
+        { provide: PlatformState, deps: [common.DOCUMENT] },
         // Add special provider that allows multiple instances of platformServer* to be created.
         { provide: core.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
     ];
@@ -938,7 +938,7 @@
                     platformBrowser.TransferState, {
                         provide: BEFORE_APP_SERIALIZED,
                         useFactory: serializeTransferStateFactory,
-                        deps: [platformBrowser.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
+                        deps: [common.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
                         multi: true,
                     }
                 ]
@@ -1064,7 +1064,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.8+28.sha-6ab8c0b.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.8+31.sha-90df7de.with-local-changes');
 
     /**
      * @license

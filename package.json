@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
+  "version": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,13 +13,13 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/common": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/compiler": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/core": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/http": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/platform-browser": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes",
-    "@angular/platform-browser-dynamic": "8.0.0-beta.10+17.sha-f8c7c3c.with-local-changes"
+    "@angular/animations": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/common": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/compiler": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/core": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/http": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/platform-browser": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes",
+    "@angular/platform-browser-dynamic": "8.0.0-beta.10+23.sha-1727fe2.with-local-changes"
   },
   "dependencies": {
     "domino": "^2.1.2",

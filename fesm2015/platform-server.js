@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+21.sha-96b800c.with-local-changes
+ * @license Angular v8.0.0-beta.10+25.sha-9745f55.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,6 @@ import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injec
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
-import { Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, ReadyState, HttpModule } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
@@ -472,17 +471,6 @@ PlatformState.ctorParameters = () => [
  */
 /** @type {?} */
 const xhr2 = require('xhr2');
-/** @type {?} */
-const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-/**
- * @param {?} url
- * @return {?}
- */
-function validateRequestUrl(url) {
-    if (!isAbsoluteUrl.test(url)) {
-        throw new Error(`URLs requested via Http on the server must be absolute. URL: ${url}`);
-    }
-}
 class ServerXhr {
     /**
      * @return {?}
@@ -494,20 +482,6 @@ ServerXhr.decorators = [
 ];
 /** @nocollapse */ ServerXhr.ngInjectableDef = defineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
 /*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
-        type: Injectable
-    }], null, null);
-class ServerXsrfStrategy {
-    /**
-     * @param {?} req
-     * @return {?}
-     */
-    configureRequest(req) { }
-}
-ServerXsrfStrategy.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */ ServerXsrfStrategy.ngInjectableDef = defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerXsrfStrategy, [{
         type: Injectable
     }], null, null);
 /**
@@ -624,48 +598,6 @@ class ZoneMacroTaskWrapper {
         }));
     }
 }
-class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
-    /**
-     * @param {?} request
-     * @param {?} backend
-     */
-    constructor(request, backend) {
-        super();
-        this.request = request;
-        this.backend = backend;
-        validateRequestUrl(request.url);
-        this.response = this.wrap(request);
-    }
-    /**
-     * @param {?} request
-     * @return {?}
-     */
-    delegate(request) {
-        this.lastConnection = this.backend.createConnection(request);
-        return (/** @type {?} */ (this.lastConnection.response));
-    }
-    /**
-     * @return {?}
-     */
-    get readyState() {
-        return !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
-    }
-}
-class ZoneMacroTaskBackend {
-    /**
-     * @param {?} backend
-     */
-    constructor(backend) {
-        this.backend = backend;
-    }
-    /**
-     * @param {?} request
-     * @return {?}
-     */
-    createConnection(request) {
-        return new ZoneMacroTaskConnection(request, this.backend);
-    }
-}
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
     /**
      * @param {?} backend
@@ -689,16 +621,6 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
     }
 }
 /**
- * @param {?} xhrBackend
- * @param {?} options
- * @return {?}
- */
-function httpFactory(xhrBackend, options) {
-    /** @type {?} */
-    const macroBackend = new ZoneMacroTaskBackend(xhrBackend);
-    return new Http(macroBackend, options);
-}
-/**
  * @param {?} backend
  * @param {?} injector
  * @return {?}
@@ -710,8 +632,6 @@ function zoneWrappedInterceptingHandler(backend, injector) {
 }
 /** @type {?} */
 const SERVER_HTTP_PROVIDERS = [
-    { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
-    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
@@ -1460,7 +1380,7 @@ class ServerModule {
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+                imports: [HttpClientModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -1469,19 +1389,19 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, imports: [HttpModule, HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
 /** @nocollapse */ ServerModule.ngInjectorDef = defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-    ], imports: [[HttpModule, HttpClientModule, NoopAnimationsModule],
+    ], imports: [[HttpClientModule, NoopAnimationsModule],
         [BrowserModule]] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+                imports: [HttpClientModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -1741,7 +1661,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.10+21.sha-96b800c.with-local-changes');
+const VERSION = new Version('8.0.0-beta.10+25.sha-9745f55.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

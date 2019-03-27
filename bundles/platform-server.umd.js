@@ -1,14 +1,14 @@
 /**
- * @license Angular v8.0.0-beta.10+21.sha-96b800c.with-local-changes
+ * @license Angular v8.0.0-beta.10+25.sha-9745f55.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
-}(this, function (exports, common, i0, i1, browser, http, http$1, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
+}(this, function (exports, common, i0, i1, browser, http, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -297,12 +297,6 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var xhr2 = require('xhr2');
-    var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-    function validateRequestUrl(url) {
-        if (!isAbsoluteUrl.test(url)) {
-            throw new Error("URLs requested via Http on the server must be absolute. URL: " + url);
-        }
-    }
     var ServerXhr = /** @class */ (function () {
         function ServerXhr() {
         }
@@ -311,16 +305,6 @@
         return ServerXhr;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXhr, [{
-            type: i0.Injectable
-        }], null, null);
-    var ServerXsrfStrategy = /** @class */ (function () {
-        function ServerXsrfStrategy() {
-        }
-        ServerXsrfStrategy.prototype.configureRequest = function (req) { };
-        ServerXsrfStrategy.ngInjectableDef = i0.defineInjectable({ token: ServerXsrfStrategy, factory: function ServerXsrfStrategy_Factory(t) { return new (t || ServerXsrfStrategy)(); }, providedIn: null });
-        return ServerXsrfStrategy;
-    }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXsrfStrategy, [{
             type: i0.Injectable
         }], null, null);
     var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -391,38 +375,6 @@
         };
         return ZoneMacroTaskWrapper;
     }());
-    var ZoneMacroTaskConnection = /** @class */ (function (_super) {
-        __extends(ZoneMacroTaskConnection, _super);
-        function ZoneMacroTaskConnection(request, backend) {
-            var _this = _super.call(this) || this;
-            _this.request = request;
-            _this.backend = backend;
-            validateRequestUrl(request.url);
-            _this.response = _this.wrap(request);
-            return _this;
-        }
-        ZoneMacroTaskConnection.prototype.delegate = function (request) {
-            this.lastConnection = this.backend.createConnection(request);
-            return this.lastConnection.response;
-        };
-        Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
-            get: function () {
-                return !!this.lastConnection ? this.lastConnection.readyState : http$1.ReadyState.Unsent;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return ZoneMacroTaskConnection;
-    }(ZoneMacroTaskWrapper));
-    var ZoneMacroTaskBackend = /** @class */ (function () {
-        function ZoneMacroTaskBackend(backend) {
-            this.backend = backend;
-        }
-        ZoneMacroTaskBackend.prototype.createConnection = function (request) {
-            return new ZoneMacroTaskConnection(request, this.backend);
-        };
-        return ZoneMacroTaskBackend;
-    }());
     var ZoneClientBackend = /** @class */ (function (_super) {
         __extends(ZoneClientBackend, _super);
         function ZoneClientBackend(backend) {
@@ -436,17 +388,11 @@
         };
         return ZoneClientBackend;
     }(ZoneMacroTaskWrapper));
-    function httpFactory(xhrBackend, options) {
-        var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
-        return new http$1.Http(macroBackend, options);
-    }
     function zoneWrappedInterceptingHandler(backend, injector) {
         var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
         return new ZoneClientBackend(realBackend);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http$1.Http, useFactory: httpFactory, deps: [http$1.XHRBackend, http$1.RequestOptions] },
-        { provide: http$1.BrowserXhr, useClass: ServerXhr }, { provide: http$1.XSRFStrategy, useClass: ServerXsrfStrategy },
         { provide: http.XhrFactory, useClass: ServerXhr }, {
             provide: http.HttpHandler,
             useFactory: zoneWrappedInterceptingHandler,
@@ -865,13 +811,13 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
+        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
         ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
                 { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-            ], imports: [[http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
+            ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule],
                 [i1.BrowserModule]] });
         return ServerModule;
     }());
@@ -879,7 +825,7 @@
             type: i0.NgModule,
             args: [{
                     exports: [i1.BrowserModule],
-                    imports: [http$1.HttpModule, http.HttpClientModule, animations.NoopAnimationsModule],
+                    imports: [http.HttpClientModule, animations.NoopAnimationsModule],
                     providers: [
                         SERVER_RENDER_PROVIDERS,
                         SERVER_HTTP_PROVIDERS,
@@ -1075,7 +1021,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.10+21.sha-96b800c.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.10+25.sha-9745f55.with-local-changes');
 
     /**
      * @license

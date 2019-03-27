@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+16.sha-b17d1a9.with-local-changes
+ * @license Angular v8.0.0-beta.10+25.sha-9745f55.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9,7 +9,6 @@ import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulati
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
-import { Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, ReadyState, HttpModule } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
@@ -458,17 +457,6 @@ PlatformState.ctorParameters = () => [
  */
 /** @type {?} */
 const xhr2 = require('xhr2');
-/** @type {?} */
-const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-/**
- * @param {?} url
- * @return {?}
- */
-function validateRequestUrl(url) {
-    if (!isAbsoluteUrl.test(url)) {
-        throw new Error(`URLs requested via Http on the server must be absolute. URL: ${url}`);
-    }
-}
 class ServerXhr {
     /**
      * @return {?}
@@ -476,16 +464,6 @@ class ServerXhr {
     build() { return new xhr2.XMLHttpRequest(); }
 }
 ServerXhr.decorators = [
-    { type: Injectable }
-];
-class ServerXsrfStrategy {
-    /**
-     * @param {?} req
-     * @return {?}
-     */
-    configureRequest(req) { }
-}
-ServerXsrfStrategy.decorators = [
     { type: Injectable }
 ];
 /**
@@ -602,48 +580,6 @@ class ZoneMacroTaskWrapper {
         }));
     }
 }
-class ZoneMacroTaskConnection extends ZoneMacroTaskWrapper {
-    /**
-     * @param {?} request
-     * @param {?} backend
-     */
-    constructor(request, backend) {
-        super();
-        this.request = request;
-        this.backend = backend;
-        validateRequestUrl(request.url);
-        this.response = this.wrap(request);
-    }
-    /**
-     * @param {?} request
-     * @return {?}
-     */
-    delegate(request) {
-        this.lastConnection = this.backend.createConnection(request);
-        return (/** @type {?} */ (this.lastConnection.response));
-    }
-    /**
-     * @return {?}
-     */
-    get readyState() {
-        return !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
-    }
-}
-class ZoneMacroTaskBackend {
-    /**
-     * @param {?} backend
-     */
-    constructor(backend) {
-        this.backend = backend;
-    }
-    /**
-     * @param {?} request
-     * @return {?}
-     */
-    createConnection(request) {
-        return new ZoneMacroTaskConnection(request, this.backend);
-    }
-}
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
     /**
      * @param {?} backend
@@ -667,16 +603,6 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
     }
 }
 /**
- * @param {?} xhrBackend
- * @param {?} options
- * @return {?}
- */
-function httpFactory(xhrBackend, options) {
-    /** @type {?} */
-    const macroBackend = new ZoneMacroTaskBackend(xhrBackend);
-    return new Http(macroBackend, options);
-}
-/**
  * @param {?} backend
  * @param {?} injector
  * @return {?}
@@ -688,8 +614,6 @@ function zoneWrappedInterceptingHandler(backend, injector) {
 }
 /** @type {?} */
 const SERVER_HTTP_PROVIDERS = [
-    { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
-    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
@@ -1372,7 +1296,7 @@ class ServerModule {
 ServerModule.decorators = [
     { type: NgModule, args: [{
                 exports: [BrowserModule],
-                imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
+                imports: [HttpClientModule, NoopAnimationsModule],
                 providers: [
                     SERVER_RENDER_PROVIDERS,
                     SERVER_HTTP_PROVIDERS,
@@ -1603,7 +1527,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.10+16.sha-b17d1a9.with-local-changes');
+const VERSION = new Version('8.0.0-beta.10+25.sha-9745f55.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
@@ -1624,5 +1548,5 @@ const VERSION = new Version('8.0.0-beta.10+16.sha-b17d1a9.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_i, ServerXhr as ɵangular_packages_platform_server_platform_server_e, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_f, httpFactory as ɵangular_packages_platform_server_platform_server_g, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_h, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_g, ServerXhr as ɵangular_packages_platform_server_platform_server_e, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_f, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

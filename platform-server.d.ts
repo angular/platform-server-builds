@@ -1,12 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.10+21.sha-96b800c.with-local-changes
+ * @license Angular v8.0.0-beta.10+25.sha-9745f55.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { BrowserXhr } from '@angular/http';
 import { EventManager } from '@angular/platform-browser';
-import { Http } from '@angular/http';
 import { HttpBackend } from '@angular/common/http';
 import { HttpEvent } from '@angular/common/http';
 import { HttpRequest } from '@angular/common/http';
@@ -20,14 +18,11 @@ import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
-import { Request } from '@angular/http';
-import { RequestOptions } from '@angular/http';
 import { StaticProvider } from '@angular/core';
 import { TransferState } from '@angular/platform-browser';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { XHRBackend } from '@angular/http';
-import { XSRFStrategy } from '@angular/http';
+import { XhrFactory } from '@angular/common/http';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { ɵSharedStylesHost } from '@angular/platform-browser';
@@ -177,19 +172,13 @@ export declare class ɵangular_packages_platform_server_platform_server_d {
     addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
 }
 
-export declare class ɵangular_packages_platform_server_platform_server_e implements BrowserXhr {
+export declare class ɵangular_packages_platform_server_platform_server_e implements XhrFactory {
     build(): XMLHttpRequest;
 }
 
-export declare class ɵangular_packages_platform_server_platform_server_f implements XSRFStrategy {
-    configureRequest(req: Request): void;
-}
+export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector): ZoneClientBackend;
 
-export declare function ɵangular_packages_platform_server_platform_server_g(xhrBackend: XHRBackend, options: RequestOptions): Http;
-
-export declare function ɵangular_packages_platform_server_platform_server_h(backend: HttpBackend, injector: Injector): ZoneClientBackend;
-
-export declare const ɵangular_packages_platform_server_platform_server_i: Provider[];
+export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 
 export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 

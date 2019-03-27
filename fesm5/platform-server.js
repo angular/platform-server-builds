@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+25.sha-9745f55.with-local-changes
+ * @license Angular v8.0.0-beta.10+24.sha-c981006.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,6 +10,7 @@ import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulati
 import { ɵsetRootDomAdapter, ɵBrowserDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
+import { ReadyState, Http, XHRBackend, RequestOptions, BrowserXhr, XSRFStrategy, HttpModule } from '@angular/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
@@ -262,6 +263,12 @@ var PlatformState = /** @class */ (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 var xhr2 = require('xhr2');
+var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+function validateRequestUrl(url) {
+    if (!isAbsoluteUrl.test(url)) {
+        throw new Error("URLs requested via Http on the server must be absolute. URL: " + url);
+    }
+}
 var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
@@ -270,6 +277,15 @@ var ServerXhr = /** @class */ (function () {
         Injectable()
     ], ServerXhr);
     return ServerXhr;
+}());
+var ServerXsrfStrategy = /** @class */ (function () {
+    function ServerXsrfStrategy() {
+    }
+    ServerXsrfStrategy.prototype.configureRequest = function (req) { };
+    ServerXsrfStrategy = __decorate([
+        Injectable()
+    ], ServerXsrfStrategy);
+    return ServerXsrfStrategy;
 }());
 var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
@@ -339,6 +355,38 @@ var ZoneMacroTaskWrapper = /** @class */ (function () {
     };
     return ZoneMacroTaskWrapper;
 }());
+var ZoneMacroTaskConnection = /** @class */ (function (_super) {
+    __extends(ZoneMacroTaskConnection, _super);
+    function ZoneMacroTaskConnection(request, backend) {
+        var _this = _super.call(this) || this;
+        _this.request = request;
+        _this.backend = backend;
+        validateRequestUrl(request.url);
+        _this.response = _this.wrap(request);
+        return _this;
+    }
+    ZoneMacroTaskConnection.prototype.delegate = function (request) {
+        this.lastConnection = this.backend.createConnection(request);
+        return this.lastConnection.response;
+    };
+    Object.defineProperty(ZoneMacroTaskConnection.prototype, "readyState", {
+        get: function () {
+            return !!this.lastConnection ? this.lastConnection.readyState : ReadyState.Unsent;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ZoneMacroTaskConnection;
+}(ZoneMacroTaskWrapper));
+var ZoneMacroTaskBackend = /** @class */ (function () {
+    function ZoneMacroTaskBackend(backend) {
+        this.backend = backend;
+    }
+    ZoneMacroTaskBackend.prototype.createConnection = function (request) {
+        return new ZoneMacroTaskConnection(request, this.backend);
+    };
+    return ZoneMacroTaskBackend;
+}());
 var ZoneClientBackend = /** @class */ (function (_super) {
     __extends(ZoneClientBackend, _super);
     function ZoneClientBackend(backend) {
@@ -352,11 +400,17 @@ var ZoneClientBackend = /** @class */ (function (_super) {
     };
     return ZoneClientBackend;
 }(ZoneMacroTaskWrapper));
+function httpFactory(xhrBackend, options) {
+    var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
+    return new Http(macroBackend, options);
+}
 function zoneWrappedInterceptingHandler(backend, injector) {
     var realBackend = new ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
 var SERVER_HTTP_PROVIDERS = [
+    { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
+    { provide: BrowserXhr, useClass: ServerXhr }, { provide: XSRFStrategy, useClass: ServerXsrfStrategy },
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
@@ -775,7 +829,7 @@ var ServerModule = /** @class */ (function () {
     ServerModule = __decorate([
         NgModule({
             exports: [BrowserModule],
-            imports: [HttpClientModule, NoopAnimationsModule],
+            imports: [HttpModule, HttpClientModule, NoopAnimationsModule],
             providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
@@ -963,7 +1017,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('8.0.0-beta.10+25.sha-9745f55.with-local-changes');
+var VERSION = new Version('8.0.0-beta.10+24.sha-c981006.with-local-changes');
 
 /**
  * @license
@@ -994,5 +1048,5 @@ var VERSION = new Version('8.0.0-beta.10+25.sha-9745f55.with-local-changes');
  * Generated bundle index. Do not edit.
  */
 
-export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_g, ServerXhr as ɵangular_packages_platform_server_platform_server_e, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_f, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
+export { SERVER_HTTP_PROVIDERS as ɵangular_packages_platform_server_platform_server_i, ServerXhr as ɵangular_packages_platform_server_platform_server_e, ServerXsrfStrategy as ɵangular_packages_platform_server_platform_server_f, httpFactory as ɵangular_packages_platform_server_platform_server_g, zoneWrappedInterceptingHandler as ɵangular_packages_platform_server_platform_server_h, instantiateServerRendererFactory as ɵangular_packages_platform_server_platform_server_a, ServerEventManagerPlugin as ɵangular_packages_platform_server_platform_server_d, ServerStylesHost as ɵangular_packages_platform_server_platform_server_c, serializeTransferStateFactory as ɵangular_packages_platform_server_platform_server_b, PlatformState, ServerModule, platformDynamicServer, platformServer, BEFORE_APP_SERIALIZED, INITIAL_CONFIG, ServerTransferStateModule, renderModule, renderModuleFactory, VERSION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2 };
 //# sourceMappingURL=platform-server.js.map

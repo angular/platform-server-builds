@@ -1,11 +1,11 @@
 /**
- * @license Angular v8.0.0-beta.10+117.sha-6b39c9c.with-local-changes
+ * @license Angular v8.0.0-beta.10+120.sha-60afe88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵdefineNgModule, defineInjector, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { Injectable, Inject, defineInjectable, inject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵdefineNgModule, defineInjector, ɵsetNgModuleScope, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
@@ -1389,14 +1389,15 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+/** @nocollapse */ ServerModule.ngModuleDef = ɵdefineNgModule({ type: ServerModule });
 /** @nocollapse */ ServerModule.ngInjectorDef = defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: ViewportScroller, useClass: ɵNullViewportScroller },
     ], imports: [[HttpClientModule, NoopAnimationsModule],
-        [BrowserModule]] });
+        BrowserModule] });
+/*@__PURE__*/ ɵsetNgModuleScope(ServerModule, { imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
         args: [{
@@ -1495,7 +1496,7 @@ ServerTransferStateModule.decorators = [
             deps: [DOCUMENT, APP_ID, TransferState],
             multi: true,
         }
-    ], imports: [] });
+    ] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{
@@ -1661,7 +1662,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.10+117.sha-6b39c9c.with-local-changes');
+const VERSION = new Version('8.0.0-beta.10+120.sha-60afe88.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

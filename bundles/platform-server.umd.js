@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.10+117.sha-6b39c9c.with-local-changes
+ * @license Angular v8.0.0-beta.10+120.sha-60afe88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -811,16 +811,17 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule, imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
+        ServerModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerModule });
         ServerModule.ngInjectorDef = i0.defineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
                 { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
             ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule],
-                [i1.BrowserModule]] });
+                i1.BrowserModule] });
         return ServerModule;
     }());
+    /*@__PURE__*/ i0.ɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerModule, [{
             type: i0.NgModule,
             args: [{
@@ -887,7 +888,7 @@
                     deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
                     multi: true,
                 }
-            ], imports: [] });
+            ] });
         return ServerTransferStateModule;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTransferStateModule, [{
@@ -1021,7 +1022,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('8.0.0-beta.10+117.sha-6b39c9c.with-local-changes');
+    var VERSION = new i0.Version('8.0.0-beta.10+120.sha-60afe88.with-local-changes');
 
     /**
      * @license

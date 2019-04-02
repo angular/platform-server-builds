@@ -61,7 +61,7 @@ ServerTransferStateModule.decorators = [
             deps: [DOCUMENT, APP_ID, TransferState],
             multi: true,
         }
-    ], imports: [] });
+    ] });
 /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{

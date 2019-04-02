@@ -36,7 +36,7 @@ var ServerTransferStateModule = /** @class */ (function () {
                 deps: [DOCUMENT, APP_ID, TransferState],
                 multi: true,
             }
-        ], imports: [] });
+        ] });
     return ServerTransferStateModule;
 }());
 export { ServerTransferStateModule };

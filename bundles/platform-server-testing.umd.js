@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.11+55.sha-db62ccf.with-local-changes
+ * @license Angular v8.0.0-beta.11+57.sha-ef85336.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,12 +31,12 @@
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.ngModuleDef = i0.ɵdefineNgModule({ type: ServerTestingModule });
-        ServerTestingModule.ngInjectorDef = i0.defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule],
+        ServerTestingModule.ngModuleDef = i0.ΔdefineNgModule({ type: ServerTestingModule });
+        ServerTestingModule.ngInjectorDef = i0.ΔdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule],
                 testing.BrowserDynamicTestingModule] });
         return ServerTestingModule;
     }());
-    /*@__PURE__*/ i0.ɵsetNgModuleScope(ServerTestingModule, { imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] });
+    /*@__PURE__*/ i0.ΔsetNgModuleScope(ServerTestingModule, { imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] });
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTestingModule, [{
             type: i0.NgModule,
             args: [{

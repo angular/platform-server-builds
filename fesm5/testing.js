@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.11+55.sha-db62ccf.with-local-changes
+ * @license Angular v8.0.0-beta.11+57.sha-ef85336.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { createPlatformFactory, ɵdefineNgModule, defineInjector, ɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { createPlatformFactory, ΔdefineNgModule, ΔdefineInjector, ΔsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
 import { ɵplatformCoreDynamicTesting, BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
@@ -30,12 +30,12 @@ var platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 
 var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
-    ServerTestingModule.ngModuleDef = ɵdefineNgModule({ type: ServerTestingModule });
-    ServerTestingModule.ngInjectorDef = defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
+    ServerTestingModule.ngModuleDef = ΔdefineNgModule({ type: ServerTestingModule });
+    ServerTestingModule.ngInjectorDef = ΔdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
             BrowserDynamicTestingModule] });
     return ServerTestingModule;
 }());
-/*@__PURE__*/ ɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
+/*@__PURE__*/ ΔsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,
         args: [{

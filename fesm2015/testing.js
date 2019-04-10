@@ -1,10 +1,10 @@
 /**
- * @license Angular v8.0.0-beta.11+55.sha-db62ccf.with-local-changes
+ * @license Angular v8.0.0-beta.11+57.sha-ef85336.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { createPlatformFactory, NgModule, ɵdefineNgModule, defineInjector, ɵsetNgModuleScope, ɵsetClassMetadata } from '@angular/core';
+import { createPlatformFactory, NgModule, ΔdefineNgModule, ΔdefineInjector, ΔsetNgModuleScope, ɵsetClassMetadata } from '@angular/core';
 import { ɵplatformCoreDynamicTesting, BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
@@ -41,10 +41,10 @@ ServerTestingModule.decorators = [
                 providers: ɵSERVER_RENDER_PROVIDERS
             },] },
 ];
-/** @nocollapse */ ServerTestingModule.ngModuleDef = ɵdefineNgModule({ type: ServerTestingModule });
-/** @nocollapse */ ServerTestingModule.ngInjectorDef = defineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
+/** @nocollapse */ ServerTestingModule.ngModuleDef = ΔdefineNgModule({ type: ServerTestingModule });
+/** @nocollapse */ ServerTestingModule.ngInjectorDef = ΔdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
         BrowserDynamicTestingModule] });
-/*@__PURE__*/ ɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
+/*@__PURE__*/ ΔsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,
         args: [{

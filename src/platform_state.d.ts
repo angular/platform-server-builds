@@ -15,5 +15,5 @@ export declare class PlatformState {
      * Returns the current DOM state.
      */
     getDocument(): any;
-    static ngInjectableDef: i0.ΔInjectableDef<PlatformState>;
+    static ngInjectableDef: i0.ɵɵInjectableDef<PlatformState>;
 }

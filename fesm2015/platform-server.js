@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+19.sha-3938563.with-local-changes
+ * @license Angular v8.0.0-beta.14+31.sha-071ee64.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -653,6 +653,9 @@ function parseUrl(urlStr) {
     /** @type {?} */
     const parsedUrl = parse(urlStr);
     return {
+        hostname: parsedUrl.hostname || '',
+        protocol: parsedUrl.protocol || '',
+        port: parsedUrl.port || '',
         pathname: parsedUrl.pathname || '',
         search: parsedUrl.search || '',
         hash: parsedUrl.hash || '',
@@ -669,6 +672,10 @@ class ServerPlatformLocation {
      */
     constructor(_doc, _config) {
         this._doc = _doc;
+        this.href = '/';
+        this.hostname = '/';
+        this.protocol = '/';
+        this.port = '/';
         this.pathname = '/';
         this.search = '';
         this.hash = '';
@@ -678,6 +685,9 @@ class ServerPlatformLocation {
         if (!!config && !!config.url) {
             /** @type {?} */
             const parsedUrl = parseUrl(config.url);
+            this.hostname = parsedUrl.hostname;
+            this.protocol = parsedUrl.protocol;
+            this.port = parsedUrl.port;
             this.pathname = parsedUrl.pathname;
             this.search = parsedUrl.search;
             this.hash = parsedUrl.hash;
@@ -757,6 +767,11 @@ class ServerPlatformLocation {
      * @return {?}
      */
     back() { throw new Error('Not implemented'); }
+    // History API isn't available on server, therefore return undefined
+    /**
+     * @return {?}
+     */
+    getState() { return undefined; }
 }
 ServerPlatformLocation.decorators = [
     { type: Injectable }
@@ -1527,7 +1542,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.0.0-beta.14+19.sha-3938563.with-local-changes');
+const VERSION = new Version('8.0.0-beta.14+31.sha-071ee64.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

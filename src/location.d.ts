@@ -13,6 +13,10 @@ import * as i0 from "@angular/core";
  */
 export declare class ServerPlatformLocation implements PlatformLocation {
     private _doc;
+    readonly href: string;
+    readonly hostname: string;
+    readonly protocol: string;
+    readonly port: string;
     readonly pathname: string;
     readonly search: string;
     readonly hash: string;
@@ -27,6 +31,7 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     pushState(state: any, title: string, newUrl: string): void;
     forward(): void;
     back(): void;
+    getState(): unknown;
     static ngInjectableDef: i0.ɵɵInjectableDef<ServerPlatformLocation>;
 }
 export declare function scheduleMicroTask(fn: Function): void;

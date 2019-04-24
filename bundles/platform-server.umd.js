@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.0.0-beta.14+19.sha-3938563.with-local-changes
+ * @license Angular v8.0.0-beta.14+31.sha-071ee64.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -443,6 +443,9 @@
     function parseUrl(urlStr) {
         var parsedUrl = url.parse(urlStr);
         return {
+            hostname: parsedUrl.hostname || '',
+            protocol: parsedUrl.protocol || '',
+            port: parsedUrl.port || '',
             pathname: parsedUrl.pathname || '',
             search: parsedUrl.search || '',
             hash: parsedUrl.hash || '',
@@ -455,6 +458,10 @@
     var ServerPlatformLocation = /** @class */ (function () {
         function ServerPlatformLocation(_doc, _config) {
             this._doc = _doc;
+            this.href = '/';
+            this.hostname = '/';
+            this.protocol = '/';
+            this.port = '/';
             this.pathname = '/';
             this.search = '';
             this.hash = '';
@@ -462,6 +469,9 @@
             var config = _config;
             if (!!config && !!config.url) {
                 var parsedUrl = parseUrl(config.url);
+                this.hostname = parsedUrl.hostname;
+                this.protocol = parsedUrl.protocol;
+                this.port = parsedUrl.port;
                 this.pathname = parsedUrl.pathname;
                 this.search = parsedUrl.search;
                 this.hash = parsedUrl.hash;
@@ -502,6 +512,8 @@
         };
         ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+        // History API isn't available on server, therefore return undefined
+        ServerPlatformLocation.prototype.getState = function () { return undefined; };
         ServerPlatformLocation = __decorate([
             core.Injectable(),
             __param(0, core.Inject(common.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
@@ -1011,7 +1023,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('8.0.0-beta.14+19.sha-3938563.with-local-changes');
+    var VERSION = new core.Version('8.0.0-beta.14+31.sha-071ee64.with-local-changes');
 
     /**
      * @license

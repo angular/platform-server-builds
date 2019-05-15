@@ -32,6 +32,6 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     forward(): void;
     back(): void;
     getState(): unknown;
-    static ngInjectableDef: i0.ɵɵInjectableDef<ServerPlatformLocation>;
+    static ngInjectableDef: i0.ΔInjectableDef<ServerPlatformLocation>;
 }
 export declare function scheduleMicroTask(fn: Function): void;

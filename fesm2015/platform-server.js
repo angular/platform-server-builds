@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.0+12.sha-a610d12.with-local-changes
+ * @license Angular v9.0.0-next.0+13.sha-184d270.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1202,6 +1202,11 @@ class DefaultServerRenderer2 {
          * @return {?}
          */
         (event) => {
+            // Ivy uses `Function` as a special token that allows us to unwrap the function
+            // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
+            if (event === Function) {
+                return eventHandler;
+            }
             // Run the event handler inside the ngZone because event handlers are not patched
             // by Zone on the server. This is required only for tests.
             /** @type {?} */
@@ -1213,6 +1218,7 @@ class DefaultServerRenderer2 {
                 event.preventDefault();
                 event.returnValue = false;
             }
+            return undefined;
         });
     }
 }
@@ -1677,7 +1683,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.0+12.sha-a610d12.with-local-changes');
+const VERSION = new Version('9.0.0-next.0+13.sha-184d270.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

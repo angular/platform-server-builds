@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.0+12.sha-a610d12.with-local-changes
+ * @license Angular v9.0.0-next.0+13.sha-184d270.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -710,6 +710,11 @@
         DefaultServerRenderer2.prototype.decoratePreventDefault = function (eventHandler) {
             var _this = this;
             return function (event) {
+                // Ivy uses `Function` as a special token that allows us to unwrap the function
+                // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
+                if (event === Function) {
+                    return eventHandler;
+                }
                 // Run the event handler inside the ngZone because event handlers are not patched
                 // by Zone on the server. This is required only for tests.
                 var allowDefaultBehavior = _this.ngZone.runGuarded(function () { return eventHandler(event); });
@@ -717,6 +722,7 @@
                     event.preventDefault();
                     event.returnValue = false;
                 }
+                return undefined;
             };
         };
         return DefaultServerRenderer2;
@@ -1023,7 +1029,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('9.0.0-next.0+12.sha-a610d12.with-local-changes');
+    var VERSION = new core.Version('9.0.0-next.0+13.sha-184d270.with-local-changes');
 
     /**
      * @license

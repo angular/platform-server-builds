@@ -1,5 +1,5 @@
 /**
- * @license Angular v8.2.1+4.sha-6ec91dd.with-local-changes
+ * @license Angular v8.2.1+6.sha-eccb60c.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -408,6 +408,13 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     setCookie(name, value) { throw _notImplemented('setCookie'); }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DominoAdapter.defaultDoc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -443,6 +450,13 @@ PlatformState.decorators = [
 PlatformState.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PlatformState.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -580,6 +594,15 @@ class ZoneMacroTaskWrapper {
         }));
     }
 }
+if (false) {
+    /**
+     * @abstract
+     * @protected
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneMacroTaskWrapper.prototype.delegate = function (request) { };
+}
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
     /**
      * @param {?} backend
@@ -601,6 +624,13 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
     delegate(request) {
         return this.backend.handle(request);
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoneClientBackend.prototype.backend;
 }
 /**
  * @param {?} backend
@@ -625,6 +655,19 @@ const SERVER_HTTP_PROVIDERS = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * Config object passed to initialize the platform.
+ *
+ * \@publicApi
+ * @record
+ */
+function PlatformConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    PlatformConfig.prototype.document;
+    /** @type {?|undefined} */
+    PlatformConfig.prototype.url;
+}
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -781,6 +824,32 @@ ServerPlatformLocation.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
 ];
+if (false) {
+    /** @type {?} */
+    ServerPlatformLocation.prototype.href;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.hostname;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.protocol;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.port;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.pathname;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.search;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.hash;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerPlatformLocation.prototype._hashUpdate;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerPlatformLocation.prototype._doc;
+}
 /**
  * @param {?} fn
  * @return {?}
@@ -837,6 +906,13 @@ ServerEventManagerPlugin.decorators = [
 ServerEventManagerPlugin.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerEventManagerPlugin.prototype.doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -913,6 +989,43 @@ ServerRendererFactory2.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: ɵSharedStylesHost }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.rendererByCompId;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.defaultRenderer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.schema;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.eventManager;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.ngZone;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.document;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.sharedStylesHost;
+}
 class DefaultServerRenderer2 {
     /**
      * @param {?} eventManager
@@ -1151,6 +1264,32 @@ class DefaultServerRenderer2 {
         });
     }
 }
+if (false) {
+    /** @type {?} */
+    DefaultServerRenderer2.prototype.data;
+    /** @type {?} */
+    DefaultServerRenderer2.prototype.destroyNode;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.eventManager;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DefaultServerRenderer2.prototype.document;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.ngZone;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.schema;
+}
 /** @type {?} */
 const AT_CHARCODE = '@'.charCodeAt(0);
 /**
@@ -1200,6 +1339,23 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
         super.setAttribute(el, this.contentAttr, '');
         return el;
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.contentAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.hostAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.component;
 }
 
 /**
@@ -1252,11 +1408,35 @@ ServerStylesHost.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
 ];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.head;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.doc;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.transitionId;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @param {?} feature
+ * @return {?}
+ */
+function notSupported(feature) {
+    throw new Error(`platform-server does not support '${feature}'.`);
+}
 /** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
@@ -1395,6 +1575,18 @@ ServerTransferStateModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @record
+ */
+function PlatformOptions() { }
+if (false) {
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.document;
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.url;
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.extraProviders;
+}
 /**
  * @param {?} platformFactory
  * @param {?} options
@@ -1542,7 +1734,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('8.2.1+4.sha-6ec91dd.with-local-changes');
+const VERSION = new Version('8.2.1+6.sha-eccb60c.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

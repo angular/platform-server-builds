@@ -1,16 +1,16 @@
 /**
- * @license Angular v9.0.0-next.1+11.sha-0ddf0c4.with-local-changes
+ * @license Angular v9.0.0-next.1+13.sha-c198a27.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { DOCUMENT, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, ɵɵdefineInjectable, ɵɵinject, ɵsetClassMetadata, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
-import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, TransferState, ɵescapeHtml } from '@angular/platform-browser';
+import { ɵBrowserDomAdapter, ɵsetRootDomAdapter, ɵgetDOM, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { XhrFactory, HttpHandler, HttpBackend, ɵHttpInterceptingHandler, HttpClientModule } from '@angular/common/http';
+import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
-import { NoopAnimationsModule, ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
+import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
 import { parse } from 'url';
 import { DomElementSchemaRegistry } from '@angular/compiler';
@@ -408,6 +408,13 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     setCookie(name, value) { throw _notImplemented('setCookie'); }
 }
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DominoAdapter.defaultDoc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -457,6 +464,13 @@ PlatformState.ctorParameters = () => [
                 type: Inject,
                 args: [DOCUMENT]
             }] }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PlatformState.prototype._doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -598,6 +612,15 @@ class ZoneMacroTaskWrapper {
         }));
     }
 }
+if (false) {
+    /**
+     * @abstract
+     * @protected
+     * @param {?} request
+     * @return {?}
+     */
+    ZoneMacroTaskWrapper.prototype.delegate = function (request) { };
+}
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
     /**
      * @param {?} backend
@@ -619,6 +642,13 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
     delegate(request) {
         return this.backend.handle(request);
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ZoneClientBackend.prototype.backend;
 }
 /**
  * @param {?} backend
@@ -643,6 +673,19 @@ const SERVER_HTTP_PROVIDERS = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * Config object passed to initialize the platform.
+ *
+ * \@publicApi
+ * @record
+ */
+function PlatformConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    PlatformConfig.prototype.document;
+    /** @type {?|undefined} */
+    PlatformConfig.prototype.url;
+}
 /**
  * The DI token for setting the initial config for the platform.
  *
@@ -818,6 +861,32 @@ ServerPlatformLocation.ctorParameters = () => [
                 type: Inject,
                 args: [INITIAL_CONFIG]
             }] }]; }, null);
+if (false) {
+    /** @type {?} */
+    ServerPlatformLocation.prototype.href;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.hostname;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.protocol;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.port;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.pathname;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.search;
+    /** @type {?} */
+    ServerPlatformLocation.prototype.hash;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerPlatformLocation.prototype._hashUpdate;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerPlatformLocation.prototype._doc;
+}
 /**
  * @param {?} fn
  * @return {?}
@@ -888,6 +957,13 @@ ServerEventManagerPlugin.ctorParameters = () => [
                 type: Inject,
                 args: [DOCUMENT]
             }] }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerEventManagerPlugin.prototype.doc;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -978,6 +1054,43 @@ ServerRendererFactory2.ctorParameters = () => [
                 type: Inject,
                 args: [DOCUMENT]
             }] }, { type: ɵSharedStylesHost }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.rendererByCompId;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.defaultRenderer;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.schema;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.eventManager;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.ngZone;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.document;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerRendererFactory2.prototype.sharedStylesHost;
+}
 class DefaultServerRenderer2 {
     /**
      * @param {?} eventManager
@@ -1222,6 +1335,32 @@ class DefaultServerRenderer2 {
         });
     }
 }
+if (false) {
+    /** @type {?} */
+    DefaultServerRenderer2.prototype.data;
+    /** @type {?} */
+    DefaultServerRenderer2.prototype.destroyNode;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.eventManager;
+    /**
+     * @type {?}
+     * @protected
+     */
+    DefaultServerRenderer2.prototype.document;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.ngZone;
+    /**
+     * @type {?}
+     * @private
+     */
+    DefaultServerRenderer2.prototype.schema;
+}
 /** @type {?} */
 const AT_CHARCODE = '@'.charCodeAt(0);
 /**
@@ -1271,6 +1410,23 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
         super.setAttribute(el, this.contentAttr, '');
         return el;
     }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.contentAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.hostAttr;
+    /**
+     * @type {?}
+     * @private
+     */
+    EmulatedEncapsulationServerRenderer2.prototype.component;
 }
 
 /**
@@ -1342,11 +1498,42 @@ ServerStylesHost.ctorParameters = () => [
                 type: Inject,
                 args: [ɵTRANSITION_ID]
             }] }]; }, null);
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.head;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.doc;
+    /**
+     * @type {?}
+     * @private
+     */
+    ServerStylesHost.prototype.transitionId;
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @param {?} feature
+ * @return {?}
+ */
+function notSupported(feature) {
+    throw new Error(`platform-server does not support '${feature}'.`);
+}
 /** @type {?} */
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
@@ -1537,6 +1724,18 @@ ServerTransferStateModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * @record
+ */
+function PlatformOptions() { }
+if (false) {
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.document;
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.url;
+    /** @type {?|undefined} */
+    PlatformOptions.prototype.extraProviders;
+}
+/**
  * @param {?} platformFactory
  * @param {?} options
  * @return {?}
@@ -1683,7 +1882,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.1+11.sha-0ddf0c4.with-local-changes');
+const VERSION = new Version('9.0.0-next.1+13.sha-c198a27.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

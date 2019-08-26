@@ -18,16 +18,10 @@ export declare class DominoAdapter extends BrowserDomAdapter {
     logGroup(error: string): void;
     logGroupEnd(): void;
     supportsDOMEvents(): boolean;
-    supportsNativeShadowDOM(): boolean;
     contains(nodeA: any, nodeB: any): boolean;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
-    createShadowRoot(el: any, doc?: Document): DocumentFragment;
-    getShadowRoot(el: any): DocumentFragment;
-    isTextNode(node: any): boolean;
-    isCommentNode(node: any): boolean;
     isElementNode(node: any): boolean;
-    hasShadowRoot(node: any): boolean;
     isShadowRoot(node: any): boolean;
     getProperty(el: Element, name: string): any;
     setProperty(el: Element, name: string, value: any): void;
@@ -41,13 +35,8 @@ export declare class DominoAdapter extends BrowserDomAdapter {
     getHistory(): History;
     getLocation(): Location;
     getUserAgent(): string;
-    supportsWebAnimation(): boolean;
     performanceNow(): number;
-    getAnimationPrefix(): string;
-    getTransitionEnd(): string;
-    supportsAnimation(): boolean;
     getDistributedNodes(el: any): Node[];
     supportsCookies(): boolean;
     getCookie(name: string): string;
-    setCookie(name: string, value: string): void;
 }

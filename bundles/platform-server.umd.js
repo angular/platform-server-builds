@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -248,7 +248,6 @@
         DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
         DominoAdapter.prototype.logGroupEnd = function () { };
         DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
-        DominoAdapter.prototype.supportsNativeShadowDOM = function () { return false; };
         DominoAdapter.prototype.contains = function (nodeA, nodeB) {
             var inner = nodeB;
             while (inner) {
@@ -267,22 +266,10 @@
             }
             return DominoAdapter.defaultDoc;
         };
-        DominoAdapter.prototype.createShadowRoot = function (el, doc) {
-            if (doc === void 0) { doc = document; }
-            el.shadowRoot = doc.createDocumentFragment();
-            el.shadowRoot.parent = el;
-            return el.shadowRoot;
-        };
-        DominoAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
-        DominoAdapter.prototype.isTextNode = function (node) { return node.nodeType === DominoAdapter.defaultDoc.TEXT_NODE; };
-        DominoAdapter.prototype.isCommentNode = function (node) {
-            return node.nodeType === DominoAdapter.defaultDoc.COMMENT_NODE;
-        };
         DominoAdapter.prototype.isElementNode = function (node) {
             return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
         };
-        DominoAdapter.prototype.hasShadowRoot = function (node) { return node.shadowRoot != null; };
-        DominoAdapter.prototype.isShadowRoot = function (node) { return this.getShadowRoot(node) == node; };
+        DominoAdapter.prototype.isShadowRoot = function (node) { return node.shadowRoot == node; };
         DominoAdapter.prototype.getProperty = function (el, name) {
             if (name === 'href') {
                 // Domino tries tp resolve href-s which we do not want. Just return the
@@ -323,7 +310,7 @@
             var base = this.querySelector(doc.documentElement, 'base');
             var href = '';
             if (base) {
-                href = this.getHref(base);
+                href = base.getAttribute('href');
             }
             // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
             return href;
@@ -390,15 +377,10 @@
         DominoAdapter.prototype.getHistory = function () { throw _notImplemented('getHistory'); };
         DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
         DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
-        DominoAdapter.prototype.supportsWebAnimation = function () { return false; };
         DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
-        DominoAdapter.prototype.getAnimationPrefix = function () { return ''; };
-        DominoAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };
-        DominoAdapter.prototype.supportsAnimation = function () { return true; };
         DominoAdapter.prototype.getDistributedNodes = function (el) { throw _notImplemented('getDistributedNodes'); };
         DominoAdapter.prototype.supportsCookies = function () { return false; };
         DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
-        DominoAdapter.prototype.setCookie = function (name, value) { throw _notImplemented('setCookie'); };
         return DominoAdapter;
     }(platformBrowser.ɵBrowserDomAdapter));
 
@@ -1164,7 +1146,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('9.0.0-next.3+30.sha-e79ba19.with-local-changes');
+    var VERSION = new core.Version('9.0.0-next.3+39.sha-cf4b944.with-local-changes');
 
     /**
      * @license

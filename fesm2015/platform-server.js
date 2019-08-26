@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.3+30.sha-e79ba19.with-local-changes
+ * @license Angular v9.0.0-next.3+39.sha-cf4b944.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -103,10 +103,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     supportsDOMEvents() { return false; }
     /**
-     * @return {?}
-     */
-    supportsNativeShadowDOM() { return false; }
-    /**
      * @param {?} nodeA
      * @param {?} nodeB
      * @return {?}
@@ -137,33 +133,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return DominoAdapter.defaultDoc;
     }
     /**
-     * @param {?} el
-     * @param {?=} doc
-     * @return {?}
-     */
-    createShadowRoot(el, doc = document) {
-        el.shadowRoot = doc.createDocumentFragment();
-        el.shadowRoot.parent = el;
-        return el.shadowRoot;
-    }
-    /**
-     * @param {?} el
-     * @return {?}
-     */
-    getShadowRoot(el) { return el.shadowRoot; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isTextNode(node) { return node.nodeType === DominoAdapter.defaultDoc.TEXT_NODE; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isCommentNode(node) {
-        return node.nodeType === DominoAdapter.defaultDoc.COMMENT_NODE;
-    }
-    /**
      * @param {?} node
      * @return {?}
      */
@@ -174,12 +143,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} node
      * @return {?}
      */
-    hasShadowRoot(node) { return node.shadowRoot != null; }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    isShadowRoot(node) { return this.getShadowRoot(node) == node; }
+    isShadowRoot(node) { return node.shadowRoot == node; }
     /**
      * @param {?} el
      * @param {?} name
@@ -242,7 +206,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         /** @type {?} */
         let href = '';
         if (base) {
-            href = this.getHref(base);
+            href = (/** @type {?} */ (base.getAttribute('href')));
         }
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
         return href;
@@ -370,23 +334,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     /**
      * @return {?}
      */
-    supportsWebAnimation() { return false; }
-    /**
-     * @return {?}
-     */
     performanceNow() { return Date.now(); }
-    /**
-     * @return {?}
-     */
-    getAnimationPrefix() { return ''; }
-    /**
-     * @return {?}
-     */
-    getTransitionEnd() { return 'transitionend'; }
-    /**
-     * @return {?}
-     */
-    supportsAnimation() { return true; }
     /**
      * @param {?} el
      * @return {?}
@@ -401,12 +349,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     getCookie(name) { throw _notImplemented('getCookie'); }
-    /**
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setCookie(name, value) { throw _notImplemented('setCookie'); }
 }
 if (false) {
     /**
@@ -1740,7 +1682,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.3+30.sha-e79ba19.with-local-changes');
+const VERSION = new Version('9.0.0-next.3+39.sha-cf4b944.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

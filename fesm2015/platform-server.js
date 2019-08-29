@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+7.sha-b094936.with-local-changes
+ * @license Angular v9.0.0-next.4+1.sha-46caf88.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -80,6 +80,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} error
      * @return {?}
      */
+    logError(error) { console.error(error); }
+    /**
+     * @param {?} error
+     * @return {?}
+     */
     log(error) {
         // tslint:disable-next-line:no-console
         console.log(error);
@@ -97,6 +102,21 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     supportsDOMEvents() { return false; }
+    /**
+     * @param {?} nodeA
+     * @param {?} nodeB
+     * @return {?}
+     */
+    contains(nodeA, nodeB) {
+        /** @type {?} */
+        let inner = nodeB;
+        while (inner) {
+            if (inner === nodeA)
+                return true;
+            inner = inner.parent;
+        }
+        return false;
+    }
     /**
      * @return {?}
      */
@@ -131,7 +151,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     getProperty(el, name) {
         if (name === 'href') {
-            // Domino tries to resolve href-s which we do not want. Just return the
+            // Domino tries tp resolve href-s which we do not want. Just return the
             // attribute value.
             return this.getAttribute(el, 'href');
         }
@@ -273,6 +293,17 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return styleMap[styleName] || '';
     }
     /**
+     * @param {?} element
+     * @param {?} styleName
+     * @param {?=} styleValue
+     * @return {?}
+     */
+    hasStyle(element, styleName, styleValue) {
+        /** @type {?} */
+        const value = this.getStyle(element, styleName);
+        return styleValue ? value == styleValue : value.length > 0;
+    }
+    /**
      * @param {?} el
      * @param {?} evt
      * @return {?}
@@ -304,6 +335,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @return {?}
      */
     performanceNow() { return Date.now(); }
+    /**
+     * @param {?} el
+     * @return {?}
+     */
+    getDistributedNodes(el) { throw _notImplemented('getDistributedNodes'); }
     /**
      * @return {?}
      */
@@ -1646,7 +1682,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.4+7.sha-b094936.with-local-changes');
+const VERSION = new Version('9.0.0-next.4+1.sha-46caf88.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

@@ -13,10 +13,12 @@ export declare function serializeDocument(doc: Document): string;
 export declare class DominoAdapter extends BrowserDomAdapter {
     static makeCurrent(): void;
     private static defaultDoc;
+    logError(error: string): void;
     log(error: string): void;
     logGroup(error: string): void;
     logGroupEnd(): void;
     supportsDOMEvents(): boolean;
+    contains(nodeA: any, nodeB: any): boolean;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: any): boolean;
@@ -28,11 +30,13 @@ export declare class DominoAdapter extends BrowserDomAdapter {
     setStyle(element: any, styleName: string, styleValue?: string | null): void;
     removeStyle(element: any, styleName: string): void;
     getStyle(element: any, styleName: string): string;
+    hasStyle(element: any, styleName: string, styleValue?: string): boolean;
     dispatchEvent(el: Node, evt: any): void;
     getHistory(): History;
     getLocation(): Location;
     getUserAgent(): string;
     performanceNow(): number;
+    getDistributedNodes(el: any): Node[];
     supportsCookies(): boolean;
     getCookie(name: string): string;
 }

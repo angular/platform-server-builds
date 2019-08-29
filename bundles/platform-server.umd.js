@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+1.sha-46caf88.with-local-changes
+ * @license Angular v9.0.0-next.4+9.sha-d0f3539.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -240,7 +240,6 @@
             setDomTypes();
             i1.ɵsetRootDomAdapter(new DominoAdapter());
         };
-        DominoAdapter.prototype.logError = function (error) { console.error(error); };
         DominoAdapter.prototype.log = function (error) {
             // tslint:disable-next-line:no-console
             console.log(error);
@@ -248,15 +247,6 @@
         DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
         DominoAdapter.prototype.logGroupEnd = function () { };
         DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
-        DominoAdapter.prototype.contains = function (nodeA, nodeB) {
-            var inner = nodeB;
-            while (inner) {
-                if (inner === nodeA)
-                    return true;
-                inner = inner.parent;
-            }
-            return false;
-        };
         DominoAdapter.prototype.createHtmlDocument = function () {
             return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
         };
@@ -272,7 +262,7 @@
         DominoAdapter.prototype.isShadowRoot = function (node) { return node.shadowRoot == node; };
         DominoAdapter.prototype.getProperty = function (el, name) {
             if (name === 'href') {
-                // Domino tries tp resolve href-s which we do not want. Just return the
+                // Domino tries to resolve href-s which we do not want. Just return the
                 // attribute value.
                 return this.getAttribute(el, 'href');
             }
@@ -361,10 +351,6 @@
             var styleMap = this._readStyleAttribute(element);
             return styleMap[styleName] || '';
         };
-        DominoAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-            var value = this.getStyle(element, styleName);
-            return styleValue ? value == styleValue : value.length > 0;
-        };
         DominoAdapter.prototype.dispatchEvent = function (el, evt) {
             el.dispatchEvent(evt);
             // Dispatch the event to the window also.
@@ -378,7 +364,6 @@
         DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
         DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
         DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
-        DominoAdapter.prototype.getDistributedNodes = function (el) { throw _notImplemented('getDistributedNodes'); };
         DominoAdapter.prototype.supportsCookies = function () { return false; };
         DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
         return DominoAdapter;
@@ -1172,7 +1157,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.4+1.sha-46caf88.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.4+9.sha-d0f3539.with-local-changes');
 
     /**
      * @license

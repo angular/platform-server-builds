@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+39.sha-3758978.with-local-changes
+ * @license Angular v9.0.0-next.4+44.sha-1537791.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -238,7 +238,7 @@
         }
         DominoAdapter.makeCurrent = function () {
             setDomTypes();
-            i1.ɵsetRootDomAdapter(new DominoAdapter());
+            common.ɵsetRootDomAdapter(new DominoAdapter());
         };
         DominoAdapter.prototype.log = function (error) {
             // tslint:disable-next-line:no-console
@@ -579,7 +579,7 @@
                 this.hash = parsedUrl.hash;
             }
         }
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return i1.ɵgetDOM().getBaseHref(this._doc); };
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return common.ɵgetDOM().getBaseHref(this._doc); };
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
@@ -648,10 +648,10 @@
         // Handle all events on the server.
         ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
         ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
-            return i1.ɵgetDOM().onAndCancel(element, eventName, handler);
+            return common.ɵgetDOM().onAndCancel(element, eventName, handler);
         };
         ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
-            var target = i1.ɵgetDOM().getGlobalEventTarget(this.doc, element);
+            var target = common.ɵgetDOM().getGlobalEventTarget(this.doc, element);
             if (!target) {
                 throw new Error("Unsupported event target " + target + " for event " + eventName);
             }
@@ -726,27 +726,27 @@
         DefaultServerRenderer2.prototype.destroy = function () { };
         DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
             if (namespace) {
-                return i1.ɵgetDOM().createElementNS(i1.ɵNAMESPACE_URIS[namespace], name, this.document);
+                return common.ɵgetDOM().createElementNS(i1.ɵNAMESPACE_URIS[namespace], name, this.document);
             }
-            return i1.ɵgetDOM().createElement(name, this.document);
+            return common.ɵgetDOM().createElement(name, this.document);
         };
-        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return i1.ɵgetDOM().createComment(value); };
-        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return i1.ɵgetDOM().createTextNode(value); };
-        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { i1.ɵgetDOM().appendChild(parent, newChild); };
+        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return common.ɵgetDOM().createComment(value); };
+        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return common.ɵgetDOM().createTextNode(value); };
+        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { common.ɵgetDOM().appendChild(parent, newChild); };
         DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
             if (parent) {
-                i1.ɵgetDOM().insertBefore(parent, refChild, newChild);
+                common.ɵgetDOM().insertBefore(parent, refChild, newChild);
             }
         };
         DefaultServerRenderer2.prototype.removeChild = function (parent, oldChild) {
             if (parent) {
-                i1.ɵgetDOM().removeChild(parent, oldChild);
+                common.ɵgetDOM().removeChild(parent, oldChild);
             }
         };
         DefaultServerRenderer2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
             var el;
             if (typeof selectorOrNode === 'string') {
-                el = i1.ɵgetDOM().querySelector(this.document, selectorOrNode);
+                el = common.ɵgetDOM().querySelector(this.document, selectorOrNode);
                 if (!el) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
@@ -754,34 +754,34 @@
             else {
                 el = selectorOrNode;
             }
-            i1.ɵgetDOM().clearNodes(el);
+            common.ɵgetDOM().clearNodes(el);
             return el;
         };
-        DefaultServerRenderer2.prototype.parentNode = function (node) { return i1.ɵgetDOM().parentElement(node); };
-        DefaultServerRenderer2.prototype.nextSibling = function (node) { return i1.ɵgetDOM().nextSibling(node); };
+        DefaultServerRenderer2.prototype.parentNode = function (node) { return common.ɵgetDOM().parentElement(node); };
+        DefaultServerRenderer2.prototype.nextSibling = function (node) { return common.ɵgetDOM().nextSibling(node); };
         DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
-                i1.ɵgetDOM().setAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
+                common.ɵgetDOM().setAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
             }
             else {
-                i1.ɵgetDOM().setAttribute(el, name, value);
+                common.ɵgetDOM().setAttribute(el, name, value);
             }
         };
         DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
             if (namespace) {
-                i1.ɵgetDOM().removeAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], name);
+                common.ɵgetDOM().removeAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], name);
             }
             else {
-                i1.ɵgetDOM().removeAttribute(el, name);
+                common.ɵgetDOM().removeAttribute(el, name);
             }
         };
-        DefaultServerRenderer2.prototype.addClass = function (el, name) { i1.ɵgetDOM().addClass(el, name); };
-        DefaultServerRenderer2.prototype.removeClass = function (el, name) { i1.ɵgetDOM().removeClass(el, name); };
+        DefaultServerRenderer2.prototype.addClass = function (el, name) { common.ɵgetDOM().addClass(el, name); };
+        DefaultServerRenderer2.prototype.removeClass = function (el, name) { common.ɵgetDOM().removeClass(el, name); };
         DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            i1.ɵgetDOM().setStyle(el, style, value);
+            common.ɵgetDOM().setStyle(el, style, value);
         };
         DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
-            i1.ɵgetDOM().removeStyle(el, style);
+            common.ɵgetDOM().removeStyle(el, style);
         };
         // The value was validated already as a property binding, against the property name.
         // To know this value is safe to use as an attribute, the security context of the
@@ -793,7 +793,7 @@
         };
         DefaultServerRenderer2.prototype.setProperty = function (el, name, value) {
             checkNoSyntheticProp(name, 'property');
-            i1.ɵgetDOM().setProperty(el, name, value);
+            common.ɵgetDOM().setProperty(el, name, value);
             // Mirror property values for known HTML element properties in the attributes.
             // Skip `innerhtml` which is conservatively marked as an attribute for security
             // purposes but is not actually an attribute.
@@ -805,7 +805,7 @@
                 this.setAttribute(el, name, value.toString());
             }
         };
-        DefaultServerRenderer2.prototype.setValue = function (node, value) { i1.ɵgetDOM().setText(node, value); };
+        DefaultServerRenderer2.prototype.setValue = function (node, value) { common.ɵgetDOM().setText(node, value); };
         DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
             checkNoSyntheticProp(eventName, 'listener');
             if (typeof target === 'string') {
@@ -868,11 +868,11 @@
             _this.doc = doc;
             _this.transitionId = transitionId;
             _this.head = null;
-            _this.head = i1.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
+            _this.head = common.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
             return _this;
         }
         ServerStylesHost.prototype._addStyle = function (style) {
-            var adapter = i1.ɵgetDOM();
+            var adapter = common.ɵgetDOM();
             var el = adapter.createElement('style');
             adapter.setText(el, style);
             if (!!this.transitionId) {
@@ -976,7 +976,7 @@
             return parseDocument(config.document, config.url);
         }
         else {
-            return i1.ɵgetDOM().createHtmlDocument();
+            return common.ɵgetDOM().createHtmlDocument();
         }
     }
     /**
@@ -1157,7 +1157,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.4+39.sha-3758978.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.4+44.sha-1537791.with-local-changes');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+71.sha-e8f9ba4.with-local-changes
+ * @license Angular v9.0.0-next.4+78.sha-89434e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -264,25 +264,13 @@
             if (name === 'href') {
                 // Domino tries to resolve href-s which we do not want. Just return the
                 // attribute value.
-                return this.getAttribute(el, 'href');
+                return el.getAttribute('href');
             }
             else if (name === 'innerText') {
                 // Domino does not support innerText. Just map it to textContent.
                 return el.textContent;
             }
             return el[name];
-        };
-        DominoAdapter.prototype.setProperty = function (el, name, value) {
-            if (name === 'href') {
-                // Even though the server renderer reflects any properties to attributes
-                // map 'href' to attribute just to handle when setProperty is directly called.
-                this.setAttribute(el, 'href', value);
-            }
-            else if (name === 'innerText') {
-                // Domino does not support innerText. Just map it to textContent.
-                el.textContent = value;
-            }
-            el[name] = value;
         };
         DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
@@ -297,59 +285,13 @@
             return null;
         };
         DominoAdapter.prototype.getBaseHref = function (doc) {
-            var base = this.querySelector(doc.documentElement, 'base');
+            var base = doc.documentElement.querySelector('base');
             var href = '';
             if (base) {
                 href = base.getAttribute('href');
             }
             // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
             return href;
-        };
-        /** @internal */
-        DominoAdapter.prototype._readStyleAttribute = function (element) {
-            var styleMap = {};
-            var styleAttribute = element.getAttribute('style');
-            if (styleAttribute) {
-                var styleList = styleAttribute.split(/;+/g);
-                for (var i = 0; i < styleList.length; i++) {
-                    var style = styleList[i].trim();
-                    if (style.length > 0) {
-                        var colonIndex = style.indexOf(':');
-                        if (colonIndex === -1) {
-                            throw new Error("Invalid CSS style: " + style);
-                        }
-                        var name_1 = style.substr(0, colonIndex).trim();
-                        styleMap[name_1] = style.substr(colonIndex + 1).trim();
-                    }
-                }
-            }
-            return styleMap;
-        };
-        /** @internal */
-        DominoAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
-            var styleAttrValue = '';
-            for (var key in styleMap) {
-                var newValue = styleMap[key];
-                if (newValue) {
-                    styleAttrValue += key + ':' + styleMap[key] + ';';
-                }
-            }
-            element.setAttribute('style', styleAttrValue);
-        };
-        DominoAdapter.prototype.setStyle = function (element, styleName, styleValue) {
-            styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-            var styleMap = this._readStyleAttribute(element);
-            styleMap[styleName] = styleValue || '';
-            this._writeStyleAttribute(element, styleMap);
-        };
-        DominoAdapter.prototype.removeStyle = function (element, styleName) {
-            // IE requires '' instead of null
-            // see https://github.com/angular/angular/issues/7916
-            this.setStyle(element, styleName, '');
-        };
-        DominoAdapter.prototype.getStyle = function (element, styleName) {
-            var styleMap = this._readStyleAttribute(element);
-            return styleMap[styleName] || '';
         };
         DominoAdapter.prototype.dispatchEvent = function (el, evt) {
             el.dispatchEvent(evt);
@@ -726,27 +668,33 @@
         DefaultServerRenderer2.prototype.destroy = function () { };
         DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
             if (namespace) {
-                return common.ɵgetDOM().createElementNS(i1.ɵNAMESPACE_URIS[namespace], name, this.document);
+                var doc = this.document || common.ɵgetDOM().getDefaultDocument();
+                return doc.createElementNS(i1.ɵNAMESPACE_URIS[namespace], name);
             }
             return common.ɵgetDOM().createElement(name, this.document);
         };
-        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) { return common.ɵgetDOM().createComment(value); };
-        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) { return common.ɵgetDOM().createTextNode(value); };
-        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { common.ɵgetDOM().appendChild(parent, newChild); };
+        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) {
+            return common.ɵgetDOM().getDefaultDocument().createComment(value);
+        };
+        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) {
+            var doc = common.ɵgetDOM().getDefaultDocument();
+            return doc.createTextNode(value);
+        };
+        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
         DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
             if (parent) {
-                common.ɵgetDOM().insertBefore(parent, refChild, newChild);
+                parent.insertBefore(newChild, refChild);
             }
         };
         DefaultServerRenderer2.prototype.removeChild = function (parent, oldChild) {
             if (parent) {
-                common.ɵgetDOM().removeChild(parent, oldChild);
+                parent.removeChild(oldChild);
             }
         };
         DefaultServerRenderer2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
             var el;
             if (typeof selectorOrNode === 'string') {
-                el = common.ɵgetDOM().querySelector(this.document, selectorOrNode);
+                el = this.document.querySelector(selectorOrNode);
                 if (!el) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
@@ -754,34 +702,41 @@
             else {
                 el = selectorOrNode;
             }
-            common.ɵgetDOM().clearNodes(el);
+            while (el.firstChild) {
+                el.removeChild(el.firstChild);
+            }
             return el;
         };
-        DefaultServerRenderer2.prototype.parentNode = function (node) { return common.ɵgetDOM().parentElement(node); };
-        DefaultServerRenderer2.prototype.nextSibling = function (node) { return common.ɵgetDOM().nextSibling(node); };
+        DefaultServerRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
+        DefaultServerRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
         DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
-                common.ɵgetDOM().setAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
+                el.setAttributeNS(i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
             }
             else {
-                common.ɵgetDOM().setAttribute(el, name, value);
+                el.setAttribute(name, value);
             }
         };
         DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
             if (namespace) {
-                common.ɵgetDOM().removeAttributeNS(el, i1.ɵNAMESPACE_URIS[namespace], name);
+                el.removeAttributeNS(i1.ɵNAMESPACE_URIS[namespace], name);
             }
             else {
-                common.ɵgetDOM().removeAttribute(el, name);
+                el.removeAttribute(name);
             }
         };
-        DefaultServerRenderer2.prototype.addClass = function (el, name) { common.ɵgetDOM().addClass(el, name); };
-        DefaultServerRenderer2.prototype.removeClass = function (el, name) { common.ɵgetDOM().removeClass(el, name); };
+        DefaultServerRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
+        DefaultServerRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
         DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
-            common.ɵgetDOM().setStyle(el, style, value);
+            style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            var styleMap = _readStyleAttribute(el);
+            styleMap[style] = value || '';
+            _writeStyleAttribute(el, styleMap);
         };
         DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
-            common.ɵgetDOM().removeStyle(el, style);
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            this.setStyle(el, style, '', flags);
         };
         // The value was validated already as a property binding, against the property name.
         // To know this value is safe to use as an attribute, the security context of the
@@ -793,7 +748,11 @@
         };
         DefaultServerRenderer2.prototype.setProperty = function (el, name, value) {
             checkNoSyntheticProp(name, 'property');
-            common.ɵgetDOM().setProperty(el, name, value);
+            if (name === 'innerText') {
+                // Domino does not support innerText. Just map it to textContent.
+                el.textContent = value;
+            }
+            el[name] = value;
             // Mirror property values for known HTML element properties in the attributes.
             // Skip `innerhtml` which is conservatively marked as an attribute for security
             // purposes but is not actually an attribute.
@@ -805,7 +764,7 @@
                 this.setAttribute(el, name, value.toString());
             }
         };
-        DefaultServerRenderer2.prototype.setValue = function (node, value) { common.ɵgetDOM().setText(node, value); };
+        DefaultServerRenderer2.prototype.setValue = function (node, value) { node.textContent = value; };
         DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
             checkNoSyntheticProp(eventName, 'listener');
             if (typeof target === 'string') {
@@ -860,6 +819,35 @@
         };
         return EmulatedEncapsulationServerRenderer2;
     }(DefaultServerRenderer2));
+    function _readStyleAttribute(element) {
+        var styleMap = {};
+        var styleAttribute = element.getAttribute('style');
+        if (styleAttribute) {
+            var styleList = styleAttribute.split(/;+/g);
+            for (var i = 0; i < styleList.length; i++) {
+                var style = styleList[i].trim();
+                if (style.length > 0) {
+                    var colonIndex = style.indexOf(':');
+                    if (colonIndex === -1) {
+                        throw new Error("Invalid CSS style: " + style);
+                    }
+                    var name_1 = style.substr(0, colonIndex).trim();
+                    styleMap[name_1] = style.substr(colonIndex + 1).trim();
+                }
+            }
+        }
+        return styleMap;
+    }
+    function _writeStyleAttribute(element, styleMap) {
+        var styleAttrValue = '';
+        for (var key in styleMap) {
+            var newValue = styleMap[key];
+            if (newValue) {
+                styleAttrValue += key + ':' + styleMap[key] + ';';
+            }
+        }
+        element.setAttribute('style', styleAttrValue);
+    }
 
     var ServerStylesHost = /** @class */ (function (_super) {
         __extends(ServerStylesHost, _super);
@@ -868,17 +856,17 @@
             _this.doc = doc;
             _this.transitionId = transitionId;
             _this.head = null;
-            _this.head = common.ɵgetDOM().getElementsByTagName(doc, 'head')[0];
+            _this.head = doc.getElementsByTagName('head')[0];
             return _this;
         }
         ServerStylesHost.prototype._addStyle = function (style) {
             var adapter = common.ɵgetDOM();
             var el = adapter.createElement('style');
-            adapter.setText(el, style);
+            el.textContent = style;
             if (!!this.transitionId) {
-                adapter.setAttribute(el, 'ng-transition', this.transitionId);
+                el.setAttribute('ng-transition', this.transitionId);
             }
-            adapter.appendChild(this.head, el);
+            this.head.appendChild(el);
         };
         ServerStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
@@ -1157,7 +1145,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.4+71.sha-e8f9ba4.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.4+78.sha-89434e0.with-local-changes');
 
     /**
      * @license

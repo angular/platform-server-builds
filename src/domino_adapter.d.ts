@@ -22,12 +22,8 @@ export declare class DominoAdapter extends BrowserDomAdapter {
     isElementNode(node: any): boolean;
     isShadowRoot(node: any): boolean;
     getProperty(el: Element, name: string): any;
-    setProperty(el: Element, name: string, value: any): void;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
     getBaseHref(doc: Document): string;
-    setStyle(element: any, styleName: string, styleValue?: string | null): void;
-    removeStyle(element: any, styleName: string): void;
-    getStyle(element: any, styleName: string): string;
     dispatchEvent(el: Node, evt: any): void;
     getHistory(): History;
     getLocation(): Location;

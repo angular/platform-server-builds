@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.4+71.sha-e8f9ba4.with-local-changes
+ * @license Angular v9.0.0-next.4+78.sha-89434e0.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -133,31 +133,13 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         if (name === 'href') {
             // Domino tries to resolve href-s which we do not want. Just return the
             // attribute value.
-            return this.getAttribute(el, 'href');
+            return el.getAttribute('href');
         }
         else if (name === 'innerText') {
             // Domino does not support innerText. Just map it to textContent.
             return el.textContent;
         }
         return ((/** @type {?} */ (el)))[name];
-    }
-    /**
-     * @param {?} el
-     * @param {?} name
-     * @param {?} value
-     * @return {?}
-     */
-    setProperty(el, name, value) {
-        if (name === 'href') {
-            // Even though the server renderer reflects any properties to attributes
-            // map 'href' to attribute just to handle when setProperty is directly called.
-            this.setAttribute(el, 'href', value);
-        }
-        else if (name === 'innerText') {
-            // Domino does not support innerText. Just map it to textContent.
-            el.textContent = value;
-        }
-        ((/** @type {?} */ (el)))[name] = value;
     }
     /**
      * @param {?} doc
@@ -182,7 +164,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      */
     getBaseHref(doc) {
         /** @type {?} */
-        const base = this.querySelector((/** @type {?} */ (doc.documentElement)), 'base');
+        const base = (/** @type {?} */ (doc.documentElement)).querySelector('base');
         /** @type {?} */
         let href = '';
         if (base) {
@@ -190,87 +172,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         }
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
         return href;
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @return {?}
-     */
-    _readStyleAttribute(element) {
-        /** @type {?} */
-        const styleMap = {};
-        /** @type {?} */
-        const styleAttribute = element.getAttribute('style');
-        if (styleAttribute) {
-            /** @type {?} */
-            const styleList = styleAttribute.split(/;+/g);
-            for (let i = 0; i < styleList.length; i++) {
-                /** @type {?} */
-                const style = styleList[i].trim();
-                if (style.length > 0) {
-                    /** @type {?} */
-                    const colonIndex = style.indexOf(':');
-                    if (colonIndex === -1) {
-                        throw new Error(`Invalid CSS style: ${style}`);
-                    }
-                    /** @type {?} */
-                    const name = style.substr(0, colonIndex).trim();
-                    styleMap[name] = style.substr(colonIndex + 1).trim();
-                }
-            }
-        }
-        return styleMap;
-    }
-    /**
-     * \@internal
-     * @param {?} element
-     * @param {?} styleMap
-     * @return {?}
-     */
-    _writeStyleAttribute(element, styleMap) {
-        /** @type {?} */
-        let styleAttrValue = '';
-        for (const key in styleMap) {
-            /** @type {?} */
-            const newValue = styleMap[key];
-            if (newValue) {
-                styleAttrValue += key + ':' + styleMap[key] + ';';
-            }
-        }
-        element.setAttribute('style', styleAttrValue);
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @param {?=} styleValue
-     * @return {?}
-     */
-    setStyle(element, styleName, styleValue) {
-        styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        /** @type {?} */
-        const styleMap = this._readStyleAttribute(element);
-        styleMap[styleName] = styleValue || '';
-        this._writeStyleAttribute(element, styleMap);
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    removeStyle(element, styleName) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        this.setStyle(element, styleName, '');
-    }
-    /**
-     * @param {?} element
-     * @param {?} styleName
-     * @return {?}
-     */
-    getStyle(element, styleName) {
-        /** @type {?} */
-        const styleMap = this._readStyleAttribute(element);
-        return styleMap[styleName] || '';
     }
     /**
      * @param {?} el
@@ -958,7 +859,9 @@ class DefaultServerRenderer2 {
      */
     createElement(name, namespace, debugInfo) {
         if (namespace) {
-            return ɵgetDOM().createElementNS(ɵNAMESPACE_URIS[namespace], name, this.document);
+            /** @type {?} */
+            const doc = this.document || ɵgetDOM().getDefaultDocument();
+            return doc.createElementNS(ɵNAMESPACE_URIS[namespace], name);
         }
         return ɵgetDOM().createElement(name, this.document);
     }
@@ -967,19 +870,25 @@ class DefaultServerRenderer2 {
      * @param {?=} debugInfo
      * @return {?}
      */
-    createComment(value, debugInfo) { return ɵgetDOM().createComment(value); }
+    createComment(value, debugInfo) {
+        return ɵgetDOM().getDefaultDocument().createComment(value);
+    }
     /**
      * @param {?} value
      * @param {?=} debugInfo
      * @return {?}
      */
-    createText(value, debugInfo) { return ɵgetDOM().createTextNode(value); }
+    createText(value, debugInfo) {
+        /** @type {?} */
+        const doc = ɵgetDOM().getDefaultDocument();
+        return doc.createTextNode(value);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
      * @return {?}
      */
-    appendChild(parent, newChild) { ɵgetDOM().appendChild(parent, newChild); }
+    appendChild(parent, newChild) { parent.appendChild(newChild); }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -988,7 +897,7 @@ class DefaultServerRenderer2 {
      */
     insertBefore(parent, newChild, refChild) {
         if (parent) {
-            ɵgetDOM().insertBefore(parent, refChild, newChild);
+            parent.insertBefore(newChild, refChild);
         }
     }
     /**
@@ -998,7 +907,7 @@ class DefaultServerRenderer2 {
      */
     removeChild(parent, oldChild) {
         if (parent) {
-            ɵgetDOM().removeChild(parent, oldChild);
+            parent.removeChild(oldChild);
         }
     }
     /**
@@ -1010,7 +919,7 @@ class DefaultServerRenderer2 {
         /** @type {?} */
         let el;
         if (typeof selectorOrNode === 'string') {
-            el = ɵgetDOM().querySelector(this.document, selectorOrNode);
+            el = this.document.querySelector(selectorOrNode);
             if (!el) {
                 throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
             }
@@ -1018,19 +927,21 @@ class DefaultServerRenderer2 {
         else {
             el = selectorOrNode;
         }
-        ɵgetDOM().clearNodes(el);
+        while (el.firstChild) {
+            el.removeChild(el.firstChild);
+        }
         return el;
     }
     /**
      * @param {?} node
      * @return {?}
      */
-    parentNode(node) { return ɵgetDOM().parentElement(node); }
+    parentNode(node) { return node.parentNode; }
     /**
      * @param {?} node
      * @return {?}
      */
-    nextSibling(node) { return ɵgetDOM().nextSibling(node); }
+    nextSibling(node) { return node.nextSibling; }
     /**
      * @param {?} el
      * @param {?} name
@@ -1040,10 +951,10 @@ class DefaultServerRenderer2 {
      */
     setAttribute(el, name, value, namespace) {
         if (namespace) {
-            ɵgetDOM().setAttributeNS(el, ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
+            el.setAttributeNS(ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
         }
         else {
-            ɵgetDOM().setAttribute(el, name, value);
+            el.setAttribute(name, value);
         }
     }
     /**
@@ -1054,10 +965,10 @@ class DefaultServerRenderer2 {
      */
     removeAttribute(el, name, namespace) {
         if (namespace) {
-            ɵgetDOM().removeAttributeNS(el, ɵNAMESPACE_URIS[namespace], name);
+            el.removeAttributeNS(ɵNAMESPACE_URIS[namespace], name);
         }
         else {
-            ɵgetDOM().removeAttribute(el, name);
+            el.removeAttribute(name);
         }
     }
     /**
@@ -1065,13 +976,13 @@ class DefaultServerRenderer2 {
      * @param {?} name
      * @return {?}
      */
-    addClass(el, name) { ɵgetDOM().addClass(el, name); }
+    addClass(el, name) { el.classList.add(name); }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    removeClass(el, name) { ɵgetDOM().removeClass(el, name); }
+    removeClass(el, name) { el.classList.remove(name); }
     /**
      * @param {?} el
      * @param {?} style
@@ -1080,7 +991,11 @@ class DefaultServerRenderer2 {
      * @return {?}
      */
     setStyle(el, style, value, flags) {
-        ɵgetDOM().setStyle(el, style, value);
+        style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        /** @type {?} */
+        const styleMap = _readStyleAttribute(el);
+        styleMap[style] = value || '';
+        _writeStyleAttribute(el, styleMap);
     }
     /**
      * @param {?} el
@@ -1089,7 +1004,9 @@ class DefaultServerRenderer2 {
      * @return {?}
      */
     removeStyle(el, style, flags) {
-        ɵgetDOM().removeStyle(el, style);
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        this.setStyle(el, style, '', flags);
     }
     // The value was validated already as a property binding, against the property name.
     // To know this value is safe to use as an attribute, the security context of the
@@ -1113,7 +1030,11 @@ class DefaultServerRenderer2 {
      */
     setProperty(el, name, value) {
         checkNoSyntheticProp(name, 'property');
-        ɵgetDOM().setProperty(el, name, value);
+        if (name === 'innerText') {
+            // Domino does not support innerText. Just map it to textContent.
+            el.textContent = value;
+        }
+        ((/** @type {?} */ (el)))[name] = value;
         // Mirror property values for known HTML element properties in the attributes.
         // Skip `innerhtml` which is conservatively marked as an attribute for security
         // purposes but is not actually an attribute.
@@ -1131,7 +1052,7 @@ class DefaultServerRenderer2 {
      * @param {?} value
      * @return {?}
      */
-    setValue(node, value) { ɵgetDOM().setText(node, value); }
+    setValue(node, value) { node.textContent = value; }
     /**
      * @param {?} target
      * @param {?} eventName
@@ -1269,6 +1190,52 @@ if (false) {
      */
     EmulatedEncapsulationServerRenderer2.prototype.component;
 }
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function _readStyleAttribute(element) {
+    /** @type {?} */
+    const styleMap = {};
+    /** @type {?} */
+    const styleAttribute = element.getAttribute('style');
+    if (styleAttribute) {
+        /** @type {?} */
+        const styleList = styleAttribute.split(/;+/g);
+        for (let i = 0; i < styleList.length; i++) {
+            /** @type {?} */
+            const style = styleList[i].trim();
+            if (style.length > 0) {
+                /** @type {?} */
+                const colonIndex = style.indexOf(':');
+                if (colonIndex === -1) {
+                    throw new Error(`Invalid CSS style: ${style}`);
+                }
+                /** @type {?} */
+                const name = style.substr(0, colonIndex).trim();
+                styleMap[name] = style.substr(colonIndex + 1).trim();
+            }
+        }
+    }
+    return styleMap;
+}
+/**
+ * @param {?} element
+ * @param {?} styleMap
+ * @return {?}
+ */
+function _writeStyleAttribute(element, styleMap) {
+    /** @type {?} */
+    let styleAttrValue = '';
+    for (const key in styleMap) {
+        /** @type {?} */
+        const newValue = styleMap[key];
+        if (newValue) {
+            styleAttrValue += key + ':' + styleMap[key] + ';';
+        }
+    }
+    element.setAttribute('style', styleAttrValue);
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1284,7 +1251,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
         this.doc = doc;
         this.transitionId = transitionId;
         this.head = null;
-        this.head = ɵgetDOM().getElementsByTagName(doc, 'head')[0];
+        this.head = doc.getElementsByTagName('head')[0];
     }
     /**
      * @private
@@ -1296,11 +1263,11 @@ class ServerStylesHost extends ɵSharedStylesHost {
         let adapter = ɵgetDOM();
         /** @type {?} */
         const el = adapter.createElement('style');
-        adapter.setText(el, style);
+        el.textContent = style;
         if (!!this.transitionId) {
-            adapter.setAttribute(el, 'ng-transition', this.transitionId);
+            el.setAttribute('ng-transition', this.transitionId);
         }
-        adapter.appendChild(this.head, el);
+        this.head.appendChild(el);
     }
     /**
      * @param {?} additions
@@ -1646,7 +1613,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.4+71.sha-e8f9ba4.with-local-changes');
+const VERSION = new Version('9.0.0-next.4+78.sha-89434e0.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

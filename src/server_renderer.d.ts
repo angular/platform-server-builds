@@ -13,5 +13,6 @@ export declare class ServerRendererFactory2 implements RendererFactory2 {
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;
+    static ngFactoryDef: i0.ɵɵFactoryDef<ServerRendererFactory2>;
     static ngInjectableDef: i0.ɵɵInjectableDef<ServerRendererFactory2>;
 }

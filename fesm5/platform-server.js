@@ -1,11 +1,11 @@
 /**
- * @license Angular v9.0.0-next.9.with-local-changes
+ * @license Angular v9.0.0-next.9+1.sha-4e35e34.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { ɵɵdefineInjectable, ɵɵinject, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵɵdefineNgModule, ɵɵdefineInjector, Testability, ɵɵsetNgModuleScope, NgModule, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵɵdefineNgModule, ɵɵdefineInjector, Testability, ɵɵsetNgModuleScope, NgModule, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { __extends, __values } from 'tslib';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
@@ -155,7 +155,8 @@ var PlatformState = /** @class */ (function () {
      * Returns the current DOM state.
      */
     PlatformState.prototype.getDocument = function () { return this._doc; };
-    PlatformState.ngInjectableDef = ɵɵdefineInjectable({ token: PlatformState, factory: function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); }, providedIn: null });
+    PlatformState.ngFactoryDef = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
+    PlatformState.ngInjectableDef = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ngFactoryDef(t); }, providedIn: null });
     return PlatformState;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
@@ -177,7 +178,8 @@ var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
-    ServerXhr.ngInjectableDef = ɵɵdefineInjectable({ token: ServerXhr, factory: function ServerXhr_Factory(t) { return new (t || ServerXhr)(); }, providedIn: null });
+    ServerXhr.ngFactoryDef = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
+    ServerXhr.ngInjectableDef = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ngFactoryDef(t); }, providedIn: null });
     return ServerXhr;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
@@ -378,7 +380,8 @@ var ServerPlatformLocation = /** @class */ (function () {
     ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
     // History API isn't available on server, therefore return undefined
     ServerPlatformLocation.prototype.getState = function () { return undefined; };
-    ServerPlatformLocation.ngInjectableDef = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); }, providedIn: null });
+    ServerPlatformLocation.ngFactoryDef = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
+    ServerPlatformLocation.ngInjectableDef = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ngFactoryDef(t); }, providedIn: null });
     return ServerPlatformLocation;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
@@ -419,7 +422,8 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         }
         return this.addEventListener(target, eventName, handler);
     };
-    ServerEventManagerPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); }, providedIn: null });
+    ServerEventManagerPlugin.ngFactoryDef = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
+    ServerEventManagerPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ngFactoryDef(t); }, providedIn: null });
     return ServerEventManagerPlugin;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
@@ -468,7 +472,8 @@ var ServerRendererFactory2 = /** @class */ (function () {
     };
     ServerRendererFactory2.prototype.begin = function () { };
     ServerRendererFactory2.prototype.end = function () { };
-    ServerRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); }, providedIn: null });
+    ServerRendererFactory2.ngFactoryDef = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
+    ServerRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ngFactoryDef(t); }, providedIn: null });
     return ServerRendererFactory2;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
@@ -692,7 +697,8 @@ var ServerStylesHost = /** @class */ (function (_super) {
         var _this = this;
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
-    ServerStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); }, providedIn: null });
+    ServerStylesHost.ngFactoryDef = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
+    ServerStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ngFactoryDef(t); }, providedIn: null });
     return ServerStylesHost;
 }(ɵSharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
@@ -965,7 +971,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.9.with-local-changes');
+var VERSION = new Version('9.0.0-next.9+1.sha-4e35e34.with-local-changes');
 
 /**
  * @license

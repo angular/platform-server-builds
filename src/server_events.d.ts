@@ -5,5 +5,6 @@ export declare class ServerEventManagerPlugin {
     supports(eventName: string): boolean;
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
+    static ngFactoryDef: i0.ɵɵFactoryDef<ServerEventManagerPlugin>;
     static ngInjectableDef: i0.ɵɵInjectableDef<ServerEventManagerPlugin>;
 }

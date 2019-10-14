@@ -7,6 +7,6 @@ export declare class ServerStylesHost extends SharedStylesHost {
     constructor(doc: any, transitionId: string);
     private _addStyle;
     onStylesAdded(additions: Set<string>): void;
-    static ngFactoryDef: i0.ɵɵFactoryDef<ServerStylesHost>;
+    static ɵfac: i0.ɵɵFactoryDef<ServerStylesHost>;
     static ngInjectableDef: i0.ɵɵInjectableDef<ServerStylesHost>;
 }

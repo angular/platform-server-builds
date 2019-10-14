@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+66.sha-cd7b199.with-local-changes
+ * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -155,8 +155,8 @@ var PlatformState = /** @class */ (function () {
      * Returns the current DOM state.
      */
     PlatformState.prototype.getDocument = function () { return this._doc; };
-    PlatformState.ngFactoryDef = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
-    PlatformState.ngInjectableDef = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ngFactoryDef(t); }, providedIn: null });
+    PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
+    PlatformState.ngInjectableDef = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
     return PlatformState;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
@@ -178,8 +178,8 @@ var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
-    ServerXhr.ngFactoryDef = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-    ServerXhr.ngInjectableDef = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ngFactoryDef(t); }, providedIn: null });
+    ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
+    ServerXhr.ngInjectableDef = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
     return ServerXhr;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
@@ -380,8 +380,8 @@ var ServerPlatformLocation = /** @class */ (function () {
     ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
     // History API isn't available on server, therefore return undefined
     ServerPlatformLocation.prototype.getState = function () { return undefined; };
-    ServerPlatformLocation.ngFactoryDef = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
-    ServerPlatformLocation.ngInjectableDef = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ngFactoryDef(t); }, providedIn: null });
+    ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
+    ServerPlatformLocation.ngInjectableDef = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
     return ServerPlatformLocation;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
@@ -422,8 +422,8 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         }
         return this.addEventListener(target, eventName, handler);
     };
-    ServerEventManagerPlugin.ngFactoryDef = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
-    ServerEventManagerPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ngFactoryDef(t); }, providedIn: null });
+    ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
+    ServerEventManagerPlugin.ngInjectableDef = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
     return ServerEventManagerPlugin;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
@@ -472,8 +472,8 @@ var ServerRendererFactory2 = /** @class */ (function () {
     };
     ServerRendererFactory2.prototype.begin = function () { };
     ServerRendererFactory2.prototype.end = function () { };
-    ServerRendererFactory2.ngFactoryDef = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
-    ServerRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ngFactoryDef(t); }, providedIn: null });
+    ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
+    ServerRendererFactory2.ngInjectableDef = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
     return ServerRendererFactory2;
 }());
 /*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
@@ -697,8 +697,8 @@ var ServerStylesHost = /** @class */ (function (_super) {
         var _this = this;
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
-    ServerStylesHost.ngFactoryDef = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
-    ServerStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ngFactoryDef(t); }, providedIn: null });
+    ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
+    ServerStylesHost.ngInjectableDef = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
     return ServerStylesHost;
 }(ɵSharedStylesHost));
 /*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
@@ -971,7 +971,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-next.10+66.sha-cd7b199.with-local-changes');
+var VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
 
 /**
  * @license

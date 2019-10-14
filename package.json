@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
+  "version": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
   "description": "Angular - library for using Angular in Node.js",
   "main": "./bundles/platform-server.umd.js",
   "module": "./fesm5/platform-server.js",
@@ -13,16 +13,16 @@
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
-    "@angular/common": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
-    "@angular/compiler": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
-    "@angular/core": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
-    "@angular/platform-browser": "9.0.0-next.10+55.sha-868b3f9.with-local-changes",
-    "@angular/platform-browser-dynamic": "9.0.0-next.10+55.sha-868b3f9.with-local-changes"
+    "@angular/animations": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "@angular/common": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "@angular/compiler": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "@angular/core": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "@angular/platform-browser": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "@angular/platform-browser-dynamic": "9.0.0-next.10+57.sha-68f06c8.with-local-changes",
+    "tslib": "^1.9.0"
   },
   "dependencies": {
     "domino": "^2.1.2",
-    "tslib": "^1.9.0",
     "xhr2": "^0.1.4"
   },
   "repository": {

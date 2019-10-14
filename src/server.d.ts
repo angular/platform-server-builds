@@ -21,7 +21,7 @@ export declare const SERVER_RENDER_PROVIDERS: Provider[];
  * @publicApi
  */
 export declare class ServerModule {
-    static ngModuleDef: i0.ɵɵNgModuleDefWithMeta<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
     static ngInjectorDef: i0.ɵɵInjectorDef<ServerModule>;
 }
 /**

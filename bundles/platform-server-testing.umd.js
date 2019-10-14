@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,7 +31,7 @@
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.ngModuleDef = i0.ɵɵdefineNgModule({ type: ServerTestingModule });
+        ServerTestingModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTestingModule });
         ServerTestingModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule],
                 testing.BrowserDynamicTestingModule] });
         return ServerTestingModule;

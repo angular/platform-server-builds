@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.10+73.sha-f433d66.with-local-changes
+ * @license Angular v9.0.0-next.10+75.sha-fc93daf.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1476,7 +1476,7 @@ ServerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */ ServerModule.ngModuleDef = ɵɵdefineNgModule({ type: ServerModule });
+/** @nocollapse */ ServerModule.ɵmod = ɵɵdefineNgModule({ type: ServerModule });
 /** @nocollapse */ ServerModule.ngInjectorDef = ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
@@ -1575,7 +1575,7 @@ ServerTransferStateModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */ ServerTransferStateModule.ngModuleDef = ɵɵdefineNgModule({ type: ServerTransferStateModule });
+/** @nocollapse */ ServerTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: ServerTransferStateModule });
 /** @nocollapse */ ServerTransferStateModule.ngInjectorDef = ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
@@ -1761,7 +1761,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-next.10+73.sha-f433d66.with-local-changes');
+const VERSION = new Version('9.0.0-next.10+75.sha-fc93daf.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

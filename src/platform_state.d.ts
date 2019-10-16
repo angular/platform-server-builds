@@ -16,5 +16,5 @@ export declare class PlatformState {
      */
     getDocument(): any;
     static ɵfac: i0.ɵɵFactoryDef<PlatformState>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<PlatformState>;
+    static ɵprov: i0.ɵɵInjectableDef<PlatformState>;
 }

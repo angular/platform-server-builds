@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+8.sha-3e14c2d.with-local-changes
+ * @license Angular v9.0.0-next.11+10.sha-86104b8.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -42,7 +42,7 @@ ServerTestingModule.decorators = [
             },] },
 ];
 /** @nocollapse */ ServerTestingModule.ɵmod = ɵɵdefineNgModule({ type: ServerTestingModule });
-/** @nocollapse */ ServerTestingModule.ngInjectorDef = ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
+/** @nocollapse */ ServerTestingModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
         BrowserDynamicTestingModule] });
 /*@__PURE__*/ ɵɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
 /*@__PURE__*/ ɵsetClassMetadata(ServerTestingModule, [{

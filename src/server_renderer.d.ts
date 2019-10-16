@@ -14,5 +14,5 @@ export declare class ServerRendererFactory2 implements RendererFactory2 {
     begin(): void;
     end(): void;
     static ɵfac: i0.ɵɵFactoryDef<ServerRendererFactory2>;
-    static ngInjectableDef: i0.ɵɵInjectableDef<ServerRendererFactory2>;
+    static ɵprov: i0.ɵɵInjectableDef<ServerRendererFactory2>;
 }

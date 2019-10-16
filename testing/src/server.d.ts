@@ -22,5 +22,5 @@ export declare const platformServerTesting: (extraProviders?: StaticProvider[] |
  */
 export declare class ServerTestingModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerTestingModule, never, [typeof i1.NoopAnimationsModule], [typeof i2.BrowserDynamicTestingModule]>;
-    static ngInjectorDef: i0.ɵɵInjectorDef<ServerTestingModule>;
+    static ɵinj: i0.ɵɵInjectorDef<ServerTestingModule>;
 }

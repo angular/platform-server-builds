@@ -9,5 +9,5 @@ export declare function serializeTransferStateFactory(doc: Document, appId: stri
  */
 export declare class ServerTransferStateModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerTransferStateModule, never, never, never>;
-    static ngInjectorDef: i0.ɵɵInjectorDef<ServerTransferStateModule>;
+    static ɵinj: i0.ɵɵInjectorDef<ServerTransferStateModule>;
 }

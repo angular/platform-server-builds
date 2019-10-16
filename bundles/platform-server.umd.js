@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.11+8.sha-3e14c2d.with-local-changes
+ * @license Angular v9.0.0-next.11+10.sha-86104b8.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -336,7 +336,7 @@
          */
         PlatformState.prototype.getDocument = function () { return this._doc; };
         PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(common.DOCUMENT)); };
-        PlatformState.ngInjectableDef = i0.ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
+        PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
         return PlatformState;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
@@ -359,7 +359,7 @@
         }
         ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
         ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-        ServerXhr.ngInjectableDef = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
+        ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
         return ServerXhr;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXhr, [{
@@ -561,7 +561,7 @@
         // History API isn't available on server, therefore return undefined
         ServerPlatformLocation.prototype.getState = function () { return undefined; };
         ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
-        ServerPlatformLocation.ngInjectableDef = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
+        ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
         return ServerPlatformLocation;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
@@ -603,7 +603,7 @@
             return this.addEventListener(target, eventName, handler);
         };
         ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.ɵɵinject(common.DOCUMENT)); };
-        ServerEventManagerPlugin.ngInjectableDef = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
+        ServerEventManagerPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
         return ServerEventManagerPlugin;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
@@ -653,7 +653,7 @@
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
         ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵSharedStylesHost)); };
-        ServerRendererFactory2.ngInjectableDef = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
+        ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
         return ServerRendererFactory2;
     }());
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
@@ -878,7 +878,7 @@
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
         ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵTRANSITION_ID, 8)); };
-        ServerStylesHost.ngInjectableDef = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
+        ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
         return ServerStylesHost;
     }(i1.ɵSharedStylesHost));
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
@@ -941,7 +941,7 @@
         function ServerModule() {
         }
         ServerModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerModule });
-        ServerModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+        ServerModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
                 SERVER_RENDER_PROVIDERS,
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
@@ -1010,7 +1010,7 @@
         function ServerTransferStateModule() {
         }
         ServerTransferStateModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTransferStateModule });
-        ServerTransferStateModule.ngInjectorDef = i0.ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+        ServerTransferStateModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
                 i1.TransferState, {
                     provide: BEFORE_APP_SERIALIZED,
                     useFactory: serializeTransferStateFactory,
@@ -1151,7 +1151,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-next.11+8.sha-3e14c2d.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-next.11+10.sha-86104b8.with-local-changes');
 
     /**
      * @license

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { DOCUMENT } from '@angular/common';
 import { APP_ID, NgModule } from '@angular/core';
 import { TransferState, ɵescapeHtml as escapeHtml } from '@angular/platform-browser';
@@ -28,7 +28,7 @@ export function serializeTransferStateFactory(doc, appId, transferStore) {
 var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
     }
-    ServerTransferStateModule = tslib_1.__decorate([
+    ServerTransferStateModule = __decorate([
         NgModule({
             providers: [
                 TransferState, {

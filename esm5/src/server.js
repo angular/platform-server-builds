@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { DOCUMENT, PlatformLocation, ViewportScroller, ɵNullViewportScroller as NullViewportScroller, ɵPLATFORM_SERVER_ID as PLATFORM_SERVER_ID, ɵgetDOM as getDOM } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -61,7 +61,7 @@ export var SERVER_RENDER_PROVIDERS = [
 var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
-    ServerModule = tslib_1.__decorate([
+    ServerModule = __decorate([
         NgModule({
             exports: [BrowserModule],
             imports: [HttpClientModule, NoopAnimationsModule],

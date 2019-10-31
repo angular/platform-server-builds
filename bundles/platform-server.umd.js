@@ -1,13 +1,211 @@
 /**
- * @license Angular v4.0.0-beta.7-2ca93e1
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v9.0.0-next.15+4.sha-556cb78.with-local-changes
+ * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
+
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/compiler'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('url')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/compiler', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'url'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.platformServer = global.ng.platformServer || {}),global.ng.common,global.ng.compiler,global.ng.core,global.ng.platformBrowser,global.rxjs_Subject,global.url));
-}(this, function (exports,_angular_common,_angular_compiler,_angular_core,_angular_platformBrowser,rxjs_Subject,url) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
+}(this, function (exports, common, core, platformBrowser, browser, http, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m) return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
 
     /**
      * @license
@@ -16,285 +214,397 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ globalScope;
-    if (typeof window === 'undefined') {
-        if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-            // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-            globalScope = (self);
-        }
-        else {
-            globalScope = (global);
-        }
+    var domino = require('domino');
+    function _notImplemented(methodName) {
+        return new Error('This method is not implemented in DominoAdapter: ' + methodName);
     }
-    else {
-        globalScope = (window);
+    function setDomTypes() {
+        // Make all Domino types available as types in the global env.
+        Object.assign(global, domino.impl);
+        global['KeyboardEvent'] = domino.impl.Event;
     }
     /**
-     * @param {?} fn
-     * @return {?}
+     * Parses a document string to a Document object.
      */
-    function scheduleMicroTask(fn) {
-        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
-    }
-    // Need to declare a new variable for global here since TypeScript
-    // exports the original value of the symbol.
-    var /** @type {?} */ global$1 = globalScope;
-    // TODO: remove calls to assert in production environment
-    // Note: Can't just export this and import in in other files
-    // as `assert` is a reserved keyword in Dart
-    global$1.assert = function assert(condition) {
-        // TODO: to be fixed properly via #2830, noop for now
-    };
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    function isPresent(obj) {
-        return obj != null;
+    function parseDocument(html, url) {
+        if (url === void 0) { url = '/'; }
+        var window = domino.createWindow(html, url);
+        var doc = window.document;
+        return doc;
     }
     /**
-     * @param {?} obj
-     * @return {?}
+     * Serializes a document to string.
      */
-    function isBlank(obj) {
-        return obj == null;
+    function serializeDocument(doc) {
+        return doc.serialize();
     }
     /**
-     * @param {?} token
-     * @return {?}
+     * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
      */
-    function stringify(token) {
-        if (typeof token === 'string') {
-            return token;
+    var DominoAdapter = /** @class */ (function (_super) {
+        __extends(DominoAdapter, _super);
+        function DominoAdapter() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        if (token == null) {
-            return '' + token;
-        }
-        if (token.overriddenName) {
-            return "" + token.overriddenName;
-        }
-        if (token.name) {
-            return "" + token.name;
-        }
-        var /** @type {?} */ res = token.toString();
-        var /** @type {?} */ newLineIndex = res.indexOf('\n');
-        return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
-    }
-    /**
-     * @param {?} global
-     * @param {?} path
-     * @param {?} value
-     * @return {?}
-     */
-    function setValueOnPath(global, path, value) {
-        var /** @type {?} */ parts = path.split('.');
-        var /** @type {?} */ obj = global;
-        while (parts.length > 1) {
-            var /** @type {?} */ name_1 = parts.shift();
-            if (obj.hasOwnProperty(name_1) && obj[name_1] != null) {
-                obj = obj[name_1];
+        DominoAdapter.makeCurrent = function () {
+            setDomTypes();
+            common.ɵsetRootDomAdapter(new DominoAdapter());
+        };
+        DominoAdapter.prototype.log = function (error) {
+            // tslint:disable-next-line:no-console
+            console.log(error);
+        };
+        DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
+        DominoAdapter.prototype.logGroupEnd = function () { };
+        DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
+        DominoAdapter.prototype.createHtmlDocument = function () {
+            return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
+        };
+        DominoAdapter.prototype.getDefaultDocument = function () {
+            if (!DominoAdapter.defaultDoc) {
+                DominoAdapter.defaultDoc = domino.createDocument();
             }
-            else {
-                obj = obj[name_1] = {};
+            return DominoAdapter.defaultDoc;
+        };
+        DominoAdapter.prototype.isElementNode = function (node) {
+            return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
+        };
+        DominoAdapter.prototype.isShadowRoot = function (node) { return node.shadowRoot == node; };
+        DominoAdapter.prototype.getProperty = function (el, name) {
+            if (name === 'href') {
+                // Domino tries to resolve href-s which we do not want. Just return the
+                // attribute value.
+                return el.getAttribute('href');
             }
+            else if (name === 'innerText') {
+                // Domino does not support innerText. Just map it to textContent.
+                return el.textContent;
+            }
+            return el[name];
+        };
+        DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
+            if (target === 'window') {
+                return doc.defaultView;
+            }
+            if (target === 'document') {
+                return doc;
+            }
+            if (target === 'body') {
+                return doc.body;
+            }
+            return null;
+        };
+        DominoAdapter.prototype.getBaseHref = function (doc) {
+            var base = doc.documentElement.querySelector('base');
+            var href = '';
+            if (base) {
+                href = base.getAttribute('href');
+            }
+            // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+            return href;
+        };
+        DominoAdapter.prototype.dispatchEvent = function (el, evt) {
+            el.dispatchEvent(evt);
+            // Dispatch the event to the window also.
+            var doc = el.ownerDocument || el;
+            var win = doc.defaultView;
+            if (win) {
+                win.dispatchEvent(evt);
+            }
+        };
+        DominoAdapter.prototype.getHistory = function () { throw _notImplemented('getHistory'); };
+        DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
+        DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
+        DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
+        DominoAdapter.prototype.supportsCookies = function () { return false; };
+        DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
+        return DominoAdapter;
+    }(platformBrowser.ɵBrowserDomAdapter));
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * Representation of the current platform state.
+     *
+     * @publicApi
+     */
+    var PlatformState = /** @class */ (function () {
+        function PlatformState(_doc) {
+            this._doc = _doc;
         }
-        if (obj === undefined || obj === null) {
-            obj = {};
+        /**
+         * Renders the current state of the platform to string.
+         */
+        PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
+        /**
+         * Returns the current DOM state.
+         */
+        PlatformState.prototype.getDocument = function () { return this._doc; };
+        PlatformState = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [Object])
+        ], PlatformState);
+        return PlatformState;
+    }());
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var xhr2 = require('xhr2');
+    var ServerXhr = /** @class */ (function () {
+        function ServerXhr() {
         }
-        obj[parts.shift()] = value;
+        ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
+        ServerXhr = __decorate([
+            core.Injectable()
+        ], ServerXhr);
+        return ServerXhr;
+    }());
+    var ZoneMacroTaskWrapper = /** @class */ (function () {
+        function ZoneMacroTaskWrapper() {
+        }
+        ZoneMacroTaskWrapper.prototype.wrap = function (request) {
+            var _this = this;
+            return new rxjs.Observable(function (observer) {
+                var task = null;
+                var scheduled = false;
+                var sub = null;
+                var savedResult = null;
+                var savedError = null;
+                var scheduleTask = function (_task) {
+                    task = _task;
+                    scheduled = true;
+                    var delegate = _this.delegate(request);
+                    sub = delegate.subscribe(function (res) { return savedResult = res; }, function (err) {
+                        if (!scheduled) {
+                            throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
+                        }
+                        savedError = err;
+                        scheduled = false;
+                        task.invoke();
+                    }, function () {
+                        if (!scheduled) {
+                            throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
+                        }
+                        scheduled = false;
+                        task.invoke();
+                    });
+                };
+                var cancelTask = function (_task) {
+                    if (!scheduled) {
+                        return;
+                    }
+                    scheduled = false;
+                    if (sub) {
+                        sub.unsubscribe();
+                        sub = null;
+                    }
+                };
+                var onComplete = function () {
+                    if (savedError !== null) {
+                        observer.error(savedError);
+                    }
+                    else {
+                        observer.next(savedResult);
+                        observer.complete();
+                    }
+                };
+                // MockBackend for Http is synchronous, which means that if scheduleTask is by
+                // scheduleMacroTask, the request will hit MockBackend and the response will be
+                // sent, causing task.invoke() to be called.
+                var _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, function () { return null; }, cancelTask);
+                scheduleTask(_task);
+                return function () {
+                    if (scheduled && task) {
+                        task.zone.cancelTask(task);
+                        scheduled = false;
+                    }
+                    if (sub) {
+                        sub.unsubscribe();
+                        sub = null;
+                    }
+                };
+            });
+        };
+        return ZoneMacroTaskWrapper;
+    }());
+    var ZoneClientBackend = /** @class */ (function (_super) {
+        __extends(ZoneClientBackend, _super);
+        function ZoneClientBackend(backend) {
+            var _this = _super.call(this) || this;
+            _this.backend = backend;
+            return _this;
+        }
+        ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+        ZoneClientBackend.prototype.delegate = function (request) {
+            return this.backend.handle(request);
+        };
+        return ZoneClientBackend;
+    }(ZoneMacroTaskWrapper));
+    function zoneWrappedInterceptingHandler(backend, injector) {
+        var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
+        return new ZoneClientBackend(realBackend);
     }
+    var SERVER_HTTP_PROVIDERS = [
+        { provide: http.XhrFactory, useClass: ServerXhr }, {
+            provide: http.HttpHandler,
+            useFactory: zoneWrappedInterceptingHandler,
+            deps: [http.HttpBackend, core.Injector]
+        }
+    ];
 
-    var /** @type {?} */ DomAdapter = _angular_platformBrowser.__platform_browser_private__.DomAdapter;
-    var /** @type {?} */ setRootDomAdapter = _angular_platformBrowser.__platform_browser_private__.setRootDomAdapter;
-    var /** @type {?} */ getDOM = _angular_platformBrowser.__platform_browser_private__.getDOM;
-    var /** @type {?} */ SharedStylesHost = _angular_platformBrowser.__platform_browser_private__.SharedStylesHost;
-    var /** @type {?} */ NAMESPACE_URIS = _angular_platformBrowser.__platform_browser_private__.NAMESPACE_URIS;
-    var /** @type {?} */ shimContentAttribute = _angular_platformBrowser.__platform_browser_private__.shimContentAttribute;
-    var /** @type {?} */ shimHostAttribute = _angular_platformBrowser.__platform_browser_private__.shimHostAttribute;
-    var /** @type {?} */ flattenStyles = _angular_platformBrowser.__platform_browser_private__.flattenStyles;
-    var /** @type {?} */ splitNamespace = _angular_platformBrowser.__platform_browser_private__.splitNamespace;
-    var /** @type {?} */ isNamespaced = _angular_platformBrowser.__platform_browser_private__.isNamespaced;
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * The DI token for setting the initial config for the platform.
+     *
+     * @publicApi
+     */
+    var INITIAL_CONFIG = new core.InjectionToken('Server.INITIAL_CONFIG');
+    /**
+     * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
+     * before current platform state is rendered to string.
+     *
+     * @publicApi
+     */
+    var BEFORE_APP_SERIALIZED = new core.InjectionToken('Server.RENDER_MODULE_HOOK');
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    function parseUrl(urlStr) {
+        var parsedUrl = url.parse(urlStr);
+        return {
+            hostname: parsedUrl.hostname || '',
+            protocol: parsedUrl.protocol || '',
+            port: parsedUrl.port || '',
+            pathname: parsedUrl.pathname || '',
+            search: parsedUrl.search || '',
+            hash: parsedUrl.hash || '',
+        };
+    }
     /**
      * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
      * but not the state stack.
      */
-    var ServerPlatformLocation = (function () {
-        function ServerPlatformLocation() {
-            this._path = '/';
-            this._search = '';
-            this._hash = '';
-            this._hashUpdate = new rxjs_Subject.Subject();
+    var ServerPlatformLocation = /** @class */ (function () {
+        function ServerPlatformLocation(_doc, _config) {
+            this._doc = _doc;
+            this.href = '/';
+            this.hostname = '/';
+            this.protocol = '/';
+            this.port = '/';
+            this.pathname = '/';
+            this.search = '';
+            this.hash = '';
+            this._hashUpdate = new rxjs.Subject();
+            var config = _config;
+            if (!!config && !!config.url) {
+                var parsedUrl = parseUrl(config.url);
+                this.hostname = parsedUrl.hostname;
+                this.protocol = parsedUrl.protocol;
+                this.port = parsedUrl.port;
+                this.pathname = parsedUrl.pathname;
+                this.search = parsedUrl.search;
+                this.hash = parsedUrl.hash;
+            }
         }
-        /**
-         * @return {?}
-         */
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return getDOM().getBaseHref(); };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return common.ɵgetDOM().getBaseHref(this._doc); };
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.onHashChange = function (fn) { this._hashUpdate.subscribe(fn); };
-        Object.defineProperty(ServerPlatformLocation.prototype, "pathname", {
-            /**
-             * @return {?}
-             */
-            get: function () { return this._path; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ServerPlatformLocation.prototype, "search", {
-            /**
-             * @return {?}
-             */
-            get: function () { return this._search; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ServerPlatformLocation.prototype, "hash", {
-            /**
-             * @return {?}
-             */
-            get: function () { return this._hash; },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(ServerPlatformLocation.prototype, "url", {
-            /**
-             * @return {?}
-             */
             get: function () { return "" + this.pathname + this.search + this.hash; },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @param {?} value
-         * @param {?} oldUrl
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.setHash = function (value, oldUrl) {
             var _this = this;
-            if (this._hash === value) {
+            if (this.hash === value) {
                 // Don't fire events if the hash has not changed.
                 return;
             }
-            this._hash = value;
-            var /** @type {?} */ newUrl = this.url;
-            scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
+            this.hash = value;
+            var newUrl = this.url;
+            scheduleMicroTask(function () { return _this._hashUpdate.next({
+                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
+            }); });
         };
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} newUrl
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
-            var /** @type {?} */ oldUrl = this.url;
-            var /** @type {?} */ parsedUrl = url.parse(newUrl, true);
-            this._path = parsedUrl.path;
-            this._search = parsedUrl.search;
+            var oldUrl = this.url;
+            var parsedUrl = parseUrl(newUrl);
+            this.pathname = parsedUrl.pathname;
+            this.search = parsedUrl.search;
             this.setHash(parsedUrl.hash, oldUrl);
         };
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} newUrl
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.pushState = function (state, title, newUrl) {
             this.replaceState(state, title, newUrl);
         };
-        /**
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
-        /**
-         * @return {?}
-         */
         ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+        // History API isn't available on server, therefore return undefined
+        ServerPlatformLocation.prototype.getState = function () { return undefined; };
+        ServerPlatformLocation = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(common.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
+            __metadata("design:paramtypes", [Object, Object])
+        ], ServerPlatformLocation);
         return ServerPlatformLocation;
     }());
-    ServerPlatformLocation.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    ServerPlatformLocation.ctorParameters = function () { return []; };
+    function scheduleMicroTask(fn) {
+        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
+    }
 
-    var ListWrapper = (function () {
-        function ListWrapper() {
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    var ServerEventManagerPlugin = /** @class */ (function () {
+        function ServerEventManagerPlugin(doc) {
+            this.doc = doc;
         }
-        /**
-         * @param {?} arr
-         * @param {?} condition
-         * @return {?}
-         */
-        ListWrapper.findLast = function (arr, condition) {
-            for (var /** @type {?} */ i = arr.length - 1; i >= 0; i--) {
-                if (condition(arr[i])) {
-                    return arr[i];
-                }
+        // Handle all events on the server.
+        ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
+        ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
+            return common.ɵgetDOM().onAndCancel(element, eventName, handler);
+        };
+        ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
+            var target = common.ɵgetDOM().getGlobalEventTarget(this.doc, element);
+            if (!target) {
+                throw new Error("Unsupported event target " + target + " for event " + eventName);
             }
-            return null;
+            return this.addEventListener(target, eventName, handler);
         };
-        /**
-         * @param {?} list
-         * @param {?} items
-         * @return {?}
-         */
-        ListWrapper.removeAll = function (list, items) {
-            for (var /** @type {?} */ i = 0; i < items.length; ++i) {
-                var /** @type {?} */ index = list.indexOf(items[i]);
-                if (index > -1) {
-                    list.splice(index, 1);
-                }
-            }
-        };
-        /**
-         * @param {?} list
-         * @param {?} el
-         * @return {?}
-         */
-        ListWrapper.remove = function (list, el) {
-            var /** @type {?} */ index = list.indexOf(el);
-            if (index > -1) {
-                list.splice(index, 1);
-                return true;
-            }
-            return false;
-        };
-        /**
-         * @param {?} a
-         * @param {?} b
-         * @return {?}
-         */
-        ListWrapper.equals = function (a, b) {
-            if (a.length != b.length)
-                return false;
-            for (var /** @type {?} */ i = 0; i < a.length; ++i) {
-                if (a[i] !== b[i])
-                    return false;
-            }
-            return true;
-        };
-        /**
-         * @param {?} list
-         * @return {?}
-         */
-        ListWrapper.flatten = function (list) {
-            return list.reduce(function (flat, item) {
-                var /** @type {?} */ flatItem = Array.isArray(item) ? ListWrapper.flatten(item) : item;
-                return ((flat)).concat(flatItem);
-            }, []);
-        };
-        return ListWrapper;
+        ServerEventManagerPlugin = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [Object])
+        ], ServerEventManagerPlugin);
+        return ServerEventManagerPlugin;
     }());
 
     /**
@@ -304,1718 +614,574 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var __extends = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-    var /** @type {?} */ parse5 = require('parse5');
-    var /** @type {?} */ treeAdapter;
-    var /** @type {?} */ _attrToPropMap = {
-        'class': 'className',
-        'innerHtml': 'innerHTML',
-        'readonly': 'readOnly',
-        'tabindex': 'tabIndex',
-    };
-    var /** @type {?} */ defDoc = null;
-    var /** @type {?} */ mapProps = ['attribs', 'x-attribsNamespace', 'x-attribsPrefix'];
-    /**
-     * @param {?} methodName
-     * @return {?}
-     */
-    function _notImplemented(methodName) {
-        return new Error('This method is not implemented in Parse5DomAdapter: ' + methodName);
-    }
-    /**
-     * A `DomAdapter` powered by the `parse5` NodeJS module.
-     *
-     * \@security Tread carefully! Interacting with the DOM directly is dangerous and
-     * can introduce XSS risks.
-     */
-    var Parse5DomAdapter = (function (_super) {
-        __extends(Parse5DomAdapter, _super);
-        function Parse5DomAdapter() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.makeCurrent = function () {
-            treeAdapter = parse5.treeAdapters.htmlparser2;
-            setRootDomAdapter(new Parse5DomAdapter());
-        };
-        /**
-         * @param {?} element
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasProperty = function (element, name) {
-            return _HTMLElementPropertyList.indexOf(name) > -1;
-        };
-        /**
-         * @param {?} el
-         * @param {?} name
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setProperty = function (el, name, value) {
-            if (name === 'innerHTML') {
-                this.setInnerHTML(el, value);
-            }
-            else if (name === 'className') {
-                el.attribs['class'] = el.className = value;
-            }
-            else {
-                el[name] = value;
-            }
-        };
-        /**
-         * @param {?} el
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getProperty = function (el, name) { return el[name]; };
-        /**
-         * @param {?} error
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.logError = function (error) { console.error(error); };
-        /**
-         * @param {?} error
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.log = function (error) { console.log(error); };
-        /**
-         * @param {?} error
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.logGroup = function (error) { console.error(error); };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.logGroupEnd = function () { };
-        Object.defineProperty(Parse5DomAdapter.prototype, "attrToPropMap", {
-            /**
-             * @return {?}
-             */
-            get: function () { return _attrToPropMap; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} selector
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.query = function (selector) { throw _notImplemented('query'); };
-        /**
-         * @param {?} el
-         * @param {?} selector
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.querySelector = function (el, selector) { return this.querySelectorAll(el, selector)[0]; };
-        /**
-         * @param {?} el
-         * @param {?} selector
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.querySelectorAll = function (el, selector) {
-            var _this = this;
-            var /** @type {?} */ res = [];
-            var /** @type {?} */ _recursive = function (result, node, selector, matcher) {
-                var /** @type {?} */ cNodes = node.childNodes;
-                if (cNodes && cNodes.length > 0) {
-                    for (var /** @type {?} */ i = 0; i < cNodes.length; i++) {
-                        var /** @type {?} */ childNode = cNodes[i];
-                        if (_this.elementMatches(childNode, selector, matcher)) {
-                            result.push(childNode);
-                        }
-                        _recursive(result, childNode, selector, matcher);
-                    }
-                }
-            };
-            var /** @type {?} */ matcher = new _angular_compiler.SelectorMatcher();
-            matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
-            _recursive(res, el, selector, matcher);
-            return res;
-        };
-        /**
-         * @param {?} node
-         * @param {?} selector
-         * @param {?=} matcher
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.elementMatches = function (node, selector, matcher) {
-            if (matcher === void 0) { matcher = null; }
-            if (this.isElementNode(node) && selector === '*') {
-                return true;
-            }
-            var /** @type {?} */ result = false;
-            if (selector && selector.charAt(0) == '#') {
-                result = this.getAttribute(node, 'id') == selector.substring(1);
-            }
-            else if (selector) {
-                if (!matcher) {
-                    matcher = new _angular_compiler.SelectorMatcher();
-                    matcher.addSelectables(_angular_compiler.CssSelector.parse(selector));
-                }
-                var /** @type {?} */ cssSelector = new _angular_compiler.CssSelector();
-                cssSelector.setElement(this.tagName(node));
-                if (node.attribs) {
-                    for (var /** @type {?} */ attrName in node.attribs) {
-                        cssSelector.addAttribute(attrName, node.attribs[attrName]);
-                    }
-                }
-                var /** @type {?} */ classList = this.classList(node);
-                for (var /** @type {?} */ i = 0; i < classList.length; i++) {
-                    cssSelector.addClassName(classList[i]);
-                }
-                matcher.match(cssSelector, function (selector, cb) { result = true; });
-            }
-            return result;
-        };
-        /**
-         * @param {?} el
-         * @param {?} evt
-         * @param {?} listener
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.on = function (el, evt, listener) {
-            var /** @type {?} */ listenersMap = el._eventListenersMap;
-            if (!listenersMap) {
-                listenersMap = {};
-                el._eventListenersMap = listenersMap;
-            }
-            var /** @type {?} */ listeners = listenersMap[evt] || [];
-            listenersMap[evt] = listeners.concat([listener]);
-        };
-        /**
-         * @param {?} el
-         * @param {?} evt
-         * @param {?} listener
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.onAndCancel = function (el, evt, listener) {
-            this.on(el, evt, listener);
-            return function () { ListWrapper.remove(/** @type {?} */ ((el._eventListenersMap[evt])), listener); };
-        };
-        /**
-         * @param {?} el
-         * @param {?} evt
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.dispatchEvent = function (el, evt) {
-            if (!evt.target) {
-                evt.target = el;
-            }
-            if (el._eventListenersMap) {
-                var /** @type {?} */ listeners = el._eventListenersMap[evt.type];
-                if (listeners) {
-                    for (var /** @type {?} */ i = 0; i < listeners.length; i++) {
-                        listeners[i](evt);
-                    }
-                }
-            }
-            if (el.parent) {
-                this.dispatchEvent(el.parent, evt);
-            }
-            if (el._window) {
-                this.dispatchEvent(el._window, evt);
-            }
-        };
-        /**
-         * @param {?} eventType
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createMouseEvent = function (eventType) { return this.createEvent(eventType); };
-        /**
-         * @param {?} eventType
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createEvent = function (eventType) {
-            var /** @type {?} */ event = ({
-                type: eventType,
-                defaultPrevented: false,
-                preventDefault: function () { ((event)).defaultPrevented = true; }
-            });
-            return event;
-        };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.preventDefault = function (event) { event.returnValue = false; };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isPrevented = function (event) { return isPresent(event.returnValue) && !event.returnValue; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getInnerHTML = function (el) {
-            return parse5.serialize(this.templateAwareRoot(el), { treeAdapter: treeAdapter });
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getTemplateContent = function (el) { return null; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getOuterHTML = function (el) {
-            var /** @type {?} */ fragment = treeAdapter.createDocumentFragment();
-            this.appendChild(fragment, el);
-            return parse5.serialize(fragment, { treeAdapter: treeAdapter });
-        };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.nodeName = function (node) { return node.tagName; };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.nodeValue = function (node) { return node.nodeValue; };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.type = function (node) { throw _notImplemented('type'); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.content = function (node) { return node.childNodes[0]; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.firstChild = function (el) { return el.firstChild; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.nextSibling = function (el) { return el.nextSibling; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.parentElement = function (el) { return el.parent; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.childNodes = function (el) { return el.childNodes; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.childNodesAsList = function (el) {
-            var /** @type {?} */ childNodes = el.childNodes;
-            var /** @type {?} */ res = new Array(childNodes.length);
-            for (var /** @type {?} */ i = 0; i < childNodes.length; i++) {
-                res[i] = childNodes[i];
-            }
-            return res;
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.clearNodes = function (el) {
-            while (el.childNodes.length > 0) {
-                this.remove(el.childNodes[0]);
-            }
-        };
-        /**
-         * @param {?} el
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.appendChild = function (el, node) {
-            this.remove(node);
-            treeAdapter.appendChild(this.templateAwareRoot(el), node);
-        };
-        /**
-         * @param {?} el
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.removeChild = function (el, node) {
-            if (el.childNodes.indexOf(node) > -1) {
-                this.remove(node);
-            }
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.remove = function (el) {
-            var /** @type {?} */ parent = el.parent;
-            if (parent) {
-                var /** @type {?} */ index = parent.childNodes.indexOf(el);
-                parent.childNodes.splice(index, 1);
-            }
-            var /** @type {?} */ prev = el.previousSibling;
-            var /** @type {?} */ next = el.nextSibling;
-            if (prev) {
-                prev.next = next;
-            }
-            if (next) {
-                next.prev = prev;
-            }
-            el.prev = null;
-            el.next = null;
-            el.parent = null;
-            return el;
-        };
-        /**
-         * @param {?} el
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.insertBefore = function (el, node) {
-            this.remove(node);
-            treeAdapter.insertBefore(el.parent, node, el);
-        };
-        /**
-         * @param {?} el
-         * @param {?} nodes
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.insertAllBefore = function (el, nodes) {
-            var _this = this;
-            nodes.forEach(function (n) { return _this.insertBefore(el, n); });
-        };
-        /**
-         * @param {?} el
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.insertAfter = function (el, node) {
-            if (el.nextSibling) {
-                this.insertBefore(el.nextSibling, node);
-            }
-            else {
-                this.appendChild(el.parent, node);
-            }
-        };
-        /**
-         * @param {?} el
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setInnerHTML = function (el, value) {
-            this.clearNodes(el);
-            var /** @type {?} */ content = parse5.parseFragment(value, { treeAdapter: treeAdapter });
-            for (var /** @type {?} */ i = 0; i < content.childNodes.length; i++) {
-                treeAdapter.appendChild(el, content.childNodes[i]);
-            }
-        };
-        /**
-         * @param {?} el
-         * @param {?=} isRecursive
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getText = function (el, isRecursive) {
-            if (this.isTextNode(el)) {
-                return el.data;
-            }
-            if (this.isCommentNode(el)) {
-                // In the DOM, comments within an element return an empty string for textContent
-                // However, comment node instances return the comment content for textContent getter
-                return isRecursive ? '' : el.data;
-            }
-            if (!el.childNodes || el.childNodes.length == 0) {
-                return '';
-            }
-            var /** @type {?} */ textContent = '';
-            for (var /** @type {?} */ i = 0; i < el.childNodes.length; i++) {
-                textContent += this.getText(el.childNodes[i], true);
-            }
-            return textContent;
-        };
-        /**
-         * @param {?} el
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setText = function (el, value) {
-            if (this.isTextNode(el) || this.isCommentNode(el)) {
-                el.data = value;
-            }
-            else {
-                this.clearNodes(el);
-                if (value !== '')
-                    treeAdapter.insertText(el, value);
-            }
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getValue = function (el) { return el.value; };
-        /**
-         * @param {?} el
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setValue = function (el, value) { el.value = value; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getChecked = function (el) { return el.checked; };
-        /**
-         * @param {?} el
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setChecked = function (el, value) { el.checked = value; };
-        /**
-         * @param {?} text
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createComment = function (text) { return treeAdapter.createCommentNode(text); };
-        /**
-         * @param {?} html
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createTemplate = function (html) {
-            var /** @type {?} */ template = treeAdapter.createElement('template', 'http://www.w3.org/1999/xhtml', []);
-            var /** @type {?} */ content = parse5.parseFragment(html, { treeAdapter: treeAdapter });
-            treeAdapter.setTemplateContent(template, content);
-            return template;
-        };
-        /**
-         * @param {?} tagName
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createElement = function (tagName) {
-            return treeAdapter.createElement(tagName, 'http://www.w3.org/1999/xhtml', []);
-        };
-        /**
-         * @param {?} ns
-         * @param {?} tagName
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createElementNS = function (ns, tagName) {
-            return treeAdapter.createElement(tagName, ns, []);
-        };
-        /**
-         * @param {?} text
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createTextNode = function (text) {
-            var /** @type {?} */ t = (this.createComment(text));
-            t.type = 'text';
-            return t;
-        };
-        /**
-         * @param {?} attrName
-         * @param {?} attrValue
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createScriptTag = function (attrName, attrValue) {
-            return treeAdapter.createElement('script', 'http://www.w3.org/1999/xhtml', [{ name: attrName, value: attrValue }]);
-        };
-        /**
-         * @param {?} css
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createStyleElement = function (css) {
-            var /** @type {?} */ style = this.createElement('style');
-            this.setText(style, css);
-            return (style);
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createShadowRoot = function (el) {
-            el.shadowRoot = treeAdapter.createDocumentFragment();
-            el.shadowRoot.parent = el;
-            return el.shadowRoot;
-        };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getShadowRoot = function (el) { return el.shadowRoot; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getHost = function (el) { return el.host; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getDistributedNodes = function (el) { throw _notImplemented('getDistributedNodes'); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.clone = function (node) {
-            var /** @type {?} */ _recursive = function (node) {
-                var /** @type {?} */ nodeClone = Object.create(Object.getPrototypeOf(node));
-                for (var /** @type {?} */ prop in node) {
-                    var /** @type {?} */ desc = Object.getOwnPropertyDescriptor(node, prop);
-                    if (desc && 'value' in desc && typeof desc.value !== 'object') {
-                        nodeClone[prop] = node[prop];
-                    }
-                }
-                nodeClone.parent = null;
-                nodeClone.prev = null;
-                nodeClone.next = null;
-                nodeClone.children = null;
-                mapProps.forEach(function (mapName) {
-                    if (isPresent(node[mapName])) {
-                        nodeClone[mapName] = {};
-                        for (var /** @type {?} */ prop in node[mapName]) {
-                            nodeClone[mapName][prop] = node[mapName][prop];
-                        }
-                    }
-                });
-                var /** @type {?} */ cNodes = node.children;
-                if (cNodes) {
-                    var /** @type {?} */ cNodesClone = new Array(cNodes.length);
-                    for (var /** @type {?} */ i = 0; i < cNodes.length; i++) {
-                        var /** @type {?} */ childNode = cNodes[i];
-                        var /** @type {?} */ childNodeClone = _recursive(childNode);
-                        cNodesClone[i] = childNodeClone;
-                        if (i > 0) {
-                            childNodeClone.prev = cNodesClone[i - 1];
-                            cNodesClone[i - 1].next = childNodeClone;
-                        }
-                        childNodeClone.parent = nodeClone;
-                    }
-                    nodeClone.children = cNodesClone;
-                }
-                return nodeClone;
-            };
-            return _recursive(node);
-        };
-        /**
-         * @param {?} element
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getElementsByClassName = function (element, name) {
-            return this.querySelectorAll(element, '.' + name);
-        };
-        /**
-         * @param {?} element
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getElementsByTagName = function (element, name) {
-            throw _notImplemented('getElementsByTagName');
-        };
-        /**
-         * @param {?} element
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.classList = function (element) {
-            var /** @type {?} */ classAttrValue = null;
-            var /** @type {?} */ attributes = element.attribs;
-            if (attributes && attributes.hasOwnProperty('class')) {
-                classAttrValue = attributes['class'];
-            }
-            return classAttrValue ? classAttrValue.trim().split(/\s+/g) : [];
-        };
-        /**
-         * @param {?} element
-         * @param {?} className
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.addClass = function (element, className) {
-            var /** @type {?} */ classList = this.classList(element);
-            var /** @type {?} */ index = classList.indexOf(className);
-            if (index == -1) {
-                classList.push(className);
-                element.attribs['class'] = element.className = classList.join(' ');
-            }
-        };
-        /**
-         * @param {?} element
-         * @param {?} className
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.removeClass = function (element, className) {
-            var /** @type {?} */ classList = this.classList(element);
-            var /** @type {?} */ index = classList.indexOf(className);
-            if (index > -1) {
-                classList.splice(index, 1);
-                element.attribs['class'] = element.className = classList.join(' ');
-            }
-        };
-        /**
-         * @param {?} element
-         * @param {?} className
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasClass = function (element, className) {
-            return this.classList(element).indexOf(className) > -1;
-        };
-        /**
-         * @param {?} element
-         * @param {?} styleName
-         * @param {?=} styleValue
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasStyle = function (element, styleName, styleValue) {
-            if (styleValue === void 0) { styleValue = null; }
-            var /** @type {?} */ value = this.getStyle(element, styleName) || '';
-            return styleValue ? value == styleValue : value.length > 0;
-        };
-        /**
-         * \@internal
-         * @param {?} element
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype._readStyleAttribute = function (element) {
-            var /** @type {?} */ styleMap = {};
-            var /** @type {?} */ attributes = element.attribs;
-            if (attributes && attributes.hasOwnProperty('style')) {
-                var /** @type {?} */ styleAttrValue = attributes['style'];
-                var /** @type {?} */ styleList = styleAttrValue.split(/;+/g);
-                for (var /** @type {?} */ i = 0; i < styleList.length; i++) {
-                    if (styleList[i].length > 0) {
-                        var /** @type {?} */ elems = styleList[i].split(/:+/g);
-                        ((styleMap))[elems[0].trim()] = elems[1].trim();
-                    }
-                }
-            }
-            return styleMap;
-        };
-        /**
-         * \@internal
-         * @param {?} element
-         * @param {?} styleMap
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype._writeStyleAttribute = function (element, styleMap) {
-            var /** @type {?} */ styleAttrValue = '';
-            for (var /** @type {?} */ key in styleMap) {
-                var /** @type {?} */ newValue = styleMap[key];
-                if (newValue) {
-                    styleAttrValue += key + ':' + styleMap[key] + ';';
-                }
-            }
-            element.attribs['style'] = styleAttrValue;
-        };
-        /**
-         * @param {?} element
-         * @param {?} styleName
-         * @param {?} styleValue
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setStyle = function (element, styleName, styleValue) {
-            var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-            ((styleMap))[styleName] = styleValue;
-            this._writeStyleAttribute(element, styleMap);
-        };
-        /**
-         * @param {?} element
-         * @param {?} styleName
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.removeStyle = function (element, styleName) { this.setStyle(element, styleName, null); };
-        /**
-         * @param {?} element
-         * @param {?} styleName
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getStyle = function (element, styleName) {
-            var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-            return styleMap.hasOwnProperty(styleName) ? ((styleMap))[styleName] : '';
-        };
-        /**
-         * @param {?} element
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.tagName = function (element) { return element.tagName == 'style' ? 'STYLE' : element.tagName; };
-        /**
-         * @param {?} element
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.attributeMap = function (element) {
-            var /** @type {?} */ res = new Map();
-            var /** @type {?} */ elAttrs = treeAdapter.getAttrList(element);
-            for (var /** @type {?} */ i = 0; i < elAttrs.length; i++) {
-                var /** @type {?} */ attrib = elAttrs[i];
-                res.set(attrib.name, attrib.value);
-            }
-            return res;
-        };
-        /**
-         * @param {?} element
-         * @param {?} attribute
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasAttribute = function (element, attribute) {
-            return element.attribs && element.attribs.hasOwnProperty(attribute);
-        };
-        /**
-         * @param {?} element
-         * @param {?} ns
-         * @param {?} attribute
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
-        /**
-         * @param {?} element
-         * @param {?} attribute
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getAttribute = function (element, attribute) {
-            return element.attribs && element.attribs.hasOwnProperty(attribute) ?
-                element.attribs[attribute] :
-                null;
-        };
-        /**
-         * @param {?} element
-         * @param {?} ns
-         * @param {?} attribute
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getAttributeNS = function (element, ns, attribute) { throw 'not implemented'; };
-        /**
-         * @param {?} element
-         * @param {?} attribute
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setAttribute = function (element, attribute, value) {
-            if (attribute) {
-                element.attribs[attribute] = value;
-                if (attribute === 'class') {
-                    element.className = value;
-                }
-            }
-        };
-        /**
-         * @param {?} element
-         * @param {?} ns
-         * @param {?} attribute
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setAttributeNS = function (element, ns, attribute, value) {
-            throw 'not implemented';
-        };
-        /**
-         * @param {?} element
-         * @param {?} attribute
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.removeAttribute = function (element, attribute) {
-            if (attribute) {
-                delete element.attribs[attribute];
-            }
-        };
-        /**
-         * @param {?} element
-         * @param {?} ns
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.removeAttributeNS = function (element, ns, name) { throw 'not implemented'; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.templateAwareRoot = function (el) {
-            return this.isTemplateElement(el) ? treeAdapter.getTemplateContent(el) : el;
-        };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.createHtmlDocument = function () {
-            var /** @type {?} */ newDoc = treeAdapter.createDocument();
-            newDoc.title = 'fake title';
-            var /** @type {?} */ head = treeAdapter.createElement('head', null, []);
-            var /** @type {?} */ body = treeAdapter.createElement('body', 'http://www.w3.org/1999/xhtml', []);
-            this.appendChild(newDoc, head);
-            this.appendChild(newDoc, body);
-            newDoc['head'] = head;
-            newDoc['body'] = body;
-            newDoc['_window'] = {};
-            return newDoc;
-        };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.defaultDoc = function () { return defDoc = defDoc || this.createHtmlDocument(); };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getBoundingClientRect = function (el) { return { left: 0, top: 0, width: 0, height: 0 }; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getTitle = function () { return this.defaultDoc().title || ''; };
-        /**
-         * @param {?} newTitle
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setTitle = function (newTitle) { this.defaultDoc().title = newTitle; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isTemplateElement = function (el) {
-            return this.isElementNode(el) && this.tagName(el) === 'template';
-        };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isTextNode = function (node) { return treeAdapter.isTextNode(node); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isCommentNode = function (node) { return treeAdapter.isCommentNode(node); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isElementNode = function (node) { return node ? treeAdapter.isElementNode(node) : false; };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.hasShadowRoot = function (node) { return isPresent(node.shadowRoot); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.isShadowRoot = function (node) { return this.getShadowRoot(node) == node; };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.importIntoDoc = function (node) { return this.clone(node); };
-        /**
-         * @param {?} node
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.adoptNode = function (node) { return node; };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getHref = function (el) { return el.href; };
-        /**
-         * @param {?} el
-         * @param {?} baseUrl
-         * @param {?} href
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.resolveAndSetHref = function (el, baseUrl, href) {
-            if (href == null) {
-                el.href = baseUrl;
-            }
-            else {
-                el.href = baseUrl + '/../' + href;
-            }
-        };
-        /**
-         * \@internal
-         * @param {?} parsedRules
-         * @param {?=} css
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype._buildRules = function (parsedRules, css) {
-            var /** @type {?} */ rules = [];
-            for (var /** @type {?} */ i = 0; i < parsedRules.length; i++) {
-                var /** @type {?} */ parsedRule = parsedRules[i];
-                var /** @type {?} */ rule = {};
-                rule['cssText'] = css;
-                rule['style'] = { content: '', cssText: '' };
-                if (parsedRule.type == 'rule') {
-                    rule['type'] = 1;
-                    rule['selectorText'] =
-                        parsedRule.selectors.join(', '.replace(/\s{2,}/g, ' ')
-                            .replace(/\s*~\s*/g, ' ~ ')
-                            .replace(/\s*\+\s*/g, ' + ')
-                            .replace(/\s*>\s*/g, ' > ')
-                            .replace(/\[(\w+)=(\w+)\]/g, '[$1="$2"]'));
-                    if (isBlank(parsedRule.declarations)) {
-                        continue;
-                    }
-                    for (var /** @type {?} */ j = 0; j < parsedRule.declarations.length; j++) {
-                        var /** @type {?} */ declaration = parsedRule.declarations[j];
-                        rule['style'] = declaration.property[declaration.value];
-                        rule['style'].cssText += declaration.property + ': ' + declaration.value + ';';
-                    }
-                }
-                else if (parsedRule.type == 'media') {
-                    rule['type'] = 4;
-                    rule['media'] = { mediaText: parsedRule.media };
-                    if (parsedRule.rules) {
-                        rule['cssRules'] = this._buildRules(parsedRule.rules);
-                    }
-                }
-                rules.push(rule);
-            }
-            return rules;
-        };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.supportsDOMEvents = function () { return false; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.supportsNativeShadowDOM = function () { return false; };
-        /**
-         * @param {?} target
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getGlobalEventTarget = function (target) {
-            if (target == 'window') {
-                return ((this.defaultDoc()))._window;
-            }
-            else if (target == 'document') {
-                return this.defaultDoc();
-            }
-            else if (target == 'body') {
-                return this.defaultDoc().body;
-            }
-        };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getBaseHref = function () {
-            var /** @type {?} */ base = this.querySelector(this.defaultDoc(), 'base');
-            var /** @type {?} */ href = '';
-            if (base) {
-                href = this.getHref(base);
-            }
-            // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-            return isBlank(href) ? null : href;
-        };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.resetBaseElement = function () { throw 'not implemented'; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getHistory = function () { throw 'not implemented'; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getLocation = function () { throw 'not implemented'; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
-        /**
-         * @param {?} el
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getData = function (el, name) { return this.getAttribute(el, 'data-' + name); };
-        /**
-         * @param {?} el
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getComputedStyle = function (el) { throw 'not implemented'; };
-        /**
-         * @param {?} el
-         * @param {?} name
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setData = function (el, name, value) { this.setAttribute(el, 'data-' + name, value); };
-        /**
-         * @param {?} path
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setGlobalVar = function (path, value) { setValueOnPath(global$1, path, value); };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.supportsWebAnimation = function () { return false; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.performanceNow = function () { return Date.now(); };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getAnimationPrefix = function () { return ''; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getTransitionEnd = function () { return 'transitionend'; };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.supportsAnimation = function () { return true; };
-        /**
-         * @param {?} el
-         * @param {?} newNode
-         * @param {?} oldNode
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.replaceChild = function (el, newNode, oldNode) { throw new Error('not implemented'); };
-        /**
-         * @param {?} templateHtml
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.parse = function (templateHtml) { throw new Error('not implemented'); };
-        /**
-         * @param {?} el
-         * @param {?} methodName
-         * @param {?} args
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.invoke = function (el, methodName, args) { throw new Error('not implemented'); };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getEventKey = function (event) { throw new Error('not implemented'); };
-        /**
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.supportsCookies = function () { return false; };
-        /**
-         * @param {?} name
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.getCookie = function (name) { throw new Error('not implemented'); };
-        /**
-         * @param {?} name
-         * @param {?} value
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.setCookie = function (name, value) { throw new Error('not implemented'); };
-        /**
-         * @param {?} element
-         * @param {?} keyframes
-         * @param {?} options
-         * @return {?}
-         */
-        Parse5DomAdapter.prototype.animate = function (element, keyframes, options) { throw new Error('not implemented'); };
-        return Parse5DomAdapter;
-    }(DomAdapter));
-    // TODO: build a proper list, this one is all the keys of a HTMLInputElement
-    var /** @type {?} */ _HTMLElementPropertyList = [
-        'webkitEntries',
-        'incremental',
-        'webkitdirectory',
-        'selectionDirection',
-        'selectionEnd',
-        'selectionStart',
-        'labels',
-        'validationMessage',
-        'validity',
-        'willValidate',
-        'width',
-        'valueAsNumber',
-        'valueAsDate',
-        'value',
-        'useMap',
-        'defaultValue',
-        'type',
-        'step',
-        'src',
-        'size',
-        'required',
-        'readOnly',
-        'placeholder',
-        'pattern',
-        'name',
-        'multiple',
-        'min',
-        'minLength',
-        'maxLength',
-        'max',
-        'list',
-        'indeterminate',
-        'height',
-        'formTarget',
-        'formNoValidate',
-        'formMethod',
-        'formEnctype',
-        'formAction',
-        'files',
-        'form',
-        'disabled',
-        'dirName',
-        'checked',
-        'defaultChecked',
-        'autofocus',
-        'autocomplete',
-        'alt',
-        'align',
-        'accept',
-        'onautocompleteerror',
-        'onautocomplete',
-        'onwaiting',
-        'onvolumechange',
-        'ontoggle',
-        'ontimeupdate',
-        'onsuspend',
-        'onsubmit',
-        'onstalled',
-        'onshow',
-        'onselect',
-        'onseeking',
-        'onseeked',
-        'onscroll',
-        'onresize',
-        'onreset',
-        'onratechange',
-        'onprogress',
-        'onplaying',
-        'onplay',
-        'onpause',
-        'onmousewheel',
-        'onmouseup',
-        'onmouseover',
-        'onmouseout',
-        'onmousemove',
-        'onmouseleave',
-        'onmouseenter',
-        'onmousedown',
-        'onloadstart',
-        'onloadedmetadata',
-        'onloadeddata',
-        'onload',
-        'onkeyup',
-        'onkeypress',
-        'onkeydown',
-        'oninvalid',
-        'oninput',
-        'onfocus',
-        'onerror',
-        'onended',
-        'onemptied',
-        'ondurationchange',
-        'ondrop',
-        'ondragstart',
-        'ondragover',
-        'ondragleave',
-        'ondragenter',
-        'ondragend',
-        'ondrag',
-        'ondblclick',
-        'oncuechange',
-        'oncontextmenu',
-        'onclose',
-        'onclick',
-        'onchange',
-        'oncanplaythrough',
-        'oncanplay',
-        'oncancel',
-        'onblur',
-        'onabort',
-        'spellcheck',
-        'isContentEditable',
-        'contentEditable',
-        'outerText',
-        'innerText',
-        'accessKey',
-        'hidden',
-        'webkitdropzone',
-        'draggable',
-        'tabIndex',
-        'dir',
-        'translate',
-        'lang',
-        'title',
-        'childElementCount',
-        'lastElementChild',
-        'firstElementChild',
-        'children',
-        'onwebkitfullscreenerror',
-        'onwebkitfullscreenchange',
-        'nextElementSibling',
-        'previousElementSibling',
-        'onwheel',
-        'onselectstart',
-        'onsearch',
-        'onpaste',
-        'oncut',
-        'oncopy',
-        'onbeforepaste',
-        'onbeforecut',
-        'onbeforecopy',
-        'shadowRoot',
-        'dataset',
-        'classList',
-        'className',
-        'outerHTML',
-        'innerHTML',
-        'scrollHeight',
-        'scrollWidth',
-        'scrollTop',
-        'scrollLeft',
-        'clientHeight',
-        'clientWidth',
-        'clientTop',
-        'clientLeft',
-        'offsetParent',
-        'offsetHeight',
-        'offsetWidth',
-        'offsetTop',
-        'offsetLeft',
-        'localName',
-        'prefix',
-        'namespaceURI',
-        'id',
-        'style',
-        'attributes',
-        'tagName',
-        'parentElement',
-        'textContent',
-        'baseURI',
-        'ownerDocument',
-        'nextSibling',
-        'previousSibling',
-        'lastChild',
-        'firstChild',
-        'childNodes',
-        'parentNode',
-        'nodeType',
-        'nodeValue',
-        'nodeName',
-        'closure_lm_714617',
-        '__jsaction',
-    ];
-
-    var /** @type {?} */ DebugDomRootRenderer = _angular_core.__core_private__.DebugDomRootRenderer;
-
-    var /** @type {?} */ TEMPLATE_COMMENT_TEXT = 'template bindings={}';
-    var /** @type {?} */ TEMPLATE_BINDINGS_EXP = /^template bindings=(.*)$/;
-    var ServerRootRenderer = (function () {
-        /**
-         * @param {?} document
-         * @param {?} sharedStylesHost
-         * @param {?} animationDriver
-         * @param {?} appId
-         * @param {?} _zone
-         */
-        function ServerRootRenderer(document, sharedStylesHost, animationDriver, appId, _zone) {
+    var EMPTY_ARRAY = [];
+    var DEFAULT_SCHEMA = new compiler.DomElementSchemaRegistry();
+    var ServerRendererFactory2 = /** @class */ (function () {
+        function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
+            this.eventManager = eventManager;
+            this.ngZone = ngZone;
             this.document = document;
             this.sharedStylesHost = sharedStylesHost;
-            this.animationDriver = animationDriver;
-            this.appId = appId;
-            this._zone = _zone;
-            this.registeredComponents = new Map();
+            this.rendererByCompId = new Map();
+            this.schema = DEFAULT_SCHEMA;
+            this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
         }
-        /**
-         * @param {?} componentProto
-         * @return {?}
-         */
-        ServerRootRenderer.prototype.renderComponent = function (componentProto) {
-            var /** @type {?} */ renderer = this.registeredComponents.get(componentProto.id);
-            if (!renderer) {
-                renderer = new ServerRenderer(this, componentProto, this.animationDriver, this.appId + "-" + componentProto.id, this._zone);
-                this.registeredComponents.set(componentProto.id, renderer);
+        ServerRendererFactory2.prototype.createRenderer = function (element, type) {
+            if (!element || !type) {
+                return this.defaultRenderer;
             }
-            return renderer;
+            switch (type.encapsulation) {
+                case core.ViewEncapsulation.Native:
+                case core.ViewEncapsulation.Emulated: {
+                    var renderer = this.rendererByCompId.get(type.id);
+                    if (!renderer) {
+                        renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                        this.rendererByCompId.set(type.id, renderer);
+                    }
+                    renderer.applyToHost(element);
+                    return renderer;
+                }
+                default: {
+                    if (!this.rendererByCompId.has(type.id)) {
+                        var styles = platformBrowser.ɵflattenStyles(type.id, type.styles, []);
+                        this.sharedStylesHost.addStyles(styles);
+                        this.rendererByCompId.set(type.id, this.defaultRenderer);
+                    }
+                    return this.defaultRenderer;
+                }
+            }
         };
-        return ServerRootRenderer;
+        ServerRendererFactory2.prototype.begin = function () { };
+        ServerRendererFactory2.prototype.end = function () { };
+        ServerRendererFactory2 = __decorate([
+            core.Injectable(),
+            __param(2, core.Inject(common.DOCUMENT)),
+            __metadata("design:paramtypes", [platformBrowser.EventManager, core.NgZone, Object, platformBrowser.ɵSharedStylesHost])
+        ], ServerRendererFactory2);
+        return ServerRendererFactory2;
     }());
-    ServerRootRenderer.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    ServerRootRenderer.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: SharedStylesHost, },
-        { type: _angular_platformBrowser.AnimationDriver, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_core.APP_ID,] },] },
-        { type: _angular_core.NgZone, },
-    ]; };
-    var ServerRenderer = (function () {
-        /**
-         * @param {?} _rootRenderer
-         * @param {?} componentProto
-         * @param {?} _animationDriver
-         * @param {?} styleShimId
-         * @param {?} _zone
-         */
-        function ServerRenderer(_rootRenderer, componentProto, _animationDriver, styleShimId, _zone) {
-            this._rootRenderer = _rootRenderer;
-            this.componentProto = componentProto;
-            this._animationDriver = _animationDriver;
-            this._zone = _zone;
-            this._styles = flattenStyles(styleShimId, componentProto.styles, []);
-            if (componentProto.encapsulation === _angular_core.ViewEncapsulation.Native) {
-                throw new Error('Native encapsulation is not supported on the server!');
-            }
-            if (this.componentProto.encapsulation === _angular_core.ViewEncapsulation.Emulated) {
-                this._contentAttr = shimContentAttribute(styleShimId);
-                this._hostAttr = shimHostAttribute(styleShimId);
-            }
-            else {
-                this._contentAttr = null;
-                this._hostAttr = null;
-            }
+    var DefaultServerRenderer2 = /** @class */ (function () {
+        function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
+            this.eventManager = eventManager;
+            this.document = document;
+            this.ngZone = ngZone;
+            this.schema = schema;
+            this.data = Object.create(null);
         }
-        /**
-         * @param {?} selectorOrNode
-         * @param {?} debugInfo
-         * @return {?}
-         */
-        ServerRenderer.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
-            var /** @type {?} */ el /** TODO #9100 */;
+        DefaultServerRenderer2.prototype.destroy = function () { };
+        DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
+            if (namespace) {
+                var doc = this.document || common.ɵgetDOM().getDefaultDocument();
+                return doc.createElementNS(platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+            }
+            return common.ɵgetDOM().createElement(name, this.document);
+        };
+        DefaultServerRenderer2.prototype.createComment = function (value, debugInfo) {
+            return common.ɵgetDOM().getDefaultDocument().createComment(value);
+        };
+        DefaultServerRenderer2.prototype.createText = function (value, debugInfo) {
+            var doc = common.ɵgetDOM().getDefaultDocument();
+            return doc.createTextNode(value);
+        };
+        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+        DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
+            if (parent) {
+                parent.insertBefore(newChild, refChild);
+            }
+        };
+        DefaultServerRenderer2.prototype.removeChild = function (parent, oldChild) {
+            if (parent) {
+                parent.removeChild(oldChild);
+            }
+        };
+        DefaultServerRenderer2.prototype.selectRootElement = function (selectorOrNode, debugInfo) {
+            var el;
             if (typeof selectorOrNode === 'string') {
-                el = getDOM().querySelector(this._rootRenderer.document, selectorOrNode);
-                if (isBlank(el)) {
+                el = this.document.querySelector(selectorOrNode);
+                if (!el) {
                     throw new Error("The selector \"" + selectorOrNode + "\" did not match any elements");
                 }
             }
             else {
                 el = selectorOrNode;
             }
-            getDOM().clearNodes(el);
+            while (el.firstChild) {
+                el.removeChild(el.firstChild);
+            }
             return el;
         };
-        /**
-         * @param {?} parent
-         * @param {?} name
-         * @param {?} debugInfo
-         * @return {?}
-         */
-        ServerRenderer.prototype.createElement = function (parent, name, debugInfo) {
-            var /** @type {?} */ el;
-            if (isNamespaced(name)) {
-                var /** @type {?} */ nsAndName = splitNamespace(name);
-                el = getDOM().createElementNS(NAMESPACE_URIS[nsAndName[0]], nsAndName[1]);
+        DefaultServerRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
+        DefaultServerRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+        DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
+            if (namespace) {
+                el.setAttributeNS(platformBrowser.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
             }
             else {
-                el = getDOM().createElement(name);
-            }
-            if (isPresent(this._contentAttr)) {
-                getDOM().setAttribute(el, this._contentAttr, '');
-            }
-            if (isPresent(parent)) {
-                getDOM().appendChild(parent, el);
-            }
-            return el;
-        };
-        /**
-         * @param {?} hostElement
-         * @return {?}
-         */
-        ServerRenderer.prototype.createViewRoot = function (hostElement) {
-            var /** @type {?} */ nodesParent /** TODO #9100 */;
-            if (isPresent(this._hostAttr)) {
-                getDOM().setAttribute(hostElement, this._hostAttr, '');
-            }
-            nodesParent = hostElement;
-            return nodesParent;
-        };
-        /**
-         * @param {?} parentElement
-         * @param {?} debugInfo
-         * @return {?}
-         */
-        ServerRenderer.prototype.createTemplateAnchor = function (parentElement, debugInfo) {
-            var /** @type {?} */ comment = getDOM().createComment(TEMPLATE_COMMENT_TEXT);
-            if (isPresent(parentElement)) {
-                getDOM().appendChild(parentElement, comment);
-            }
-            return comment;
-        };
-        /**
-         * @param {?} parentElement
-         * @param {?} value
-         * @param {?} debugInfo
-         * @return {?}
-         */
-        ServerRenderer.prototype.createText = function (parentElement, value, debugInfo) {
-            var /** @type {?} */ node = getDOM().createTextNode(value);
-            if (isPresent(parentElement)) {
-                getDOM().appendChild(parentElement, node);
-            }
-            return node;
-        };
-        /**
-         * @param {?} parentElement
-         * @param {?} nodes
-         * @return {?}
-         */
-        ServerRenderer.prototype.projectNodes = function (parentElement, nodes) {
-            if (isBlank(parentElement))
-                return;
-            appendNodes(parentElement, nodes);
-        };
-        /**
-         * @param {?} node
-         * @param {?} viewRootNodes
-         * @return {?}
-         */
-        ServerRenderer.prototype.attachViewAfter = function (node, viewRootNodes) { moveNodesAfterSibling(node, viewRootNodes); };
-        /**
-         * @param {?} viewRootNodes
-         * @return {?}
-         */
-        ServerRenderer.prototype.detachView = function (viewRootNodes) {
-            for (var /** @type {?} */ i = 0; i < viewRootNodes.length; i++) {
-                getDOM().remove(viewRootNodes[i]);
+                el.setAttribute(name, value);
             }
         };
-        /**
-         * @param {?} hostElement
-         * @param {?} viewAllNodes
-         * @return {?}
-         */
-        ServerRenderer.prototype.destroyView = function (hostElement, viewAllNodes) { };
-        /**
-         * @param {?} renderElement
-         * @param {?} name
-         * @param {?} callback
-         * @return {?}
-         */
-        ServerRenderer.prototype.listen = function (renderElement, name, callback) {
+        DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
+            if (namespace) {
+                el.removeAttributeNS(platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+            }
+            else {
+                el.removeAttribute(name);
+            }
+        };
+        DefaultServerRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
+        DefaultServerRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+        DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
+            style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            var styleMap = _readStyleAttribute(el);
+            styleMap[style] = value || '';
+            _writeStyleAttribute(el, styleMap);
+        };
+        DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            this.setStyle(el, style, '', flags);
+        };
+        // The value was validated already as a property binding, against the property name.
+        // To know this value is safe to use as an attribute, the security context of the
+        // attribute with the given name is checked against that security context of the
+        // property.
+        DefaultServerRenderer2.prototype._isSafeToReflectProperty = function (tagName, propertyName) {
+            return this.schema.securityContext(tagName, propertyName, true) ===
+                this.schema.securityContext(tagName, propertyName, false);
+        };
+        DefaultServerRenderer2.prototype.setProperty = function (el, name, value) {
+            checkNoSyntheticProp(name, 'property');
+            if (name === 'innerText') {
+                // Domino does not support innerText. Just map it to textContent.
+                el.textContent = value;
+            }
+            el[name] = value;
+            // Mirror property values for known HTML element properties in the attributes.
+            // Skip `innerhtml` which is conservatively marked as an attribute for security
+            // purposes but is not actually an attribute.
+            var tagName = el.tagName.toLowerCase();
+            if (value != null && (typeof value === 'number' || typeof value == 'string') &&
+                name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+                this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
+                this._isSafeToReflectProperty(tagName, name)) {
+                this.setAttribute(el, name, value.toString());
+            }
+        };
+        DefaultServerRenderer2.prototype.setValue = function (node, value) { node.textContent = value; };
+        DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
+            checkNoSyntheticProp(eventName, 'listener');
+            if (typeof target === 'string') {
+                return this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback));
+            }
+            return this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback));
+        };
+        DefaultServerRenderer2.prototype.decoratePreventDefault = function (eventHandler) {
             var _this = this;
-            // Note: We are not using the EventsPlugin here as this is not needed
-            // to run our tests.
-            var /** @type {?} */ outsideHandler = function (event) { return _this._zone.runGuarded(function () { return callback(event); }); };
-            return this._zone.runOutsideAngular(function () { return getDOM().onAndCancel(renderElement, name, outsideHandler); });
-        };
-        /**
-         * @param {?} target
-         * @param {?} name
-         * @param {?} callback
-         * @return {?}
-         */
-        ServerRenderer.prototype.listenGlobal = function (target, name, callback) {
-            var /** @type {?} */ renderElement = getDOM().getGlobalEventTarget(target);
-            return this.listen(renderElement, name, callback);
-        };
-        /**
-         * @param {?} renderElement
-         * @param {?} propertyName
-         * @param {?} propertyValue
-         * @return {?}
-         */
-        ServerRenderer.prototype.setElementProperty = function (renderElement, propertyName, propertyValue) {
-            getDOM().setProperty(renderElement, propertyName, propertyValue);
-        };
-        /**
-         * @param {?} renderElement
-         * @param {?} attributeName
-         * @param {?} attributeValue
-         * @return {?}
-         */
-        ServerRenderer.prototype.setElementAttribute = function (renderElement, attributeName, attributeValue) {
-            var /** @type {?} */ attrNs;
-            var /** @type {?} */ attrNameWithoutNs = attributeName;
-            if (isNamespaced(attributeName)) {
-                var /** @type {?} */ nsAndName = splitNamespace(attributeName);
-                attrNameWithoutNs = nsAndName[1];
-                attributeName = nsAndName[0] + ':' + nsAndName[1];
-                attrNs = NAMESPACE_URIS[nsAndName[0]];
-            }
-            if (isPresent(attributeValue)) {
-                if (isPresent(attrNs)) {
-                    getDOM().setAttributeNS(renderElement, attrNs, attributeName, attributeValue);
+            return function (event) {
+                // Ivy uses `Function` as a special token that allows us to unwrap the function
+                // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
+                if (event === Function) {
+                    return eventHandler;
                 }
-                else {
-                    getDOM().setAttribute(renderElement, attributeName, attributeValue);
+                // Run the event handler inside the ngZone because event handlers are not patched
+                // by Zone on the server. This is required only for tests.
+                var allowDefaultBehavior = _this.ngZone.runGuarded(function () { return eventHandler(event); });
+                if (allowDefaultBehavior === false) {
+                    event.preventDefault();
+                    event.returnValue = false;
                 }
-            }
-            else {
-                if (isPresent(attrNs)) {
-                    getDOM().removeAttributeNS(renderElement, attrNs, attrNameWithoutNs);
-                }
-                else {
-                    getDOM().removeAttribute(renderElement, attributeName);
-                }
-            }
+                return undefined;
+            };
         };
-        /**
-         * @param {?} renderElement
-         * @param {?} propertyName
-         * @param {?} propertyValue
-         * @return {?}
-         */
-        ServerRenderer.prototype.setBindingDebugInfo = function (renderElement, propertyName, propertyValue) {
-            if (getDOM().isCommentNode(renderElement)) {
-                var /** @type {?} */ existingBindings = getDOM().getText(renderElement).replace(/\n/g, '').match(TEMPLATE_BINDINGS_EXP);
-                var /** @type {?} */ parsedBindings = JSON.parse(existingBindings[1]);
-                ((parsedBindings) /** TODO #9100 */)[propertyName] = propertyValue;
-                getDOM().setText(renderElement, TEMPLATE_COMMENT_TEXT.replace('{}', JSON.stringify(parsedBindings, null, 2)));
-            }
-            else {
-                this.setElementAttribute(renderElement, propertyName, propertyValue);
-            }
-        };
-        /**
-         * @param {?} renderElement
-         * @param {?} className
-         * @param {?} isAdd
-         * @return {?}
-         */
-        ServerRenderer.prototype.setElementClass = function (renderElement, className, isAdd) {
-            if (isAdd) {
-                getDOM().addClass(renderElement, className);
-            }
-            else {
-                getDOM().removeClass(renderElement, className);
-            }
-        };
-        /**
-         * @param {?} renderElement
-         * @param {?} styleName
-         * @param {?} styleValue
-         * @return {?}
-         */
-        ServerRenderer.prototype.setElementStyle = function (renderElement, styleName, styleValue) {
-            if (isPresent(styleValue)) {
-                getDOM().setStyle(renderElement, styleName, stringify(styleValue));
-            }
-            else {
-                getDOM().removeStyle(renderElement, styleName);
-            }
-        };
-        /**
-         * @param {?} renderElement
-         * @param {?} methodName
-         * @param {?} args
-         * @return {?}
-         */
-        ServerRenderer.prototype.invokeElementMethod = function (renderElement, methodName, args) {
-            getDOM().invoke(renderElement, methodName, args);
-        };
-        /**
-         * @param {?} renderNode
-         * @param {?} text
-         * @return {?}
-         */
-        ServerRenderer.prototype.setText = function (renderNode, text) { getDOM().setText(renderNode, text); };
-        /**
-         * @param {?} element
-         * @param {?} startingStyles
-         * @param {?} keyframes
-         * @param {?} duration
-         * @param {?} delay
-         * @param {?} easing
-         * @param {?=} previousPlayers
-         * @return {?}
-         */
-        ServerRenderer.prototype.animate = function (element, startingStyles, keyframes, duration, delay, easing, previousPlayers) {
-            if (previousPlayers === void 0) { previousPlayers = []; }
-            return this._animationDriver.animate(element, startingStyles, keyframes, duration, delay, easing, previousPlayers);
-        };
-        return ServerRenderer;
+        return DefaultServerRenderer2;
     }());
-    /**
-     * @param {?} sibling
-     * @param {?} nodes
-     * @return {?}
-     */
-    function moveNodesAfterSibling(sibling /** TODO #9100 */, nodes /** TODO #9100 */) {
-        var /** @type {?} */ parent = getDOM().parentElement(sibling);
-        if (nodes.length > 0 && isPresent(parent)) {
-            var /** @type {?} */ nextSibling = getDOM().nextSibling(sibling);
-            if (isPresent(nextSibling)) {
-                for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
-                    getDOM().insertBefore(nextSibling, nodes[i]);
-                }
-            }
-            else {
-                for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
-                    getDOM().appendChild(parent, nodes[i]);
-                }
-            }
+    var AT_CHARCODE = '@'.charCodeAt(0);
+    function checkNoSyntheticProp(name, nameKind) {
+        if (name.charCodeAt(0) === AT_CHARCODE) {
+            throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
         }
     }
-    /**
-     * @param {?} parent
-     * @param {?} nodes
-     * @return {?}
-     */
-    function appendNodes(parent /** TODO #9100 */, nodes /** TODO #9100 */) {
-        for (var /** @type {?} */ i = 0; i < nodes.length; i++) {
-            getDOM().appendChild(parent, nodes[i]);
+    var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
+        __extends(EmulatedEncapsulationServerRenderer2, _super);
+        function EmulatedEncapsulationServerRenderer2(eventManager, document, ngZone, sharedStylesHost, schema, component) {
+            var _this = _super.call(this, eventManager, document, ngZone, schema) || this;
+            _this.component = component;
+            // Add a 's' prefix to style attributes to indicate server.
+            var componentId = 's' + component.id;
+            var styles = platformBrowser.ɵflattenStyles(componentId, component.styles, []);
+            sharedStylesHost.addStyles(styles);
+            _this.contentAttr = platformBrowser.ɵshimContentAttribute(componentId);
+            _this.hostAttr = platformBrowser.ɵshimHostAttribute(componentId);
+            return _this;
         }
+        EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+        EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
+            var el = _super.prototype.createElement.call(this, parent, name, this.document);
+            _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
+            return el;
+        };
+        return EmulatedEncapsulationServerRenderer2;
+    }(DefaultServerRenderer2));
+    function _readStyleAttribute(element) {
+        var styleMap = {};
+        var styleAttribute = element.getAttribute('style');
+        if (styleAttribute) {
+            var styleList = styleAttribute.split(/;+/g);
+            for (var i = 0; i < styleList.length; i++) {
+                var style = styleList[i].trim();
+                if (style.length > 0) {
+                    var colonIndex = style.indexOf(':');
+                    if (colonIndex === -1) {
+                        throw new Error("Invalid CSS style: " + style);
+                    }
+                    var name_1 = style.substr(0, colonIndex).trim();
+                    styleMap[name_1] = style.substr(colonIndex + 1).trim();
+                }
+            }
+        }
+        return styleMap;
+    }
+    function _writeStyleAttribute(element, styleMap) {
+        var styleAttrValue = '';
+        for (var key in styleMap) {
+            var newValue = styleMap[key];
+            if (newValue) {
+                styleAttrValue += key + ':' + styleMap[key] + ';';
+            }
+        }
+        element.setAttribute('style', styleAttrValue);
     }
 
-    var /** @type {?} */ INTERNAL_SERVER_PLATFORM_PROVIDERS = [
-        { provide: _angular_core.PLATFORM_INITIALIZER, useValue: initParse5Adapter, multi: true },
-        { provide: _angular_common.PlatformLocation, useClass: ServerPlatformLocation },
-    ];
     /**
-     * @return {?}
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
      */
-    function initParse5Adapter() {
-        Parse5DomAdapter.makeCurrent();
-    }
-    /**
-     * @param {?} rootRenderer
-     * @return {?}
-     */
-    function _createConditionalRootRenderer(rootRenderer) {
-        if (_angular_core.isDevMode()) {
-            return new DebugDomRootRenderer(rootRenderer);
+    var ServerStylesHost = /** @class */ (function (_super) {
+        __extends(ServerStylesHost, _super);
+        function ServerStylesHost(doc, transitionId) {
+            var _this = _super.call(this) || this;
+            _this.doc = doc;
+            _this.transitionId = transitionId;
+            _this.head = null;
+            _this.head = doc.getElementsByTagName('head')[0];
+            return _this;
         }
-        return rootRenderer;
+        ServerStylesHost.prototype._addStyle = function (style) {
+            var adapter = common.ɵgetDOM();
+            var el = adapter.createElement('style');
+            el.textContent = style;
+            if (!!this.transitionId) {
+                el.setAttribute('ng-transition', this.transitionId);
+            }
+            this.head.appendChild(el);
+        };
+        ServerStylesHost.prototype.onStylesAdded = function (additions) {
+            var _this = this;
+            additions.forEach(function (style) { return _this._addStyle(style); });
+        };
+        ServerStylesHost = __decorate([
+            core.Injectable(),
+            __param(0, core.Inject(common.DOCUMENT)),
+            __param(1, core.Optional()), __param(1, core.Inject(platformBrowser.ɵTRANSITION_ID)),
+            __metadata("design:paramtypes", [Object, String])
+        ], ServerStylesHost);
+        return ServerStylesHost;
+    }(platformBrowser.ɵSharedStylesHost));
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    function notSupported(feature) {
+        throw new Error("platform-server does not support '" + feature + "'.");
     }
-    var /** @type {?} */ SERVER_RENDER_PROVIDERS = [
-        ServerRootRenderer,
-        { provide: _angular_core.RootRenderer, useFactory: _createConditionalRootRenderer, deps: [ServerRootRenderer] },
-        // use plain SharedStylesHost, not the DomSharedStylesHost
-        SharedStylesHost
+    var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
+        { provide: common.DOCUMENT, useFactory: _document, deps: [core.Injector] },
+        { provide: core.PLATFORM_ID, useValue: common.ɵPLATFORM_SERVER_ID },
+        { provide: core.PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [core.Injector] }, {
+            provide: common.PlatformLocation,
+            useClass: ServerPlatformLocation,
+            deps: [common.DOCUMENT, [core.Optional, INITIAL_CONFIG]]
+        },
+        { provide: PlatformState, deps: [common.DOCUMENT] },
+        // Add special provider that allows multiple instances of platformServer* to be created.
+        { provide: core.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
+    ];
+    function initDominoAdapter(injector) {
+        return function () { DominoAdapter.makeCurrent(); };
+    }
+    function instantiateServerRendererFactory(renderer, engine, zone) {
+        return new animations.ɵAnimationRendererFactory(renderer, engine, zone);
+    }
+    var SERVER_RENDER_PROVIDERS = [
+        ServerRendererFactory2,
+        {
+            provide: core.RendererFactory2,
+            useFactory: instantiateServerRendererFactory,
+            deps: [ServerRendererFactory2, browser.ɵAnimationEngine, core.NgZone]
+        },
+        ServerStylesHost,
+        { provide: platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost },
+        { provide: platformBrowser.EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
     ];
     /**
      * The ng module for the server.
      *
-     * \@experimental
+     * @publicApi
      */
-    var ServerModule = (function () {
+    var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
+        ServerModule = __decorate([
+            core.NgModule({
+                exports: [platformBrowser.BrowserModule],
+                imports: [http.HttpClientModule, animations.NoopAnimationsModule],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                    SERVER_HTTP_PROVIDERS,
+                    { provide: core.Testability, useValue: null },
+                    { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
+                ],
+            })
+        ], ServerModule);
         return ServerModule;
     }());
-    ServerModule.decorators = [
-        { type: _angular_core.NgModule, args: [{ exports: [_angular_platformBrowser.BrowserModule], providers: SERVER_RENDER_PROVIDERS },] },
-    ];
-    /** @nocollapse */
-    ServerModule.ctorParameters = function () { return []; };
+    function _document(injector) {
+        var config = injector.get(INITIAL_CONFIG, null);
+        if (config && config.document) {
+            return parseDocument(config.document, config.url);
+        }
+        else {
+            return common.ɵgetDOM().createHtmlDocument();
+        }
+    }
     /**
-     * @experimental
+     * @publicApi
      */
-    var /** @type {?} */ platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
+    var platformServer = core.createPlatformFactory(core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
     /**
      * The server platform that supports the runtime compiler.
      *
-     * @experimental
+     * @publicApi
      */
-    var /** @type {?} */ platformDynamicServer = _angular_core.createPlatformFactory(_angular_compiler.platformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-
-    var /** @type {?} */ __platform_server_private__ = {
-        INTERNAL_SERVER_PLATFORM_PROVIDERS: INTERNAL_SERVER_PLATFORM_PROVIDERS,
-        SERVER_RENDER_PROVIDERS: SERVER_RENDER_PROVIDERS,
-    };
+    var platformDynamicServer = core.createPlatformFactory(platformBrowserDynamic.ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
     /**
-     * @stable
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
      */
-    var /** @type {?} */ VERSION = new _angular_core.Version('4.0.0-beta.7-2ca93e1');
+    function serializeTransferStateFactory(doc, appId, transferStore) {
+        return function () {
+            var script = doc.createElement('script');
+            script.id = appId + '-state';
+            script.setAttribute('type', 'application/json');
+            script.textContent = platformBrowser.ɵescapeHtml(transferStore.toJson());
+            doc.body.appendChild(script);
+        };
+    }
+    /**
+     * NgModule to install on the server side while using the `TransferState` to transfer state from
+     * server to client.
+     *
+     * @publicApi
+     */
+    var ServerTransferStateModule = /** @class */ (function () {
+        function ServerTransferStateModule() {
+        }
+        ServerTransferStateModule = __decorate([
+            core.NgModule({
+                providers: [
+                    platformBrowser.TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [common.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
+                        multi: true,
+                    }
+                ]
+            })
+        ], ServerTransferStateModule);
+        return ServerTransferStateModule;
+    }());
 
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    function _getPlatform(platformFactory, options) {
+        var extraProviders = options.extraProviders ? options.extraProviders : [];
+        return platformFactory([
+            { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
+            extraProviders
+        ]);
+    }
+    function _render(platform, moduleRefPromise) {
+        return moduleRefPromise.then(function (moduleRef) {
+            var transitionId = moduleRef.injector.get(platformBrowser.ɵTRANSITION_ID, null);
+            if (!transitionId) {
+                throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
+            }
+            var applicationRef = moduleRef.injector.get(core.ApplicationRef);
+            return applicationRef.isStable.pipe((operators.first(function (isStable) { return isStable; })))
+                .toPromise()
+                .then(function () {
+                var e_1, _a;
+                var platformState = platform.injector.get(PlatformState);
+                var asyncPromises = [];
+                // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
+                var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
+                if (callbacks) {
+                    try {
+                        for (var callbacks_1 = __values(callbacks), callbacks_1_1 = callbacks_1.next(); !callbacks_1_1.done; callbacks_1_1 = callbacks_1.next()) {
+                            var callback = callbacks_1_1.value;
+                            try {
+                                var callbackResult = callback();
+                                if (core.ɵisPromise(callbackResult)) {
+                                    asyncPromises.push(callbackResult);
+                                }
+                            }
+                            catch (e) {
+                                // Ignore exceptions.
+                                console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
+                            }
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (callbacks_1_1 && !callbacks_1_1.done && (_a = callbacks_1.return)) _a.call(callbacks_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                }
+                var complete = function () {
+                    var output = platformState.renderToString();
+                    platform.destroy();
+                    return output;
+                };
+                if (asyncPromises.length === 0) {
+                    return complete();
+                }
+                return Promise
+                    .all(asyncPromises.map(function (asyncPromise) {
+                    return asyncPromise.catch(function (e) { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+                }))
+                    .then(complete);
+            });
+        });
+    }
+    /**
+     * Renders a Module to string.
+     *
+     * `document` is the full document HTML of the page to render, as a string.
+     * `url` is the URL for the current render request.
+     * `extraProviders` are the platform level providers for the current render request.
+     *
+     * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
+     * {@link renderModuleFactory} instead.
+     *
+     * @publicApi
+     */
+    function renderModule(module, options) {
+        var platform = _getPlatform(platformDynamicServer, options);
+        return _render(platform, platform.bootstrapModule(module));
+    }
+    /**
+     * Renders a {@link NgModuleFactory} to string.
+     *
+     * `document` is the full document HTML of the page to render, as a string.
+     * `url` is the URL for the current render request.
+     * `extraProviders` are the platform level providers for the current render request.
+     *
+     * @publicApi
+     */
+    function renderModuleFactory(moduleFactory, options) {
+        var platform = _getPlatform(platformServer, options);
+        return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
+    }
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
+     * @publicApi
+     */
+    var VERSION = new core.Version('9.0.0-next.15+4.sha-556cb78.with-local-changes');
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    // This file only reexports content of the `src` folder. Keep it that way.
+
+    /**
+     * @license
+     * Copyright Google Inc. All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
+
+    exports.ɵangular_packages_platform_server_platform_server_g = SERVER_HTTP_PROVIDERS;
+    exports.ɵangular_packages_platform_server_platform_server_e = ServerXhr;
+    exports.ɵangular_packages_platform_server_platform_server_f = zoneWrappedInterceptingHandler;
+    exports.ɵangular_packages_platform_server_platform_server_a = instantiateServerRendererFactory;
+    exports.ɵangular_packages_platform_server_platform_server_d = ServerEventManagerPlugin;
+    exports.ɵangular_packages_platform_server_platform_server_c = ServerStylesHost;
+    exports.ɵangular_packages_platform_server_platform_server_b = serializeTransferStateFactory;
+    exports.PlatformState = PlatformState;
     exports.ServerModule = ServerModule;
     exports.platformDynamicServer = platformDynamicServer;
     exports.platformServer = platformServer;
+    exports.BEFORE_APP_SERIALIZED = BEFORE_APP_SERIALIZED;
+    exports.INITIAL_CONFIG = INITIAL_CONFIG;
+    exports.ServerTransferStateModule = ServerTransferStateModule;
+    exports.renderModule = renderModule;
+    exports.renderModuleFactory = renderModuleFactory;
     exports.VERSION = VERSION;
-    exports.__platform_server_private__ = __platform_server_private__;
+    exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
+    exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
+    exports.ɵServerRendererFactory2 = ServerRendererFactory2;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
+//# sourceMappingURL=platform-server.umd.js.map

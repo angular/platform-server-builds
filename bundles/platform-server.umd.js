@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.0+69.sha-41560b4.with-local-changes
+ * @license Angular v9.0.0-rc.0+77.sha-2ed04ff.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,7 +8,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
     (global = global || self, factory((global.ng = global.ng || {}, global.ng.platformServer = {}), global.ng.common, global.ng.core, global.ng.platformBrowser, global.ng.animations.browser, global.ng.common.http, global.ng.platformBrowserDynamic, global.ng.platformBrowser.animations, global.rxjs, global.url, global.ng.compiler, global.rxjs.operators));
-}(this, function (exports, common, i0, i1, browser, http, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
+}(this, (function (exports, common, i0, i1, browser, http, platformBrowserDynamic, animations, rxjs, url, compiler, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1161,7 +1161,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.0+69.sha-41560b4.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.0+77.sha-2ed04ff.with-local-changes');
 
     /**
      * @license
@@ -1188,21 +1188,21 @@
      * found in the LICENSE file at https://angular.io/license
      */
 
-    exports.PlatformState = PlatformState;
-    exports.ServerModule = ServerModule;
-    exports.platformDynamicServer = platformDynamicServer;
-    exports.platformServer = platformServer;
     exports.BEFORE_APP_SERIALIZED = BEFORE_APP_SERIALIZED;
     exports.INITIAL_CONFIG = INITIAL_CONFIG;
+    exports.PlatformState = PlatformState;
+    exports.ServerModule = ServerModule;
     exports.ServerTransferStateModule = ServerTransferStateModule;
+    exports.VERSION = VERSION;
+    exports.platformDynamicServer = platformDynamicServer;
+    exports.platformServer = platformServer;
     exports.renderModule = renderModule;
     exports.renderModuleFactory = renderModuleFactory;
-    exports.VERSION = VERSION;
     exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
     exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
     exports.ɵServerRendererFactory2 = ServerRendererFactory2;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=platform-server.umd.js.map

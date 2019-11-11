@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+54.sha-e511bfc.with-local-changes
+ * @license Angular v9.0.0-rc.1+51.sha-d8be830.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -954,11 +954,12 @@
     }());
     function _document(injector) {
         var config = injector.get(INITIAL_CONFIG, null);
-        var document = config && config.document ? parseDocument(config.document, config.url) :
-            common.ɵgetDOM().createHtmlDocument();
-        // Tell ivy about the global document
-        core.ɵsetDocument(document);
-        return document;
+        if (config && config.document) {
+            return parseDocument(config.document, config.url);
+        }
+        else {
+            return common.ɵgetDOM().createHtmlDocument();
+        }
     }
     /**
      * @publicApi
@@ -1128,7 +1129,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('9.0.0-rc.1+54.sha-e511bfc.with-local-changes');
+    var VERSION = new core.Version('9.0.0-rc.1+51.sha-d8be830.with-local-changes');
 
     /**
      * @license

@@ -1,11 +1,11 @@
 /**
- * @license Angular v9.0.0-rc.1+51.sha-d8be830.with-local-changes
+ * @license Angular v9.0.0-rc.1+56.sha-942e2eb.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵɵdefineNgModule, ɵɵdefineInjector, Testability, ɵɵsetNgModuleScope, NgModule, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, ɵɵdefineNgModule, ɵɵdefineInjector, Testability, ɵɵsetNgModuleScope, NgModule, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { __extends, __values } from 'tslib';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
@@ -786,12 +786,11 @@ var ServerModule = /** @class */ (function () {
     }], null, null);
 function _document(injector) {
     var config = injector.get(INITIAL_CONFIG, null);
-    if (config && config.document) {
-        return parseDocument(config.document, config.url);
-    }
-    else {
-        return ɵgetDOM().createHtmlDocument();
-    }
+    var document = config && config.document ? parseDocument(config.document, config.url) :
+        ɵgetDOM().createHtmlDocument();
+    // Tell ivy about the global document
+    ɵsetDocument(document);
+    return document;
 }
 /**
  * @publicApi
@@ -971,7 +970,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+51.sha-d8be830.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+56.sha-942e2eb.with-local-changes');
 
 /**
  * @license

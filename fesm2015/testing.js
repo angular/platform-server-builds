@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-next.12+25.sha-083d4b8.with-local-changes
+ * @license Angular v9.0.0-rc.1+58.sha-dbd55fc.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -54,5 +54,5 @@ ServerTestingModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { platformServerTesting, ServerTestingModule };
+export { ServerTestingModule, platformServerTesting };
 //# sourceMappingURL=testing.js.map

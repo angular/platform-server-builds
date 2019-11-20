@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+186.sha-97fbdab.with-local-changes
+ * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -960,7 +960,7 @@
                 i1.BrowserModule] });
         return ServerModule;
     }());
-    /*@__PURE__*/ i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] });
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
     /*@__PURE__*/ i0.ɵsetClassMetadata(ServerModule, [{
             type: i0.NgModule,
             args: [{
@@ -1160,7 +1160,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+186.sha-97fbdab.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
 
     /**
      * @license

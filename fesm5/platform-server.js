@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -159,12 +159,12 @@ var PlatformState = /** @class */ (function () {
     PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
     return PlatformState;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -182,9 +182,9 @@ var ServerXhr = /** @class */ (function () {
     ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
     return ServerXhr;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
     }
@@ -384,7 +384,7 @@ var ServerPlatformLocation = /** @class */ (function () {
     ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
     return ServerPlatformLocation;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -394,7 +394,7 @@ var ServerPlatformLocation = /** @class */ (function () {
             }, {
                 type: Inject,
                 args: [INITIAL_CONFIG]
-            }] }]; }, null);
+            }] }]; }, null); })();
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
@@ -426,12 +426,12 @@ var ServerEventManagerPlugin = /** @class */ (function () {
     ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
     return ServerEventManagerPlugin;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 var EMPTY_ARRAY = [];
 var DEFAULT_SCHEMA = new DomElementSchemaRegistry();
@@ -476,12 +476,12 @@ var ServerRendererFactory2 = /** @class */ (function () {
     ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
     return ServerRendererFactory2;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }, { type: ɵSharedStylesHost }]; }, null);
+            }] }, { type: ɵSharedStylesHost }]; }, null); })();
 var DefaultServerRenderer2 = /** @class */ (function () {
     function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;
@@ -701,7 +701,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
     ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
     return ServerStylesHost;
 }(ɵSharedStylesHost));
-/*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -711,7 +711,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
             }, {
                 type: Inject,
                 args: [ɵTRANSITION_ID]
-            }] }]; }, null);
+            }] }]; }, null); })();
 
 /**
  * @license
@@ -771,7 +771,7 @@ var ServerModule = /** @class */ (function () {
     return ServerModule;
 }());
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerModule, { imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(ServerModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserModule],
@@ -783,7 +783,7 @@ var ServerModule = /** @class */ (function () {
                     { provide: ViewportScroller, useClass: ɵNullViewportScroller },
                 ],
             }]
-    }], null, null);
+    }], null, null); })();
 function _document(injector) {
     var config = injector.get(INITIAL_CONFIG, null);
     var document = config && config.document ? parseDocument(config.document, config.url) :
@@ -839,7 +839,7 @@ var ServerTransferStateModule = /** @class */ (function () {
         ] });
     return ServerTransferStateModule;
 }());
-/*@__PURE__*/ ɵsetClassMetadata(ServerTransferStateModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{
                 providers: [
@@ -851,7 +851,7 @@ var ServerTransferStateModule = /** @class */ (function () {
                     }
                 ]
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @license
@@ -970,7 +970,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
 /**
  * @license

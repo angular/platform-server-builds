@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -36,14 +36,14 @@ var ServerTestingModule = /** @class */ (function () {
     return ServerTestingModule;
 }());
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(ServerTestingModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserDynamicTestingModule],
                 imports: [NoopAnimationsModule],
                 providers: ɵSERVER_RENDER_PROVIDERS
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -37,14 +37,14 @@
         return ServerTestingModule;
     }());
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerTestingModule, { imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] }); })();
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTestingModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerTestingModule, [{
             type: i0.NgModule,
             args: [{
                     exports: [testing.BrowserDynamicTestingModule],
                     imports: [animations.NoopAnimationsModule],
                     providers: platformServer.ɵSERVER_RENDER_PROVIDERS
                 }]
-        }], null, null);
+        }], null, null); })();
 
     /**
      * @license

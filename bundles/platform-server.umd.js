@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -349,12 +349,12 @@
         PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
         return PlatformState;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(PlatformState, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(PlatformState, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -372,9 +372,9 @@
         ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
         return ServerXhr;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerXhr, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerXhr, [{
             type: i0.Injectable
-        }], null, null);
+        }], null, null); })();
     var ZoneMacroTaskWrapper = /** @class */ (function () {
         function ZoneMacroTaskWrapper() {
         }
@@ -574,7 +574,7 @@
         ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
         return ServerPlatformLocation;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerPlatformLocation, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerPlatformLocation, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
@@ -584,7 +584,7 @@
                 }, {
                     type: i0.Inject,
                     args: [INITIAL_CONFIG]
-                }] }]; }, null);
+                }] }]; }, null); })();
     function scheduleMicroTask(fn) {
         Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
     }
@@ -616,12 +616,12 @@
         ServerEventManagerPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
         return ServerEventManagerPlugin;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     var EMPTY_ARRAY = [];
     var DEFAULT_SCHEMA = new compiler.DomElementSchemaRegistry();
@@ -666,12 +666,12 @@
         ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
         return ServerRendererFactory2;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerRendererFactory2, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerRendererFactory2, [{
             type: i0.Injectable
         }], function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
                     type: i0.Inject,
                     args: [common.DOCUMENT]
-                }] }, { type: i1.ɵSharedStylesHost }]; }, null);
+                }] }, { type: i1.ɵSharedStylesHost }]; }, null); })();
     var DefaultServerRenderer2 = /** @class */ (function () {
         function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
             this.eventManager = eventManager;
@@ -891,7 +891,7 @@
         ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
         return ServerStylesHost;
     }(i1.ɵSharedStylesHost));
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerStylesHost, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerStylesHost, [{
             type: i0.Injectable
         }], function () { return [{ type: undefined, decorators: [{
                     type: i0.Inject,
@@ -901,7 +901,7 @@
                 }, {
                     type: i0.Inject,
                     args: [i1.ɵTRANSITION_ID]
-                }] }]; }, null);
+                }] }]; }, null); })();
 
     /**
      * @license
@@ -961,7 +961,7 @@
         return ServerModule;
     }());
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerModule, [{
             type: i0.NgModule,
             args: [{
                     exports: [i1.BrowserModule],
@@ -973,7 +973,7 @@
                         { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
                     ],
                 }]
-        }], null, null);
+        }], null, null); })();
     function _document(injector) {
         var config = injector.get(INITIAL_CONFIG, null);
         var document = config && config.document ? parseDocument(config.document, config.url) :
@@ -1029,7 +1029,7 @@
             ] });
         return ServerTransferStateModule;
     }());
-    /*@__PURE__*/ i0.ɵsetClassMetadata(ServerTransferStateModule, [{
+    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerTransferStateModule, [{
             type: i0.NgModule,
             args: [{
                     providers: [
@@ -1041,7 +1041,7 @@
                         }
                     ]
                 }]
-        }], null, null);
+        }], null, null); })();
 
     /**
      * @license
@@ -1160,7 +1160,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+    var VERSION = new i0.Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
     /**
      * @license

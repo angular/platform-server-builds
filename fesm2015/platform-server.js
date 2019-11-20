@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+188.sha-b54ed98.with-local-changes
+ * @license Angular v9.0.0-rc.1+197.sha-55748db.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -266,12 +266,12 @@ PlatformState.ctorParameters = () => [
 ];
 /** @nocollapse */ PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(PlatformState, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -304,9 +304,9 @@ ServerXhr.decorators = [
 ];
 /** @nocollapse */ ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
 /** @nocollapse */ ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerXhr, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
-    }], null, null);
+    }], null, null); })();
 /**
  * @abstract
  * @template S, R
@@ -660,7 +660,7 @@ ServerPlatformLocation.ctorParameters = () => [
 ];
 /** @nocollapse */ ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
 /** @nocollapse */ ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerPlatformLocation, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -670,7 +670,7 @@ ServerPlatformLocation.ctorParameters = () => [
             }, {
                 type: Inject,
                 args: [INITIAL_CONFIG]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /** @type {?} */
     ServerPlatformLocation.prototype.href;
@@ -762,12 +762,12 @@ ServerEventManagerPlugin.ctorParameters = () => [
 ];
 /** @nocollapse */ ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
 /** @nocollapse */ ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -860,12 +860,12 @@ ServerRendererFactory2.ctorParameters = () => [
 ];
 /** @nocollapse */ ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
 /** @nocollapse */ ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerRendererFactory2, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
                 type: Inject,
                 args: [DOCUMENT]
-            }] }, { type: ɵSharedStylesHost }]; }, null);
+            }] }, { type: ɵSharedStylesHost }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -1366,7 +1366,7 @@ ServerStylesHost.ctorParameters = () => [
 ];
 /** @nocollapse */ ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
 /** @nocollapse */ ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
-/*@__PURE__*/ ɵsetClassMetadata(ServerStylesHost, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
                 type: Inject,
@@ -1376,7 +1376,7 @@ ServerStylesHost.ctorParameters = () => [
             }, {
                 type: Inject,
                 args: [ɵTRANSITION_ID]
-            }] }]; }, null);
+            }] }]; }, null); })();
 if (false) {
     /**
      * @type {?}
@@ -1485,7 +1485,7 @@ ServerModule.decorators = [
     ], imports: [[HttpClientModule, NoopAnimationsModule],
         BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerModule, { imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); })();
-/*@__PURE__*/ ɵsetClassMetadata(ServerModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
         args: [{
                 exports: [BrowserModule],
@@ -1497,7 +1497,7 @@ ServerModule.decorators = [
                     { provide: ViewportScroller, useClass: ɵNullViewportScroller },
                 ],
             }]
-    }], null, null);
+    }], null, null); })();
 /**
  * @param {?} injector
  * @return {?}
@@ -1584,7 +1584,7 @@ ServerTransferStateModule.decorators = [
             multi: true,
         }
     ] });
-/*@__PURE__*/ ɵsetClassMetadata(ServerTransferStateModule, [{
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{
                 providers: [
@@ -1596,7 +1596,7 @@ ServerTransferStateModule.decorators = [
                     }
                 ]
             }]
-    }], null, null);
+    }], null, null); })();
 
 /**
  * @fileoverview added by tsickle
@@ -1761,7 +1761,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+188.sha-b54ed98.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+197.sha-55748db.with-local-changes');
 
 /**
  * @fileoverview added by tsickle

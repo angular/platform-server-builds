@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+226.sha-a37bf9a.with-local-changes
+ * @license Angular v9.0.0-rc.1+227.sha-3c335c3.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -18,6 +18,7 @@ import { first } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/domino_adapter.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -225,6 +226,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/platform_state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -267,6 +269,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/http.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -460,6 +463,7 @@ const SERVER_HTTP_PROVIDERS = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/tokens.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -493,6 +497,7 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/location.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -667,6 +672,7 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/server_events.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
@@ -723,6 +729,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/server_renderer.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -1239,6 +1246,7 @@ function _writeStyleAttribute(element, styleMap) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/styles_host.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ServerStylesHost extends ɵSharedStylesHost {
@@ -1307,6 +1315,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/server.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1408,6 +1417,7 @@ const platformDynamicServer = createPlatformFactory(ɵplatformCoreDynamic, 'serv
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/transfer_state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1452,6 +1462,7 @@ ServerTransferStateModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1602,31 +1613,36 @@ function renderModuleFactory(moduleFactory, options) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/private_export.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/version.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+226.sha-a37bf9a.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+227.sha-3c335c3.with-local-changes');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/src/platform-server.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/public_api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: packages/platform-server/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+329.sha-02958c0.with-local-changes
+ * @license Angular v9.0.0-rc.1+330.sha-755d2d5.with-local-changes
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -156,7 +156,7 @@ var PlatformState = /** @class */ (function () {
      */
     PlatformState.prototype.getDocument = function () { return this._doc; };
     PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
-    PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: function (t) { return PlatformState.ɵfac(t); }, providedIn: null });
+    PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac, providedIn: null });
     return PlatformState;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(PlatformState, [{
@@ -179,7 +179,7 @@ var ServerXhr = /** @class */ (function () {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
     ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-    ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: function (t) { return ServerXhr.ɵfac(t); }, providedIn: null });
+    ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac, providedIn: null });
     return ServerXhr;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerXhr, [{
@@ -381,7 +381,7 @@ var ServerPlatformLocation = /** @class */ (function () {
     // History API isn't available on server, therefore return undefined
     ServerPlatformLocation.prototype.getState = function () { return undefined; };
     ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
-    ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: function (t) { return ServerPlatformLocation.ɵfac(t); }, providedIn: null });
+    ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac, providedIn: null });
     return ServerPlatformLocation;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerPlatformLocation, [{
@@ -423,7 +423,7 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         return this.addEventListener(target, eventName, handler);
     };
     ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
-    ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: function (t) { return ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac(t); }, providedIn: null });
+    ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac, providedIn: null });
     return ServerEventManagerPlugin;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
@@ -473,7 +473,7 @@ var ServerRendererFactory2 = /** @class */ (function () {
     ServerRendererFactory2.prototype.begin = function () { };
     ServerRendererFactory2.prototype.end = function () { };
     ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
-    ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: function (t) { return ServerRendererFactory2.ɵfac(t); }, providedIn: null });
+    ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac, providedIn: null });
     return ServerRendererFactory2;
 }());
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerRendererFactory2, [{
@@ -698,7 +698,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
     ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
-    ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: function (t) { return ServerStylesHost.ɵfac(t); }, providedIn: null });
+    ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac, providedIn: null });
     return ServerStylesHost;
 }(ɵSharedStylesHost));
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerStylesHost, [{
@@ -970,7 +970,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('9.0.0-rc.1+329.sha-02958c0.with-local-changes');
+var VERSION = new Version('9.0.0-rc.1+330.sha-755d2d5.with-local-changes');
 
 /**
  * @license

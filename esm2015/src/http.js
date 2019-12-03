@@ -26,7 +26,7 @@ ServerXhr.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */ ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-/** @nocollapse */ ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac, providedIn: null });
+/** @nocollapse */ ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
     }], null, null); })();

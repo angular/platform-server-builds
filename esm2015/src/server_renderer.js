@@ -88,7 +88,7 @@ ServerRendererFactory2.ctorParameters = () => [
     { type: SharedStylesHost }
 ];
 /** @nocollapse */ ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(DOCUMENT), i0.ɵɵinject(i1.ɵSharedStylesHost)); };
-/** @nocollapse */ ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac, providedIn: null });
+/** @nocollapse */ ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
 /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{

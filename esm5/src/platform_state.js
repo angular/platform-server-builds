@@ -27,7 +27,7 @@ var PlatformState = /** @class */ (function () {
      */
     PlatformState.prototype.getDocument = function () { return this._doc; };
     PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(DOCUMENT)); };
-    PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac, providedIn: null });
+    PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
     return PlatformState;
 }());
 export { PlatformState };

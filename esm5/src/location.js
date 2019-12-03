@@ -86,7 +86,7 @@ var ServerPlatformLocation = /** @class */ (function () {
     // History API isn't available on server, therefore return undefined
     ServerPlatformLocation.prototype.getState = function () { return undefined; };
     ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
-    ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac, providedIn: null });
+    ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
     return ServerPlatformLocation;
 }());
 export { ServerPlatformLocation };

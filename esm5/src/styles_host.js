@@ -34,7 +34,7 @@ var ServerStylesHost = /** @class */ (function (_super) {
         additions.forEach(function (style) { return _this._addStyle(style); });
     };
     ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.ɵɵinject(DOCUMENT), i0.ɵɵinject(ɵTRANSITION_ID, 8)); };
-    ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac, providedIn: null });
+    ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
     return ServerStylesHost;
 }(SharedStylesHost));
 export { ServerStylesHost };

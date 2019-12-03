@@ -16,7 +16,7 @@ var ServerXhr = /** @class */ (function () {
     }
     ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
     ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-    ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac, providedIn: null });
+    ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
     return ServerXhr;
 }());
 export { ServerXhr };

@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+499.sha-9d1175e
+ * @license Angular v9.0.0-rc.1+502.sha-dfecca2
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1079,6 +1079,7 @@
                             try {
                                 var callbackResult = callback();
                                 if (i0.ɵisPromise(callbackResult)) {
+                                    // TODO: in TS3.7, callbackResult is void.
                                     asyncPromises.push(callbackResult);
                                 }
                             }
@@ -1160,7 +1161,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+499.sha-9d1175e');
+    var VERSION = new i0.Version('9.0.0-rc.1+502.sha-dfecca2');
 
     /**
      * @license

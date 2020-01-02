@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+422.sha-a719656.with-local-changes
+ * @license Angular v9.0.0-rc.1+524.sha-f004195
  * (c) 2010-2019 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1533,7 +1533,8 @@ the server-rendered app can be properly bootstrapped into a client app.`);
                         /** @type {?} */
                         const callbackResult = callback();
                         if (ɵisPromise(callbackResult)) {
-                            asyncPromises.push(callbackResult);
+                            // TODO: in TS3.7, callbackResult is void.
+                            asyncPromises.push((/** @type {?} */ (callbackResult)));
                         }
                     }
                     catch (e) {
@@ -1626,7 +1627,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+422.sha-a719656.with-local-changes');
+const VERSION = new Version('9.0.0-rc.1+524.sha-f004195');
 
 /**
  * @fileoverview added by tsickle

@@ -25,7 +25,7 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     getBaseHrefFromDOM(): string;
     onPopState(fn: LocationChangeListener): void;
     onHashChange(fn: LocationChangeListener): void;
-    readonly url: string;
+    get url(): string;
     private setHash;
     replaceState(state: any, title: string, newUrl: string): void;
     pushState(state: any, title: string, newUrl: string): void;

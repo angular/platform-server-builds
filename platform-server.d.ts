@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.8+119.sha-fa39a8c
+ * @license Angular v9.0.0-rc.8+132.sha-76a84bf
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -33,7 +33,7 @@ import { ɵSharedStylesHost } from '@angular/platform-browser';
  *
  * @publicApi
  */
-export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void)[]>;
+export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void | Promise<void>)[]>;
 
 /**
  * The DI token for setting the initial config for the platform.

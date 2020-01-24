@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.10+54.sha-622737c
+ * @license Angular v9.0.0-rc.10+67.sha-2e1a16b
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1001,7 +1001,7 @@ class DefaultServerRenderer2 {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         /** @type {?} */
         const styleMap = _readStyleAttribute(el);
-        styleMap[style] = value || '';
+        styleMap[style] = value == null ? '' : value;
         _writeStyleAttribute(el, styleMap);
     }
     /**
@@ -1237,7 +1237,7 @@ function _writeStyleAttribute(element, styleMap) {
     for (const key in styleMap) {
         /** @type {?} */
         const newValue = styleMap[key];
-        if (newValue) {
+        if (newValue != null) {
             styleAttrValue += key + ':' + styleMap[key] + ';';
         }
     }
@@ -1627,7 +1627,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.10+54.sha-622737c');
+const VERSION = new Version('9.0.0-rc.10+67.sha-2e1a16b');
 
 /**
  * @fileoverview added by tsickle

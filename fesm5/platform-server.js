@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+745.sha-ad68b61
+ * @license Angular v9.0.0-rc.1+804.sha-0eaf874
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -543,7 +543,7 @@ var DefaultServerRenderer2 = /** @class */ (function () {
     DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         var styleMap = _readStyleAttribute(el);
-        styleMap[style] = value || '';
+        styleMap[style] = value == null ? '' : value;
         _writeStyleAttribute(el, styleMap);
     };
     DefaultServerRenderer2.prototype.removeStyle = function (el, style, flags) {
@@ -655,7 +655,7 @@ function _writeStyleAttribute(element, styleMap) {
     var styleAttrValue = '';
     for (var key in styleMap) {
         var newValue = styleMap[key];
-        if (newValue) {
+        if (newValue != null) {
             styleAttrValue += key + ':' + styleMap[key] + ';';
         }
     }
@@ -939,7 +939,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('0.0.0');
+var VERSION = new Version('9.0.0-rc.1+804.sha-0eaf874');
 
 /**
  * @license

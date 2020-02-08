@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+972.sha-d5d9971
+ * @license Angular v9.0.0-rc.1+973.sha-ae0253f
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -868,6 +868,8 @@ class DefaultServerRenderer2 {
         if (namespace) {
             /** @type {?} */
             const doc = this.document || ɵgetDOM().getDefaultDocument();
+            // TODO(FW-811): Ivy may cause issues here because it's passing around
+            // full URIs for namespaces, therefore this lookup will fail.
             return doc.createElementNS(ɵNAMESPACE_URIS[namespace], name);
         }
         return ɵgetDOM().createElement(name, this.document);
@@ -958,6 +960,8 @@ class DefaultServerRenderer2 {
      */
     setAttribute(el, name, value, namespace) {
         if (namespace) {
+            // TODO(FW-811): Ivy may cause issues here because it's passing around
+            // full URIs for namespaces, therefore this lookup will fail.
             el.setAttributeNS(ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
         }
         else {
@@ -972,6 +976,8 @@ class DefaultServerRenderer2 {
      */
     removeAttribute(el, name, namespace) {
         if (namespace) {
+            // TODO(FW-811): Ivy may cause issues here because it's passing around
+            // full URIs for namespaces, therefore this lookup will fail.
             el.removeAttributeNS(ɵNAMESPACE_URIS[namespace], name);
         }
         else {
@@ -1627,7 +1633,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0-rc.1+972.sha-d5d9971');
+const VERSION = new Version('9.0.0-rc.1+973.sha-ae0253f');
 
 /**
  * @fileoverview added by tsickle

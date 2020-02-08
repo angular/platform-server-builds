@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0-rc.1+972.sha-d5d9971
+ * @license Angular v9.0.0-rc.1+973.sha-ae0253f
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -684,6 +684,8 @@
         DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
             if (namespace) {
                 var doc = this.document || common.ɵgetDOM().getDefaultDocument();
+                // TODO(FW-811): Ivy may cause issues here because it's passing around
+                // full URIs for namespaces, therefore this lookup will fail.
                 return doc.createElementNS(i1.ɵNAMESPACE_URIS[namespace], name);
             }
             return common.ɵgetDOM().createElement(name, this.document);
@@ -726,6 +728,8 @@
         DefaultServerRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
         DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
+                // TODO(FW-811): Ivy may cause issues here because it's passing around
+                // full URIs for namespaces, therefore this lookup will fail.
                 el.setAttributeNS(i1.ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
             }
             else {
@@ -734,6 +738,8 @@
         };
         DefaultServerRenderer2.prototype.removeAttribute = function (el, name, namespace) {
             if (namespace) {
+                // TODO(FW-811): Ivy may cause issues here because it's passing around
+                // full URIs for namespaces, therefore this lookup will fail.
                 el.removeAttributeNS(i1.ɵNAMESPACE_URIS[namespace], name);
             }
             else {
@@ -1161,7 +1167,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('9.0.0-rc.1+972.sha-d5d9971');
+    var VERSION = new i0.Version('9.0.0-rc.1+973.sha-ae0253f');
 
     /**
      * @license

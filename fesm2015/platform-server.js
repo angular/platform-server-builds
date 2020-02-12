@@ -1,5 +1,5 @@
 /**
- * @license Angular v9.0.0+47.sha-94d002b
+ * @license Angular v9.0.0+53.sha-554c2cb
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1633,7 +1633,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('9.0.0+47.sha-94d002b');
+const VERSION = new Version('9.0.0+53.sha-554c2cb');
 
 /**
  * @fileoverview added by tsickle

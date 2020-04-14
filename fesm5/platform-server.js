@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -64,9 +64,13 @@ var DominoAdapter = /** @class */ (function (_super) {
         // tslint:disable-next-line:no-console
         console.log(error);
     };
-    DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
+    DominoAdapter.prototype.logGroup = function (error) {
+        console.error(error);
+    };
     DominoAdapter.prototype.logGroupEnd = function () { };
-    DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
+    DominoAdapter.prototype.supportsDOMEvents = function () {
+        return false;
+    };
     DominoAdapter.prototype.createHtmlDocument = function () {
         return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
     };
@@ -79,7 +83,9 @@ var DominoAdapter = /** @class */ (function (_super) {
     DominoAdapter.prototype.isElementNode = function (node) {
         return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
     };
-    DominoAdapter.prototype.isShadowRoot = function (node) { return node.shadowRoot == node; };
+    DominoAdapter.prototype.isShadowRoot = function (node) {
+        return node.shadowRoot == node;
+    };
     DominoAdapter.prototype.getProperty = function (el, name) {
         if (name === 'href') {
             // Domino tries to resolve href-s which we do not want. Just return the
@@ -122,12 +128,24 @@ var DominoAdapter = /** @class */ (function (_super) {
             win.dispatchEvent(evt);
         }
     };
-    DominoAdapter.prototype.getHistory = function () { throw _notImplemented('getHistory'); };
-    DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
-    DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
-    DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
-    DominoAdapter.prototype.supportsCookies = function () { return false; };
-    DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
+    DominoAdapter.prototype.getHistory = function () {
+        throw _notImplemented('getHistory');
+    };
+    DominoAdapter.prototype.getLocation = function () {
+        throw _notImplemented('getLocation');
+    };
+    DominoAdapter.prototype.getUserAgent = function () {
+        return 'Fake user agent';
+    };
+    DominoAdapter.prototype.performanceNow = function () {
+        return Date.now();
+    };
+    DominoAdapter.prototype.supportsCookies = function () {
+        return false;
+    };
+    DominoAdapter.prototype.getCookie = function (name) {
+        throw _notImplemented('getCookie');
+    };
     return DominoAdapter;
 }(ɵBrowserDomAdapter));
 
@@ -150,11 +168,15 @@ var PlatformState = /** @class */ (function () {
     /**
      * Renders the current state of the platform to string.
      */
-    PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
+    PlatformState.prototype.renderToString = function () {
+        return serializeDocument(this._doc);
+    };
     /**
      * Returns the current DOM state.
      */
-    PlatformState.prototype.getDocument = function () { return this._doc; };
+    PlatformState.prototype.getDocument = function () {
+        return this._doc;
+    };
     PlatformState = __decorate([
         Injectable(),
         __param(0, Inject(DOCUMENT)),
@@ -174,7 +196,9 @@ var xhr2 = require('xhr2');
 var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
-    ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
+    ServerXhr.prototype.build = function () {
+        return new xhr2.XMLHttpRequest();
+    };
     ServerXhr = __decorate([
         Injectable()
     ], ServerXhr);
@@ -255,7 +279,9 @@ var ZoneClientBackend = /** @class */ (function (_super) {
         _this.backend = backend;
         return _this;
     }
-    ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+    ZoneClientBackend.prototype.handle = function (request) {
+        return this.wrap(request);
+    };
     ZoneClientBackend.prototype.delegate = function (request) {
         return this.backend.handle(request);
     };
@@ -266,11 +292,8 @@ function zoneWrappedInterceptingHandler(backend, injector) {
     return new ZoneClientBackend(realBackend);
 }
 var SERVER_HTTP_PROVIDERS = [
-    { provide: XhrFactory, useClass: ServerXhr }, {
-        provide: HttpHandler,
-        useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, Injector]
-    }
+    { provide: XhrFactory, useClass: ServerXhr },
+    { provide: HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [HttpBackend, Injector] }
 ];
 
 /**
@@ -338,14 +361,20 @@ var ServerPlatformLocation = /** @class */ (function () {
             this.hash = parsedUrl.hash;
         }
     }
-    ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return ɵgetDOM().getBaseHref(this._doc); };
+    ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
+        return ɵgetDOM().getBaseHref(this._doc);
+    };
     ServerPlatformLocation.prototype.onPopState = function (fn) {
         // No-op: a state stack is not implemented, so
         // no events will ever come.
     };
-    ServerPlatformLocation.prototype.onHashChange = function (fn) { this._hashUpdate.subscribe(fn); };
+    ServerPlatformLocation.prototype.onHashChange = function (fn) {
+        this._hashUpdate.subscribe(fn);
+    };
     Object.defineProperty(ServerPlatformLocation.prototype, "url", {
-        get: function () { return "" + this.pathname + this.search + this.hash; },
+        get: function () {
+            return "" + this.pathname + this.search + this.hash;
+        },
         enumerable: true,
         configurable: true
     });
@@ -357,9 +386,7 @@ var ServerPlatformLocation = /** @class */ (function () {
         }
         this.hash = value;
         var newUrl = this.url;
-        scheduleMicroTask(function () { return _this._hashUpdate.next({
-            type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
-        }); });
+        scheduleMicroTask(function () { return _this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl }); });
     };
     ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
         var oldUrl = this.url;
@@ -371,10 +398,16 @@ var ServerPlatformLocation = /** @class */ (function () {
     ServerPlatformLocation.prototype.pushState = function (state, title, newUrl) {
         this.replaceState(state, title, newUrl);
     };
-    ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
-    ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+    ServerPlatformLocation.prototype.forward = function () {
+        throw new Error('Not implemented');
+    };
+    ServerPlatformLocation.prototype.back = function () {
+        throw new Error('Not implemented');
+    };
     // History API isn't available on server, therefore return undefined
-    ServerPlatformLocation.prototype.getState = function () { return undefined; };
+    ServerPlatformLocation.prototype.getState = function () {
+        return undefined;
+    };
     ServerPlatformLocation = __decorate([
         Injectable(),
         __param(0, Inject(DOCUMENT)), __param(1, Optional()), __param(1, Inject(INITIAL_CONFIG)),
@@ -398,7 +431,9 @@ var ServerEventManagerPlugin = /** @class */ (function () {
         this.doc = doc;
     }
     // Handle all events on the server.
-    ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
+    ServerEventManagerPlugin.prototype.supports = function (eventName) {
+        return true;
+    };
     ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     };
@@ -495,7 +530,9 @@ var DefaultServerRenderer2 = /** @class */ (function () {
         var doc = ɵgetDOM().getDefaultDocument();
         return doc.createTextNode(value);
     };
-    DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+    DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) {
+        parent.appendChild(newChild);
+    };
     DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
         if (parent) {
             parent.insertBefore(newChild, refChild);
@@ -522,8 +559,12 @@ var DefaultServerRenderer2 = /** @class */ (function () {
         }
         return el;
     };
-    DefaultServerRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
-    DefaultServerRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+    DefaultServerRenderer2.prototype.parentNode = function (node) {
+        return node.parentNode;
+    };
+    DefaultServerRenderer2.prototype.nextSibling = function (node) {
+        return node.nextSibling;
+    };
     DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
         if (namespace) {
             // TODO(FW-811): Ivy may cause issues here because it's passing around
@@ -544,8 +585,12 @@ var DefaultServerRenderer2 = /** @class */ (function () {
             el.removeAttribute(name);
         }
     };
-    DefaultServerRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
-    DefaultServerRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+    DefaultServerRenderer2.prototype.addClass = function (el, name) {
+        el.classList.add(name);
+    };
+    DefaultServerRenderer2.prototype.removeClass = function (el, name) {
+        el.classList.remove(name);
+    };
     DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         var styleMap = _readStyleAttribute(el);
@@ -583,7 +628,9 @@ var DefaultServerRenderer2 = /** @class */ (function () {
             this.setAttribute(el, name, value.toString());
         }
     };
-    DefaultServerRenderer2.prototype.setValue = function (node, value) { node.textContent = value; };
+    DefaultServerRenderer2.prototype.setValue = function (node, value) {
+        node.textContent = value;
+    };
     DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
         checkNoSyntheticProp(eventName, 'listener');
         if (typeof target === 'string') {
@@ -630,7 +677,9 @@ var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
         _this.hostAttr = ɵshimHostAttribute(componentId);
         return _this;
     }
-    EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+    EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) {
+        _super.prototype.setAttribute.call(this, element, this.hostAttr, '');
+    };
     EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
         var el = _super.prototype.createElement.call(this, parent, name, this.document);
         _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
@@ -730,7 +779,9 @@ var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
 ];
 function initDominoAdapter(injector) {
-    return function () { DominoAdapter.makeCurrent(); };
+    return function () {
+        DominoAdapter.makeCurrent();
+    };
 }
 function instantiateServerRendererFactory(renderer, engine, zone) {
     return new ɵAnimationRendererFactory(renderer, engine, zone);
@@ -891,7 +942,9 @@ function _render(platform, moduleRefPromise) {
             }
             return Promise
                 .all(asyncPromises.map(function (asyncPromise) {
-                return asyncPromise.catch(function (e) { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+                return asyncPromise.catch(function (e) {
+                    console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
+                });
             }))
                 .then(complete);
         });
@@ -945,7 +998,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-var VERSION = new Version('10.0.0-next.1+32.sha-5e80e7e');
+var VERSION = new Version('10.0.0-next.1+33.sha-698b028');
 
 /**
  * @license

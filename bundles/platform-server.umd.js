@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -271,9 +271,13 @@
             // tslint:disable-next-line:no-console
             console.log(error);
         };
-        DominoAdapter.prototype.logGroup = function (error) { console.error(error); };
+        DominoAdapter.prototype.logGroup = function (error) {
+            console.error(error);
+        };
         DominoAdapter.prototype.logGroupEnd = function () { };
-        DominoAdapter.prototype.supportsDOMEvents = function () { return false; };
+        DominoAdapter.prototype.supportsDOMEvents = function () {
+            return false;
+        };
         DominoAdapter.prototype.createHtmlDocument = function () {
             return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
         };
@@ -286,7 +290,9 @@
         DominoAdapter.prototype.isElementNode = function (node) {
             return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
         };
-        DominoAdapter.prototype.isShadowRoot = function (node) { return node.shadowRoot == node; };
+        DominoAdapter.prototype.isShadowRoot = function (node) {
+            return node.shadowRoot == node;
+        };
         DominoAdapter.prototype.getProperty = function (el, name) {
             if (name === 'href') {
                 // Domino tries to resolve href-s which we do not want. Just return the
@@ -329,12 +335,24 @@
                 win.dispatchEvent(evt);
             }
         };
-        DominoAdapter.prototype.getHistory = function () { throw _notImplemented('getHistory'); };
-        DominoAdapter.prototype.getLocation = function () { throw _notImplemented('getLocation'); };
-        DominoAdapter.prototype.getUserAgent = function () { return 'Fake user agent'; };
-        DominoAdapter.prototype.performanceNow = function () { return Date.now(); };
-        DominoAdapter.prototype.supportsCookies = function () { return false; };
-        DominoAdapter.prototype.getCookie = function (name) { throw _notImplemented('getCookie'); };
+        DominoAdapter.prototype.getHistory = function () {
+            throw _notImplemented('getHistory');
+        };
+        DominoAdapter.prototype.getLocation = function () {
+            throw _notImplemented('getLocation');
+        };
+        DominoAdapter.prototype.getUserAgent = function () {
+            return 'Fake user agent';
+        };
+        DominoAdapter.prototype.performanceNow = function () {
+            return Date.now();
+        };
+        DominoAdapter.prototype.supportsCookies = function () {
+            return false;
+        };
+        DominoAdapter.prototype.getCookie = function (name) {
+            throw _notImplemented('getCookie');
+        };
         return DominoAdapter;
     }(i1.ɵBrowserDomAdapter));
 
@@ -357,11 +375,15 @@
         /**
          * Renders the current state of the platform to string.
          */
-        PlatformState.prototype.renderToString = function () { return serializeDocument(this._doc); };
+        PlatformState.prototype.renderToString = function () {
+            return serializeDocument(this._doc);
+        };
         /**
          * Returns the current DOM state.
          */
-        PlatformState.prototype.getDocument = function () { return this._doc; };
+        PlatformState.prototype.getDocument = function () {
+            return this._doc;
+        };
         PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(common.DOCUMENT)); };
         PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
         return PlatformState;
@@ -384,7 +406,9 @@
     var ServerXhr = /** @class */ (function () {
         function ServerXhr() {
         }
-        ServerXhr.prototype.build = function () { return new xhr2.XMLHttpRequest(); };
+        ServerXhr.prototype.build = function () {
+            return new xhr2.XMLHttpRequest();
+        };
         ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
         ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
         return ServerXhr;
@@ -467,7 +491,9 @@
             _this.backend = backend;
             return _this;
         }
-        ZoneClientBackend.prototype.handle = function (request) { return this.wrap(request); };
+        ZoneClientBackend.prototype.handle = function (request) {
+            return this.wrap(request);
+        };
         ZoneClientBackend.prototype.delegate = function (request) {
             return this.backend.handle(request);
         };
@@ -478,11 +504,8 @@
         return new ZoneClientBackend(realBackend);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http.XhrFactory, useClass: ServerXhr }, {
-            provide: http.HttpHandler,
-            useFactory: zoneWrappedInterceptingHandler,
-            deps: [http.HttpBackend, i0.Injector]
-        }
+        { provide: http.XhrFactory, useClass: ServerXhr },
+        { provide: http.HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [http.HttpBackend, i0.Injector] }
     ];
 
     /**
@@ -550,14 +573,20 @@
                 this.hash = parsedUrl.hash;
             }
         }
-        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () { return common.ɵgetDOM().getBaseHref(this._doc); };
+        ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
+            return common.ɵgetDOM().getBaseHref(this._doc);
+        };
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
         };
-        ServerPlatformLocation.prototype.onHashChange = function (fn) { this._hashUpdate.subscribe(fn); };
+        ServerPlatformLocation.prototype.onHashChange = function (fn) {
+            this._hashUpdate.subscribe(fn);
+        };
         Object.defineProperty(ServerPlatformLocation.prototype, "url", {
-            get: function () { return "" + this.pathname + this.search + this.hash; },
+            get: function () {
+                return "" + this.pathname + this.search + this.hash;
+            },
             enumerable: true,
             configurable: true
         });
@@ -569,9 +598,7 @@
             }
             this.hash = value;
             var newUrl = this.url;
-            scheduleMicroTask(function () { return _this._hashUpdate.next({
-                type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
-            }); });
+            scheduleMicroTask(function () { return _this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl }); });
         };
         ServerPlatformLocation.prototype.replaceState = function (state, title, newUrl) {
             var oldUrl = this.url;
@@ -583,10 +610,16 @@
         ServerPlatformLocation.prototype.pushState = function (state, title, newUrl) {
             this.replaceState(state, title, newUrl);
         };
-        ServerPlatformLocation.prototype.forward = function () { throw new Error('Not implemented'); };
-        ServerPlatformLocation.prototype.back = function () { throw new Error('Not implemented'); };
+        ServerPlatformLocation.prototype.forward = function () {
+            throw new Error('Not implemented');
+        };
+        ServerPlatformLocation.prototype.back = function () {
+            throw new Error('Not implemented');
+        };
         // History API isn't available on server, therefore return undefined
-        ServerPlatformLocation.prototype.getState = function () { return undefined; };
+        ServerPlatformLocation.prototype.getState = function () {
+            return undefined;
+        };
         ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
         ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
         return ServerPlatformLocation;
@@ -618,7 +651,9 @@
             this.doc = doc;
         }
         // Handle all events on the server.
-        ServerEventManagerPlugin.prototype.supports = function (eventName) { return true; };
+        ServerEventManagerPlugin.prototype.supports = function (eventName) {
+            return true;
+        };
         ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
             return common.ɵgetDOM().onAndCancel(element, eventName, handler);
         };
@@ -714,7 +749,9 @@
             var doc = common.ɵgetDOM().getDefaultDocument();
             return doc.createTextNode(value);
         };
-        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) { parent.appendChild(newChild); };
+        DefaultServerRenderer2.prototype.appendChild = function (parent, newChild) {
+            parent.appendChild(newChild);
+        };
         DefaultServerRenderer2.prototype.insertBefore = function (parent, newChild, refChild) {
             if (parent) {
                 parent.insertBefore(newChild, refChild);
@@ -741,8 +778,12 @@
             }
             return el;
         };
-        DefaultServerRenderer2.prototype.parentNode = function (node) { return node.parentNode; };
-        DefaultServerRenderer2.prototype.nextSibling = function (node) { return node.nextSibling; };
+        DefaultServerRenderer2.prototype.parentNode = function (node) {
+            return node.parentNode;
+        };
+        DefaultServerRenderer2.prototype.nextSibling = function (node) {
+            return node.nextSibling;
+        };
         DefaultServerRenderer2.prototype.setAttribute = function (el, name, value, namespace) {
             if (namespace) {
                 // TODO(FW-811): Ivy may cause issues here because it's passing around
@@ -763,8 +804,12 @@
                 el.removeAttribute(name);
             }
         };
-        DefaultServerRenderer2.prototype.addClass = function (el, name) { el.classList.add(name); };
-        DefaultServerRenderer2.prototype.removeClass = function (el, name) { el.classList.remove(name); };
+        DefaultServerRenderer2.prototype.addClass = function (el, name) {
+            el.classList.add(name);
+        };
+        DefaultServerRenderer2.prototype.removeClass = function (el, name) {
+            el.classList.remove(name);
+        };
         DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
             style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
             var styleMap = _readStyleAttribute(el);
@@ -802,7 +847,9 @@
                 this.setAttribute(el, name, value.toString());
             }
         };
-        DefaultServerRenderer2.prototype.setValue = function (node, value) { node.textContent = value; };
+        DefaultServerRenderer2.prototype.setValue = function (node, value) {
+            node.textContent = value;
+        };
         DefaultServerRenderer2.prototype.listen = function (target, eventName, callback) {
             checkNoSyntheticProp(eventName, 'listener');
             if (typeof target === 'string') {
@@ -849,7 +896,9 @@
             _this.hostAttr = i1.ɵshimHostAttribute(componentId);
             return _this;
         }
-        EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) { _super.prototype.setAttribute.call(this, element, this.hostAttr, ''); };
+        EmulatedEncapsulationServerRenderer2.prototype.applyToHost = function (element) {
+            _super.prototype.setAttribute.call(this, element, this.hostAttr, '');
+        };
         EmulatedEncapsulationServerRenderer2.prototype.createElement = function (parent, name) {
             var el = _super.prototype.createElement.call(this, parent, name, this.document);
             _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
@@ -949,7 +998,9 @@
         { provide: i0.ɵALLOW_MULTIPLE_PLATFORMS, useValue: true }
     ];
     function initDominoAdapter(injector) {
-        return function () { DominoAdapter.makeCurrent(); };
+        return function () {
+            DominoAdapter.makeCurrent();
+        };
     }
     function instantiateServerRendererFactory(renderer, engine, zone) {
         return new animations.ɵAnimationRendererFactory(renderer, engine, zone);
@@ -1130,7 +1181,9 @@
                 }
                 return Promise
                     .all(asyncPromises.map(function (asyncPromise) {
-                    return asyncPromise.catch(function (e) { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); });
+                    return asyncPromise.catch(function (e) {
+                        console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
+                    });
                 }))
                     .then(complete);
             });
@@ -1184,7 +1237,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-next.1+32.sha-5e80e7e');
+    var VERSION = new i0.Version('10.0.0-next.1+33.sha-698b028');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.1+32.sha-5e80e7e
+ * @license Angular v10.0.0-next.1+33.sha-698b028
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -89,7 +89,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} error
      * @return {?}
      */
-    logGroup(error) { console.error(error); }
+    logGroup(error) {
+        console.error(error);
+    }
     /**
      * @return {?}
      */
@@ -97,7 +99,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     /**
      * @return {?}
      */
-    supportsDOMEvents() { return false; }
+    supportsDOMEvents() {
+        return false;
+    }
     /**
      * @return {?}
      */
@@ -124,7 +128,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
      * @param {?} node
      * @return {?}
      */
-    isShadowRoot(node) { return node.shadowRoot == node; }
+    isShadowRoot(node) {
+        return node.shadowRoot == node;
+    }
     /**
      * @param {?} el
      * @param {?} name
@@ -193,28 +199,40 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     /**
      * @return {?}
      */
-    getHistory() { throw _notImplemented('getHistory'); }
+    getHistory() {
+        throw _notImplemented('getHistory');
+    }
     /**
      * @return {?}
      */
-    getLocation() { throw _notImplemented('getLocation'); }
+    getLocation() {
+        throw _notImplemented('getLocation');
+    }
     /**
      * @return {?}
      */
-    getUserAgent() { return 'Fake user agent'; }
+    getUserAgent() {
+        return 'Fake user agent';
+    }
     /**
      * @return {?}
      */
-    performanceNow() { return Date.now(); }
+    performanceNow() {
+        return Date.now();
+    }
     /**
      * @return {?}
      */
-    supportsCookies() { return false; }
+    supportsCookies() {
+        return false;
+    }
     /**
      * @param {?} name
      * @return {?}
      */
-    getCookie(name) { throw _notImplemented('getCookie'); }
+    getCookie(name) {
+        throw _notImplemented('getCookie');
+    }
 }
 if (false) {
     /**
@@ -252,12 +270,16 @@ class PlatformState {
      * Renders the current state of the platform to string.
      * @return {?}
      */
-    renderToString() { return serializeDocument(this._doc); }
+    renderToString() {
+        return serializeDocument(this._doc);
+    }
     /**
      * Returns the current DOM state.
      * @return {?}
      */
-    getDocument() { return this._doc; }
+    getDocument() {
+        return this._doc;
+    }
 }
 PlatformState.decorators = [
     { type: Injectable },
@@ -300,7 +322,9 @@ class ServerXhr {
     /**
      * @return {?}
      */
-    build() { return new xhr2.XMLHttpRequest(); }
+    build() {
+        return new xhr2.XMLHttpRequest();
+    }
 }
 ServerXhr.decorators = [
     { type: Injectable },
@@ -445,7 +469,9 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
      * @param {?} request
      * @return {?}
      */
-    handle(request) { return this.wrap(request); }
+    handle(request) {
+        return this.wrap(request);
+    }
     /**
      * @protected
      * @param {?} request
@@ -474,11 +500,8 @@ function zoneWrappedInterceptingHandler(backend, injector) {
 }
 /** @type {?} */
 const SERVER_HTTP_PROVIDERS = [
-    { provide: XhrFactory, useClass: ServerXhr }, {
-        provide: HttpHandler,
-        useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, Injector]
-    }
+    { provide: XhrFactory, useClass: ServerXhr },
+    { provide: HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [HttpBackend, Injector] }
 ];
 
 /**
@@ -578,7 +601,9 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    getBaseHrefFromDOM() { return (/** @type {?} */ (ɵgetDOM().getBaseHref(this._doc))); }
+    getBaseHrefFromDOM() {
+        return (/** @type {?} */ (ɵgetDOM().getBaseHref(this._doc)));
+    }
     /**
      * @param {?} fn
      * @return {?}
@@ -591,11 +616,15 @@ class ServerPlatformLocation {
      * @param {?} fn
      * @return {?}
      */
-    onHashChange(fn) { this._hashUpdate.subscribe(fn); }
+    onHashChange(fn) {
+        this._hashUpdate.subscribe(fn);
+    }
     /**
      * @return {?}
      */
-    get url() { return `${this.pathname}${this.search}${this.hash}`; }
+    get url() {
+        return `${this.pathname}${this.search}${this.hash}`;
+    }
     /**
      * @private
      * @param {?} value
@@ -613,9 +642,7 @@ class ServerPlatformLocation {
         scheduleMicroTask((/**
          * @return {?}
          */
-        () => this._hashUpdate.next((/** @type {?} */ ({
-            type: 'hashchange', state: null, oldUrl, newUrl
-        })))));
+        () => this._hashUpdate.next((/** @type {?} */ ({ type: 'hashchange', state: null, oldUrl, newUrl })))));
     }
     /**
      * @param {?} state
@@ -644,16 +671,22 @@ class ServerPlatformLocation {
     /**
      * @return {?}
      */
-    forward() { throw new Error('Not implemented'); }
+    forward() {
+        throw new Error('Not implemented');
+    }
     /**
      * @return {?}
      */
-    back() { throw new Error('Not implemented'); }
+    back() {
+        throw new Error('Not implemented');
+    }
     // History API isn't available on server, therefore return undefined
     /**
      * @return {?}
      */
-    getState() { return undefined; }
+    getState() {
+        return undefined;
+    }
 }
 ServerPlatformLocation.decorators = [
     { type: Injectable },
@@ -734,7 +767,9 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
      * @param {?} eventName
      * @return {?}
      */
-    supports(eventName) { return true; }
+    supports(eventName) {
+        return true;
+    }
     /**
      * @param {?} element
      * @param {?} eventName
@@ -967,7 +1002,9 @@ class DefaultServerRenderer2 {
      * @param {?} newChild
      * @return {?}
      */
-    appendChild(parent, newChild) { parent.appendChild(newChild); }
+    appendChild(parent, newChild) {
+        parent.appendChild(newChild);
+    }
     /**
      * @param {?} parent
      * @param {?} newChild
@@ -1015,12 +1052,16 @@ class DefaultServerRenderer2 {
      * @param {?} node
      * @return {?}
      */
-    parentNode(node) { return node.parentNode; }
+    parentNode(node) {
+        return node.parentNode;
+    }
     /**
      * @param {?} node
      * @return {?}
      */
-    nextSibling(node) { return node.nextSibling; }
+    nextSibling(node) {
+        return node.nextSibling;
+    }
     /**
      * @param {?} el
      * @param {?} name
@@ -1059,13 +1100,17 @@ class DefaultServerRenderer2 {
      * @param {?} name
      * @return {?}
      */
-    addClass(el, name) { el.classList.add(name); }
+    addClass(el, name) {
+        el.classList.add(name);
+    }
     /**
      * @param {?} el
      * @param {?} name
      * @return {?}
      */
-    removeClass(el, name) { el.classList.remove(name); }
+    removeClass(el, name) {
+        el.classList.remove(name);
+    }
     /**
      * @param {?} el
      * @param {?} style
@@ -1135,7 +1180,9 @@ class DefaultServerRenderer2 {
      * @param {?} value
      * @return {?}
      */
-    setValue(node, value) { node.textContent = value; }
+    setValue(node, value) {
+        node.textContent = value;
+    }
     /**
      * @param {?} target
      * @param {?} eventName
@@ -1243,7 +1290,9 @@ class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
      * @param {?} element
      * @return {?}
      */
-    applyToHost(element) { super.setAttribute(element, this.hostAttr, ''); }
+    applyToHost(element) {
+        super.setAttribute(element, this.hostAttr, '');
+    }
     /**
      * @param {?} parent
      * @param {?} name
@@ -1364,11 +1413,13 @@ class ServerStylesHost extends ɵSharedStylesHost {
      * @param {?} additions
      * @return {?}
      */
-    onStylesAdded(additions) { additions.forEach((/**
-     * @param {?} style
-     * @return {?}
-     */
-    style => this._addStyle(style))); }
+    onStylesAdded(additions) {
+        additions.forEach((/**
+         * @param {?} style
+         * @return {?}
+         */
+        style => this._addStyle(style)));
+    }
 }
 ServerStylesHost.decorators = [
     { type: Injectable },
@@ -1449,7 +1500,9 @@ function initDominoAdapter(injector) {
     return (/**
      * @return {?}
      */
-    () => { DominoAdapter.makeCurrent(); });
+    () => {
+        DominoAdapter.makeCurrent();
+    });
 }
 /**
  * @param {?} renderer
@@ -1720,7 +1773,9 @@ the server-rendered app can be properly bootstrapped into a client app.`);
                  * @param {?} e
                  * @return {?}
                  */
-                e => { console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e); }));
+                e => {
+                    console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
+                }));
             })))
                 .then(complete);
         }));
@@ -1781,7 +1836,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.1+32.sha-5e80e7e');
+const VERSION = new Version('10.0.0-next.1+33.sha-698b028');
 
 /**
  * @fileoverview added by tsickle

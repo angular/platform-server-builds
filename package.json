@@ -1,24 +1,16 @@
 {
   "name": "@angular/platform-server",
-  "version": "10.0.0-next.5+45.sha-fafa50d",
+  "version": "10.0.0-next.5+53.sha-3c6c00d",
   "description": "Angular - library for using Angular in Node.js",
-  "main": "./bundles/platform-server.umd.js",
-  "module": "./fesm5/platform-server.js",
-  "es2015": "./fesm2015/platform-server.js",
-  "esm5": "./esm5/platform-server.js",
-  "esm2015": "./esm2015/platform-server.js",
-  "fesm5": "./fesm5/platform-server.js",
-  "fesm2015": "./fesm2015/platform-server.js",
-  "typings": "./platform-server.d.ts",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "10.0.0-next.5+45.sha-fafa50d",
-    "@angular/common": "10.0.0-next.5+45.sha-fafa50d",
-    "@angular/compiler": "10.0.0-next.5+45.sha-fafa50d",
-    "@angular/core": "10.0.0-next.5+45.sha-fafa50d",
-    "@angular/platform-browser": "10.0.0-next.5+45.sha-fafa50d",
-    "@angular/platform-browser-dynamic": "10.0.0-next.5+45.sha-fafa50d",
+    "@angular/animations": "10.0.0-next.5+53.sha-3c6c00d",
+    "@angular/common": "10.0.0-next.5+53.sha-3c6c00d",
+    "@angular/compiler": "10.0.0-next.5+53.sha-3c6c00d",
+    "@angular/core": "10.0.0-next.5+53.sha-3c6c00d",
+    "@angular/platform-browser": "10.0.0-next.5+53.sha-3c6c00d",
+    "@angular/platform-browser-dynamic": "10.0.0-next.5+53.sha-3c6c00d",
     "tslib": "^1.10.0"
   },
   "dependencies": {
@@ -58,5 +50,11 @@
   },
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
-  }
+  },
+  "main": "./bundles/platform-server.umd.js",
+  "fesm2015": "./fesm2015/platform-server.js",
+  "esm2015": "./esm2015/index.js",
+  "typings": "./index.d.ts",
+  "module": "./fesm2015/platform-server.js",
+  "es2015": "./fesm2015/platform-server.js"
 }

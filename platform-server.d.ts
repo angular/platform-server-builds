@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+14.sha-2cacab9
+ * @license Angular v10.0.0-next.7+10.sha-ce39755
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -140,8 +140,7 @@ export declare const VERSION: Version;
 
 declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
-    private doc;
-    constructor(backend: HttpBackend, doc: Document);
+    constructor(backend: HttpBackend);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
@@ -177,7 +176,7 @@ export declare class ɵangular_packages_platform_server_platform_server_e implem
     build(): XMLHttpRequest;
 }
 
-export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, doc: Document): ZoneClientBackend;
+export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector): ZoneClientBackend;
 
 export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 

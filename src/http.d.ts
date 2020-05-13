@@ -13,10 +13,9 @@ export declare abstract class ZoneMacroTaskWrapper<S, R> {
 }
 export declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
-    private doc;
-    constructor(backend: HttpBackend, doc: Document);
+    constructor(backend: HttpBackend);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
-export declare function zoneWrappedInterceptingHandler(backend: HttpBackend, injector: Injector, doc: Document): ZoneClientBackend;
+export declare function zoneWrappedInterceptingHandler(backend: HttpBackend, injector: Injector): ZoneClientBackend;
 export declare const SERVER_HTTP_PROVIDERS: Provider[];

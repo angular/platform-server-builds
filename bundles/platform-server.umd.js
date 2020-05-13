@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+7.sha-45f4a47
+ * @license Angular v10.0.0-next.7+15.sha-57a8686
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -400,6 +400,9 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var xhr2 = require('xhr2');
+    // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
+    var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+    var FORWARD_SLASH = '/';
     var ServerXhr = /** @class */ (function () {
         function ServerXhr() {
         }
@@ -481,12 +484,24 @@
     }());
     var ZoneClientBackend = /** @class */ (function (_super) {
         __extends(ZoneClientBackend, _super);
-        function ZoneClientBackend(backend) {
+        function ZoneClientBackend(backend, doc) {
             var _this = _super.call(this) || this;
             _this.backend = backend;
+            _this.doc = doc;
             return _this;
         }
         ZoneClientBackend.prototype.handle = function (request) {
+            var href = this.doc.location.href;
+            if (!isAbsoluteUrl.test(request.url) && href) {
+                var urlParts = Array.from(request.url);
+                if (request.url[0] === FORWARD_SLASH && href[href.length - 1] === FORWARD_SLASH) {
+                    urlParts.shift();
+                }
+                else if (request.url[0] !== FORWARD_SLASH && href[href.length - 1] !== FORWARD_SLASH) {
+                    urlParts.splice(0, 0, FORWARD_SLASH);
+                }
+                return this.wrap(request.clone({ url: href + urlParts.join('') }));
+            }
             return this.wrap(request);
         };
         ZoneClientBackend.prototype.delegate = function (request) {
@@ -494,13 +509,16 @@
         };
         return ZoneClientBackend;
     }(ZoneMacroTaskWrapper));
-    function zoneWrappedInterceptingHandler(backend, injector) {
+    function zoneWrappedInterceptingHandler(backend, injector, doc) {
         var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
-        return new ZoneClientBackend(realBackend);
+        return new ZoneClientBackend(realBackend, doc);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http.XhrFactory, useClass: ServerXhr },
-        { provide: http.HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [http.HttpBackend, core.Injector] }
+        { provide: http.XhrFactory, useClass: ServerXhr }, {
+            provide: http.HttpHandler,
+            useFactory: zoneWrappedInterceptingHandler,
+            deps: [http.HttpBackend, core.Injector, common.DOCUMENT]
+        }
     ];
 
     /**
@@ -1205,7 +1223,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-next.7+7.sha-45f4a47');
+    var VERSION = new core.Version('10.0.0-next.7+15.sha-57a8686');
 
     /**
      * @license

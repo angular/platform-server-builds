@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -259,37 +259,45 @@ if (false) {
  *
  * \@publicApi
  */
-class PlatformState {
+let PlatformState = /** @class */ (() => {
     /**
-     * @param {?} _doc
+     * Representation of the current platform state.
+     *
+     * \@publicApi
      */
-    constructor(_doc) {
-        this._doc = _doc;
+    class PlatformState {
+        /**
+         * @param {?} _doc
+         */
+        constructor(_doc) {
+            this._doc = _doc;
+        }
+        /**
+         * Renders the current state of the platform to string.
+         * @return {?}
+         */
+        renderToString() {
+            return serializeDocument(this._doc);
+        }
+        /**
+         * Returns the current DOM state.
+         * @return {?}
+         */
+        getDocument() {
+            return this._doc;
+        }
     }
-    /**
-     * Renders the current state of the platform to string.
-     * @return {?}
-     */
-    renderToString() {
-        return serializeDocument(this._doc);
-    }
-    /**
-     * Returns the current DOM state.
-     * @return {?}
-     */
-    getDocument() {
-        return this._doc;
-    }
-}
-PlatformState.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-PlatformState.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
-/** @nocollapse */ PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
-/** @nocollapse */ PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
+    PlatformState.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    PlatformState.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    /** @nocollapse */ PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
+    /** @nocollapse */ PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
+    return PlatformState;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -323,19 +331,22 @@ const xhr2 = require('xhr2');
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 /** @type {?} */
 const FORWARD_SLASH = '/';
-class ServerXhr {
-    /**
-     * @return {?}
-     */
-    build() {
-        return new xhr2.XMLHttpRequest();
+let ServerXhr = /** @class */ (() => {
+    class ServerXhr {
+        /**
+         * @return {?}
+         */
+        build() {
+            return new xhr2.XMLHttpRequest();
+        }
     }
-}
-ServerXhr.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */ ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-/** @nocollapse */ ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
+    ServerXhr.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */ ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
+    /** @nocollapse */ ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
+    return ServerXhr;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
     }], null, null); })();
@@ -599,134 +610,141 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-class ServerPlatformLocation {
+let ServerPlatformLocation = /** @class */ (() => {
     /**
-     * @param {?} _doc
-     * @param {?} _config
+     * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
+     * but not the state stack.
      */
-    constructor(_doc, _config) {
-        this._doc = _doc;
-        this.href = '/';
-        this.hostname = '/';
-        this.protocol = '/';
-        this.port = '/';
-        this.pathname = '/';
-        this.search = '';
-        this.hash = '';
-        this._hashUpdate = new Subject();
-        /** @type {?} */
-        const config = (/** @type {?} */ (_config));
-        if (!!config && !!config.url) {
+    class ServerPlatformLocation {
+        /**
+         * @param {?} _doc
+         * @param {?} _config
+         */
+        constructor(_doc, _config) {
+            this._doc = _doc;
+            this.href = '/';
+            this.hostname = '/';
+            this.protocol = '/';
+            this.port = '/';
+            this.pathname = '/';
+            this.search = '';
+            this.hash = '';
+            this._hashUpdate = new Subject();
             /** @type {?} */
-            const parsedUrl = parseUrl(config.url);
-            this.hostname = parsedUrl.hostname;
-            this.protocol = parsedUrl.protocol;
-            this.port = parsedUrl.port;
-            this.pathname = parsedUrl.pathname;
-            this.search = parsedUrl.search;
-            this.hash = parsedUrl.hash;
+            const config = (/** @type {?} */ (_config));
+            if (!!config && !!config.url) {
+                /** @type {?} */
+                const parsedUrl = parseUrl(config.url);
+                this.hostname = parsedUrl.hostname;
+                this.protocol = parsedUrl.protocol;
+                this.port = parsedUrl.port;
+                this.pathname = parsedUrl.pathname;
+                this.search = parsedUrl.search;
+                this.hash = parsedUrl.hash;
+            }
         }
-    }
-    /**
-     * @return {?}
-     */
-    getBaseHrefFromDOM() {
-        return (/** @type {?} */ (ɵgetDOM().getBaseHref(this._doc)));
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onPopState(fn) {
-        // No-op: a state stack is not implemented, so
-        // no events will ever come.
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    onHashChange(fn) {
-        this._hashUpdate.subscribe(fn);
-    }
-    /**
-     * @return {?}
-     */
-    get url() {
-        return `${this.pathname}${this.search}${this.hash}`;
-    }
-    /**
-     * @private
-     * @param {?} value
-     * @param {?} oldUrl
-     * @return {?}
-     */
-    setHash(value, oldUrl) {
-        if (this.hash === value) {
-            // Don't fire events if the hash has not changed.
-            return;
-        }
-        ((/** @type {?} */ (this))).hash = value;
-        /** @type {?} */
-        const newUrl = this.url;
-        scheduleMicroTask((/**
+        /**
          * @return {?}
          */
-        () => this._hashUpdate.next((/** @type {?} */ ({ type: 'hashchange', state: null, oldUrl, newUrl })))));
+        getBaseHrefFromDOM() {
+            return (/** @type {?} */ (ɵgetDOM().getBaseHref(this._doc)));
+        }
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        onPopState(fn) {
+            // No-op: a state stack is not implemented, so
+            // no events will ever come.
+        }
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        onHashChange(fn) {
+            this._hashUpdate.subscribe(fn);
+        }
+        /**
+         * @return {?}
+         */
+        get url() {
+            return `${this.pathname}${this.search}${this.hash}`;
+        }
+        /**
+         * @private
+         * @param {?} value
+         * @param {?} oldUrl
+         * @return {?}
+         */
+        setHash(value, oldUrl) {
+            if (this.hash === value) {
+                // Don't fire events if the hash has not changed.
+                return;
+            }
+            ((/** @type {?} */ (this))).hash = value;
+            /** @type {?} */
+            const newUrl = this.url;
+            scheduleMicroTask((/**
+             * @return {?}
+             */
+            () => this._hashUpdate.next((/** @type {?} */ ({ type: 'hashchange', state: null, oldUrl, newUrl })))));
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} newUrl
+         * @return {?}
+         */
+        replaceState(state, title, newUrl) {
+            /** @type {?} */
+            const oldUrl = this.url;
+            /** @type {?} */
+            const parsedUrl = parseUrl(newUrl);
+            ((/** @type {?} */ (this))).pathname = parsedUrl.pathname;
+            ((/** @type {?} */ (this))).search = parsedUrl.search;
+            this.setHash(parsedUrl.hash, oldUrl);
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} newUrl
+         * @return {?}
+         */
+        pushState(state, title, newUrl) {
+            this.replaceState(state, title, newUrl);
+        }
+        /**
+         * @return {?}
+         */
+        forward() {
+            throw new Error('Not implemented');
+        }
+        /**
+         * @return {?}
+         */
+        back() {
+            throw new Error('Not implemented');
+        }
+        // History API isn't available on server, therefore return undefined
+        /**
+         * @return {?}
+         */
+        getState() {
+            return undefined;
+        }
     }
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} newUrl
-     * @return {?}
-     */
-    replaceState(state, title, newUrl) {
-        /** @type {?} */
-        const oldUrl = this.url;
-        /** @type {?} */
-        const parsedUrl = parseUrl(newUrl);
-        ((/** @type {?} */ (this))).pathname = parsedUrl.pathname;
-        ((/** @type {?} */ (this))).search = parsedUrl.search;
-        this.setHash(parsedUrl.hash, oldUrl);
-    }
-    /**
-     * @param {?} state
-     * @param {?} title
-     * @param {?} newUrl
-     * @return {?}
-     */
-    pushState(state, title, newUrl) {
-        this.replaceState(state, title, newUrl);
-    }
-    /**
-     * @return {?}
-     */
-    forward() {
-        throw new Error('Not implemented');
-    }
-    /**
-     * @return {?}
-     */
-    back() {
-        throw new Error('Not implemented');
-    }
-    // History API isn't available on server, therefore return undefined
-    /**
-     * @return {?}
-     */
-    getState() {
-        return undefined;
-    }
-}
-ServerPlatformLocation.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-ServerPlatformLocation.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
-];
-/** @nocollapse */ ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
-/** @nocollapse */ ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
+    ServerPlatformLocation.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    ServerPlatformLocation.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
+    ];
+    /** @nocollapse */ ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
+    /** @nocollapse */ ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
+    return ServerPlatformLocation;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -784,54 +802,57 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
-    /**
-     * @param {?} doc
-     */
-    constructor(doc) {
-        this.doc = doc;
-    }
-    // Handle all events on the server.
-    /**
-     * @param {?} eventName
-     * @return {?}
-     */
-    supports(eventName) {
-        return true;
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    addEventListener(element, eventName, handler) {
-        return ɵgetDOM().onAndCancel(element, eventName, handler);
-    }
-    /**
-     * @param {?} element
-     * @param {?} eventName
-     * @param {?} handler
-     * @return {?}
-     */
-    addGlobalEventListener(element, eventName, handler) {
-        /** @type {?} */
-        const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
-        if (!target) {
-            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+let ServerEventManagerPlugin = /** @class */ (() => {
+    class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
+        /**
+         * @param {?} doc
+         */
+        constructor(doc) {
+            this.doc = doc;
         }
-        return this.addEventListener(target, eventName, handler);
+        // Handle all events on the server.
+        /**
+         * @param {?} eventName
+         * @return {?}
+         */
+        supports(eventName) {
+            return true;
+        }
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} handler
+         * @return {?}
+         */
+        addEventListener(element, eventName, handler) {
+            return ɵgetDOM().onAndCancel(element, eventName, handler);
+        }
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} handler
+         * @return {?}
+         */
+        addGlobalEventListener(element, eventName, handler) {
+            /** @type {?} */
+            const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+            if (!target) {
+                throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+            }
+            return this.addEventListener(target, eventName, handler);
+        }
     }
-}
-ServerEventManagerPlugin.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-ServerEventManagerPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-];
-/** @nocollapse */ ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
-/** @nocollapse */ ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
+    ServerEventManagerPlugin.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    ServerEventManagerPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
+    /** @nocollapse */ ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
+    /** @nocollapse */ ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
+    return ServerEventManagerPlugin;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -862,75 +883,78 @@ if (false) {
 const EMPTY_ARRAY = [];
 /** @type {?} */
 const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
-class ServerRendererFactory2 {
-    /**
-     * @param {?} eventManager
-     * @param {?} ngZone
-     * @param {?} document
-     * @param {?} sharedStylesHost
-     */
-    constructor(eventManager, ngZone, document, sharedStylesHost) {
-        this.eventManager = eventManager;
-        this.ngZone = ngZone;
-        this.document = document;
-        this.sharedStylesHost = sharedStylesHost;
-        this.rendererByCompId = new Map();
-        this.schema = DEFAULT_SCHEMA;
-        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
-    }
-    /**
-     * @param {?} element
-     * @param {?} type
-     * @return {?}
-     */
-    createRenderer(element, type) {
-        if (!element || !type) {
-            return this.defaultRenderer;
+let ServerRendererFactory2 = /** @class */ (() => {
+    class ServerRendererFactory2 {
+        /**
+         * @param {?} eventManager
+         * @param {?} ngZone
+         * @param {?} document
+         * @param {?} sharedStylesHost
+         */
+        constructor(eventManager, ngZone, document, sharedStylesHost) {
+            this.eventManager = eventManager;
+            this.ngZone = ngZone;
+            this.document = document;
+            this.sharedStylesHost = sharedStylesHost;
+            this.rendererByCompId = new Map();
+            this.schema = DEFAULT_SCHEMA;
+            this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
         }
-        switch (type.encapsulation) {
-            case ViewEncapsulation.Native:
-            case ViewEncapsulation.Emulated: {
-                /** @type {?} */
-                let renderer = this.rendererByCompId.get(type.id);
-                if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
-                    this.rendererByCompId.set(type.id, renderer);
-                }
-                ((/** @type {?} */ (renderer))).applyToHost(element);
-                return renderer;
-            }
-            default: {
-                if (!this.rendererByCompId.has(type.id)) {
-                    /** @type {?} */
-                    const styles = ɵflattenStyles(type.id, type.styles, []);
-                    this.sharedStylesHost.addStyles(styles);
-                    this.rendererByCompId.set(type.id, this.defaultRenderer);
-                }
+        /**
+         * @param {?} element
+         * @param {?} type
+         * @return {?}
+         */
+        createRenderer(element, type) {
+            if (!element || !type) {
                 return this.defaultRenderer;
             }
+            switch (type.encapsulation) {
+                case ViewEncapsulation.Native:
+                case ViewEncapsulation.Emulated: {
+                    /** @type {?} */
+                    let renderer = this.rendererByCompId.get(type.id);
+                    if (!renderer) {
+                        renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                        this.rendererByCompId.set(type.id, renderer);
+                    }
+                    ((/** @type {?} */ (renderer))).applyToHost(element);
+                    return renderer;
+                }
+                default: {
+                    if (!this.rendererByCompId.has(type.id)) {
+                        /** @type {?} */
+                        const styles = ɵflattenStyles(type.id, type.styles, []);
+                        this.sharedStylesHost.addStyles(styles);
+                        this.rendererByCompId.set(type.id, this.defaultRenderer);
+                    }
+                    return this.defaultRenderer;
+                }
+            }
         }
+        /**
+         * @return {?}
+         */
+        begin() { }
+        /**
+         * @return {?}
+         */
+        end() { }
     }
-    /**
-     * @return {?}
-     */
-    begin() { }
-    /**
-     * @return {?}
-     */
-    end() { }
-}
-ServerRendererFactory2.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-ServerRendererFactory2.ctorParameters = () => [
-    { type: EventManager },
-    { type: NgZone },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: ɵSharedStylesHost }
-];
-/** @nocollapse */ ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
-/** @nocollapse */ ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
+    ServerRendererFactory2.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    ServerRendererFactory2.ctorParameters = () => [
+        { type: EventManager },
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ɵSharedStylesHost }
+    ];
+    /** @nocollapse */ ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
+    /** @nocollapse */ ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
+    return ServerRendererFactory2;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
@@ -1410,56 +1434,59 @@ function _writeStyleAttribute(element, styleMap) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-class ServerStylesHost extends ɵSharedStylesHost {
-    /**
-     * @param {?} doc
-     * @param {?} transitionId
-     */
-    constructor(doc, transitionId) {
-        super();
-        this.doc = doc;
-        this.transitionId = transitionId;
-        this.head = null;
-        this.head = doc.getElementsByTagName('head')[0];
-    }
-    /**
-     * @private
-     * @param {?} style
-     * @return {?}
-     */
-    _addStyle(style) {
-        /** @type {?} */
-        let adapter = ɵgetDOM();
-        /** @type {?} */
-        const el = adapter.createElement('style');
-        el.textContent = style;
-        if (!!this.transitionId) {
-            el.setAttribute('ng-transition', this.transitionId);
+let ServerStylesHost = /** @class */ (() => {
+    class ServerStylesHost extends ɵSharedStylesHost {
+        /**
+         * @param {?} doc
+         * @param {?} transitionId
+         */
+        constructor(doc, transitionId) {
+            super();
+            this.doc = doc;
+            this.transitionId = transitionId;
+            this.head = null;
+            this.head = doc.getElementsByTagName('head')[0];
         }
-        this.head.appendChild(el);
-    }
-    /**
-     * @param {?} additions
-     * @return {?}
-     */
-    onStylesAdded(additions) {
-        additions.forEach((/**
+        /**
+         * @private
          * @param {?} style
          * @return {?}
          */
-        style => this._addStyle(style)));
+        _addStyle(style) {
+            /** @type {?} */
+            let adapter = ɵgetDOM();
+            /** @type {?} */
+            const el = adapter.createElement('style');
+            el.textContent = style;
+            if (!!this.transitionId) {
+                el.setAttribute('ng-transition', this.transitionId);
+            }
+            this.head.appendChild(el);
+        }
+        /**
+         * @param {?} additions
+         * @return {?}
+         */
+        onStylesAdded(additions) {
+            additions.forEach((/**
+             * @param {?} style
+             * @return {?}
+             */
+            style => this._addStyle(style)));
+        }
     }
-}
-ServerStylesHost.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-ServerStylesHost.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
-];
-/** @nocollapse */ ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
-/** @nocollapse */ ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
+    ServerStylesHost.decorators = [
+        { type: Injectable },
+    ];
+    /** @nocollapse */
+    ServerStylesHost.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
+    ];
+    /** @nocollapse */ ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
+    /** @nocollapse */ ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
+    return ServerStylesHost;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -1559,28 +1586,35 @@ const SERVER_RENDER_PROVIDERS = [
  *
  * \@publicApi
  */
-class ServerModule {
-}
-ServerModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserModule],
-                imports: [HttpClientModule, NoopAnimationsModule],
-                providers: [
-                    SERVER_RENDER_PROVIDERS,
-                    SERVER_HTTP_PROVIDERS,
-                    { provide: Testability, useValue: null },
-                    { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-                ],
-            },] },
-];
-/** @nocollapse */ ServerModule.ɵmod = ɵɵdefineNgModule({ type: ServerModule });
-/** @nocollapse */ ServerModule.ɵinj = ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
-        SERVER_RENDER_PROVIDERS,
-        SERVER_HTTP_PROVIDERS,
-        { provide: Testability, useValue: null },
-        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-    ], imports: [[HttpClientModule, NoopAnimationsModule],
-        BrowserModule] });
+let ServerModule = /** @class */ (() => {
+    /**
+     * The ng module for the server.
+     *
+     * \@publicApi
+     */
+    class ServerModule {
+    }
+    ServerModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    imports: [HttpClientModule, NoopAnimationsModule],
+                    providers: [
+                        SERVER_RENDER_PROVIDERS,
+                        SERVER_HTTP_PROVIDERS,
+                        { provide: Testability, useValue: null },
+                        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+                    ],
+                },] },
+    ];
+    /** @nocollapse */ ServerModule.ɵmod = ɵɵdefineNgModule({ type: ServerModule });
+    /** @nocollapse */ ServerModule.ɵinj = ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+            SERVER_RENDER_PROVIDERS,
+            SERVER_HTTP_PROVIDERS,
+            { provide: Testability, useValue: null },
+            { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+        ], imports: [[HttpClientModule, NoopAnimationsModule], BrowserModule] });
+    return ServerModule;
+})();
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerModule, { imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
@@ -1659,29 +1693,38 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *
  * \@publicApi
  */
-class ServerTransferStateModule {
-}
-ServerTransferStateModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [
-                    TransferState, {
-                        provide: BEFORE_APP_SERIALIZED,
-                        useFactory: serializeTransferStateFactory,
-                        deps: [DOCUMENT, APP_ID, TransferState],
-                        multi: true,
-                    }
-                ]
-            },] },
-];
-/** @nocollapse */ ServerTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: ServerTransferStateModule });
-/** @nocollapse */ ServerTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
-        TransferState, {
-            provide: BEFORE_APP_SERIALIZED,
-            useFactory: serializeTransferStateFactory,
-            deps: [DOCUMENT, APP_ID, TransferState],
-            multi: true,
-        }
-    ] });
+let ServerTransferStateModule = /** @class */ (() => {
+    /**
+     * NgModule to install on the server side while using the `TransferState` to transfer state from
+     * server to client.
+     *
+     * \@publicApi
+     */
+    class ServerTransferStateModule {
+    }
+    ServerTransferStateModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [
+                        TransferState, {
+                            provide: BEFORE_APP_SERIALIZED,
+                            useFactory: serializeTransferStateFactory,
+                            deps: [DOCUMENT, APP_ID, TransferState],
+                            multi: true,
+                        }
+                    ]
+                },] },
+    ];
+    /** @nocollapse */ ServerTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: ServerTransferStateModule });
+    /** @nocollapse */ ServerTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+            TransferState, {
+                provide: BEFORE_APP_SERIALIZED,
+                useFactory: serializeTransferStateFactory,
+                deps: [DOCUMENT, APP_ID, TransferState],
+                multi: true,
+            }
+        ] });
+    return ServerTransferStateModule;
+})();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{
@@ -1865,7 +1908,7 @@ function renderModuleFactory(moduleFactory, options) {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new Version('10.0.0-next.7+17.sha-2418c6a');
+const VERSION = new Version('10.0.0-next.7+43.sha-f16ca1c');
 
 /**
  * @fileoverview added by tsickle

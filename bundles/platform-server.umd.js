@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -605,7 +605,7 @@
             get: function () {
                 return "" + this.pathname + this.search + this.hash;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ServerPlatformLocation.prototype.setHash = function (value, oldUrl) {
@@ -1048,8 +1048,7 @@
                 SERVER_HTTP_PROVIDERS,
                 { provide: i0.Testability, useValue: null },
                 { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-            ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule],
-                i1.BrowserModule] });
+            ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule], i1.BrowserModule] });
         return ServerModule;
     }());
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
@@ -1255,7 +1254,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-next.7+17.sha-2418c6a');
+    var VERSION = new i0.Version('10.0.0-next.7+43.sha-f16ca1c');
 
     /**
      * @license

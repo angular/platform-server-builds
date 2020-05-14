@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-next.7+17.sha-2418c6a
+ * @license Angular v10.0.0-next.7+43.sha-f16ca1c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -26,15 +26,23 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  *
  * \@publicApi
  */
-class ServerTestingModule {
-}
-ServerTestingModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [BrowserDynamicTestingModule],
-                imports: [NoopAnimationsModule],
-                providers: ɵSERVER_RENDER_PROVIDERS
-            },] }
-];
+let ServerTestingModule = /** @class */ (() => {
+    /**
+     * NgModule for testing.
+     *
+     * \@publicApi
+     */
+    class ServerTestingModule {
+    }
+    ServerTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserDynamicTestingModule],
+                    imports: [NoopAnimationsModule],
+                    providers: ɵSERVER_RENDER_PROVIDERS
+                },] }
+    ];
+    return ServerTestingModule;
+})();
 
 /**
  * @fileoverview added by tsickle

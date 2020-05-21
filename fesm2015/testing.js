@@ -1,65 +1,69 @@
 /**
- * @license Angular v10.0.0-next.9+22.sha-6ca3fb1
+ * @license Angular v10.0.0-next.9+23.sha-a1001f2
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
+import { __decorate } from 'tslib';
 import { createPlatformFactory, NgModule } from '@angular/core';
 import { ɵplatformCoreDynamicTesting, BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, ɵSERVER_RENDER_PROVIDERS } from '@angular/platform-server';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: packages/platform-server/testing/src/server.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * Platform for testing
  *
- * \@publicApi
- * @type {?}
+ * @publicApi
  */
 const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting, 'serverTesting', ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
- * \@publicApi
+ * @publicApi
  */
 let ServerTestingModule = /** @class */ (() => {
-    /**
-     * NgModule for testing.
-     *
-     * \@publicApi
-     */
-    class ServerTestingModule {
-    }
-    ServerTestingModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserDynamicTestingModule],
-                    imports: [NoopAnimationsModule],
-                    providers: ɵSERVER_RENDER_PROVIDERS
-                },] }
-    ];
+    let ServerTestingModule = class ServerTestingModule {
+    };
+    ServerTestingModule = __decorate([
+        NgModule({
+            exports: [BrowserDynamicTestingModule],
+            imports: [NoopAnimationsModule],
+            providers: ɵSERVER_RENDER_PROVIDERS
+        })
+    ], ServerTestingModule);
     return ServerTestingModule;
 })();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: packages/platform-server/testing/src/testing.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 
 /**
- * @fileoverview added by tsickle
- * Generated from: packages/platform-server/testing/public_api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+// This file only reexports content of the `src` folder. Keep it that way.
 
 /**
- * @fileoverview added by tsickle
- * Generated from: packages/platform-server/testing/index.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 
 /**

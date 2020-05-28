@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+21.sha-f001aef
+ * @license Angular v10.0.0-rc.0+23.sha-df08230
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1196,8 +1196,10 @@
      * `url` is the URL for the current render request.
      * `extraProviders` are the platform level providers for the current render request.
      *
-     * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
-     * {@link renderModuleFactory} instead.
+     * If compiling with the ViewEngine renderer, do not use this in a production server environment.
+     * Use pre-compiled {@link NgModuleFactory} with {@link renderModuleFactory} instead. If
+     * compiling with the Ivy renderer, this method is the recommended rendering method for
+     * platform-server.
      *
      * @publicApi
      */
@@ -1237,7 +1239,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-rc.0+21.sha-f001aef');
+    var VERSION = new core.Version('10.0.0-rc.0+23.sha-df08230');
 
     /**
      * @license

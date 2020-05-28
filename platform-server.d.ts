@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+4.sha-6f82918
+ * @license Angular v10.0.0-rc.0+7.sha-d493a83
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -90,8 +90,10 @@ export declare class PlatformState {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
- * {@link renderModuleFactory} instead.
+ * If compiling with the ViewEngine renderer, do not use this in a production server environment.
+ * Use pre-compiled {@link NgModuleFactory} with {@link renderModuleFactory} instead. If
+ * compiling with the Ivy renderer, this method is the recommended rendering method for
+ * platform-server.
  *
  * @publicApi
  */

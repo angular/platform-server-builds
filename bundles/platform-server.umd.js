@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+22.sha-82761ec
+ * @license Angular v10.0.0-rc.0+23.sha-d16a7f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -398,11 +398,13 @@
         PlatformState.prototype.getDocument = function () {
             return this._doc;
         };
-        PlatformState = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], PlatformState);
+        PlatformState.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        PlatformState.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return PlatformState;
     }());
 
@@ -423,9 +425,9 @@
         ServerXhr.prototype.build = function () {
             return new xhr2.XMLHttpRequest();
         };
-        ServerXhr = __decorate([
-            core.Injectable()
-        ], ServerXhr);
+        ServerXhr.decorators = [
+            { type: core.Injectable }
+        ];
         return ServerXhr;
     }());
     var ZoneMacroTaskWrapper = /** @class */ (function () {
@@ -647,11 +649,14 @@
         ServerPlatformLocation.prototype.getState = function () {
             return undefined;
         };
-        ServerPlatformLocation = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)), __param(1, core.Optional()), __param(1, core.Inject(INITIAL_CONFIG)),
-            __metadata("design:paramtypes", [Object, Object])
-        ], ServerPlatformLocation);
+        ServerPlatformLocation.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ServerPlatformLocation.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [INITIAL_CONFIG,] }] }
+        ]; };
         return ServerPlatformLocation;
     }());
     function scheduleMicroTask(fn) {
@@ -683,11 +688,13 @@
             }
             return this.addEventListener(target, eventName, handler);
         };
-        ServerEventManagerPlugin = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [Object])
-        ], ServerEventManagerPlugin);
+        ServerEventManagerPlugin.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ServerEventManagerPlugin.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
+        ]; };
         return ServerEventManagerPlugin;
     }());
 
@@ -737,11 +744,16 @@
         };
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
-        ServerRendererFactory2 = __decorate([
-            core.Injectable(),
-            __param(2, core.Inject(common.DOCUMENT)),
-            __metadata("design:paramtypes", [platformBrowser.EventManager, core.NgZone, Object, platformBrowser.ɵSharedStylesHost])
-        ], ServerRendererFactory2);
+        ServerRendererFactory2.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ServerRendererFactory2.ctorParameters = function () { return [
+            { type: platformBrowser.EventManager },
+            { type: core.NgZone },
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: platformBrowser.ɵSharedStylesHost }
+        ]; };
         return ServerRendererFactory2;
     }());
     var DefaultServerRenderer2 = /** @class */ (function () {
@@ -986,12 +998,14 @@
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
-        ServerStylesHost = __decorate([
-            core.Injectable(),
-            __param(0, core.Inject(common.DOCUMENT)),
-            __param(1, core.Optional()), __param(1, core.Inject(platformBrowser.ɵTRANSITION_ID)),
-            __metadata("design:paramtypes", [Object, String])
-        ], ServerStylesHost);
+        ServerStylesHost.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ServerStylesHost.ctorParameters = function () { return [
+            { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+            { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.ɵTRANSITION_ID,] }] }
+        ]; };
         return ServerStylesHost;
     }(platformBrowser.ɵSharedStylesHost));
 
@@ -1044,18 +1058,18 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule = __decorate([
-            core.NgModule({
-                exports: [platformBrowser.BrowserModule],
-                imports: [http.HttpClientModule, animations.NoopAnimationsModule],
-                providers: [
-                    SERVER_RENDER_PROVIDERS,
-                    SERVER_HTTP_PROVIDERS,
-                    { provide: core.Testability, useValue: null },
-                    { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-                ],
-            })
-        ], ServerModule);
+        ServerModule.decorators = [
+            { type: core.NgModule, args: [{
+                        exports: [platformBrowser.BrowserModule],
+                        imports: [http.HttpClientModule, animations.NoopAnimationsModule],
+                        providers: [
+                            SERVER_RENDER_PROVIDERS,
+                            SERVER_HTTP_PROVIDERS,
+                            { provide: core.Testability, useValue: null },
+                            { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
+                        ],
+                    },] }
+        ];
         return ServerModule;
     }());
     function _document(injector) {
@@ -1102,18 +1116,18 @@
     var ServerTransferStateModule = /** @class */ (function () {
         function ServerTransferStateModule() {
         }
-        ServerTransferStateModule = __decorate([
-            core.NgModule({
-                providers: [
-                    platformBrowser.TransferState, {
-                        provide: BEFORE_APP_SERIALIZED,
-                        useFactory: serializeTransferStateFactory,
-                        deps: [common.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
-                        multi: true,
-                    }
-                ]
-            })
-        ], ServerTransferStateModule);
+        ServerTransferStateModule.decorators = [
+            { type: core.NgModule, args: [{
+                        providers: [
+                            platformBrowser.TransferState, {
+                                provide: BEFORE_APP_SERIALIZED,
+                                useFactory: serializeTransferStateFactory,
+                                deps: [common.DOCUMENT, core.APP_ID, platformBrowser.TransferState],
+                                multi: true,
+                            }
+                        ]
+                    },] }
+        ];
         return ServerTransferStateModule;
     }());
 
@@ -1239,7 +1253,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-rc.0+22.sha-82761ec');
+    var VERSION = new core.Version('10.0.0-rc.0+23.sha-d16a7f3');
 
     /**
      * @license

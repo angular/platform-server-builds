@@ -1,10 +1,9 @@
 /**
- * @license Angular v10.0.0-rc.0+22.sha-82761ec
+ * @license Angular v10.0.0-rc.0+23.sha-d16a7f3
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __decorate, __param, __metadata } from 'tslib';
 import { ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
@@ -156,7 +155,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
  * @publicApi
  */
 let PlatformState = /** @class */ (() => {
-    let PlatformState = class PlatformState {
+    class PlatformState {
         constructor(_doc) {
             this._doc = _doc;
         }
@@ -172,12 +171,14 @@ let PlatformState = /** @class */ (() => {
         getDocument() {
             return this._doc;
         }
-    };
-    PlatformState = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], PlatformState);
+    }
+    PlatformState.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    PlatformState.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return PlatformState;
 })();
 
@@ -193,14 +194,14 @@ const xhr2 = require('xhr2');
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 const FORWARD_SLASH = '/';
 let ServerXhr = /** @class */ (() => {
-    let ServerXhr = class ServerXhr {
+    class ServerXhr {
         build() {
             return new xhr2.XMLHttpRequest();
         }
-    };
-    ServerXhr = __decorate([
-        Injectable()
-    ], ServerXhr);
+    }
+    ServerXhr.decorators = [
+        { type: Injectable }
+    ];
     return ServerXhr;
 })();
 class ZoneMacroTaskWrapper {
@@ -347,7 +348,7 @@ function parseUrl(urlStr) {
  * but not the state stack.
  */
 let ServerPlatformLocation = /** @class */ (() => {
-    let ServerPlatformLocation = class ServerPlatformLocation {
+    class ServerPlatformLocation {
         constructor(_doc, _config) {
             this._doc = _doc;
             this.href = '/';
@@ -411,12 +412,15 @@ let ServerPlatformLocation = /** @class */ (() => {
         getState() {
             return undefined;
         }
-    };
-    ServerPlatformLocation = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)), __param(1, Optional()), __param(1, Inject(INITIAL_CONFIG)),
-        __metadata("design:paramtypes", [Object, Object])
-    ], ServerPlatformLocation);
+    }
+    ServerPlatformLocation.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    ServerPlatformLocation.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
+    ];
     return ServerPlatformLocation;
 })();
 function scheduleMicroTask(fn) {
@@ -431,7 +435,7 @@ function scheduleMicroTask(fn) {
  * found in the LICENSE file at https://angular.io/license
  */
 let ServerEventManagerPlugin = /** @class */ (() => {
-    let ServerEventManagerPlugin = class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
+    class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
         constructor(doc) {
             this.doc = doc;
         }
@@ -449,12 +453,14 @@ let ServerEventManagerPlugin = /** @class */ (() => {
             }
             return this.addEventListener(target, eventName, handler);
         }
-    };
-    ServerEventManagerPlugin = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [Object])
-    ], ServerEventManagerPlugin);
+    }
+    ServerEventManagerPlugin.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    ServerEventManagerPlugin.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+    ];
     return ServerEventManagerPlugin;
 })();
 
@@ -468,7 +474,7 @@ let ServerEventManagerPlugin = /** @class */ (() => {
 const EMPTY_ARRAY = [];
 const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
 let ServerRendererFactory2 = /** @class */ (() => {
-    let ServerRendererFactory2 = class ServerRendererFactory2 {
+    class ServerRendererFactory2 {
         constructor(eventManager, ngZone, document, sharedStylesHost) {
             this.eventManager = eventManager;
             this.ngZone = ngZone;
@@ -505,12 +511,17 @@ let ServerRendererFactory2 = /** @class */ (() => {
         }
         begin() { }
         end() { }
-    };
-    ServerRendererFactory2 = __decorate([
-        Injectable(),
-        __param(2, Inject(DOCUMENT)),
-        __metadata("design:paramtypes", [EventManager, NgZone, Object, ɵSharedStylesHost])
-    ], ServerRendererFactory2);
+    }
+    ServerRendererFactory2.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    ServerRendererFactory2.ctorParameters = () => [
+        { type: EventManager },
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: ɵSharedStylesHost }
+    ];
     return ServerRendererFactory2;
 })();
 class DefaultServerRenderer2 {
@@ -728,7 +739,7 @@ function _writeStyleAttribute(element, styleMap) {
  * found in the LICENSE file at https://angular.io/license
  */
 let ServerStylesHost = /** @class */ (() => {
-    let ServerStylesHost = class ServerStylesHost extends ɵSharedStylesHost {
+    class ServerStylesHost extends ɵSharedStylesHost {
         constructor(doc, transitionId) {
             super();
             this.doc = doc;
@@ -748,13 +759,15 @@ let ServerStylesHost = /** @class */ (() => {
         onStylesAdded(additions) {
             additions.forEach(style => this._addStyle(style));
         }
-    };
-    ServerStylesHost = __decorate([
-        Injectable(),
-        __param(0, Inject(DOCUMENT)),
-        __param(1, Optional()), __param(1, Inject(ɵTRANSITION_ID)),
-        __metadata("design:paramtypes", [Object, String])
-    ], ServerStylesHost);
+    }
+    ServerStylesHost.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    ServerStylesHost.ctorParameters = () => [
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
+    ];
     return ServerStylesHost;
 })();
 
@@ -805,20 +818,20 @@ const SERVER_RENDER_PROVIDERS = [
  * @publicApi
  */
 let ServerModule = /** @class */ (() => {
-    let ServerModule = class ServerModule {
-    };
-    ServerModule = __decorate([
-        NgModule({
-            exports: [BrowserModule],
-            imports: [HttpClientModule, NoopAnimationsModule],
-            providers: [
-                SERVER_RENDER_PROVIDERS,
-                SERVER_HTTP_PROVIDERS,
-                { provide: Testability, useValue: null },
-                { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-            ],
-        })
-    ], ServerModule);
+    class ServerModule {
+    }
+    ServerModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserModule],
+                    imports: [HttpClientModule, NoopAnimationsModule],
+                    providers: [
+                        SERVER_RENDER_PROVIDERS,
+                        SERVER_HTTP_PROVIDERS,
+                        { provide: Testability, useValue: null },
+                        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+                    ],
+                },] }
+    ];
     return ServerModule;
 })();
 function _document(injector) {
@@ -863,20 +876,20 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  * @publicApi
  */
 let ServerTransferStateModule = /** @class */ (() => {
-    let ServerTransferStateModule = class ServerTransferStateModule {
-    };
-    ServerTransferStateModule = __decorate([
-        NgModule({
-            providers: [
-                TransferState, {
-                    provide: BEFORE_APP_SERIALIZED,
-                    useFactory: serializeTransferStateFactory,
-                    deps: [DOCUMENT, APP_ID, TransferState],
-                    multi: true,
-                }
-            ]
-        })
-    ], ServerTransferStateModule);
+    class ServerTransferStateModule {
+    }
+    ServerTransferStateModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [
+                        TransferState, {
+                            provide: BEFORE_APP_SERIALIZED,
+                            useFactory: serializeTransferStateFactory,
+                            deps: [DOCUMENT, APP_ID, TransferState],
+                            multi: true,
+                        }
+                    ]
+                },] }
+    ];
     return ServerTransferStateModule;
 })();
 
@@ -992,7 +1005,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+22.sha-82761ec');
+const VERSION = new Version('10.0.0-rc.0+23.sha-d16a7f3');
 
 /**
  * @license

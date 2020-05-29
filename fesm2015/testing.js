@@ -1,10 +1,9 @@
 /**
- * @license Angular v10.0.0-rc.0+34.sha-bd7393f
+ * @license Angular v10.0.0-rc.0+35.sha-4d0e175
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { __decorate } from 'tslib';
 import { createPlatformFactory, NgModule } from '@angular/core';
 import { ɵplatformCoreDynamicTesting, BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,15 +28,15 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  * @publicApi
  */
 let ServerTestingModule = /** @class */ (() => {
-    let ServerTestingModule = class ServerTestingModule {
-    };
-    ServerTestingModule = __decorate([
-        NgModule({
-            exports: [BrowserDynamicTestingModule],
-            imports: [NoopAnimationsModule],
-            providers: ɵSERVER_RENDER_PROVIDERS
-        })
-    ], ServerTestingModule);
+    class ServerTestingModule {
+    }
+    ServerTestingModule.decorators = [
+        { type: NgModule, args: [{
+                    exports: [BrowserDynamicTestingModule],
+                    imports: [NoopAnimationsModule],
+                    providers: ɵSERVER_RENDER_PROVIDERS
+                },] }
+    ];
     return ServerTestingModule;
 })();
 

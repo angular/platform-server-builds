@@ -1,16 +1,16 @@
 {
   "name": "@angular/platform-server",
-  "version": "10.0.0-rc.2+43.sha-5f0be3c",
+  "version": "10.0.0-rc.2+45.sha-9ec25ea",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "10.0.0-rc.2+43.sha-5f0be3c",
-    "@angular/common": "10.0.0-rc.2+43.sha-5f0be3c",
-    "@angular/compiler": "10.0.0-rc.2+43.sha-5f0be3c",
-    "@angular/core": "10.0.0-rc.2+43.sha-5f0be3c",
-    "@angular/platform-browser": "10.0.0-rc.2+43.sha-5f0be3c",
-    "@angular/platform-browser-dynamic": "10.0.0-rc.2+43.sha-5f0be3c"
+    "@angular/animations": "10.0.0-rc.2+45.sha-9ec25ea",
+    "@angular/common": "10.0.0-rc.2+45.sha-9ec25ea",
+    "@angular/compiler": "10.0.0-rc.2+45.sha-9ec25ea",
+    "@angular/core": "10.0.0-rc.2+45.sha-9ec25ea",
+    "@angular/platform-browser": "10.0.0-rc.2+45.sha-9ec25ea",
+    "@angular/platform-browser-dynamic": "10.0.0-rc.2+45.sha-9ec25ea"
   },
   "dependencies": {
     "domino": "^2.1.2",

@@ -1,5 +1,4 @@
 import { Injector, Provider } from '@angular/core';
-import { PlatformLocation } from '@angular/common';
 import { HttpEvent, HttpRequest, HttpBackend, XhrFactory } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as i0 from "@angular/core";
@@ -14,10 +13,10 @@ export declare abstract class ZoneMacroTaskWrapper<S, R> {
 }
 export declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
-    private platformLocation;
-    constructor(backend: HttpBackend, platformLocation: PlatformLocation);
+    private doc;
+    constructor(backend: HttpBackend, doc: Document);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
-export declare function zoneWrappedInterceptingHandler(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation): ZoneClientBackend;
+export declare function zoneWrappedInterceptingHandler(backend: HttpBackend, injector: Injector, doc: Document): ZoneClientBackend;
 export declare const SERVER_HTTP_PROVIDERS: Provider[];

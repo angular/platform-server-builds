@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+104.sha-7301e70
+ * @license Angular v10.0.0-rc.0+103.sha-7edb026
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -419,6 +419,7 @@
     var xhr2 = require('xhr2');
     // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
     var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+    var FORWARD_SLASH = '/';
     var ServerXhr = /** @class */ (function () {
         function ServerXhr() {
         }
@@ -502,20 +503,23 @@
     }());
     var ZoneClientBackend = /** @class */ (function (_super) {
         __extends(ZoneClientBackend, _super);
-        function ZoneClientBackend(backend, platformLocation) {
+        function ZoneClientBackend(backend, doc) {
             var _this = _super.call(this) || this;
             _this.backend = backend;
-            _this.platformLocation = platformLocation;
+            _this.doc = doc;
             return _this;
         }
         ZoneClientBackend.prototype.handle = function (request) {
-            var _a = this.platformLocation, href = _a.href, protocol = _a.protocol, hostname = _a.hostname;
-            if (!isAbsoluteUrl.test(request.url) && href !== '/') {
-                var baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
-                var urlPrefix = protocol + "//" + hostname;
-                var baseUrl = new URL(baseHref, urlPrefix);
-                var url = new URL(request.url, baseUrl);
-                return this.wrap(request.clone({ url: url.toString() }));
+            var href = this.doc.location.href;
+            if (!isAbsoluteUrl.test(request.url) && href) {
+                var urlParts = Array.from(request.url);
+                if (request.url[0] === FORWARD_SLASH && href[href.length - 1] === FORWARD_SLASH) {
+                    urlParts.shift();
+                }
+                else if (request.url[0] !== FORWARD_SLASH && href[href.length - 1] !== FORWARD_SLASH) {
+                    urlParts.splice(0, 0, FORWARD_SLASH);
+                }
+                return this.wrap(request.clone({ url: href + urlParts.join('') }));
             }
             return this.wrap(request);
         };
@@ -524,15 +528,15 @@
         };
         return ZoneClientBackend;
     }(ZoneMacroTaskWrapper));
-    function zoneWrappedInterceptingHandler(backend, injector, platformLocation) {
+    function zoneWrappedInterceptingHandler(backend, injector, doc) {
         var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
-        return new ZoneClientBackend(realBackend, platformLocation);
+        return new ZoneClientBackend(realBackend, doc);
     }
     var SERVER_HTTP_PROVIDERS = [
         { provide: http.XhrFactory, useClass: ServerXhr }, {
             provide: http.HttpHandler,
             useFactory: zoneWrappedInterceptingHandler,
-            deps: [http.HttpBackend, i0.Injector, common.PlatformLocation]
+            deps: [http.HttpBackend, i0.Injector, common.DOCUMENT]
         }
     ];
 
@@ -599,7 +603,6 @@
                 this.pathname = parsedUrl.pathname;
                 this.search = parsedUrl.search;
                 this.hash = parsedUrl.hash;
-                this.href = _doc.location.href;
             }
         }
         ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
@@ -1267,7 +1270,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-rc.0+104.sha-7301e70');
+    var VERSION = new i0.Version('10.0.0-rc.0+103.sha-7edb026');
 
     /**
      * @license

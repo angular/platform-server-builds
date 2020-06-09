@@ -1,10 +1,10 @@
 /**
- * @license Angular v10.0.0-rc.0+107.sha-a331370
+ * @license Angular v10.0.0-rc.0+103.sha-7edb026
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
+import { ɵsetRootDomAdapter, DOCUMENT, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
@@ -192,6 +192,7 @@ let PlatformState = /** @class */ (() => {
 const xhr2 = require('xhr2');
 // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
+const FORWARD_SLASH = '/';
 let ServerXhr = /** @class */ (() => {
     class ServerXhr {
         build() {
@@ -268,19 +269,22 @@ class ZoneMacroTaskWrapper {
     }
 }
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
-    constructor(backend, platformLocation) {
+    constructor(backend, doc) {
         super();
         this.backend = backend;
-        this.platformLocation = platformLocation;
+        this.doc = doc;
     }
     handle(request) {
-        const { href, protocol, hostname } = this.platformLocation;
-        if (!isAbsoluteUrl.test(request.url) && href !== '/') {
-            const baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
-            const urlPrefix = `${protocol}//${hostname}`;
-            const baseUrl = new URL(baseHref, urlPrefix);
-            const url = new URL(request.url, baseUrl);
-            return this.wrap(request.clone({ url: url.toString() }));
+        const href = this.doc.location.href;
+        if (!isAbsoluteUrl.test(request.url) && href) {
+            const urlParts = Array.from(request.url);
+            if (request.url[0] === FORWARD_SLASH && href[href.length - 1] === FORWARD_SLASH) {
+                urlParts.shift();
+            }
+            else if (request.url[0] !== FORWARD_SLASH && href[href.length - 1] !== FORWARD_SLASH) {
+                urlParts.splice(0, 0, FORWARD_SLASH);
+            }
+            return this.wrap(request.clone({ url: href + urlParts.join('') }));
         }
         return this.wrap(request);
     }
@@ -288,15 +292,15 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
         return this.backend.handle(request);
     }
 }
-function zoneWrappedInterceptingHandler(backend, injector, platformLocation) {
+function zoneWrappedInterceptingHandler(backend, injector, doc) {
     const realBackend = new ɵHttpInterceptingHandler(backend, injector);
-    return new ZoneClientBackend(realBackend, platformLocation);
+    return new ZoneClientBackend(realBackend, doc);
 }
 const SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, Injector, PlatformLocation]
+        deps: [HttpBackend, Injector, DOCUMENT]
     }
 ];
 
@@ -364,7 +368,6 @@ let ServerPlatformLocation = /** @class */ (() => {
                 this.pathname = parsedUrl.pathname;
                 this.search = parsedUrl.search;
                 this.hash = parsedUrl.hash;
-                this.href = _doc.location.href;
             }
         }
         getBaseHrefFromDOM() {
@@ -1002,7 +1005,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+107.sha-a331370');
+const VERSION = new Version('10.0.0-rc.0+103.sha-7edb026');
 
 /**
  * @license

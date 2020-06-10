@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.3+14.sha-9d397eb
+ * @license Angular v10.0.0-rc.3+16.sha-742f3d6
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -401,7 +401,6 @@
         PlatformState.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         PlatformState.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
@@ -649,7 +648,6 @@
         ServerPlatformLocation.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         ServerPlatformLocation.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
             { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [INITIAL_CONFIG,] }] }
@@ -688,7 +686,6 @@
         ServerEventManagerPlugin.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         ServerEventManagerPlugin.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
         ]; };
@@ -744,7 +741,6 @@
         ServerRendererFactory2.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         ServerRendererFactory2.ctorParameters = function () { return [
             { type: platformBrowser.EventManager },
             { type: core.NgZone },
@@ -998,7 +994,6 @@
         ServerStylesHost.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         ServerStylesHost.ctorParameters = function () { return [
             { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
             { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [platformBrowser.ɵTRANSITION_ID,] }] }
@@ -1250,7 +1245,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-rc.3+14.sha-9d397eb');
+    var VERSION = new core.Version('10.0.0-rc.3+16.sha-742f3d6');
 
     /**
      * @license

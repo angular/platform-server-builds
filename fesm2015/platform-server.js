@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+113.sha-0a1d078
+ * @license Angular v10.0.0-rc.0+114.sha-401ef71
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -175,7 +175,6 @@ let PlatformState = /** @class */ (() => {
     PlatformState.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     PlatformState.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
@@ -413,7 +412,6 @@ let ServerPlatformLocation = /** @class */ (() => {
     ServerPlatformLocation.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     ServerPlatformLocation.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
@@ -454,7 +452,6 @@ let ServerEventManagerPlugin = /** @class */ (() => {
     ServerEventManagerPlugin.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     ServerEventManagerPlugin.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ];
@@ -512,7 +509,6 @@ let ServerRendererFactory2 = /** @class */ (() => {
     ServerRendererFactory2.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     ServerRendererFactory2.ctorParameters = () => [
         { type: EventManager },
         { type: NgZone },
@@ -760,7 +756,6 @@ let ServerStylesHost = /** @class */ (() => {
     ServerStylesHost.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     ServerStylesHost.ctorParameters = () => [
         { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
         { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
@@ -1002,7 +997,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+113.sha-0a1d078');
+const VERSION = new Version('10.0.0-rc.0+114.sha-401ef71');
 
 /**
  * @license

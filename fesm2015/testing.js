@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+130.sha-8c682c5
+ * @license Angular v10.0.0-rc.0+134.sha-a937889
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -27,13 +27,10 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  *
  * @publicApi
  */
-let ServerTestingModule = /** @class */ (() => {
-    class ServerTestingModule {
-    }
-    ServerTestingModule.ɵmod = ɵɵdefineNgModule({ type: ServerTestingModule });
-    ServerTestingModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
-    return ServerTestingModule;
-})();
+class ServerTestingModule {
+}
+ServerTestingModule.ɵmod = ɵɵdefineNgModule({ type: ServerTestingModule });
+ServerTestingModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,

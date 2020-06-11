@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+130.sha-8c682c5
+ * @license Angular v10.0.0-rc.0+134.sha-a937889
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -154,28 +154,25 @@ class DominoAdapter extends ɵBrowserDomAdapter {
  *
  * @publicApi
  */
-let PlatformState = /** @class */ (() => {
-    class PlatformState {
-        constructor(_doc) {
-            this._doc = _doc;
-        }
-        /**
-         * Renders the current state of the platform to string.
-         */
-        renderToString() {
-            return serializeDocument(this._doc);
-        }
-        /**
-         * Returns the current DOM state.
-         */
-        getDocument() {
-            return this._doc;
-        }
+class PlatformState {
+    constructor(_doc) {
+        this._doc = _doc;
     }
-    PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
-    PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
-    return PlatformState;
-})();
+    /**
+     * Renders the current state of the platform to string.
+     */
+    renderToString() {
+        return serializeDocument(this._doc);
+    }
+    /**
+     * Returns the current DOM state.
+     */
+    getDocument() {
+        return this._doc;
+    }
+}
+PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(ɵɵinject(DOCUMENT)); };
+PlatformState.ɵprov = ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(PlatformState, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -193,16 +190,13 @@ let PlatformState = /** @class */ (() => {
 const xhr2 = require('xhr2');
 // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-let ServerXhr = /** @class */ (() => {
-    class ServerXhr {
-        build() {
-            return new xhr2.XMLHttpRequest();
-        }
+class ServerXhr {
+    build() {
+        return new xhr2.XMLHttpRequest();
     }
-    ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-    ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
-    return ServerXhr;
-})();
+}
+ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
+ServerXhr.ɵprov = ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerXhr, [{
         type: Injectable
     }], null, null); })();
@@ -346,77 +340,74 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-let ServerPlatformLocation = /** @class */ (() => {
-    class ServerPlatformLocation {
-        constructor(_doc, _config) {
-            this._doc = _doc;
-            this.href = '/';
-            this.hostname = '/';
-            this.protocol = '/';
-            this.port = '/';
-            this.pathname = '/';
-            this.search = '';
-            this.hash = '';
-            this._hashUpdate = new Subject();
-            const config = _config;
-            if (!!config && !!config.url) {
-                const parsedUrl = parseUrl(config.url);
-                this.hostname = parsedUrl.hostname;
-                this.protocol = parsedUrl.protocol;
-                this.port = parsedUrl.port;
-                this.pathname = parsedUrl.pathname;
-                this.search = parsedUrl.search;
-                this.hash = parsedUrl.hash;
-                this.href = _doc.location.href;
-            }
-        }
-        getBaseHrefFromDOM() {
-            return ɵgetDOM().getBaseHref(this._doc);
-        }
-        onPopState(fn) {
-            // No-op: a state stack is not implemented, so
-            // no events will ever come.
-        }
-        onHashChange(fn) {
-            this._hashUpdate.subscribe(fn);
-        }
-        get url() {
-            return `${this.pathname}${this.search}${this.hash}`;
-        }
-        setHash(value, oldUrl) {
-            if (this.hash === value) {
-                // Don't fire events if the hash has not changed.
-                return;
-            }
-            this.hash = value;
-            const newUrl = this.url;
-            scheduleMicroTask(() => this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl, newUrl }));
-        }
-        replaceState(state, title, newUrl) {
-            const oldUrl = this.url;
-            const parsedUrl = parseUrl(newUrl);
+class ServerPlatformLocation {
+    constructor(_doc, _config) {
+        this._doc = _doc;
+        this.href = '/';
+        this.hostname = '/';
+        this.protocol = '/';
+        this.port = '/';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
+        this._hashUpdate = new Subject();
+        const config = _config;
+        if (!!config && !!config.url) {
+            const parsedUrl = parseUrl(config.url);
+            this.hostname = parsedUrl.hostname;
+            this.protocol = parsedUrl.protocol;
+            this.port = parsedUrl.port;
             this.pathname = parsedUrl.pathname;
             this.search = parsedUrl.search;
-            this.setHash(parsedUrl.hash, oldUrl);
-        }
-        pushState(state, title, newUrl) {
-            this.replaceState(state, title, newUrl);
-        }
-        forward() {
-            throw new Error('Not implemented');
-        }
-        back() {
-            throw new Error('Not implemented');
-        }
-        // History API isn't available on server, therefore return undefined
-        getState() {
-            return undefined;
+            this.hash = parsedUrl.hash;
+            this.href = _doc.location.href;
         }
     }
-    ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
-    ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
-    return ServerPlatformLocation;
-})();
+    getBaseHrefFromDOM() {
+        return ɵgetDOM().getBaseHref(this._doc);
+    }
+    onPopState(fn) {
+        // No-op: a state stack is not implemented, so
+        // no events will ever come.
+    }
+    onHashChange(fn) {
+        this._hashUpdate.subscribe(fn);
+    }
+    get url() {
+        return `${this.pathname}${this.search}${this.hash}`;
+    }
+    setHash(value, oldUrl) {
+        if (this.hash === value) {
+            // Don't fire events if the hash has not changed.
+            return;
+        }
+        this.hash = value;
+        const newUrl = this.url;
+        scheduleMicroTask(() => this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl, newUrl }));
+    }
+    replaceState(state, title, newUrl) {
+        const oldUrl = this.url;
+        const parsedUrl = parseUrl(newUrl);
+        this.pathname = parsedUrl.pathname;
+        this.search = parsedUrl.search;
+        this.setHash(parsedUrl.hash, oldUrl);
+    }
+    pushState(state, title, newUrl) {
+        this.replaceState(state, title, newUrl);
+    }
+    forward() {
+        throw new Error('Not implemented');
+    }
+    back() {
+        throw new Error('Not implemented');
+    }
+    // History API isn't available on server, therefore return undefined
+    getState() {
+        return undefined;
+    }
+}
+ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(ɵɵinject(DOCUMENT), ɵɵinject(INITIAL_CONFIG, 8)); };
+ServerPlatformLocation.ɵprov = ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerPlatformLocation, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -439,30 +430,27 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let ServerEventManagerPlugin = /** @class */ (() => {
-    class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
-        constructor(doc) {
-            this.doc = doc;
-        }
-        // Handle all events on the server.
-        supports(eventName) {
-            return true;
-        }
-        addEventListener(element, eventName, handler) {
-            return ɵgetDOM().onAndCancel(element, eventName, handler);
-        }
-        addGlobalEventListener(element, eventName, handler) {
-            const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
-            if (!target) {
-                throw new Error(`Unsupported event target ${target} for event ${eventName}`);
-            }
-            return this.addEventListener(target, eventName, handler);
-        }
+class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
+    constructor(doc) {
+        this.doc = doc;
     }
-    ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
-    ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
-    return ServerEventManagerPlugin;
-})();
+    // Handle all events on the server.
+    supports(eventName) {
+        return true;
+    }
+    addEventListener(element, eventName, handler) {
+        return ɵgetDOM().onAndCancel(element, eventName, handler);
+    }
+    addGlobalEventListener(element, eventName, handler) {
+        const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+        }
+        return this.addEventListener(target, eventName, handler);
+    }
+}
+ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(ɵɵinject(DOCUMENT)); };
+ServerEventManagerPlugin.ɵprov = ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -479,49 +467,46 @@ let ServerEventManagerPlugin = /** @class */ (() => {
  */
 const EMPTY_ARRAY = [];
 const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
-let ServerRendererFactory2 = /** @class */ (() => {
-    class ServerRendererFactory2 {
-        constructor(eventManager, ngZone, document, sharedStylesHost) {
-            this.eventManager = eventManager;
-            this.ngZone = ngZone;
-            this.document = document;
-            this.sharedStylesHost = sharedStylesHost;
-            this.rendererByCompId = new Map();
-            this.schema = DEFAULT_SCHEMA;
-            this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
+class ServerRendererFactory2 {
+    constructor(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
+        this.ngZone = ngZone;
+        this.document = document;
+        this.sharedStylesHost = sharedStylesHost;
+        this.rendererByCompId = new Map();
+        this.schema = DEFAULT_SCHEMA;
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
+    }
+    createRenderer(element, type) {
+        if (!element || !type) {
+            return this.defaultRenderer;
         }
-        createRenderer(element, type) {
-            if (!element || !type) {
+        switch (type.encapsulation) {
+            case ViewEncapsulation.Native:
+            case ViewEncapsulation.Emulated: {
+                let renderer = this.rendererByCompId.get(type.id);
+                if (!renderer) {
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    this.rendererByCompId.set(type.id, renderer);
+                }
+                renderer.applyToHost(element);
+                return renderer;
+            }
+            default: {
+                if (!this.rendererByCompId.has(type.id)) {
+                    const styles = ɵflattenStyles(type.id, type.styles, []);
+                    this.sharedStylesHost.addStyles(styles);
+                    this.rendererByCompId.set(type.id, this.defaultRenderer);
+                }
                 return this.defaultRenderer;
             }
-            switch (type.encapsulation) {
-                case ViewEncapsulation.Native:
-                case ViewEncapsulation.Emulated: {
-                    let renderer = this.rendererByCompId.get(type.id);
-                    if (!renderer) {
-                        renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
-                        this.rendererByCompId.set(type.id, renderer);
-                    }
-                    renderer.applyToHost(element);
-                    return renderer;
-                }
-                default: {
-                    if (!this.rendererByCompId.has(type.id)) {
-                        const styles = ɵflattenStyles(type.id, type.styles, []);
-                        this.sharedStylesHost.addStyles(styles);
-                        this.rendererByCompId.set(type.id, this.defaultRenderer);
-                    }
-                    return this.defaultRenderer;
-                }
-            }
         }
-        begin() { }
-        end() { }
     }
-    ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
-    ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
-    return ServerRendererFactory2;
-})();
+    begin() { }
+    end() { }
+}
+ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(ɵɵinject(EventManager), ɵɵinject(NgZone), ɵɵinject(DOCUMENT), ɵɵinject(ɵSharedStylesHost)); };
+ServerRendererFactory2.ɵprov = ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerRendererFactory2, [{
         type: Injectable
     }], function () { return [{ type: EventManager }, { type: NgZone }, { type: undefined, decorators: [{
@@ -742,32 +727,29 @@ function _writeStyleAttribute(element, styleMap) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let ServerStylesHost = /** @class */ (() => {
-    class ServerStylesHost extends ɵSharedStylesHost {
-        constructor(doc, transitionId) {
-            super();
-            this.doc = doc;
-            this.transitionId = transitionId;
-            this.head = null;
-            this.head = doc.getElementsByTagName('head')[0];
-        }
-        _addStyle(style) {
-            let adapter = ɵgetDOM();
-            const el = adapter.createElement('style');
-            el.textContent = style;
-            if (!!this.transitionId) {
-                el.setAttribute('ng-transition', this.transitionId);
-            }
-            this.head.appendChild(el);
-        }
-        onStylesAdded(additions) {
-            additions.forEach(style => this._addStyle(style));
-        }
+class ServerStylesHost extends ɵSharedStylesHost {
+    constructor(doc, transitionId) {
+        super();
+        this.doc = doc;
+        this.transitionId = transitionId;
+        this.head = null;
+        this.head = doc.getElementsByTagName('head')[0];
     }
-    ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
-    ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
-    return ServerStylesHost;
-})();
+    _addStyle(style) {
+        let adapter = ɵgetDOM();
+        const el = adapter.createElement('style');
+        el.textContent = style;
+        if (!!this.transitionId) {
+            el.setAttribute('ng-transition', this.transitionId);
+        }
+        this.head.appendChild(el);
+    }
+    onStylesAdded(additions) {
+        additions.forEach(style => this._addStyle(style));
+    }
+}
+ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
+ServerStylesHost.ɵprov = ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerStylesHost, [{
         type: Injectable
     }], function () { return [{ type: undefined, decorators: [{
@@ -826,18 +808,15 @@ const SERVER_RENDER_PROVIDERS = [
  *
  * @publicApi
  */
-let ServerModule = /** @class */ (() => {
-    class ServerModule {
-    }
-    ServerModule.ɵmod = ɵɵdefineNgModule({ type: ServerModule });
-    ServerModule.ɵinj = ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
-            SERVER_RENDER_PROVIDERS,
-            SERVER_HTTP_PROVIDERS,
-            { provide: Testability, useValue: null },
-            { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-        ], imports: [[HttpClientModule, NoopAnimationsModule], BrowserModule] });
-    return ServerModule;
-})();
+class ServerModule {
+}
+ServerModule.ɵmod = ɵɵdefineNgModule({ type: ServerModule });
+ServerModule.ɵinj = ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+        SERVER_RENDER_PROVIDERS,
+        SERVER_HTTP_PROVIDERS,
+        { provide: Testability, useValue: null },
+        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+    ], imports: [[HttpClientModule, NoopAnimationsModule], BrowserModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerModule, { imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); })();
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
@@ -893,20 +872,17 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *
  * @publicApi
  */
-let ServerTransferStateModule = /** @class */ (() => {
-    class ServerTransferStateModule {
-    }
-    ServerTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: ServerTransferStateModule });
-    ServerTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
-            TransferState, {
-                provide: BEFORE_APP_SERIALIZED,
-                useFactory: serializeTransferStateFactory,
-                deps: [DOCUMENT, APP_ID, TransferState],
-                multi: true,
-            }
-        ] });
-    return ServerTransferStateModule;
-})();
+class ServerTransferStateModule {
+}
+ServerTransferStateModule.ɵmod = ɵɵdefineNgModule({ type: ServerTransferStateModule });
+ServerTransferStateModule.ɵinj = ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+        TransferState, {
+            provide: BEFORE_APP_SERIALIZED,
+            useFactory: serializeTransferStateFactory,
+            deps: [DOCUMENT, APP_ID, TransferState],
+            multi: true,
+        }
+    ] });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ServerTransferStateModule, [{
         type: NgModule,
         args: [{
@@ -1033,7 +1009,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+130.sha-8c682c5');
+const VERSION = new Version('10.0.0-rc.0+134.sha-a937889');
 
 /**
  * @license

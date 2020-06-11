@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.4+6.sha-c2f4a9b
+ * @license Angular v10.0.0-rc.4+14.sha-38c48be
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -154,32 +154,29 @@ class DominoAdapter extends ɵBrowserDomAdapter {
  *
  * @publicApi
  */
-let PlatformState = /** @class */ (() => {
-    class PlatformState {
-        constructor(_doc) {
-            this._doc = _doc;
-        }
-        /**
-         * Renders the current state of the platform to string.
-         */
-        renderToString() {
-            return serializeDocument(this._doc);
-        }
-        /**
-         * Returns the current DOM state.
-         */
-        getDocument() {
-            return this._doc;
-        }
+class PlatformState {
+    constructor(_doc) {
+        this._doc = _doc;
     }
-    PlatformState.decorators = [
-        { type: Injectable }
-    ];
-    PlatformState.ctorParameters = () => [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-    ];
-    return PlatformState;
-})();
+    /**
+     * Renders the current state of the platform to string.
+     */
+    renderToString() {
+        return serializeDocument(this._doc);
+    }
+    /**
+     * Returns the current DOM state.
+     */
+    getDocument() {
+        return this._doc;
+    }
+}
+PlatformState.decorators = [
+    { type: Injectable }
+];
+PlatformState.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+];
 
 /**
  * @license
@@ -191,17 +188,14 @@ let PlatformState = /** @class */ (() => {
 const xhr2 = require('xhr2');
 // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
-let ServerXhr = /** @class */ (() => {
-    class ServerXhr {
-        build() {
-            return new xhr2.XMLHttpRequest();
-        }
+class ServerXhr {
+    build() {
+        return new xhr2.XMLHttpRequest();
     }
-    ServerXhr.decorators = [
-        { type: Injectable }
-    ];
-    return ServerXhr;
-})();
+}
+ServerXhr.decorators = [
+    { type: Injectable }
+];
 class ZoneMacroTaskWrapper {
     wrap(request) {
         return new Observable((observer) => {
@@ -342,82 +336,79 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-let ServerPlatformLocation = /** @class */ (() => {
-    class ServerPlatformLocation {
-        constructor(_doc, _config) {
-            this._doc = _doc;
-            this.href = '/';
-            this.hostname = '/';
-            this.protocol = '/';
-            this.port = '/';
-            this.pathname = '/';
-            this.search = '';
-            this.hash = '';
-            this._hashUpdate = new Subject();
-            const config = _config;
-            if (!!config && !!config.url) {
-                const parsedUrl = parseUrl(config.url);
-                this.hostname = parsedUrl.hostname;
-                this.protocol = parsedUrl.protocol;
-                this.port = parsedUrl.port;
-                this.pathname = parsedUrl.pathname;
-                this.search = parsedUrl.search;
-                this.hash = parsedUrl.hash;
-                this.href = _doc.location.href;
-            }
-        }
-        getBaseHrefFromDOM() {
-            return ɵgetDOM().getBaseHref(this._doc);
-        }
-        onPopState(fn) {
-            // No-op: a state stack is not implemented, so
-            // no events will ever come.
-        }
-        onHashChange(fn) {
-            this._hashUpdate.subscribe(fn);
-        }
-        get url() {
-            return `${this.pathname}${this.search}${this.hash}`;
-        }
-        setHash(value, oldUrl) {
-            if (this.hash === value) {
-                // Don't fire events if the hash has not changed.
-                return;
-            }
-            this.hash = value;
-            const newUrl = this.url;
-            scheduleMicroTask(() => this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl, newUrl }));
-        }
-        replaceState(state, title, newUrl) {
-            const oldUrl = this.url;
-            const parsedUrl = parseUrl(newUrl);
+class ServerPlatformLocation {
+    constructor(_doc, _config) {
+        this._doc = _doc;
+        this.href = '/';
+        this.hostname = '/';
+        this.protocol = '/';
+        this.port = '/';
+        this.pathname = '/';
+        this.search = '';
+        this.hash = '';
+        this._hashUpdate = new Subject();
+        const config = _config;
+        if (!!config && !!config.url) {
+            const parsedUrl = parseUrl(config.url);
+            this.hostname = parsedUrl.hostname;
+            this.protocol = parsedUrl.protocol;
+            this.port = parsedUrl.port;
             this.pathname = parsedUrl.pathname;
             this.search = parsedUrl.search;
-            this.setHash(parsedUrl.hash, oldUrl);
-        }
-        pushState(state, title, newUrl) {
-            this.replaceState(state, title, newUrl);
-        }
-        forward() {
-            throw new Error('Not implemented');
-        }
-        back() {
-            throw new Error('Not implemented');
-        }
-        // History API isn't available on server, therefore return undefined
-        getState() {
-            return undefined;
+            this.hash = parsedUrl.hash;
+            this.href = _doc.location.href;
         }
     }
-    ServerPlatformLocation.decorators = [
-        { type: Injectable }
-    ];
-    ServerPlatformLocation.ctorParameters = () => [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
-    ];
-    return ServerPlatformLocation;
-})();
+    getBaseHrefFromDOM() {
+        return ɵgetDOM().getBaseHref(this._doc);
+    }
+    onPopState(fn) {
+        // No-op: a state stack is not implemented, so
+        // no events will ever come.
+    }
+    onHashChange(fn) {
+        this._hashUpdate.subscribe(fn);
+    }
+    get url() {
+        return `${this.pathname}${this.search}${this.hash}`;
+    }
+    setHash(value, oldUrl) {
+        if (this.hash === value) {
+            // Don't fire events if the hash has not changed.
+            return;
+        }
+        this.hash = value;
+        const newUrl = this.url;
+        scheduleMicroTask(() => this._hashUpdate.next({ type: 'hashchange', state: null, oldUrl, newUrl }));
+    }
+    replaceState(state, title, newUrl) {
+        const oldUrl = this.url;
+        const parsedUrl = parseUrl(newUrl);
+        this.pathname = parsedUrl.pathname;
+        this.search = parsedUrl.search;
+        this.setHash(parsedUrl.hash, oldUrl);
+    }
+    pushState(state, title, newUrl) {
+        this.replaceState(state, title, newUrl);
+    }
+    forward() {
+        throw new Error('Not implemented');
+    }
+    back() {
+        throw new Error('Not implemented');
+    }
+    // History API isn't available on server, therefore return undefined
+    getState() {
+        return undefined;
+    }
+}
+ServerPlatformLocation.decorators = [
+    { type: Injectable }
+];
+ServerPlatformLocation.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [INITIAL_CONFIG,] }] }
+];
 function scheduleMicroTask(fn) {
     Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
 }
@@ -429,34 +420,31 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let ServerEventManagerPlugin = /** @class */ (() => {
-    class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
-        constructor(doc) {
-            this.doc = doc;
-        }
-        // Handle all events on the server.
-        supports(eventName) {
-            return true;
-        }
-        addEventListener(element, eventName, handler) {
-            return ɵgetDOM().onAndCancel(element, eventName, handler);
-        }
-        addGlobalEventListener(element, eventName, handler) {
-            const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
-            if (!target) {
-                throw new Error(`Unsupported event target ${target} for event ${eventName}`);
-            }
-            return this.addEventListener(target, eventName, handler);
-        }
+class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ {
+    constructor(doc) {
+        this.doc = doc;
     }
-    ServerEventManagerPlugin.decorators = [
-        { type: Injectable }
-    ];
-    ServerEventManagerPlugin.ctorParameters = () => [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
-    ];
-    return ServerEventManagerPlugin;
-})();
+    // Handle all events on the server.
+    supports(eventName) {
+        return true;
+    }
+    addEventListener(element, eventName, handler) {
+        return ɵgetDOM().onAndCancel(element, eventName, handler);
+    }
+    addGlobalEventListener(element, eventName, handler) {
+        const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error(`Unsupported event target ${target} for event ${eventName}`);
+        }
+        return this.addEventListener(target, eventName, handler);
+    }
+}
+ServerEventManagerPlugin.decorators = [
+    { type: Injectable }
+];
+ServerEventManagerPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
+];
 
 /**
  * @license
@@ -467,56 +455,53 @@ let ServerEventManagerPlugin = /** @class */ (() => {
  */
 const EMPTY_ARRAY = [];
 const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
-let ServerRendererFactory2 = /** @class */ (() => {
-    class ServerRendererFactory2 {
-        constructor(eventManager, ngZone, document, sharedStylesHost) {
-            this.eventManager = eventManager;
-            this.ngZone = ngZone;
-            this.document = document;
-            this.sharedStylesHost = sharedStylesHost;
-            this.rendererByCompId = new Map();
-            this.schema = DEFAULT_SCHEMA;
-            this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
+class ServerRendererFactory2 {
+    constructor(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
+        this.ngZone = ngZone;
+        this.document = document;
+        this.sharedStylesHost = sharedStylesHost;
+        this.rendererByCompId = new Map();
+        this.schema = DEFAULT_SCHEMA;
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
+    }
+    createRenderer(element, type) {
+        if (!element || !type) {
+            return this.defaultRenderer;
         }
-        createRenderer(element, type) {
-            if (!element || !type) {
+        switch (type.encapsulation) {
+            case ViewEncapsulation.Native:
+            case ViewEncapsulation.Emulated: {
+                let renderer = this.rendererByCompId.get(type.id);
+                if (!renderer) {
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    this.rendererByCompId.set(type.id, renderer);
+                }
+                renderer.applyToHost(element);
+                return renderer;
+            }
+            default: {
+                if (!this.rendererByCompId.has(type.id)) {
+                    const styles = ɵflattenStyles(type.id, type.styles, []);
+                    this.sharedStylesHost.addStyles(styles);
+                    this.rendererByCompId.set(type.id, this.defaultRenderer);
+                }
                 return this.defaultRenderer;
             }
-            switch (type.encapsulation) {
-                case ViewEncapsulation.Native:
-                case ViewEncapsulation.Emulated: {
-                    let renderer = this.rendererByCompId.get(type.id);
-                    if (!renderer) {
-                        renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
-                        this.rendererByCompId.set(type.id, renderer);
-                    }
-                    renderer.applyToHost(element);
-                    return renderer;
-                }
-                default: {
-                    if (!this.rendererByCompId.has(type.id)) {
-                        const styles = ɵflattenStyles(type.id, type.styles, []);
-                        this.sharedStylesHost.addStyles(styles);
-                        this.rendererByCompId.set(type.id, this.defaultRenderer);
-                    }
-                    return this.defaultRenderer;
-                }
-            }
         }
-        begin() { }
-        end() { }
     }
-    ServerRendererFactory2.decorators = [
-        { type: Injectable }
-    ];
-    ServerRendererFactory2.ctorParameters = () => [
-        { type: EventManager },
-        { type: NgZone },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: ɵSharedStylesHost }
-    ];
-    return ServerRendererFactory2;
-})();
+    begin() { }
+    end() { }
+}
+ServerRendererFactory2.decorators = [
+    { type: Injectable }
+];
+ServerRendererFactory2.ctorParameters = () => [
+    { type: EventManager },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: ɵSharedStylesHost }
+];
 class DefaultServerRenderer2 {
     constructor(eventManager, document, ngZone, schema) {
         this.eventManager = eventManager;
@@ -731,37 +716,34 @@ function _writeStyleAttribute(element, styleMap) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-let ServerStylesHost = /** @class */ (() => {
-    class ServerStylesHost extends ɵSharedStylesHost {
-        constructor(doc, transitionId) {
-            super();
-            this.doc = doc;
-            this.transitionId = transitionId;
-            this.head = null;
-            this.head = doc.getElementsByTagName('head')[0];
-        }
-        _addStyle(style) {
-            let adapter = ɵgetDOM();
-            const el = adapter.createElement('style');
-            el.textContent = style;
-            if (!!this.transitionId) {
-                el.setAttribute('ng-transition', this.transitionId);
-            }
-            this.head.appendChild(el);
-        }
-        onStylesAdded(additions) {
-            additions.forEach(style => this._addStyle(style));
-        }
+class ServerStylesHost extends ɵSharedStylesHost {
+    constructor(doc, transitionId) {
+        super();
+        this.doc = doc;
+        this.transitionId = transitionId;
+        this.head = null;
+        this.head = doc.getElementsByTagName('head')[0];
     }
-    ServerStylesHost.decorators = [
-        { type: Injectable }
-    ];
-    ServerStylesHost.ctorParameters = () => [
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
-        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
-    ];
-    return ServerStylesHost;
-})();
+    _addStyle(style) {
+        let adapter = ɵgetDOM();
+        const el = adapter.createElement('style');
+        el.textContent = style;
+        if (!!this.transitionId) {
+            el.setAttribute('ng-transition', this.transitionId);
+        }
+        this.head.appendChild(el);
+    }
+    onStylesAdded(additions) {
+        additions.forEach(style => this._addStyle(style));
+    }
+}
+ServerStylesHost.decorators = [
+    { type: Injectable }
+];
+ServerStylesHost.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ɵTRANSITION_ID,] }] }
+];
 
 /**
  * @license
@@ -809,23 +791,20 @@ const SERVER_RENDER_PROVIDERS = [
  *
  * @publicApi
  */
-let ServerModule = /** @class */ (() => {
-    class ServerModule {
-    }
-    ServerModule.decorators = [
-        { type: NgModule, args: [{
-                    exports: [BrowserModule],
-                    imports: [HttpClientModule, NoopAnimationsModule],
-                    providers: [
-                        SERVER_RENDER_PROVIDERS,
-                        SERVER_HTTP_PROVIDERS,
-                        { provide: Testability, useValue: null },
-                        { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-                    ],
-                },] }
-    ];
-    return ServerModule;
-})();
+class ServerModule {
+}
+ServerModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BrowserModule],
+                imports: [HttpClientModule, NoopAnimationsModule],
+                providers: [
+                    SERVER_RENDER_PROVIDERS,
+                    SERVER_HTTP_PROVIDERS,
+                    { provide: Testability, useValue: null },
+                    { provide: ViewportScroller, useClass: ɵNullViewportScroller },
+                ],
+            },] }
+];
 function _document(injector) {
     let config = injector.get(INITIAL_CONFIG, null);
     const document = config && config.document ? parseDocument(config.document, config.url) :
@@ -867,23 +846,20 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *
  * @publicApi
  */
-let ServerTransferStateModule = /** @class */ (() => {
-    class ServerTransferStateModule {
-    }
-    ServerTransferStateModule.decorators = [
-        { type: NgModule, args: [{
-                    providers: [
-                        TransferState, {
-                            provide: BEFORE_APP_SERIALIZED,
-                            useFactory: serializeTransferStateFactory,
-                            deps: [DOCUMENT, APP_ID, TransferState],
-                            multi: true,
-                        }
-                    ]
-                },] }
-    ];
-    return ServerTransferStateModule;
-})();
+class ServerTransferStateModule {
+}
+ServerTransferStateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    TransferState, {
+                        provide: BEFORE_APP_SERIALIZED,
+                        useFactory: serializeTransferStateFactory,
+                        deps: [DOCUMENT, APP_ID, TransferState],
+                        multi: true,
+                    }
+                ]
+            },] }
+];
 
 /**
  * @license
@@ -997,7 +973,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.4+6.sha-c2f4a9b');
+const VERSION = new Version('10.0.0-rc.4+14.sha-38c48be');
 
 /**
  * @license

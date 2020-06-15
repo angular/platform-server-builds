@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.5
+ * @license Angular v10.0.0-rc.6+3.sha-6c7467a
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -415,8 +415,6 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var xhr2 = require('xhr2');
-    // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
-    var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
     var ServerXhr = /** @class */ (function () {
         function ServerXhr() {
         }
@@ -498,21 +496,12 @@
     }());
     var ZoneClientBackend = /** @class */ (function (_super) {
         __extends(ZoneClientBackend, _super);
-        function ZoneClientBackend(backend, platformLocation) {
+        function ZoneClientBackend(backend) {
             var _this = _super.call(this) || this;
             _this.backend = backend;
-            _this.platformLocation = platformLocation;
             return _this;
         }
         ZoneClientBackend.prototype.handle = function (request) {
-            var _a = this.platformLocation, href = _a.href, protocol = _a.protocol, hostname = _a.hostname;
-            if (!isAbsoluteUrl.test(request.url) && href !== '/') {
-                var baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
-                var urlPrefix = protocol + "//" + hostname;
-                var baseUrl = new URL(baseHref, urlPrefix);
-                var url = new URL(request.url, baseUrl);
-                return this.wrap(request.clone({ url: url.toString() }));
-            }
             return this.wrap(request);
         };
         ZoneClientBackend.prototype.delegate = function (request) {
@@ -520,16 +509,13 @@
         };
         return ZoneClientBackend;
     }(ZoneMacroTaskWrapper));
-    function zoneWrappedInterceptingHandler(backend, injector, platformLocation) {
+    function zoneWrappedInterceptingHandler(backend, injector) {
         var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
-        return new ZoneClientBackend(realBackend, platformLocation);
+        return new ZoneClientBackend(realBackend);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http.XhrFactory, useClass: ServerXhr }, {
-            provide: http.HttpHandler,
-            useFactory: zoneWrappedInterceptingHandler,
-            deps: [http.HttpBackend, core.Injector, common.PlatformLocation]
-        }
+        { provide: http.XhrFactory, useClass: ServerXhr },
+        { provide: http.HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [http.HttpBackend, core.Injector] }
     ];
 
     /**
@@ -595,7 +581,6 @@
                 this.pathname = parsedUrl.pathname;
                 this.search = parsedUrl.search;
                 this.hash = parsedUrl.hash;
-                this.href = _doc.location.href;
             }
         }
         ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
@@ -1245,7 +1230,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-rc.5');
+    var VERSION = new core.Version('10.0.0-rc.6+3.sha-6c7467a');
 
     /**
      * @license

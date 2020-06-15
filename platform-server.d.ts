@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.5
+ * @license Angular v10.0.0-rc.6+3.sha-6c7467a
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -13,7 +13,6 @@ import { Injector } from '@angular/core';
 import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PlatformLocation } from '@angular/common';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
@@ -143,8 +142,7 @@ export declare const VERSION: Version;
 
 declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
-    private platformLocation;
-    constructor(backend: HttpBackend, platformLocation: PlatformLocation);
+    constructor(backend: HttpBackend);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
@@ -180,7 +178,7 @@ export declare class ɵangular_packages_platform_server_platform_server_e implem
     build(): XMLHttpRequest;
 }
 
-export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation): ZoneClientBackend;
+export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector): ZoneClientBackend;
 
 export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 

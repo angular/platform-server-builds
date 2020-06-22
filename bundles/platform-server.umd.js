@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+200.sha-7e0eccc
+ * @license Angular v10.0.0-rc.0+208.sha-fd65958
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -25,35 +25,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -61,175 +62,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -398,16 +471,20 @@
         PlatformState.prototype.getDocument = function () {
             return this._doc;
         };
-        PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(common.DOCUMENT)); };
-        PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
         return PlatformState;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(PlatformState, [{
-            type: i0.Injectable
-        }], function () { return [{ type: undefined, decorators: [{
-                    type: i0.Inject,
-                    args: [common.DOCUMENT]
-                }] }]; }, null); })();
+    PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(common.DOCUMENT)); };
+    PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(PlatformState, [{
+                type: i0.Injectable
+            }], function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [common.DOCUMENT]
+                        }] }];
+        }, null);
+    })();
 
     /**
      * @license
@@ -425,13 +502,15 @@
         ServerXhr.prototype.build = function () {
             return new xhr2.XMLHttpRequest();
         };
-        ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
-        ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
         return ServerXhr;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerXhr, [{
-            type: i0.Injectable
-        }], null, null); })();
+    ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
+    ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerXhr, [{
+                type: i0.Injectable
+            }], null, null);
+    })();
     var ZoneMacroTaskWrapper = /** @class */ (function () {
         function ZoneMacroTaskWrapper() {
         }
@@ -649,21 +728,25 @@
         ServerPlatformLocation.prototype.getState = function () {
             return undefined;
         };
-        ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
-        ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
         return ServerPlatformLocation;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerPlatformLocation, [{
-            type: i0.Injectable
-        }], function () { return [{ type: undefined, decorators: [{
-                    type: i0.Inject,
-                    args: [common.DOCUMENT]
-                }] }, { type: undefined, decorators: [{
-                    type: i0.Optional
-                }, {
-                    type: i0.Inject,
-                    args: [INITIAL_CONFIG]
-                }] }]; }, null); })();
+    ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
+    ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerPlatformLocation, [{
+                type: i0.Injectable
+            }], function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [common.DOCUMENT]
+                        }] }, { type: undefined, decorators: [{
+                            type: i0.Optional
+                        }, {
+                            type: i0.Inject,
+                            args: [INITIAL_CONFIG]
+                        }] }];
+        }, null);
+    })();
     function scheduleMicroTask(fn) {
         Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
     }
@@ -675,7 +758,7 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    var ServerEventManagerPlugin = /** @class */ (function () {
+    var ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ = /** @class */ (function () {
         function ServerEventManagerPlugin(doc) {
             this.doc = doc;
         }
@@ -693,16 +776,20 @@
             }
             return this.addEventListener(target, eventName, handler);
         };
-        ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.ɵɵinject(common.DOCUMENT)); };
-        ServerEventManagerPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
         return ServerEventManagerPlugin;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
-            type: i0.Injectable
-        }], function () { return [{ type: undefined, decorators: [{
-                    type: i0.Inject,
-                    args: [common.DOCUMENT]
-                }] }]; }, null); })();
+    ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.ɵɵinject(common.DOCUMENT)); };
+    ServerEventManagerPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+                type: i0.Injectable
+            }], function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [common.DOCUMENT]
+                        }] }];
+        }, null);
+    })();
 
     var EMPTY_ARRAY = [];
     var DEFAULT_SCHEMA = new compiler.DomElementSchemaRegistry();
@@ -743,16 +830,20 @@
         };
         ServerRendererFactory2.prototype.begin = function () { };
         ServerRendererFactory2.prototype.end = function () { };
-        ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵSharedStylesHost)); };
-        ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
         return ServerRendererFactory2;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerRendererFactory2, [{
-            type: i0.Injectable
-        }], function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
-                    type: i0.Inject,
-                    args: [common.DOCUMENT]
-                }] }, { type: i1.ɵSharedStylesHost }]; }, null); })();
+    ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵSharedStylesHost)); };
+    ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerRendererFactory2, [{
+                type: i0.Injectable
+            }], function () {
+            return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [common.DOCUMENT]
+                        }] }, { type: i1.ɵSharedStylesHost }];
+        }, null);
+    })();
     var DefaultServerRenderer2 = /** @class */ (function () {
         function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
             this.eventManager = eventManager;
@@ -947,8 +1038,8 @@
                     if (colonIndex === -1) {
                         throw new Error("Invalid CSS style: " + style);
                     }
-                    var name_1 = style.substr(0, colonIndex).trim();
-                    styleMap[name_1] = style.substr(colonIndex + 1).trim();
+                    var name = style.substr(0, colonIndex).trim();
+                    styleMap[name] = style.substr(colonIndex + 1).trim();
                 }
             }
         }
@@ -988,21 +1079,25 @@
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
         };
-        ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵTRANSITION_ID, 8)); };
-        ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
         return ServerStylesHost;
     }(i1.ɵSharedStylesHost));
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerStylesHost, [{
-            type: i0.Injectable
-        }], function () { return [{ type: undefined, decorators: [{
-                    type: i0.Inject,
-                    args: [common.DOCUMENT]
-                }] }, { type: undefined, decorators: [{
-                    type: i0.Optional
-                }, {
-                    type: i0.Inject,
-                    args: [i1.ɵTRANSITION_ID]
-                }] }]; }, null); })();
+    ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵTRANSITION_ID, 8)); };
+    ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerStylesHost, [{
+                type: i0.Injectable
+            }], function () {
+            return [{ type: undefined, decorators: [{
+                            type: i0.Inject,
+                            args: [common.DOCUMENT]
+                        }] }, { type: undefined, decorators: [{
+                            type: i0.Optional
+                        }, {
+                            type: i0.Inject,
+                            args: [i1.ɵTRANSITION_ID]
+                        }] }];
+        }, null);
+    })();
 
     /**
      * @license
@@ -1053,29 +1148,31 @@
     var ServerModule = /** @class */ (function () {
         function ServerModule() {
         }
-        ServerModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerModule });
-        ServerModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
-                SERVER_RENDER_PROVIDERS,
-                SERVER_HTTP_PROVIDERS,
-                { provide: i0.Testability, useValue: null },
-                { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-            ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule], i1.BrowserModule] });
         return ServerModule;
     }());
+    ServerModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerModule });
+    ServerModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+            SERVER_RENDER_PROVIDERS,
+            SERVER_HTTP_PROVIDERS,
+            { provide: i0.Testability, useValue: null },
+            { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
+        ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule], i1.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerModule, [{
-            type: i0.NgModule,
-            args: [{
-                    exports: [i1.BrowserModule],
-                    imports: [http.HttpClientModule, animations.NoopAnimationsModule],
-                    providers: [
-                        SERVER_RENDER_PROVIDERS,
-                        SERVER_HTTP_PROVIDERS,
-                        { provide: i0.Testability, useValue: null },
-                        { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
-                    ],
-                }]
-        }], null, null); })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerModule, [{
+                type: i0.NgModule,
+                args: [{
+                        exports: [i1.BrowserModule],
+                        imports: [http.HttpClientModule, animations.NoopAnimationsModule],
+                        providers: [
+                            SERVER_RENDER_PROVIDERS,
+                            SERVER_HTTP_PROVIDERS,
+                            { provide: i0.Testability, useValue: null },
+                            { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
+                        ],
+                    }]
+            }], null, null);
+    })();
     function _document(injector) {
         var config = injector.get(INITIAL_CONFIG, null);
         var document = config && config.document ? parseDocument(config.document, config.url) :
@@ -1120,38 +1217,33 @@
     var ServerTransferStateModule = /** @class */ (function () {
         function ServerTransferStateModule() {
         }
-        ServerTransferStateModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTransferStateModule });
-        ServerTransferStateModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
-                i1.TransferState, {
-                    provide: BEFORE_APP_SERIALIZED,
-                    useFactory: serializeTransferStateFactory,
-                    deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
-                    multi: true,
-                }
-            ] });
         return ServerTransferStateModule;
     }());
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerTransferStateModule, [{
-            type: i0.NgModule,
-            args: [{
-                    providers: [
-                        i1.TransferState, {
-                            provide: BEFORE_APP_SERIALIZED,
-                            useFactory: serializeTransferStateFactory,
-                            deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
-                            multi: true,
-                        }
-                    ]
-                }]
-        }], null, null); })();
+    ServerTransferStateModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTransferStateModule });
+    ServerTransferStateModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+            i1.TransferState, {
+                provide: BEFORE_APP_SERIALIZED,
+                useFactory: serializeTransferStateFactory,
+                deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
+                multi: true,
+            }
+        ] });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerTransferStateModule, [{
+                type: i0.NgModule,
+                args: [{
+                        providers: [
+                            i1.TransferState, {
+                                provide: BEFORE_APP_SERIALIZED,
+                                useFactory: serializeTransferStateFactory,
+                                deps: [common.DOCUMENT, i0.APP_ID, i1.TransferState],
+                                multi: true,
+                            }
+                        ]
+                    }]
+            }], null, null);
+    })();
 
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
     function _getPlatform(platformFactory, options) {
         var extraProviders = options.extraProviders ? options.extraProviders : [];
         return platformFactory([
@@ -1267,7 +1359,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('10.0.0-rc.0+200.sha-7e0eccc');
+    var VERSION = new i0.Version('10.0.0-rc.0+208.sha-fd65958');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+200.sha-7e0eccc
+ * @license Angular v10.0.0-rc.0+208.sha-fd65958
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,19 +31,21 @@
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTestingModule });
-        ServerTestingModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule], testing.BrowserDynamicTestingModule] });
         return ServerTestingModule;
     }());
+    ServerTestingModule.ɵmod = i0.ɵɵdefineNgModule({ type: ServerTestingModule });
+    ServerTestingModule.ɵinj = i0.ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule], testing.BrowserDynamicTestingModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerTestingModule, { imports: [animations.NoopAnimationsModule], exports: [testing.BrowserDynamicTestingModule] }); })();
-    /*@__PURE__*/ (function () { i0.ɵsetClassMetadata(ServerTestingModule, [{
-            type: i0.NgModule,
-            args: [{
-                    exports: [testing.BrowserDynamicTestingModule],
-                    imports: [animations.NoopAnimationsModule],
-                    providers: platformServer.ɵSERVER_RENDER_PROVIDERS
-                }]
-        }], null, null); })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerTestingModule, [{
+                type: i0.NgModule,
+                args: [{
+                        exports: [testing.BrowserDynamicTestingModule],
+                        imports: [animations.NoopAnimationsModule],
+                        providers: platformServer.ɵSERVER_RENDER_PROVIDERS
+                    }]
+            }], null, null);
+    })();
 
     /**
      * @license

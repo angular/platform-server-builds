@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+260.sha-d12cdb5
+ * @license Angular v10.0.0-rc.0+262.sha-9118f49
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -487,6 +487,20 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /**
+     * The DI token for setting the initial config for the platform.
+     *
+     * @publicApi
+     */
+    var INITIAL_CONFIG = new core.InjectionToken('Server.INITIAL_CONFIG');
+    /**
+     * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
+     * before current platform state is rendered to string.
+     *
+     * @publicApi
+     */
+    var BEFORE_APP_SERIALIZED = new core.InjectionToken('Server.RENDER_MODULE_HOOK');
+
     var xhr2 = require('xhr2');
     // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
     var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
@@ -571,17 +585,19 @@
     }());
     var ZoneClientBackend = /** @class */ (function (_super) {
         __extends(ZoneClientBackend, _super);
-        function ZoneClientBackend(backend, platformLocation) {
+        function ZoneClientBackend(backend, platformLocation, config) {
             var _this = _super.call(this) || this;
             _this.backend = backend;
             _this.platformLocation = platformLocation;
+            _this.config = config;
             return _this;
         }
         ZoneClientBackend.prototype.handle = function (request) {
-            var _a = this.platformLocation, href = _a.href, protocol = _a.protocol, hostname = _a.hostname;
-            if (!isAbsoluteUrl.test(request.url) && href !== '/') {
+            var _a = this.platformLocation, href = _a.href, protocol = _a.protocol, hostname = _a.hostname, port = _a.port;
+            if (this.config.useAbsoluteUrl && !isAbsoluteUrl.test(request.url) &&
+                isAbsoluteUrl.test(href)) {
                 var baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
-                var urlPrefix = protocol + "//" + hostname;
+                var urlPrefix = protocol + "//" + hostname + (port ? ":" + port : '');
                 var baseUrl = new URL(baseHref, urlPrefix);
                 var url = new URL(request.url, baseUrl);
                 return this.wrap(request.clone({ url: url.toString() }));
@@ -593,38 +609,17 @@
         };
         return ZoneClientBackend;
     }(ZoneMacroTaskWrapper));
-    function zoneWrappedInterceptingHandler(backend, injector, platformLocation) {
+    function zoneWrappedInterceptingHandler(backend, injector, platformLocation, config) {
         var realBackend = new http.ɵHttpInterceptingHandler(backend, injector);
-        return new ZoneClientBackend(realBackend, platformLocation);
+        return new ZoneClientBackend(realBackend, platformLocation, config);
     }
     var SERVER_HTTP_PROVIDERS = [
         { provide: http.XhrFactory, useClass: ServerXhr }, {
             provide: http.HttpHandler,
             useFactory: zoneWrappedInterceptingHandler,
-            deps: [http.HttpBackend, core.Injector, common.PlatformLocation]
+            deps: [http.HttpBackend, core.Injector, common.PlatformLocation, INITIAL_CONFIG]
         }
     ];
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /**
-     * The DI token for setting the initial config for the platform.
-     *
-     * @publicApi
-     */
-    var INITIAL_CONFIG = new core.InjectionToken('Server.INITIAL_CONFIG');
-    /**
-     * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
-     * before current platform state is rendered to string.
-     *
-     * @publicApi
-     */
-    var BEFORE_APP_SERIALIZED = new core.InjectionToken('Server.RENDER_MODULE_HOOK');
 
     /**
      * @license
@@ -1297,7 +1292,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.0.0-rc.0+260.sha-d12cdb5');
+    var VERSION = new core.Version('10.0.0-rc.0+262.sha-9118f49');
 
     /**
      * @license

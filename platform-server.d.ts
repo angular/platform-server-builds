@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.0-rc.0+260.sha-d12cdb5
+ * @license Angular v10.0.0-rc.0+262.sha-9118f49
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -49,8 +49,25 @@ export declare const INITIAL_CONFIG: InjectionToken<PlatformConfig>;
  * @publicApi
  */
 export declare interface PlatformConfig {
+    /**
+     * The initial DOM to use to bootstrap the server application.
+     * @default create a new DOM using Domino
+     */
     document?: string;
+    /**
+     * The URL for the current application state. This is
+     * used for initializing the platform's location and
+     * for setting absolute URL resolution for HTTP requests.
+     * @default none
+     */
     url?: string;
+    /**
+     * Whether to append the absolute URL to any relative HTTP
+     * requests. If set to true, this logic executes prior to
+     * any HTTP interceptors that may run later on in the request.
+     * @default false
+     */
+    useAbsoluteUrl?: boolean;
 }
 
 /**
@@ -144,7 +161,8 @@ export declare const VERSION: Version;
 declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
     private platformLocation;
-    constructor(backend: HttpBackend, platformLocation: PlatformLocation);
+    private config;
+    constructor(backend: HttpBackend, platformLocation: PlatformLocation, config: PlatformConfig);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
@@ -180,7 +198,7 @@ export declare class ɵangular_packages_platform_server_platform_server_e implem
     build(): XMLHttpRequest;
 }
 
-export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation): ZoneClientBackend;
+export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation, config: PlatformConfig): ZoneClientBackend;
 
 export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 

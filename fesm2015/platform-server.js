@@ -1,11 +1,11 @@
 /**
- * @license Angular v10.0.0-rc.0+260.sha-d12cdb5
+ * @license Angular v10.0.0-rc.0+262.sha-9118f49
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { Injectable, Inject, Injector, InjectionToken, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
@@ -185,6 +185,27 @@ PlatformState.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * The DI token for setting the initial config for the platform.
+ *
+ * @publicApi
+ */
+const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+/**
+ * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
+ * before current platform state is rendered to string.
+ *
+ * @publicApi
+ */
+const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 const xhr2 = require('xhr2');
 // @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
@@ -261,16 +282,18 @@ class ZoneMacroTaskWrapper {
     }
 }
 class ZoneClientBackend extends ZoneMacroTaskWrapper {
-    constructor(backend, platformLocation) {
+    constructor(backend, platformLocation, config) {
         super();
         this.backend = backend;
         this.platformLocation = platformLocation;
+        this.config = config;
     }
     handle(request) {
-        const { href, protocol, hostname } = this.platformLocation;
-        if (!isAbsoluteUrl.test(request.url) && href !== '/') {
+        const { href, protocol, hostname, port } = this.platformLocation;
+        if (this.config.useAbsoluteUrl && !isAbsoluteUrl.test(request.url) &&
+            isAbsoluteUrl.test(href)) {
             const baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
-            const urlPrefix = `${protocol}//${hostname}`;
+            const urlPrefix = `${protocol}//${hostname}` + (port ? `:${port}` : '');
             const baseUrl = new URL(baseHref, urlPrefix);
             const url = new URL(request.url, baseUrl);
             return this.wrap(request.clone({ url: url.toString() }));
@@ -281,38 +304,17 @@ class ZoneClientBackend extends ZoneMacroTaskWrapper {
         return this.backend.handle(request);
     }
 }
-function zoneWrappedInterceptingHandler(backend, injector, platformLocation) {
+function zoneWrappedInterceptingHandler(backend, injector, platformLocation, config) {
     const realBackend = new ɵHttpInterceptingHandler(backend, injector);
-    return new ZoneClientBackend(realBackend, platformLocation);
+    return new ZoneClientBackend(realBackend, platformLocation, config);
 }
 const SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr }, {
         provide: HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [HttpBackend, Injector, PlatformLocation]
+        deps: [HttpBackend, Injector, PlatformLocation, INITIAL_CONFIG]
     }
 ];
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * The DI token for setting the initial config for the platform.
- *
- * @publicApi
- */
-const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
-/**
- * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
- * before current platform state is rendered to string.
- *
- * @publicApi
- */
-const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @license
@@ -973,7 +975,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.0.0-rc.0+260.sha-d12cdb5');
+const VERSION = new Version('10.0.0-rc.0+262.sha-9118f49');
 
 /**
  * @license

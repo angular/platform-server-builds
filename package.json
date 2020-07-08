@@ -1,0 +1,60 @@
+{
+  "name": "@angular/platform-server",
+  "version": "10.0.0-rc.0+326.sha-706f0d7",
+  "description": "Angular - library for using Angular in Node.js",
+  "author": "angular",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/animations": "10.0.0-rc.0+326.sha-706f0d7",
+    "@angular/common": "10.0.0-rc.0+326.sha-706f0d7",
+    "@angular/compiler": "10.0.0-rc.0+326.sha-706f0d7",
+    "@angular/core": "10.0.0-rc.0+326.sha-706f0d7",
+    "@angular/platform-browser": "10.0.0-rc.0+326.sha-706f0d7",
+    "@angular/platform-browser-dynamic": "10.0.0-rc.0+326.sha-706f0d7"
+  },
+  "dependencies": {
+    "domino": "^2.1.2",
+    "tslib": "^2.0.0",
+    "xhr2": "^0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angular/angular.git",
+    "directory": "packages/platform-server"
+  },
+  "ng-update": {
+    "packageGroup": [
+      "@angular/core",
+      "@angular/bazel",
+      "@angular/common",
+      "@angular/compiler",
+      "@angular/compiler-cli",
+      "@angular/animations",
+      "@angular/elements",
+      "@angular/platform-browser",
+      "@angular/platform-browser-dynamic",
+      "@angular/forms",
+      "@angular/platform-server",
+      "@angular/platform-webworker",
+      "@angular/platform-webworker-dynamic",
+      "@angular/upgrade",
+      "@angular/router",
+      "@angular/language-service",
+      "@angular/localize",
+      "@angular/service-worker"
+    ]
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=8.0"
+  },
+  "publishConfig": {
+    "registry": "https://wombat-dressing-room.appspot.com"
+  },
+  "main": "./bundles/platform-server.umd.js",
+  "fesm2015": "./fesm2015/platform-server.js",
+  "esm2015": "./esm2015/platform-server.js",
+  "typings": "./platform-server.d.ts",
+  "module": "./fesm2015/platform-server.js",
+  "es2015": "./fesm2015/platform-server.js"
+}

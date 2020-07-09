@@ -1,16 +1,16 @@
 {
   "name": "@angular/platform-server",
-  "version": "10.1.0-next.0+18.sha-c40cbec",
+  "version": "10.1.0-next.0+19.sha-1550663",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "10.1.0-next.0+18.sha-c40cbec",
-    "@angular/common": "10.1.0-next.0+18.sha-c40cbec",
-    "@angular/compiler": "10.1.0-next.0+18.sha-c40cbec",
-    "@angular/core": "10.1.0-next.0+18.sha-c40cbec",
-    "@angular/platform-browser": "10.1.0-next.0+18.sha-c40cbec",
-    "@angular/platform-browser-dynamic": "10.1.0-next.0+18.sha-c40cbec"
+    "@angular/animations": "10.1.0-next.0+19.sha-1550663",
+    "@angular/common": "10.1.0-next.0+19.sha-1550663",
+    "@angular/compiler": "10.1.0-next.0+19.sha-1550663",
+    "@angular/core": "10.1.0-next.0+19.sha-1550663",
+    "@angular/platform-browser": "10.1.0-next.0+19.sha-1550663",
+    "@angular/platform-browser-dynamic": "10.1.0-next.0+19.sha-1550663"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -53,8 +53,8 @@
   },
   "main": "./bundles/platform-server.umd.js",
   "fesm2015": "./fesm2015/platform-server.js",
-  "esm2015": "./esm2015/index.js",
-  "typings": "./index.d.ts",
+  "esm2015": "./esm2015/platform-server.js",
+  "typings": "./platform-server.d.ts",
   "module": "./fesm2015/platform-server.js",
   "es2015": "./fesm2015/platform-server.js"
 }

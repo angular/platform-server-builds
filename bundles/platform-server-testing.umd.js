@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.3+20.sha-b76a2dc
+ * @license Angular v10.0.3+33.sha-c776825
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,15 +31,15 @@
     var ServerTestingModule = /** @class */ (function () {
         function ServerTestingModule() {
         }
-        ServerTestingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        exports: [testing.BrowserDynamicTestingModule],
-                        imports: [animations.NoopAnimationsModule],
-                        providers: platformServer.ɵSERVER_RENDER_PROVIDERS
-                    },] }
-        ];
         return ServerTestingModule;
     }());
+    ServerTestingModule.decorators = [
+        { type: core.NgModule, args: [{
+                    exports: [testing.BrowserDynamicTestingModule],
+                    imports: [animations.NoopAnimationsModule],
+                    providers: platformServer.ɵSERVER_RENDER_PROVIDERS
+                },] }
+    ];
 
     /**
      * @license

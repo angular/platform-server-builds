@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.0.8+27.sha-ee5123f
+ * @license Angular v10.0.8+28.sha-7f11149
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -160,9 +160,11 @@ export declare class ɵangular_packages_platform_server_platform_server_c extend
     private doc;
     private transitionId;
     private head;
+    private _styleNodes;
     constructor(doc: any, transitionId: string);
     private _addStyle;
     onStylesAdded(additions: Set<string>): void;
+    ngOnDestroy(): void;
 }
 
 

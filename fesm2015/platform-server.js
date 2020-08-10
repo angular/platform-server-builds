@@ -1,5 +1,5 @@
 /**
- * @license Angular v10.1.0-next.4+29.sha-6d8c73a
+ * @license Angular v10.1.0-next.4+30.sha-e34c33c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -735,6 +735,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
         this.doc = doc;
         this.transitionId = transitionId;
         this.head = null;
+        this._styleNodes = new Set();
         this.head = doc.getElementsByTagName('head')[0];
     }
     _addStyle(style) {
@@ -745,9 +746,13 @@ class ServerStylesHost extends ɵSharedStylesHost {
             el.setAttribute('ng-transition', this.transitionId);
         }
         this.head.appendChild(el);
+        this._styleNodes.add(el);
     }
     onStylesAdded(additions) {
         additions.forEach(style => this._addStyle(style));
+    }
+    ngOnDestroy() {
+        this._styleNodes.forEach(styleNode => styleNode.remove());
     }
 }
 ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(ɵɵinject(DOCUMENT), ɵɵinject(ɵTRANSITION_ID, 8)); };
@@ -1011,7 +1016,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.1.0-next.4+29.sha-6d8c73a');
+const VERSION = new Version('10.1.0-next.4+30.sha-e34c33c');
 
 /**
  * @license

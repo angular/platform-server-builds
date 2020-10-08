@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.5+8.sha-42a164f
+ * @license Angular v11.0.0-next.5+13.sha-4a1c12c
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -803,7 +803,6 @@
                 return this.defaultRenderer;
             }
             switch (type.encapsulation) {
-                case i0.ViewEncapsulation.Native:
                 case i0.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
@@ -1359,7 +1358,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.0.0-next.5+8.sha-42a164f');
+    var VERSION = new i0.Version('11.0.0-next.5+13.sha-4a1c12c');
 
     /**
      * @license

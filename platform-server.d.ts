@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.6+54.sha-d8c9f42
+ * @license Angular v11.0.0-next.6+55.sha-b4e8399
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -55,19 +55,26 @@ export declare interface PlatformConfig {
      */
     document?: string;
     /**
-     * The URL for the current application state. This is
-     * used for initializing the platform's location and
-     * for setting absolute URL resolution for HTTP requests.
+     * The URL for the current application state. This is used for initializing
+     * the platform's location. `protocol`, `hostname`, and `port` will be
+     * overridden if `baseUrl` is set.
      * @default none
      */
     url?: string;
     /**
-     * Whether to append the absolute URL to any relative HTTP
-     * requests. If set to true, this logic executes prior to
-     * any HTTP interceptors that may run later on in the request.
+     * Whether to append the absolute URL to any relative HTTP requests. If set to
+     * true, this logic executes prior to any HTTP interceptors that may run later
+     * on in the request. `baseUrl` must be supplied if this flag is enabled.
      * @default false
      */
     useAbsoluteUrl?: boolean;
+    /**
+     * The base URL for resolving absolute URL for HTTP requests. It must be set
+     * if `useAbsoluteUrl` is true, and must consist of protocol, hostname,
+     * and optional port. This option has no effect if `useAbsoluteUrl` is not
+     * enabled.
+     */
+    baseUrl?: string;
 }
 
 /**

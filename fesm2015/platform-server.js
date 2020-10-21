@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.0.0-next.6+54.sha-d8c9f42
+ * @license Angular v11.0.0-next.6+55.sha-b4e8399
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -350,15 +350,27 @@ class ServerPlatformLocation {
         this.hash = '';
         this._hashUpdate = new Subject();
         const config = _config;
-        if (!!config && !!config.url) {
-            const parsedUrl = parseUrl(config.url);
-            this.hostname = parsedUrl.hostname;
-            this.protocol = parsedUrl.protocol;
-            this.port = parsedUrl.port;
-            this.pathname = parsedUrl.pathname;
-            this.search = parsedUrl.search;
-            this.hash = parsedUrl.hash;
+        if (!config) {
+            return;
+        }
+        if (config.url) {
+            const url = parseUrl(config.url);
+            this.protocol = url.protocol;
+            this.hostname = url.hostname;
+            this.port = url.port;
+            this.pathname = url.pathname;
+            this.search = url.search;
+            this.hash = url.hash;
             this.href = _doc.location.href;
+        }
+        if (config.useAbsoluteUrl) {
+            if (!config.baseUrl) {
+                throw new Error(`"PlatformConfig.baseUrl" must be set if "useAbsoluteUrl" is true`);
+            }
+            const url = parseUrl(config.baseUrl);
+            this.protocol = url.protocol;
+            this.hostname = url.hostname;
+            this.port = url.port;
         }
     }
     getBaseHrefFromDOM() {
@@ -979,7 +991,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.6+54.sha-d8c9f42');
+const VERSION = new Version('11.0.0-next.6+55.sha-b4e8399');
 
 /**
  * @license

@@ -1,11 +1,11 @@
 /**
- * @license Angular v11.0.0-next.6+237.sha-d1355ca
+ * @license Angular v11.0.0-next.6+238.sha-4476324
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, RendererStyleFlags2, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
@@ -604,6 +604,9 @@ class DefaultServerRenderer2 {
     setStyle(el, style, value, flags) {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         const styleMap = _readStyleAttribute(el);
+        if (flags & RendererStyleFlags2.Important) {
+            value += ' !important';
+        }
         styleMap[style] = value == null ? '' : value;
         _writeStyleAttribute(el, styleMap);
     }
@@ -991,7 +994,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.0.0-next.6+237.sha-d1355ca');
+const VERSION = new Version('11.0.0-next.6+238.sha-4476324');
 
 /**
  * @license

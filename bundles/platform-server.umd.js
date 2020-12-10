@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.2+8.sha-85b07ad
+ * @license Angular v11.1.0-next.2+9.sha-1f73af7
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -475,8 +475,8 @@
     }());
     PlatformState.ɵfac = function PlatformState_Factory(t) { return new (t || PlatformState)(i0.ɵɵinject(common.DOCUMENT)); };
     PlatformState.ɵprov = i0.ɵɵdefineInjectable({ token: PlatformState, factory: PlatformState.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(PlatformState, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(PlatformState, [{
                 type: i0.Injectable
             }], function () {
             return [{ type: undefined, decorators: [{
@@ -520,8 +520,8 @@
     }());
     ServerXhr.ɵfac = function ServerXhr_Factory(t) { return new (t || ServerXhr)(); };
     ServerXhr.ɵprov = i0.ɵɵdefineInjectable({ token: ServerXhr, factory: ServerXhr.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerXhr, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerXhr, [{
                 type: i0.Injectable
             }], null, null);
     })();
@@ -739,8 +739,8 @@
     }());
     ServerPlatformLocation.ɵfac = function ServerPlatformLocation_Factory(t) { return new (t || ServerPlatformLocation)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(INITIAL_CONFIG, 8)); };
     ServerPlatformLocation.ɵprov = i0.ɵɵdefineInjectable({ token: ServerPlatformLocation, factory: ServerPlatformLocation.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerPlatformLocation, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerPlatformLocation, [{
                 type: i0.Injectable
             }], function () {
             return [{ type: undefined, decorators: [{
@@ -787,8 +787,8 @@
     }());
     ServerEventManagerPlugin.ɵfac = function ServerEventManagerPlugin_Factory(t) { return new (t || ServerEventManagerPlugin /* extends EventManagerPlugin which is private */)(i0.ɵɵinject(common.DOCUMENT)); };
     ServerEventManagerPlugin.ɵprov = i0.ɵɵdefineInjectable({ token: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, factory: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, [{
                 type: i0.Injectable
             }], function () {
             return [{ type: undefined, decorators: [{
@@ -840,8 +840,8 @@
     }());
     ServerRendererFactory2.ɵfac = function ServerRendererFactory2_Factory(t) { return new (t || ServerRendererFactory2)(i0.ɵɵinject(i1.EventManager), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵSharedStylesHost)); };
     ServerRendererFactory2.ɵprov = i0.ɵɵdefineInjectable({ token: ServerRendererFactory2, factory: ServerRendererFactory2.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerRendererFactory2, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerRendererFactory2, [{
                 type: i0.Injectable
             }], function () {
             return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
@@ -1097,8 +1097,8 @@
     }(i1.ɵSharedStylesHost));
     ServerStylesHost.ɵfac = function ServerStylesHost_Factory(t) { return new (t || ServerStylesHost)(i0.ɵɵinject(common.DOCUMENT), i0.ɵɵinject(i1.ɵTRANSITION_ID, 8)); };
     ServerStylesHost.ɵprov = i0.ɵɵdefineInjectable({ token: ServerStylesHost, factory: ServerStylesHost.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerStylesHost, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerStylesHost, [{
                 type: i0.Injectable
             }], function () {
             return [{ type: undefined, decorators: [{
@@ -1172,8 +1172,8 @@
             { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
         ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule], i1.BrowserModule] });
     (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerModule, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerModule, [{
                 type: i0.NgModule,
                 args: [{
                         exports: [i1.BrowserModule],
@@ -1242,8 +1242,8 @@
                 multi: true,
             }
         ] });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(ServerTransferStateModule, [{
+    (function () {
+        (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerTransferStateModule, [{
                 type: i0.NgModule,
                 args: [{
                         providers: [
@@ -1373,7 +1373,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('11.1.0-next.2+8.sha-85b07ad');
+    var VERSION = new i0.Version('11.1.0-next.2+9.sha-1f73af7');
 
     /**
      * @license

@@ -1,33 +1,26 @@
 {
   "name": "@angular/platform-server",
-  "version": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
+  "version": "11.1.0-next.4+175.sha-02ff4ed",
   "description": "Angular - library for using Angular in Node.js",
-  "main": "./bundles/platform-server.umd.js",
-  "module": "./fesm5/platform-server.js",
-  "es2015": "./fesm2015/platform-server.js",
-  "esm5": "./esm5/platform-server.js",
-  "esm2015": "./esm2015/platform-server.js",
-  "fesm5": "./fesm5/platform-server.js",
-  "fesm2015": "./fesm2015/platform-server.js",
-  "typings": "./platform-server.d.ts",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
-    "@angular/common": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
-    "@angular/compiler": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
-    "@angular/core": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
-    "@angular/platform-browser": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes",
-    "@angular/platform-browser-dynamic": "8.0.0-rc.0+81.sha-b46eb3c.with-local-changes"
+    "@angular/animations": "11.1.0-next.4+175.sha-02ff4ed",
+    "@angular/common": "11.1.0-next.4+175.sha-02ff4ed",
+    "@angular/compiler": "11.1.0-next.4+175.sha-02ff4ed",
+    "@angular/core": "11.1.0-next.4+175.sha-02ff4ed",
+    "@angular/platform-browser": "11.1.0-next.4+175.sha-02ff4ed",
+    "@angular/platform-browser-dynamic": "11.1.0-next.4+175.sha-02ff4ed"
   },
   "dependencies": {
     "domino": "^2.1.2",
-    "tslib": "^1.9.0",
-    "xhr2": "^0.1.4"
+    "tslib": "^2.0.0",
+    "xhr2": "^0.2.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.git"
+    "url": "https://github.com/angular/angular.git",
+    "directory": "packages/platform-server"
   },
   "ng-update": {
     "packageGroup": [
@@ -42,16 +35,24 @@
       "@angular/platform-browser-dynamic",
       "@angular/forms",
       "@angular/platform-server",
-      "@angular/platform-webworker",
-      "@angular/platform-webworker-dynamic",
       "@angular/upgrade",
       "@angular/router",
       "@angular/language-service",
+      "@angular/localize",
       "@angular/service-worker"
     ]
   },
   "sideEffects": false,
   "engines": {
     "node": ">=8.0"
-  }
+  },
+  "publishConfig": {
+    "registry": "https://wombat-dressing-room.appspot.com"
+  },
+  "main": "./bundles/platform-server.umd.js",
+  "fesm2015": "./fesm2015/platform-server.js",
+  "esm2015": "./esm2015/platform-server.js",
+  "typings": "./platform-server.d.ts",
+  "module": "./fesm2015/platform-server.js",
+  "es2015": "./fesm2015/platform-server.js"
 }

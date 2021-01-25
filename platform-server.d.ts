@@ -1,6 +1,6 @@
 /**
- * @license Angular v8.0.0-rc.0+81.sha-b46eb3c.with-local-changes
- * (c) 2010-2019 Google LLC. https://angular.io/
+ * @license Angular v11.1.0-next.4+175.sha-02ff4ed
+ * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -13,6 +13,7 @@ import { Injector } from '@angular/core';
 import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PlatformLocation } from '@angular/common';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
@@ -33,7 +34,7 @@ import { ɵSharedStylesHost } from '@angular/platform-browser';
  *
  * @publicApi
  */
-export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void)[]>;
+export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void | Promise<void>)[]>;
 
 /**
  * The DI token for setting the initial config for the platform.
@@ -48,8 +49,32 @@ export declare const INITIAL_CONFIG: InjectionToken<PlatformConfig>;
  * @publicApi
  */
 export declare interface PlatformConfig {
+    /**
+     * The initial DOM to use to bootstrap the server application.
+     * @default create a new DOM using Domino
+     */
     document?: string;
+    /**
+     * The URL for the current application state. This is used for initializing
+     * the platform's location. `protocol`, `hostname`, and `port` will be
+     * overridden if `baseUrl` is set.
+     * @default none
+     */
     url?: string;
+    /**
+     * Whether to append the absolute URL to any relative HTTP requests. If set to
+     * true, this logic executes prior to any HTTP interceptors that may run later
+     * on in the request. `baseUrl` must be supplied if this flag is enabled.
+     * @default false
+     */
+    useAbsoluteUrl?: boolean;
+    /**
+     * The base URL for resolving absolute URL for HTTP requests. It must be set
+     * if `useAbsoluteUrl` is true, and must consist of protocol, hostname,
+     * and optional port. This option has no effect if `useAbsoluteUrl` is not
+     * enabled.
+     */
+    baseUrl?: string;
 }
 
 /**
@@ -90,8 +115,10 @@ export declare class PlatformState {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * Do not use this in a production server environment. Use pre-compiled {@link NgModuleFactory} with
- * {@link renderModuleFactory} instead.
+ * If compiling with the ViewEngine renderer, do not use this in a production server environment.
+ * Use pre-compiled {@link NgModuleFactory} with {@link renderModuleFactory} instead. If
+ * compiling with the Ivy renderer, this method is the recommended rendering method for
+ * platform-server.
  *
  * @publicApi
  */
@@ -140,7 +167,9 @@ export declare const VERSION: Version;
 
 declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
     private backend;
-    constructor(backend: HttpBackend);
+    private platformLocation;
+    private config;
+    constructor(backend: HttpBackend, platformLocation: PlatformLocation, config: PlatformConfig);
     handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
     protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
 }
@@ -158,9 +187,11 @@ export declare class ɵangular_packages_platform_server_platform_server_c extend
     private doc;
     private transitionId;
     private head;
+    private _styleNodes;
     constructor(doc: any, transitionId: string);
     private _addStyle;
     onStylesAdded(additions: Set<string>): void;
+    ngOnDestroy(): void;
 }
 
 
@@ -176,7 +207,7 @@ export declare class ɵangular_packages_platform_server_platform_server_e implem
     build(): XMLHttpRequest;
 }
 
-export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector): ZoneClientBackend;
+export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation, config: PlatformConfig): ZoneClientBackend;
 
 export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 

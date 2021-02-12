@@ -1,4 +1,5 @@
 import { ɵBrowserDomAdapter as BrowserDomAdapter } from '@angular/platform-browser';
+export declare function setDomTypes(): void;
 /**
  * Parses a document string to a Document object.
  */

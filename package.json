@@ -1,16 +1,16 @@
 {
   "name": "@angular/platform-server",
-  "version": "11.1.0-next.4+308.sha-0d8e6b4",
+  "version": "12.0.0-next.0+37.sha-1646f8d",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "11.1.0-next.4+308.sha-0d8e6b4",
-    "@angular/common": "11.1.0-next.4+308.sha-0d8e6b4",
-    "@angular/compiler": "11.1.0-next.4+308.sha-0d8e6b4",
-    "@angular/core": "11.1.0-next.4+308.sha-0d8e6b4",
-    "@angular/platform-browser": "11.1.0-next.4+308.sha-0d8e6b4",
-    "@angular/platform-browser-dynamic": "11.1.0-next.4+308.sha-0d8e6b4"
+    "@angular/animations": "12.0.0-next.0+37.sha-1646f8d",
+    "@angular/common": "12.0.0-next.0+37.sha-1646f8d",
+    "@angular/compiler": "12.0.0-next.0+37.sha-1646f8d",
+    "@angular/core": "12.0.0-next.0+37.sha-1646f8d",
+    "@angular/platform-browser": "12.0.0-next.0+37.sha-1646f8d",
+    "@angular/platform-browser-dynamic": "12.0.0-next.0+37.sha-1646f8d"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -42,7 +42,15 @@
       "@angular/service-worker"
     ]
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./bundles/platform-server-init.umd.js",
+    "./bundles/platform-server-init.umd.min.js",
+    "./esm2015/init/src/init.js",
+    "./fesm2015/init.js",
+    "./__ivy_ngcc__/bundles/platform-server-init.umd.js",
+    "./__ivy_ngcc__/esm2015/init/src/init.js",
+    "./__ivy_ngcc__/fesm2015/init.js"
+  ],
   "engines": {
     "node": ">=8.0"
   },

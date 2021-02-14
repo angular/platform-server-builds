@@ -1,5 +1,5 @@
 /**
- * @license Angular v11.1.0-next.4+308.sha-0d8e6b4
+ * @license Angular v12.0.0-next.0+37.sha-1646f8d
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -323,7 +323,7 @@
         return new Error('This method is not implemented in DominoAdapter: ' + methodName);
     }
     function setDomTypes() {
-        // Make all Domino types available as types in the global env.
+        // Make all Domino types available in the global env.
         Object.assign(global, domino.impl);
         global['KeyboardEvent'] = domino.impl.Event;
     }
@@ -1311,7 +1311,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('11.1.0-next.4+308.sha-0d8e6b4');
+    var VERSION = new core.Version('12.0.0-next.0+37.sha-1646f8d');
 
     /**
      * @license

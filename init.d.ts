@@ -4,4 +4,4 @@
  * License: MIT
  */
 
-export * from './testing/testing';
+export * from './init/init';

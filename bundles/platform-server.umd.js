@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.3+12.sha-ca721c2
+ * @license Angular v12.0.0-next.3+13.sha-38524c4
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -684,9 +684,11 @@
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
+            return function () { };
         };
         ServerPlatformLocation.prototype.onHashChange = function (fn) {
-            this._hashUpdate.subscribe(fn);
+            var subscription = this._hashUpdate.subscribe(fn);
+            return function () { return subscription.unsubscribe(); };
         };
         Object.defineProperty(ServerPlatformLocation.prototype, "url", {
             get: function () {
@@ -1311,7 +1313,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('12.0.0-next.3+12.sha-ca721c2');
+    var VERSION = new core.Version('12.0.0-next.3+13.sha-38524c4');
 
     /**
      * @license

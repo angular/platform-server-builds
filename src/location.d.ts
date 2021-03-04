@@ -23,8 +23,8 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     private _hashUpdate;
     constructor(_doc: any, _config: any);
     getBaseHrefFromDOM(): string;
-    onPopState(fn: LocationChangeListener): void;
-    onHashChange(fn: LocationChangeListener): void;
+    onPopState(fn: LocationChangeListener): VoidFunction;
+    onHashChange(fn: LocationChangeListener): VoidFunction;
     get url(): string;
     private setHash;
     replaceState(state: any, title: string, newUrl: string): void;

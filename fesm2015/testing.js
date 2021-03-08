@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.3+40.sha-bdf13fe
+ * @license Angular v12.0.0-next.3+42.sha-2ebe2bc
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -29,8 +29,9 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  */
 class ServerTestingModule {
 }
+ServerTestingModule.ɵfac = function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); };
 ServerTestingModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: ServerTestingModule });
-ServerTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ factory: function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); }, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
+ServerTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(ServerTestingModule, { imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,

@@ -8,6 +8,7 @@ export declare function serializeTransferStateFactory(doc: Document, appId: stri
  * @publicApi
  */
 export declare class ServerTransferStateModule {
+    static ɵfac: i0.ɵɵFactoryDef<ServerTransferStateModule, never>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerTransferStateModule, never, never, never>;
     static ɵinj: i0.ɵɵInjectorDef<ServerTransferStateModule>;
 }

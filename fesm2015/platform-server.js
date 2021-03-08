@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.3+40.sha-bdf13fe
+ * @license Angular v12.0.0-next.3+42.sha-2ebe2bc
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -833,8 +833,9 @@ const SERVER_RENDER_PROVIDERS = [
  */
 class ServerModule {
 }
+ServerModule.ɵfac = function ServerModule_Factory(t) { return new (t || ServerModule)(); };
 ServerModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: ServerModule });
-ServerModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ factory: function ServerModule_Factory(t) { return new (t || ServerModule)(); }, providers: [
+ServerModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
@@ -897,8 +898,9 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  */
 class ServerTransferStateModule {
 }
+ServerTransferStateModule.ɵfac = function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); };
 ServerTransferStateModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: ServerTransferStateModule });
-ServerTransferStateModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ factory: function ServerTransferStateModule_Factory(t) { return new (t || ServerTransferStateModule)(); }, providers: [
+ServerTransferStateModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
             useFactory: serializeTransferStateFactory,
@@ -1032,7 +1034,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.3+40.sha-bdf13fe');
+const VERSION = new Version('12.0.0-next.3+42.sha-2ebe2bc');
 
 /**
  * @license

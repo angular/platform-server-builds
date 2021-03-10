@@ -13,23 +13,15 @@ export declare function serializeDocument(doc: Document): string;
  */
 export declare class DominoAdapter extends BrowserDomAdapter {
     static makeCurrent(): void;
+    readonly supportsDOMEvents = false;
     private static defaultDoc;
-    log(error: string): void;
-    logGroup(error: string): void;
-    logGroupEnd(): void;
-    supportsDOMEvents(): boolean;
     createHtmlDocument(): HTMLDocument;
     getDefaultDocument(): Document;
     isElementNode(node: any): boolean;
     isShadowRoot(node: any): boolean;
-    getProperty(el: Element, name: string): any;
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
     getBaseHref(doc: Document): string;
     dispatchEvent(el: Node, evt: any): void;
-    getHistory(): History;
-    getLocation(): Location;
     getUserAgent(): string;
-    performanceNow(): number;
-    supportsCookies(): boolean;
     getCookie(name: string): string;
 }

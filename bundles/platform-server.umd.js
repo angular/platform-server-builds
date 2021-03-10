@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+3.sha-4c79b8a
+ * @license Angular v12.0.0-next.4+4.sha-3c66b10
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -319,9 +319,6 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var domino = require('domino');
-    function _notImplemented(methodName) {
-        return new Error('This method is not implemented in DominoAdapter: ' + methodName);
-    }
     function setDomTypes() {
         // Make all Domino types available in the global env.
         Object.assign(global, domino.impl);
@@ -348,22 +345,13 @@
     var DominoAdapter = /** @class */ (function (_super) {
         __extends(DominoAdapter, _super);
         function DominoAdapter() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this.supportsDOMEvents = false;
+            return _this;
         }
         DominoAdapter.makeCurrent = function () {
             setDomTypes();
             common.ɵsetRootDomAdapter(new DominoAdapter());
-        };
-        DominoAdapter.prototype.log = function (error) {
-            // tslint:disable-next-line:no-console
-            console.log(error);
-        };
-        DominoAdapter.prototype.logGroup = function (error) {
-            console.error(error);
-        };
-        DominoAdapter.prototype.logGroupEnd = function () { };
-        DominoAdapter.prototype.supportsDOMEvents = function () {
-            return false;
         };
         DominoAdapter.prototype.createHtmlDocument = function () {
             return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
@@ -380,18 +368,6 @@
         DominoAdapter.prototype.isShadowRoot = function (node) {
             return node.shadowRoot == node;
         };
-        DominoAdapter.prototype.getProperty = function (el, name) {
-            if (name === 'href') {
-                // Domino tries to resolve href-s which we do not want. Just return the
-                // attribute value.
-                return el.getAttribute('href');
-            }
-            else if (name === 'innerText') {
-                // Domino does not support innerText. Just map it to textContent.
-                return el.textContent;
-            }
-            return el[name];
-        };
         DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return doc.defaultView;
@@ -405,13 +381,9 @@
             return null;
         };
         DominoAdapter.prototype.getBaseHref = function (doc) {
-            var base = doc.documentElement.querySelector('base');
-            var href = '';
-            if (base) {
-                href = base.getAttribute('href');
-            }
+            var _a;
             // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-            return href;
+            return ((_a = doc.documentElement.querySelector('base')) === null || _a === void 0 ? void 0 : _a.getAttribute('href')) || '';
         };
         DominoAdapter.prototype.dispatchEvent = function (el, evt) {
             el.dispatchEvent(evt);
@@ -422,23 +394,11 @@
                 win.dispatchEvent(evt);
             }
         };
-        DominoAdapter.prototype.getHistory = function () {
-            throw _notImplemented('getHistory');
-        };
-        DominoAdapter.prototype.getLocation = function () {
-            throw _notImplemented('getLocation');
-        };
         DominoAdapter.prototype.getUserAgent = function () {
             return 'Fake user agent';
         };
-        DominoAdapter.prototype.performanceNow = function () {
-            return Date.now();
-        };
-        DominoAdapter.prototype.supportsCookies = function () {
-            return false;
-        };
         DominoAdapter.prototype.getCookie = function (name) {
-            throw _notImplemented('getCookie');
+            throw new Error('getCookie has not been implemented');
         };
         return DominoAdapter;
     }(i1.ɵBrowserDomAdapter));
@@ -1377,7 +1337,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.4+3.sha-4c79b8a');
+    var VERSION = new i0.Version('12.0.0-next.4+4.sha-3c66b10');
 
     /**
      * @license

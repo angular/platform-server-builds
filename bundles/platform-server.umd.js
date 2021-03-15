@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.4+26.sha-cc75e1d
+ * @license Angular v12.0.0-next.4+34.sha-1a9f526
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1134,7 +1134,6 @@
             { provide: i0.Testability, useValue: null },
             { provide: common.ViewportScroller, useClass: common.ɵNullViewportScroller },
         ], imports: [[http.HttpClientModule, animations.NoopAnimationsModule], i1.BrowserModule] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerModule, [{
                 type: i0.NgModule,
@@ -1150,6 +1149,7 @@
                     }]
             }], null, null);
     })();
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(ServerModule, { imports: [http.HttpClientModule, animations.NoopAnimationsModule], exports: [i1.BrowserModule] }); })();
     function _document(injector) {
         var config = injector.get(INITIAL_CONFIG, null);
         var document = config && config.document ? parseDocument(config.document, config.url) :
@@ -1337,7 +1337,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.4+26.sha-cc75e1d');
+    var VERSION = new i0.Version('12.0.0-next.4+34.sha-1a9f526');
 
     /**
      * @license

@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -29,11 +29,13 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -176,10 +178,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -219,11 +221,13 @@
         }
         return ar;
     }
+    /** @deprecated */
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
+    /** @deprecated */
     function __spreadArrays() {
         for (var s = 0, i = 0, il = arguments.length; i < il; i++)
             s += arguments[i].length;
@@ -232,7 +236,11 @@
                 r[k] = a[j];
         return r;
     }
-    ;
+    function __spreadArray(to, from) {
+        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+            to[j] = from[i];
+        return to;
+    }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -289,7 +297,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -319,11 +327,8 @@
      * found in the LICENSE file at https://angular.io/license
      */
     var domino = require('domino');
-    function _notImplemented(methodName) {
-        return new Error('This method is not implemented in DominoAdapter: ' + methodName);
-    }
     function setDomTypes() {
-        // Make all Domino types available as types in the global env.
+        // Make all Domino types available in the global env.
         Object.assign(global, domino.impl);
         global['KeyboardEvent'] = domino.impl.Event;
     }
@@ -348,22 +353,13 @@
     var DominoAdapter = /** @class */ (function (_super) {
         __extends(DominoAdapter, _super);
         function DominoAdapter() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            _this.supportsDOMEvents = false;
+            return _this;
         }
         DominoAdapter.makeCurrent = function () {
             setDomTypes();
             common.ɵsetRootDomAdapter(new DominoAdapter());
-        };
-        DominoAdapter.prototype.log = function (error) {
-            // tslint:disable-next-line:no-console
-            console.log(error);
-        };
-        DominoAdapter.prototype.logGroup = function (error) {
-            console.error(error);
-        };
-        DominoAdapter.prototype.logGroupEnd = function () { };
-        DominoAdapter.prototype.supportsDOMEvents = function () {
-            return false;
         };
         DominoAdapter.prototype.createHtmlDocument = function () {
             return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
@@ -380,18 +376,6 @@
         DominoAdapter.prototype.isShadowRoot = function (node) {
             return node.shadowRoot == node;
         };
-        DominoAdapter.prototype.getProperty = function (el, name) {
-            if (name === 'href') {
-                // Domino tries to resolve href-s which we do not want. Just return the
-                // attribute value.
-                return el.getAttribute('href');
-            }
-            else if (name === 'innerText') {
-                // Domino does not support innerText. Just map it to textContent.
-                return el.textContent;
-            }
-            return el[name];
-        };
         DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return doc.defaultView;
@@ -405,13 +389,9 @@
             return null;
         };
         DominoAdapter.prototype.getBaseHref = function (doc) {
-            var base = doc.documentElement.querySelector('base');
-            var href = '';
-            if (base) {
-                href = base.getAttribute('href');
-            }
+            var _a;
             // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-            return href;
+            return ((_a = doc.documentElement.querySelector('base')) === null || _a === void 0 ? void 0 : _a.getAttribute('href')) || '';
         };
         DominoAdapter.prototype.dispatchEvent = function (el, evt) {
             el.dispatchEvent(evt);
@@ -422,23 +402,11 @@
                 win.dispatchEvent(evt);
             }
         };
-        DominoAdapter.prototype.getHistory = function () {
-            throw _notImplemented('getHistory');
-        };
-        DominoAdapter.prototype.getLocation = function () {
-            throw _notImplemented('getLocation');
-        };
         DominoAdapter.prototype.getUserAgent = function () {
             return 'Fake user agent';
         };
-        DominoAdapter.prototype.performanceNow = function () {
-            return Date.now();
-        };
-        DominoAdapter.prototype.supportsCookies = function () {
-            return false;
-        };
         DominoAdapter.prototype.getCookie = function (name) {
-            throw _notImplemented('getCookie');
+            throw new Error('getCookie has not been implemented');
         };
         return DominoAdapter;
     }(platformBrowser.ɵBrowserDomAdapter));
@@ -655,15 +623,27 @@
             this.hash = '';
             this._hashUpdate = new rxjs.Subject();
             var config = _config;
-            if (!!config && !!config.url) {
-                var parsedUrl = parseUrl(config.url);
-                this.hostname = parsedUrl.hostname;
-                this.protocol = parsedUrl.protocol;
-                this.port = parsedUrl.port;
-                this.pathname = parsedUrl.pathname;
-                this.search = parsedUrl.search;
-                this.hash = parsedUrl.hash;
+            if (!config) {
+                return;
+            }
+            if (config.url) {
+                var url_1 = parseUrl(config.url);
+                this.protocol = url_1.protocol;
+                this.hostname = url_1.hostname;
+                this.port = url_1.port;
+                this.pathname = url_1.pathname;
+                this.search = url_1.search;
+                this.hash = url_1.hash;
                 this.href = _doc.location.href;
+            }
+            if (config.useAbsoluteUrl) {
+                if (!config.baseUrl) {
+                    throw new Error("\"PlatformConfig.baseUrl\" must be set if \"useAbsoluteUrl\" is true");
+                }
+                var url_2 = parseUrl(config.baseUrl);
+                this.protocol = url_2.protocol;
+                this.hostname = url_2.hostname;
+                this.port = url_2.port;
             }
         }
         ServerPlatformLocation.prototype.getBaseHrefFromDOM = function () {
@@ -672,9 +652,11 @@
         ServerPlatformLocation.prototype.onPopState = function (fn) {
             // No-op: a state stack is not implemented, so
             // no events will ever come.
+            return function () { };
         };
         ServerPlatformLocation.prototype.onHashChange = function (fn) {
-            this._hashUpdate.subscribe(fn);
+            var subscription = this._hashUpdate.subscribe(fn);
+            return function () { return subscription.unsubscribe(); };
         };
         Object.defineProperty(ServerPlatformLocation.prototype, "url", {
             get: function () {
@@ -777,7 +759,6 @@
                 return this.defaultRenderer;
             }
             switch (type.encapsulation) {
-                case core.ViewEncapsulation.Native:
                 case core.ViewEncapsulation.Emulated: {
                     var renderer = this.rendererByCompId.get(type.id);
                     if (!renderer) {
@@ -899,6 +880,9 @@
         DefaultServerRenderer2.prototype.setStyle = function (el, style, value, flags) {
             style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
             var styleMap = _readStyleAttribute(el);
+            if (flags & core.RendererStyleFlags2.Important) {
+                value += ' !important';
+            }
             styleMap[style] = value == null ? '' : value;
             _writeStyleAttribute(el, styleMap);
         };
@@ -1029,6 +1013,7 @@
             _this.doc = doc;
             _this.transitionId = transitionId;
             _this.head = null;
+            _this._styleNodes = new Set();
             _this.head = doc.getElementsByTagName('head')[0];
             return _this;
         }
@@ -1040,10 +1025,14 @@
                 el.setAttribute('ng-transition', this.transitionId);
             }
             this.head.appendChild(el);
+            this._styleNodes.add(el);
         };
         ServerStylesHost.prototype.onStylesAdded = function (additions) {
             var _this = this;
             additions.forEach(function (style) { return _this._addStyle(style); });
+        };
+        ServerStylesHost.prototype.ngOnDestroy = function () {
+            this._styleNodes.forEach(function (styleNode) { return styleNode.remove(); });
         };
         return ServerStylesHost;
     }(platformBrowser.ɵSharedStylesHost));
@@ -1292,7 +1281,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('10.1.0-next.4+26.sha-6248d6c');
+    var VERSION = new core.Version('12.0.0-next.5+9.sha-bff0d8f');
 
     /**
      * @license

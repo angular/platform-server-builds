@@ -1,20 +1,20 @@
 {
   "name": "@angular/platform-server",
-  "version": "10.1.0-next.4+26.sha-6248d6c",
+  "version": "12.0.0-next.5+9.sha-bff0d8f",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "10.1.0-next.4+26.sha-6248d6c",
-    "@angular/common": "10.1.0-next.4+26.sha-6248d6c",
-    "@angular/compiler": "10.1.0-next.4+26.sha-6248d6c",
-    "@angular/core": "10.1.0-next.4+26.sha-6248d6c",
-    "@angular/platform-browser": "10.1.0-next.4+26.sha-6248d6c",
-    "@angular/platform-browser-dynamic": "10.1.0-next.4+26.sha-6248d6c"
+    "@angular/animations": "12.0.0-next.5+9.sha-bff0d8f",
+    "@angular/common": "12.0.0-next.5+9.sha-bff0d8f",
+    "@angular/compiler": "12.0.0-next.5+9.sha-bff0d8f",
+    "@angular/core": "12.0.0-next.5+9.sha-bff0d8f",
+    "@angular/platform-browser": "12.0.0-next.5+9.sha-bff0d8f",
+    "@angular/platform-browser-dynamic": "12.0.0-next.5+9.sha-bff0d8f"
   },
   "dependencies": {
     "domino": "^2.1.2",
-    "tslib": "^2.0.0",
+    "tslib": "^2.1.0",
     "xhr2": "^0.2.0"
   },
   "repository": {
@@ -35,8 +35,6 @@
       "@angular/platform-browser-dynamic",
       "@angular/forms",
       "@angular/platform-server",
-      "@angular/platform-webworker",
-      "@angular/platform-webworker-dynamic",
       "@angular/upgrade",
       "@angular/router",
       "@angular/language-service",
@@ -44,7 +42,15 @@
       "@angular/service-worker"
     ]
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./bundles/platform-server-init.umd.js",
+    "./bundles/platform-server-init.umd.min.js",
+    "./esm2015/init/src/init.js",
+    "./fesm2015/init.js",
+    "./__ivy_ngcc__/bundles/platform-server-init.umd.js",
+    "./__ivy_ngcc__/esm2015/init/src/init.js",
+    "./__ivy_ngcc__/fesm2015/init.js"
+  ],
   "engines": {
     "node": ">=8.0"
   },

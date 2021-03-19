@@ -1,6 +1,6 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -55,19 +55,26 @@ export declare interface PlatformConfig {
      */
     document?: string;
     /**
-     * The URL for the current application state. This is
-     * used for initializing the platform's location and
-     * for setting absolute URL resolution for HTTP requests.
+     * The URL for the current application state. This is used for initializing
+     * the platform's location. `protocol`, `hostname`, and `port` will be
+     * overridden if `baseUrl` is set.
      * @default none
      */
     url?: string;
     /**
-     * Whether to append the absolute URL to any relative HTTP
-     * requests. If set to true, this logic executes prior to
-     * any HTTP interceptors that may run later on in the request.
+     * Whether to append the absolute URL to any relative HTTP requests. If set to
+     * true, this logic executes prior to any HTTP interceptors that may run later
+     * on in the request. `baseUrl` must be supplied if this flag is enabled.
      * @default false
      */
     useAbsoluteUrl?: boolean;
+    /**
+     * The base URL for resolving absolute URL for HTTP requests. It must be set
+     * if `useAbsoluteUrl` is true, and must consist of protocol, hostname,
+     * and optional port. This option has no effect if `useAbsoluteUrl` is not
+     * enabled.
+     */
+    baseUrl?: string;
 }
 
 /**
@@ -180,9 +187,11 @@ export declare class ɵangular_packages_platform_server_platform_server_c extend
     private doc;
     private transitionId;
     private head;
+    private _styleNodes;
     constructor(doc: any, transitionId: string);
     private _addStyle;
     onStylesAdded(additions: Set<string>): void;
+    ngOnDestroy(): void;
 }
 
 

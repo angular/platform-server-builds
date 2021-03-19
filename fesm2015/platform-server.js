@@ -1,11 +1,11 @@
 /**
- * @license Angular v10.1.0-next.4+26.sha-6248d6c
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.5+9.sha-bff0d8f
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
-import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
+import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, RendererStyleFlags2, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
@@ -24,11 +24,8 @@ import { first } from 'rxjs/operators';
  * found in the LICENSE file at https://angular.io/license
  */
 const domino = require('domino');
-function _notImplemented(methodName) {
-    return new Error('This method is not implemented in DominoAdapter: ' + methodName);
-}
 function setDomTypes() {
-    // Make all Domino types available as types in the global env.
+    // Make all Domino types available in the global env.
     Object.assign(global, domino.impl);
     global['KeyboardEvent'] = domino.impl.Event;
 }
@@ -50,20 +47,13 @@ function serializeDocument(doc) {
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
 class DominoAdapter extends ɵBrowserDomAdapter {
+    constructor() {
+        super(...arguments);
+        this.supportsDOMEvents = false;
+    }
     static makeCurrent() {
         setDomTypes();
         ɵsetRootDomAdapter(new DominoAdapter());
-    }
-    log(error) {
-        // tslint:disable-next-line:no-console
-        console.log(error);
-    }
-    logGroup(error) {
-        console.error(error);
-    }
-    logGroupEnd() { }
-    supportsDOMEvents() {
-        return false;
     }
     createHtmlDocument() {
         return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
@@ -80,18 +70,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     isShadowRoot(node) {
         return node.shadowRoot == node;
     }
-    getProperty(el, name) {
-        if (name === 'href') {
-            // Domino tries to resolve href-s which we do not want. Just return the
-            // attribute value.
-            return el.getAttribute('href');
-        }
-        else if (name === 'innerText') {
-            // Domino does not support innerText. Just map it to textContent.
-            return el.textContent;
-        }
-        return el[name];
-    }
     getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return doc.defaultView;
@@ -105,13 +83,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return null;
     }
     getBaseHref(doc) {
-        const base = doc.documentElement.querySelector('base');
-        let href = '';
-        if (base) {
-            href = base.getAttribute('href');
-        }
+        var _a;
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-        return href;
+        return ((_a = doc.documentElement.querySelector('base')) === null || _a === void 0 ? void 0 : _a.getAttribute('href')) || '';
     }
     dispatchEvent(el, evt) {
         el.dispatchEvent(evt);
@@ -122,23 +96,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
             win.dispatchEvent(evt);
         }
     }
-    getHistory() {
-        throw _notImplemented('getHistory');
-    }
-    getLocation() {
-        throw _notImplemented('getLocation');
-    }
     getUserAgent() {
         return 'Fake user agent';
     }
-    performanceNow() {
-        return Date.now();
-    }
-    supportsCookies() {
-        return false;
-    }
     getCookie(name) {
-        throw _notImplemented('getCookie');
+        throw new Error('getCookie has not been implemented');
     }
 }
 
@@ -350,15 +312,27 @@ class ServerPlatformLocation {
         this.hash = '';
         this._hashUpdate = new Subject();
         const config = _config;
-        if (!!config && !!config.url) {
-            const parsedUrl = parseUrl(config.url);
-            this.hostname = parsedUrl.hostname;
-            this.protocol = parsedUrl.protocol;
-            this.port = parsedUrl.port;
-            this.pathname = parsedUrl.pathname;
-            this.search = parsedUrl.search;
-            this.hash = parsedUrl.hash;
+        if (!config) {
+            return;
+        }
+        if (config.url) {
+            const url = parseUrl(config.url);
+            this.protocol = url.protocol;
+            this.hostname = url.hostname;
+            this.port = url.port;
+            this.pathname = url.pathname;
+            this.search = url.search;
+            this.hash = url.hash;
             this.href = _doc.location.href;
+        }
+        if (config.useAbsoluteUrl) {
+            if (!config.baseUrl) {
+                throw new Error(`"PlatformConfig.baseUrl" must be set if "useAbsoluteUrl" is true`);
+            }
+            const url = parseUrl(config.baseUrl);
+            this.protocol = url.protocol;
+            this.hostname = url.hostname;
+            this.port = url.port;
         }
     }
     getBaseHrefFromDOM() {
@@ -367,9 +341,11 @@ class ServerPlatformLocation {
     onPopState(fn) {
         // No-op: a state stack is not implemented, so
         // no events will ever come.
+        return () => { };
     }
     onHashChange(fn) {
-        this._hashUpdate.subscribe(fn);
+        const subscription = this._hashUpdate.subscribe(fn);
+        return () => subscription.unsubscribe();
     }
     get url() {
         return `${this.pathname}${this.search}${this.hash}`;
@@ -472,7 +448,6 @@ class ServerRendererFactory2 {
             return this.defaultRenderer;
         }
         switch (type.encapsulation) {
-            case ViewEncapsulation.Native:
             case ViewEncapsulation.Emulated: {
                 let renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
@@ -593,6 +568,9 @@ class DefaultServerRenderer2 {
     setStyle(el, style, value, flags) {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         const styleMap = _readStyleAttribute(el);
+        if (flags & RendererStyleFlags2.Important) {
+            value += ' !important';
+        }
         styleMap[style] = value == null ? '' : value;
         _writeStyleAttribute(el, styleMap);
     }
@@ -724,6 +702,7 @@ class ServerStylesHost extends ɵSharedStylesHost {
         this.doc = doc;
         this.transitionId = transitionId;
         this.head = null;
+        this._styleNodes = new Set();
         this.head = doc.getElementsByTagName('head')[0];
     }
     _addStyle(style) {
@@ -734,9 +713,13 @@ class ServerStylesHost extends ɵSharedStylesHost {
             el.setAttribute('ng-transition', this.transitionId);
         }
         this.head.appendChild(el);
+        this._styleNodes.add(el);
     }
     onStylesAdded(additions) {
         additions.forEach(style => this._addStyle(style));
+    }
+    ngOnDestroy() {
+        this._styleNodes.forEach(styleNode => styleNode.remove());
     }
 }
 ServerStylesHost.decorators = [
@@ -975,7 +958,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('10.1.0-next.4+26.sha-6248d6c');
+const VERSION = new Version('12.0.0-next.5+9.sha-bff0d8f');
 
 /**
  * @license

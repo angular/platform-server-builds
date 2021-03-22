@@ -32,7 +32,7 @@ export declare class ServerPlatformLocation implements PlatformLocation {
     forward(): void;
     back(): void;
     getState(): unknown;
-    static ɵfac: i0.ɵɵFactoryDef<ServerPlatformLocation, [null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ServerPlatformLocation, [null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDef<ServerPlatformLocation>;
 }
 export declare function scheduleMicroTask(fn: Function): void;

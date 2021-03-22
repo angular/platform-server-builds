@@ -21,7 +21,7 @@ export declare const platformServerTesting: (extraProviders?: StaticProvider[] |
  * @publicApi
  */
 export declare class ServerTestingModule {
-    static ɵfac: i0.ɵɵFactoryDef<ServerTestingModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerTestingModule, never, [typeof i1.NoopAnimationsModule], [typeof i2.BrowserDynamicTestingModule]>;
-    static ɵinj: i0.ɵɵInjectorDef<ServerTestingModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ServerTestingModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerTestingModule, never, [typeof i1.NoopAnimationsModule], [typeof i2.BrowserDynamicTestingModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<ServerTestingModule>;
 }

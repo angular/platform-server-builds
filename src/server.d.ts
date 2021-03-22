@@ -21,9 +21,9 @@ export declare const SERVER_RENDER_PROVIDERS: Provider[];
  * @publicApi
  */
 export declare class ServerModule {
-    static ɵfac: i0.ɵɵFactoryDef<ServerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
-    static ɵinj: i0.ɵɵInjectorDef<ServerModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ServerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<ServerModule>;
 }
 /**
  * @publicApi

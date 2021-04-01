@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.6+3.sha-b61c009
+ * @license Angular v12.0.0-next.6+36.sha-18bc9ff
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -592,7 +592,7 @@
         return new ZoneClientBackend(realBackend, platformLocation, config);
     }
     var SERVER_HTTP_PROVIDERS = [
-        { provide: http.XhrFactory, useClass: ServerXhr }, {
+        { provide: common.XhrFactory, useClass: ServerXhr }, {
             provide: http.HttpHandler,
             useFactory: zoneWrappedInterceptingHandler,
             deps: [http.HttpBackend, i0.Injector, common.PlatformLocation, INITIAL_CONFIG]
@@ -1345,7 +1345,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.6+3.sha-b61c009');
+    var VERSION = new i0.Version('12.0.0-next.6+36.sha-18bc9ff');
 
     /**
      * @license

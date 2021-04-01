@@ -7,8 +7,8 @@
  */
 import { PlatformConfig } from './tokens';
 import { Injector, Provider } from '@angular/core';
-import { PlatformLocation } from '@angular/common';
-import { HttpEvent, HttpRequest, HttpBackend, XhrFactory } from '@angular/common/http';
+import { PlatformLocation, XhrFactory } from '@angular/common';
+import { HttpEvent, HttpRequest, HttpBackend } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as i0 from "@angular/core";
 export declare class ServerXhr implements XhrFactory {

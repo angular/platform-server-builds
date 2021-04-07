@@ -14,5 +14,5 @@ export declare class ServerRendererFactory2 implements RendererFactory2 {
     begin(): void;
     end(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerRendererFactory2, never>;
-    static ɵprov: i0.ɵɵInjectableDef<ServerRendererFactory2>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ServerRendererFactory2>;
 }

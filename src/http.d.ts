@@ -14,7 +14,7 @@ import * as i0 from "@angular/core";
 export declare class ServerXhr implements XhrFactory {
     build(): XMLHttpRequest;
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerXhr, never>;
-    static ɵprov: i0.ɵɵInjectableDef<ServerXhr>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ServerXhr>;
 }
 export declare abstract class ZoneMacroTaskWrapper<S, R> {
     wrap(request: S): Observable<R>;

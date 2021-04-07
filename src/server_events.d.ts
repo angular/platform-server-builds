@@ -6,5 +6,5 @@ export declare class ServerEventManagerPlugin {
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
     addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerEventManagerPlugin, never>;
-    static ɵprov: i0.ɵɵInjectableDef<ServerEventManagerPlugin>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ServerEventManagerPlugin>;
 }

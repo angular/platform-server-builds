@@ -10,5 +10,5 @@ export declare class ServerStylesHost extends SharedStylesHost {
     onStylesAdded(additions: Set<string>): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerStylesHost, [null, { optional: true; }]>;
-    static ɵprov: i0.ɵɵInjectableDef<ServerStylesHost>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ServerStylesHost>;
 }

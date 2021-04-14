@@ -1,14 +1,14 @@
 /**
- * @license Angular v12.0.0-next.4+10.sha-69afeb3
+ * @license Angular v12.0.0-next.8+99.sha-886bf37
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
+import { ɵsetRootDomAdapter, DOCUMENT, XhrFactory, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, RendererStyleFlags2, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
+import { ɵHttpInterceptingHandler, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
@@ -958,7 +958,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.4+10.sha-69afeb3');
+const VERSION = new Version('12.0.0-next.8+99.sha-886bf37');
 
 /**
  * @license

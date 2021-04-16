@@ -1,6 +1,6 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
@@ -23,7 +23,7 @@ import { StaticProvider } from '@angular/core';
 import { TransferState } from '@angular/platform-browser';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { XhrFactory } from '@angular/common/http';
+import { XhrFactory } from '@angular/common';
 import { ɵAnimationEngine } from '@angular/animations/browser';
 import { ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { ɵSharedStylesHost } from '@angular/platform-browser';

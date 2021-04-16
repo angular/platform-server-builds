@@ -1,20 +1,23 @@
 {
   "name": "@angular/platform-server",
-  "version": "11.1.0-next.4+175.sha-02ff4ed",
+  "version": "12.0.0-next.8+133.sha-d5b13ce",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
+  "engines": {
+    "node": ">=12.14.1 <16.0.0"
+  },
   "peerDependencies": {
-    "@angular/animations": "11.1.0-next.4+175.sha-02ff4ed",
-    "@angular/common": "11.1.0-next.4+175.sha-02ff4ed",
-    "@angular/compiler": "11.1.0-next.4+175.sha-02ff4ed",
-    "@angular/core": "11.1.0-next.4+175.sha-02ff4ed",
-    "@angular/platform-browser": "11.1.0-next.4+175.sha-02ff4ed",
-    "@angular/platform-browser-dynamic": "11.1.0-next.4+175.sha-02ff4ed"
+    "@angular/animations": "12.0.0-next.8+133.sha-d5b13ce",
+    "@angular/common": "12.0.0-next.8+133.sha-d5b13ce",
+    "@angular/compiler": "12.0.0-next.8+133.sha-d5b13ce",
+    "@angular/core": "12.0.0-next.8+133.sha-d5b13ce",
+    "@angular/platform-browser": "12.0.0-next.8+133.sha-d5b13ce",
+    "@angular/platform-browser-dynamic": "12.0.0-next.8+133.sha-d5b13ce"
   },
   "dependencies": {
     "domino": "^2.1.2",
-    "tslib": "^2.0.0",
+    "tslib": "^2.1.0",
     "xhr2": "^0.2.0"
   },
   "repository": {
@@ -42,10 +45,15 @@
       "@angular/service-worker"
     ]
   },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=8.0"
-  },
+  "sideEffects": [
+    "./bundles/platform-server-init.umd.js",
+    "./bundles/platform-server-init.umd.min.js",
+    "./esm2015/init/src/init.js",
+    "./fesm2015/init.js",
+    "./__ivy_ngcc__/bundles/platform-server-init.umd.js",
+    "./__ivy_ngcc__/esm2015/init/src/init.js",
+    "./__ivy_ngcc__/fesm2015/init.js"
+  ],
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
   },

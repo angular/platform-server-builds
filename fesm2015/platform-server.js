@@ -1,14 +1,14 @@
 /**
- * @license Angular v11.1.0-next.4+175.sha-02ff4ed
- * (c) 2010-2020 Google LLC. https://angular.io/
+ * @license Angular v12.0.0-next.8+133.sha-d5b13ce
+ * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
+import { ɵsetRootDomAdapter, DOCUMENT, XhrFactory, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import { Injectable, Inject, InjectionToken, Injector, Optional, ViewEncapsulation, NgZone, RendererStyleFlags2, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgModule, Testability, ɵsetDocument, createPlatformFactory, platformCore, APP_ID, ApplicationRef, ɵisPromise, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, ɵflattenStyles, EventManager, ɵSharedStylesHost, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, ɵTRANSITION_ID, EVENT_MANAGER_PLUGINS, BrowserModule, ɵescapeHtml, TransferState } from '@angular/platform-browser';
 import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵHttpInterceptingHandler, XhrFactory, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
+import { ɵHttpInterceptingHandler, HttpHandler, HttpBackend, HttpClientModule } from '@angular/common/http';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import { ɵAnimationRendererFactory, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable, Subject } from 'rxjs';
@@ -24,11 +24,8 @@ import { first } from 'rxjs/operators';
  * found in the LICENSE file at https://angular.io/license
  */
 const domino = require('domino');
-function _notImplemented(methodName) {
-    return new Error('This method is not implemented in DominoAdapter: ' + methodName);
-}
 function setDomTypes() {
-    // Make all Domino types available as types in the global env.
+    // Make all Domino types available in the global env.
     Object.assign(global, domino.impl);
     global['KeyboardEvent'] = domino.impl.Event;
 }
@@ -50,20 +47,13 @@ function serializeDocument(doc) {
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
 class DominoAdapter extends ɵBrowserDomAdapter {
+    constructor() {
+        super(...arguments);
+        this.supportsDOMEvents = false;
+    }
     static makeCurrent() {
         setDomTypes();
         ɵsetRootDomAdapter(new DominoAdapter());
-    }
-    log(error) {
-        // tslint:disable-next-line:no-console
-        console.log(error);
-    }
-    logGroup(error) {
-        console.error(error);
-    }
-    logGroupEnd() { }
-    supportsDOMEvents() {
-        return false;
     }
     createHtmlDocument() {
         return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
@@ -80,18 +70,6 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     isShadowRoot(node) {
         return node.shadowRoot == node;
     }
-    getProperty(el, name) {
-        if (name === 'href') {
-            // Domino tries to resolve href-s which we do not want. Just return the
-            // attribute value.
-            return el.getAttribute('href');
-        }
-        else if (name === 'innerText') {
-            // Domino does not support innerText. Just map it to textContent.
-            return el.textContent;
-        }
-        return el[name];
-    }
     getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return doc.defaultView;
@@ -105,13 +83,9 @@ class DominoAdapter extends ɵBrowserDomAdapter {
         return null;
     }
     getBaseHref(doc) {
-        const base = doc.documentElement.querySelector('base');
-        let href = '';
-        if (base) {
-            href = base.getAttribute('href');
-        }
+        var _a;
         // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
-        return href;
+        return ((_a = doc.documentElement.querySelector('base')) === null || _a === void 0 ? void 0 : _a.getAttribute('href')) || '';
     }
     dispatchEvent(el, evt) {
         el.dispatchEvent(evt);
@@ -122,23 +96,11 @@ class DominoAdapter extends ɵBrowserDomAdapter {
             win.dispatchEvent(evt);
         }
     }
-    getHistory() {
-        throw _notImplemented('getHistory');
-    }
-    getLocation() {
-        throw _notImplemented('getLocation');
-    }
     getUserAgent() {
         return 'Fake user agent';
     }
-    performanceNow() {
-        return Date.now();
-    }
-    supportsCookies() {
-        return false;
-    }
     getCookie(name) {
-        throw _notImplemented('getCookie');
+        throw new Error('getCookie has not been implemented');
     }
 }
 
@@ -379,9 +341,11 @@ class ServerPlatformLocation {
     onPopState(fn) {
         // No-op: a state stack is not implemented, so
         // no events will ever come.
+        return () => { };
     }
     onHashChange(fn) {
-        this._hashUpdate.subscribe(fn);
+        const subscription = this._hashUpdate.subscribe(fn);
+        return () => subscription.unsubscribe();
     }
     get url() {
         return `${this.pathname}${this.search}${this.hash}`;
@@ -994,7 +958,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('11.1.0-next.4+175.sha-02ff4ed');
+const VERSION = new Version('12.0.0-next.8+133.sha-d5b13ce');
 
 /**
  * @license

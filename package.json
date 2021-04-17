@@ -1,33 +1,26 @@
 {
   "name": "@angular/platform-server",
-  "version": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
+  "version": "12.0.0-next.8+77.sha-917664e",
   "description": "Angular - library for using Angular in Node.js",
-  "main": "./bundles/platform-server.umd.js",
-  "module": "./fesm5/platform-server.js",
-  "es2015": "./fesm2015/platform-server.js",
-  "esm5": "./esm5/platform-server.js",
-  "esm2015": "./esm2015/platform-server.js",
-  "fesm5": "./fesm5/platform-server.js",
-  "fesm2015": "./fesm2015/platform-server.js",
-  "typings": "./platform-server.d.ts",
   "author": "angular",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/animations": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/common": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/compiler": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/core": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/platform-browser": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "@angular/platform-browser-dynamic": "9.0.0-rc.1+246.sha-d3cfad7.with-local-changes",
-    "tslib": "^1.10.0"
+    "@angular/animations": "12.0.0-next.8+77.sha-917664e",
+    "@angular/common": "12.0.0-next.8+77.sha-917664e",
+    "@angular/compiler": "12.0.0-next.8+77.sha-917664e",
+    "@angular/core": "12.0.0-next.8+77.sha-917664e",
+    "@angular/platform-browser": "12.0.0-next.8+77.sha-917664e",
+    "@angular/platform-browser-dynamic": "12.0.0-next.8+77.sha-917664e"
   },
   "dependencies": {
     "domino": "^2.1.2",
-    "xhr2": "^0.1.4"
+    "tslib": "^2.1.0",
+    "xhr2": "^0.2.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular/angular.git"
+    "url": "https://github.com/angular/angular.git",
+    "directory": "packages/platform-server"
   },
   "ng-update": {
     "packageGroup": [
@@ -42,8 +35,6 @@
       "@angular/platform-browser-dynamic",
       "@angular/forms",
       "@angular/platform-server",
-      "@angular/platform-webworker",
-      "@angular/platform-webworker-dynamic",
       "@angular/upgrade",
       "@angular/router",
       "@angular/language-service",
@@ -51,11 +42,25 @@
       "@angular/service-worker"
     ]
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./bundles/platform-server-init.umd.js",
+    "./bundles/platform-server-init.umd.min.js",
+    "./esm2015/init/src/init.js",
+    "./fesm2015/init.js",
+    "./__ivy_ngcc__/bundles/platform-server-init.umd.js",
+    "./__ivy_ngcc__/esm2015/init/src/init.js",
+    "./__ivy_ngcc__/fesm2015/init.js"
+  ],
   "engines": {
     "node": ">=8.0"
   },
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
-  }
+  },
+  "main": "./bundles/platform-server.umd.js",
+  "fesm2015": "./fesm2015/platform-server.js",
+  "esm2015": "./esm2015/platform-server.js",
+  "typings": "./platform-server.d.ts",
+  "module": "./fesm2015/platform-server.js",
+  "es2015": "./fesm2015/platform-server.js"
 }

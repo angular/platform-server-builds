@@ -1,16 +1,19 @@
 {
   "name": "@angular/platform-server",
-  "version": "12.0.0-next.8+77.sha-cfda5bc",
+  "version": "12.0.0-next.8+139.sha-a9cf2b3",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
+  "engines": {
+    "node": ">=12.14.1 <16.0.0"
+  },
   "peerDependencies": {
-    "@angular/animations": "12.0.0-next.8+77.sha-cfda5bc",
-    "@angular/common": "12.0.0-next.8+77.sha-cfda5bc",
-    "@angular/compiler": "12.0.0-next.8+77.sha-cfda5bc",
-    "@angular/core": "12.0.0-next.8+77.sha-cfda5bc",
-    "@angular/platform-browser": "12.0.0-next.8+77.sha-cfda5bc",
-    "@angular/platform-browser-dynamic": "12.0.0-next.8+77.sha-cfda5bc"
+    "@angular/animations": "12.0.0-next.8+139.sha-a9cf2b3",
+    "@angular/common": "12.0.0-next.8+139.sha-a9cf2b3",
+    "@angular/compiler": "12.0.0-next.8+139.sha-a9cf2b3",
+    "@angular/core": "12.0.0-next.8+139.sha-a9cf2b3",
+    "@angular/platform-browser": "12.0.0-next.8+139.sha-a9cf2b3",
+    "@angular/platform-browser-dynamic": "12.0.0-next.8+139.sha-a9cf2b3"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -51,9 +54,6 @@
     "./__ivy_ngcc__/esm2015/init/src/init.js",
     "./__ivy_ngcc__/fesm2015/init.js"
   ],
-  "engines": {
-    "node": ">=8.0"
-  },
   "publishConfig": {
     "registry": "https://wombat-dressing-room.appspot.com"
   },

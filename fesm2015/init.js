@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.8+295.sha-2dd96e0
+ * @license Angular v12.0.0-next.8+296.sha-6581a1b
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -61,6 +61,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     isShadowRoot(node) {
         return node.shadowRoot == node;
     }
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
     getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return doc.defaultView;

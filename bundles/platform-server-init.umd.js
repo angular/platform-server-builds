@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-rc.1+21.sha-be9b19e
+ * @license Angular v12.0.0-rc.1+35.sha-d59330b
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -379,6 +379,7 @@
         DominoAdapter.prototype.isShadowRoot = function (node) {
             return node.shadowRoot == node;
         };
+        /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
         DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return doc.defaultView;

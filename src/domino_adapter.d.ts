@@ -19,6 +19,7 @@ export declare class DominoAdapter extends BrowserDomAdapter {
     getDefaultDocument(): Document;
     isElementNode(node: any): boolean;
     isShadowRoot(node: any): boolean;
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
     getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
     getBaseHref(doc: Document): string;
     dispatchEvent(el: Node, evt: any): void;

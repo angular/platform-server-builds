@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.8+295.sha-2dd96e0
+ * @license Angular v12.0.0-next.8+296.sha-6581a1b
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -379,6 +379,7 @@
         DominoAdapter.prototype.isShadowRoot = function (node) {
             return node.shadowRoot == node;
         };
+        /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
         DominoAdapter.prototype.getGlobalEventTarget = function (doc, target) {
             if (target === 'window') {
                 return doc.defaultView;
@@ -749,6 +750,7 @@
         ServerEventManagerPlugin.prototype.addEventListener = function (element, eventName, handler) {
             return common.ɵgetDOM().onAndCancel(element, eventName, handler);
         };
+        /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
         ServerEventManagerPlugin.prototype.addGlobalEventListener = function (element, eventName, handler) {
             var target = common.ɵgetDOM().getGlobalEventTarget(this.doc, element);
             if (!target) {
@@ -1348,7 +1350,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new i0.Version('12.0.0-next.8+295.sha-2dd96e0');
+    var VERSION = new i0.Version('12.0.0-next.8+296.sha-6581a1b');
 
     /**
      * @license

@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.0.0-next.8+295.sha-2dd96e0
+ * @license Angular v12.0.0-next.8+296.sha-6581a1b
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -70,6 +70,7 @@ class DominoAdapter extends ɵBrowserDomAdapter {
     isShadowRoot(node) {
         return node.shadowRoot == node;
     }
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
     getGlobalEventTarget(doc, target) {
         if (target === 'window') {
             return doc.defaultView;
@@ -419,6 +420,7 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
     addGlobalEventListener(element, eventName, handler) {
         const target = ɵgetDOM().getGlobalEventTarget(this.doc, element);
         if (!target) {
@@ -996,7 +998,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.0.0-next.8+295.sha-2dd96e0');
+const VERSION = new Version('12.0.0-next.8+296.sha-6581a1b');
 
 /**
  * @license

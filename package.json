@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "12.0.0+34.sha-a20ef16",
+  "version": "12.0.0+37.sha-aa9a86c",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^12.14.1 || ^14.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "12.0.0+34.sha-a20ef16",
-    "@angular/common": "12.0.0+34.sha-a20ef16",
-    "@angular/compiler": "12.0.0+34.sha-a20ef16",
-    "@angular/core": "12.0.0+34.sha-a20ef16",
-    "@angular/platform-browser": "12.0.0+34.sha-a20ef16",
-    "@angular/platform-browser-dynamic": "12.0.0+34.sha-a20ef16"
+    "@angular/animations": "12.0.0+37.sha-aa9a86c",
+    "@angular/common": "12.0.0+37.sha-aa9a86c",
+    "@angular/compiler": "12.0.0+37.sha-aa9a86c",
+    "@angular/core": "12.0.0+37.sha-aa9a86c",
+    "@angular/platform-browser": "12.0.0+37.sha-aa9a86c",
+    "@angular/platform-browser-dynamic": "12.0.0+37.sha-aa9a86c"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -54,9 +54,6 @@
     "./__ivy_ngcc__/esm2015/init/src/init.js",
     "./__ivy_ngcc__/fesm2015/init.js"
   ],
-  "publishConfig": {
-    "registry": "https://wombat-dressing-room.appspot.com"
-  },
   "main": "./bundles/platform-server.umd.js",
   "fesm2015": "./fesm2015/platform-server.js",
   "esm2015": "./esm2015/platform-server.js",

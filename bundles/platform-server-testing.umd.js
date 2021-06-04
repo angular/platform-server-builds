@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.1.0-next.4+41.sha-6929625
+ * @license Angular v12.1.0-next.4+43.sha-71e14a7
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -35,7 +35,8 @@
     }());
     ServerTestingModule.ɵfac = function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); };
     ServerTestingModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: ServerTestingModule });
-    ServerTestingModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule], testing.BrowserDynamicTestingModule] });
+    ServerTestingModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: platformServer.ɵSERVER_RENDER_PROVIDERS, imports: [[animations.NoopAnimationsModule],
+            testing.BrowserDynamicTestingModule] });
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(ServerTestingModule, [{
                 type: i0.NgModule,

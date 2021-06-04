@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.1.0-next.4+41.sha-6929625
+ * @license Angular v12.1.0-next.4+43.sha-71e14a7
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -31,7 +31,8 @@ class ServerTestingModule {
 }
 ServerTestingModule.ɵfac = function ServerTestingModule_Factory(t) { return new (t || ServerTestingModule)(); };
 ServerTestingModule.ɵmod = /*@__PURE__*/ ɵɵdefineNgModule({ type: ServerTestingModule });
-ServerTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
+ServerTestingModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule],
+        BrowserDynamicTestingModule] });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(ServerTestingModule, [{
         type: NgModule,
         args: [{

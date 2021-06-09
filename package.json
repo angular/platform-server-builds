@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "12.1.0-next.4+92.sha-e1a80d4",
+  "version": "12.1.0-next.4+93.sha-3de774e",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^12.14.1 || >=14.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "12.1.0-next.4+92.sha-e1a80d4",
-    "@angular/common": "12.1.0-next.4+92.sha-e1a80d4",
-    "@angular/compiler": "12.1.0-next.4+92.sha-e1a80d4",
-    "@angular/core": "12.1.0-next.4+92.sha-e1a80d4",
-    "@angular/platform-browser": "12.1.0-next.4+92.sha-e1a80d4",
-    "@angular/platform-browser-dynamic": "12.1.0-next.4+92.sha-e1a80d4"
+    "@angular/animations": "12.1.0-next.4+93.sha-3de774e",
+    "@angular/common": "12.1.0-next.4+93.sha-3de774e",
+    "@angular/compiler": "12.1.0-next.4+93.sha-3de774e",
+    "@angular/core": "12.1.0-next.4+93.sha-3de774e",
+    "@angular/platform-browser": "12.1.0-next.4+93.sha-3de774e",
+    "@angular/platform-browser-dynamic": "12.1.0-next.4+93.sha-3de774e"
   },
   "dependencies": {
     "domino": "^2.1.2",

@@ -1,0 +1,10 @@
+{
+  "name": "@angular/platform-server/init",
+  "sideEffects": true,
+  "main": "../bundles/platform-server-init.umd.js",
+  "fesm2015": "../fesm2015/init.js",
+  "esm2015": "../esm2015/init/init.js",
+  "typings": "./init.d.ts",
+  "module": "../fesm2015/init.js",
+  "es2015": "../fesm2015/init.js"
+}

@@ -1,0 +1,16 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { setDomTypes } from '../../src/domino_adapter';
+/**
+ * Apply the necessary shims to make DOM globals (such as `Element`, `HTMLElement`, etc.) available
+ * on the environment.
+ */
+export function applyShims() {
+    setDomTypes();
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2hpbXMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9wbGF0Zm9ybS1zZXJ2ZXIvaW5pdC9zcmMvc2hpbXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBQ0gsT0FBTyxFQUFDLFdBQVcsRUFBQyxNQUFNLDBCQUEwQixDQUFDO0FBRXJEOzs7R0FHRztBQUNILE1BQU0sVUFBVSxVQUFVO0lBQ3hCLFdBQVcsRUFBRSxDQUFDO0FBQ2hCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cbmltcG9ydCB7c2V0RG9tVHlwZXN9IGZyb20gJy4uLy4uL3NyYy9kb21pbm9fYWRhcHRlcic7XG5cbi8qKlxuICogQXBwbHkgdGhlIG5lY2Vzc2FyeSBzaGltcyB0byBtYWtlIERPTSBnbG9iYWxzIChzdWNoIGFzIGBFbGVtZW50YCwgYEhUTUxFbGVtZW50YCwgZXRjLikgYXZhaWxhYmxlXG4gKiBvbiB0aGUgZW52aXJvbm1lbnQuXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBhcHBseVNoaW1zKCk6IHZvaWQge1xuICBzZXREb21UeXBlcygpO1xufVxuIl19

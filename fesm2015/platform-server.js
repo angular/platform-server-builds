@@ -1,5 +1,5 @@
 /**
- * @license Angular v12.1.0-next.6+23.sha-4429188
+ * @license Angular v12.1.0-next.6+25.sha-d77f560
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -804,8 +804,7 @@ ServerModule.ɵinj = /*@__PURE__*/ ɵɵdefineInjector({ providers: [
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: ViewportScroller, useClass: ɵNullViewportScroller },
-    ], imports: [[HttpClientModule, NoopAnimationsModule],
-        BrowserModule] });
+    ], imports: [[HttpClientModule, NoopAnimationsModule], BrowserModule] });
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && ɵsetClassMetadata(ServerModule, [{
         type: NgModule,
         args: [{
@@ -999,7 +998,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('12.1.0-next.6+23.sha-4429188');
+const VERSION = new Version('12.1.0-next.6+25.sha-d77f560');
 
 /**
  * @license

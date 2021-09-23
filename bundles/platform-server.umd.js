@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.7+10.sha-cc427d1.with-local-changes
+ * @license Angular v13.0.0-next.7+11.sha-ea61ec2.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -362,7 +362,7 @@
     var DominoAdapter = /** @class */ (function (_super) {
         __extends(DominoAdapter, _super);
         function DominoAdapter() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this.supportsDOMEvents = false;
             return _this;
         }
@@ -809,6 +809,7 @@
             this.ngZone = ngZone;
             this.schema = schema;
             this.data = Object.create(null);
+            this.destroyNode = null;
         }
         DefaultServerRenderer2.prototype.destroy = function () { };
         DefaultServerRenderer2.prototype.createElement = function (name, namespace, debugInfo) {
@@ -1292,7 +1293,7 @@
     /**
      * @publicApi
      */
-    var VERSION = new core.Version('13.0.0-next.7+10.sha-cc427d1.with-local-changes');
+    var VERSION = new core.Version('13.0.0-next.7+11.sha-ea61ec2.with-local-changes');
 
     /**
      * @license

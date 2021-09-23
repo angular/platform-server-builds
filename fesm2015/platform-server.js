@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.7+10.sha-cc427d1.with-local-changes
+ * @license Angular v13.0.0-next.7+11.sha-ea61ec2.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -499,6 +499,7 @@ class DefaultServerRenderer2 {
         this.ngZone = ngZone;
         this.schema = schema;
         this.data = Object.create(null);
+        this.destroyNode = null;
     }
     destroy() { }
     createElement(name, namespace, debugInfo) {
@@ -1000,7 +1001,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('13.0.0-next.7+10.sha-cc427d1.with-local-changes');
+const VERSION = new Version('13.0.0-next.7+11.sha-ea61ec2.with-local-changes');
 
 /**
  * @license

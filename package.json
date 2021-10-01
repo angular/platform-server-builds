@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
+  "version": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^12.14.1 || >=14.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
-    "@angular/common": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
-    "@angular/compiler": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
-    "@angular/core": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
-    "@angular/platform-browser": "13.0.0-next.9+10.sha-9eba260.with-local-changes",
-    "@angular/platform-browser-dynamic": "13.0.0-next.9+10.sha-9eba260.with-local-changes"
+    "@angular/animations": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
+    "@angular/common": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
+    "@angular/compiler": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
+    "@angular/core": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
+    "@angular/platform-browser": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes",
+    "@angular/platform-browser-dynamic": "13.0.0-next.9+84.sha-c15b8c7.with-local-changes"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -46,18 +46,38 @@
     ]
   },
   "sideEffects": [
-    "./bundles/platform-server-init.umd.js",
-    "./bundles/platform-server-init.umd.min.js",
-    "./esm2015/init/src/init.js",
-    "./fesm2015/init.js",
-    "./__ivy_ngcc__/bundles/platform-server-init.umd.js",
-    "./__ivy_ngcc__/esm2015/init/src/init.js",
-    "./__ivy_ngcc__/fesm2015/init.js"
+    "./esm2020/init/src/init.mjs",
+    "./fesm2015/init.mjs",
+    "./fesm2020/init.mjs"
   ],
-  "main": "./bundles/platform-server.umd.js",
-  "fesm2015": "./fesm2015/platform-server.js",
-  "esm2015": "./esm2015/platform-server.js",
+  "fesm2020": "./fesm2020/platform-server.mjs",
+  "fesm2015": "./fesm2015/platform-server.mjs",
+  "esm2020": "./esm2020/platform-server.mjs",
   "typings": "./platform-server.d.ts",
-  "module": "./fesm2015/platform-server.js",
-  "es2015": "./fesm2015/platform-server.js"
+  "module": "./fesm2015/platform-server.mjs",
+  "es2020": "./fesm2020/platform-server.mjs",
+  "type": "module",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./platform-server.d.ts",
+      "es2015": "./fesm2015/platform-server.mjs",
+      "node": "./fesm2015/platform-server.mjs",
+      "default": "./fesm2020/platform-server.mjs"
+    },
+    "./init": {
+      "types": "./init/init.d.ts",
+      "es2015": "./fesm2015/init.mjs",
+      "node": "./fesm2015/init.mjs",
+      "default": "./fesm2020/init.mjs"
+    },
+    "./testing": {
+      "types": "./testing/testing.d.ts",
+      "es2015": "./fesm2015/testing.mjs",
+      "node": "./fesm2015/testing.mjs",
+      "default": "./fesm2020/testing.mjs"
+    }
+  }
 }

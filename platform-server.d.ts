@@ -1,31 +1,25 @@
 /**
- * @license Angular v13.0.0-next.9+10.sha-9eba260.with-local-changes
+ * @license Angular v13.0.0-next.9+84.sha-c15b8c7.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { EventManager } from '@angular/platform-browser';
-import { HttpBackend } from '@angular/common/http';
-import { HttpEvent } from '@angular/common/http';
-import { HttpRequest } from '@angular/common/http';
+import * as i0 from '@angular/core';
+import * as i1 from '@angular/common/http';
+import * as i2 from '@angular/platform-browser/animations';
+import * as i3 from '@angular/platform-browser';
 import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
 import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PlatformLocation } from '@angular/common';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { RendererFactory2 } from '@angular/core';
 import { RendererType2 } from '@angular/core';
 import { StaticProvider } from '@angular/core';
-import { TransferState } from '@angular/platform-browser';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { XhrFactory } from '@angular/common';
-import { ɵAnimationEngine } from '@angular/animations/browser';
-import { ɵAnimationRendererFactory } from '@angular/platform-browser/animations';
 import { ɵSharedStylesHost } from '@angular/platform-browser';
 
 /**
@@ -89,7 +83,6 @@ export declare const platformDynamicServer: (extraProviders?: StaticProvider[] |
  */
 export declare const platformServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
 
-
 /**
  * Representation of the current platform state.
  *
@@ -106,6 +99,8 @@ export declare class PlatformState {
      * Returns the current DOM state.
      */
     getDocument(): any;
+    static ɵfac: i0.ɵɵFactoryDeclaration<PlatformState, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<PlatformState>;
 }
 
 /**
@@ -149,6 +144,9 @@ export declare function renderModuleFactory<T>(moduleFactory: NgModuleFactory<T>
  * @publicApi
  */
 export declare class ServerModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<ServerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<ServerModule>;
 }
 
 /**
@@ -158,59 +156,15 @@ export declare class ServerModule {
  * @publicApi
  */
 export declare class ServerTransferStateModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<ServerTransferStateModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerTransferStateModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<ServerTransferStateModule>;
 }
 
 /**
  * @publicApi
  */
 export declare const VERSION: Version;
-
-declare class ZoneClientBackend extends ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
-    private backend;
-    private platformLocation;
-    private config;
-    constructor(backend: HttpBackend, platformLocation: PlatformLocation, config: PlatformConfig);
-    handle(request: HttpRequest<any>): Observable<HttpEvent<any>>;
-    protected delegate(request: HttpRequest<any>): Observable<HttpEvent<any>>;
-}
-
-declare abstract class ZoneMacroTaskWrapper<S, R> {
-    wrap(request: S): Observable<R>;
-    protected abstract delegate(request: S): Observable<R>;
-}
-
-export declare function ɵangular_packages_platform_server_platform_server_a(renderer: RendererFactory2, engine: ɵAnimationEngine, zone: NgZone): ɵAnimationRendererFactory;
-
-export declare function ɵangular_packages_platform_server_platform_server_b(doc: Document, appId: string, transferStore: TransferState): () => void;
-
-export declare class ɵangular_packages_platform_server_platform_server_c extends ɵSharedStylesHost {
-    private doc;
-    private transitionId;
-    private head;
-    private _styleNodes;
-    constructor(doc: any, transitionId: string);
-    private _addStyle;
-    onStylesAdded(additions: Set<string>): void;
-    ngOnDestroy(): void;
-}
-
-
-export declare class ɵangular_packages_platform_server_platform_server_d {
-    private doc;
-    constructor(doc: any);
-    supports(eventName: string): boolean;
-    addEventListener(element: HTMLElement, eventName: string, handler: Function): Function;
-    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
-    addGlobalEventListener(element: string, eventName: string, handler: Function): Function;
-}
-
-export declare class ɵangular_packages_platform_server_platform_server_e implements XhrFactory {
-    build(): XMLHttpRequest;
-}
-
-export declare function ɵangular_packages_platform_server_platform_server_f(backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation, config: PlatformConfig): ZoneClientBackend;
-
-export declare const ɵangular_packages_platform_server_platform_server_g: Provider[];
 
 export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 
@@ -228,6 +182,8 @@ export declare class ɵServerRendererFactory2 implements RendererFactory2 {
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ɵServerRendererFactory2, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ɵServerRendererFactory2>;
 }
 
 export { }

@@ -1,0 +1,10 @@
+{
+  "name": "@angular/platform-server/init",
+  "sideEffects": true,
+  "fesm2020": "../fesm2020/init.mjs",
+  "fesm2015": "../fesm2015/init.mjs",
+  "esm2020": "../esm2020/init/init.mjs",
+  "typings": "./init.d.ts",
+  "module": "../fesm2015/init.mjs",
+  "es2020": "../fesm2020/init.mjs"
+}

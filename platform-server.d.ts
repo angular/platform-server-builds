@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.0.0-next.15+2.sha-06a87c4.with-local-changes
+ * @license Angular v13.0.0-next.15+8.sha-a64adab.with-local-changes
  * (c) 2010-2021 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -110,11 +110,6 @@ export declare class PlatformState {
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
- * If compiling with the ViewEngine renderer, do not use this in a production server environment.
- * Use pre-compiled {@link NgModuleFactory} with {@link renderModuleFactory} instead. If
- * compiling with the Ivy renderer, this method is the recommended rendering method for
- * platform-server.
- *
  * @publicApi
  */
 export declare function renderModule<T>(module: Type<T>, options: {
@@ -131,6 +126,10 @@ export declare function renderModule<T>(module: Type<T>, options: {
  * `extraProviders` are the platform level providers for the current render request.
  *
  * @publicApi
+ *
+ * @deprecated
+ * This symbol is no longer necessary as of Angular v13.
+ * Use {@link renderModule} API instead.
  */
 export declare function renderModuleFactory<T>(moduleFactory: NgModuleFactory<T>, options: {
     document?: string;

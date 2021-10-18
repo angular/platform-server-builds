@@ -50,9 +50,9 @@ export class ServerRendererFactory2 {
     begin() { }
     end() { }
 }
-ServerRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.0+16.sha-ee2678c.with-local-changes", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.0+16.sha-ee2678c.with-local-changes", ngImport: i0, type: ServerRendererFactory2 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.0+16.sha-ee2678c.with-local-changes", ngImport: i0, type: ServerRendererFactory2, decorators: [{
+ServerRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.0+20.sha-db57e39.with-local-changes", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.0+20.sha-db57e39.with-local-changes", ngImport: i0, type: ServerRendererFactory2 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.0+20.sha-db57e39.with-local-changes", ngImport: i0, type: ServerRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
                     type: Inject,

@@ -27,9 +27,9 @@ export function serializeTransferStateFactory(doc, appId, transferStore) {
  */
 export class ServerTransferStateModule {
 }
-ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.14+121.sha-58beafb.with-local-changes", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.14+121.sha-58beafb.with-local-changes", ngImport: i0, type: ServerTransferStateModule });
-ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.14+121.sha-58beafb.with-local-changes", ngImport: i0, type: ServerTransferStateModule, providers: [
+ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.14+122.sha-143bb9f.with-local-changes", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.14+122.sha-143bb9f.with-local-changes", ngImport: i0, type: ServerTransferStateModule });
+ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.14+122.sha-143bb9f.with-local-changes", ngImport: i0, type: ServerTransferStateModule, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
             useFactory: serializeTransferStateFactory,
@@ -37,7 +37,7 @@ ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0
             multi: true,
         }
     ] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.14+121.sha-58beafb.with-local-changes", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.14+122.sha-143bb9f.with-local-changes", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [

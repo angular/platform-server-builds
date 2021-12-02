@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "13.0.3+1.sha-0789401.with-local-changes",
+  "version": "13.0.3+3.sha-5624dc6.with-local-changes",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^12.20.0 || ^14.15.0 || >=16.10.0"
   },
   "peerDependencies": {
-    "@angular/animations": "13.0.3+1.sha-0789401.with-local-changes",
-    "@angular/common": "13.0.3+1.sha-0789401.with-local-changes",
-    "@angular/compiler": "13.0.3+1.sha-0789401.with-local-changes",
-    "@angular/core": "13.0.3+1.sha-0789401.with-local-changes",
-    "@angular/platform-browser": "13.0.3+1.sha-0789401.with-local-changes",
-    "@angular/platform-browser-dynamic": "13.0.3+1.sha-0789401.with-local-changes"
+    "@angular/animations": "13.0.3+3.sha-5624dc6.with-local-changes",
+    "@angular/common": "13.0.3+3.sha-5624dc6.with-local-changes",
+    "@angular/compiler": "13.0.3+3.sha-5624dc6.with-local-changes",
+    "@angular/core": "13.0.3+3.sha-5624dc6.with-local-changes",
+    "@angular/platform-browser": "13.0.3+3.sha-5624dc6.with-local-changes",
+    "@angular/platform-browser-dynamic": "13.0.3+3.sha-5624dc6.with-local-changes"
   },
   "dependencies": {
     "domino": "^2.1.2",

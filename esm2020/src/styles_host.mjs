@@ -35,9 +35,9 @@ export class ServerStylesHost extends SharedStylesHost {
         this._styleNodes.forEach(styleNode => styleNode.remove());
     }
 }
-ServerStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2+21.sha-1f6249d.with-local-changes", ngImport: i0, type: ServerStylesHost, deps: [{ token: DOCUMENT }, { token: ɵTRANSITION_ID, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.2+21.sha-1f6249d.with-local-changes", ngImport: i0, type: ServerStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2+21.sha-1f6249d.with-local-changes", ngImport: i0, type: ServerStylesHost, decorators: [{
+ServerStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2+23.sha-ece530f.with-local-changes", ngImport: i0, type: ServerStylesHost, deps: [{ token: DOCUMENT }, { token: ɵTRANSITION_ID, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.2+23.sha-ece530f.with-local-changes", ngImport: i0, type: ServerStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2+23.sha-ece530f.with-local-changes", ngImport: i0, type: ServerStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,

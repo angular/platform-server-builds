@@ -62,15 +62,15 @@ export const SERVER_RENDER_PROVIDERS = [
  */
 export class ServerModule {
 }
-ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.3+29.sha-02d3d65.with-local-changes", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.3+29.sha-02d3d65.with-local-changes", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
-ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.3+29.sha-02d3d65.with-local-changes", ngImport: i0, type: ServerModule, providers: [
+ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.3+30.sha-9cd3583.with-local-changes", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.1.3+30.sha-9cd3583.with-local-changes", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.1.3+30.sha-9cd3583.with-local-changes", ngImport: i0, type: ServerModule, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: ViewportScroller, useClass: NullViewportScroller },
     ], imports: [[HttpClientModule, NoopAnimationsModule], BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.3+29.sha-02d3d65.with-local-changes", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.3+30.sha-9cd3583.with-local-changes", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],

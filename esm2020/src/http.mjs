@@ -19,9 +19,9 @@ export class ServerXhr {
         return new xhr2.XMLHttpRequest();
     }
 }
-ServerXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.1+21.sha-cd97d87.with-local-changes", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-ServerXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.1+21.sha-cd97d87.with-local-changes", ngImport: i0, type: ServerXhr });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.1+21.sha-cd97d87.with-local-changes", ngImport: i0, type: ServerXhr, decorators: [{
+ServerXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.1+23.sha-604a67f.with-local-changes", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+ServerXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.1+23.sha-604a67f.with-local-changes", ngImport: i0, type: ServerXhr });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.1+23.sha-604a67f.with-local-changes", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 export class ZoneMacroTaskWrapper {

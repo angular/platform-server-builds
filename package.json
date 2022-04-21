@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "14.0.0-next.14+9.sha-3dee3d1",
+  "version": "14.0.0-next.14+16.sha-612d6e0",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^14.15.0 || >=16.10.0"
   },
   "peerDependencies": {
-    "@angular/animations": "14.0.0-next.14+9.sha-3dee3d1",
-    "@angular/common": "14.0.0-next.14+9.sha-3dee3d1",
-    "@angular/compiler": "14.0.0-next.14+9.sha-3dee3d1",
-    "@angular/core": "14.0.0-next.14+9.sha-3dee3d1",
-    "@angular/platform-browser": "14.0.0-next.14+9.sha-3dee3d1",
-    "@angular/platform-browser-dynamic": "14.0.0-next.14+9.sha-3dee3d1"
+    "@angular/animations": "14.0.0-next.14+16.sha-612d6e0",
+    "@angular/common": "14.0.0-next.14+16.sha-612d6e0",
+    "@angular/compiler": "14.0.0-next.14+16.sha-612d6e0",
+    "@angular/core": "14.0.0-next.14+16.sha-612d6e0",
+    "@angular/platform-browser": "14.0.0-next.14+16.sha-612d6e0",
+    "@angular/platform-browser-dynamic": "14.0.0-next.14+16.sha-612d6e0"
   },
   "dependencies": {
     "domino": "^2.1.2",
@@ -46,14 +46,14 @@
     ]
   },
   "sideEffects": [
-    "./esm2020/init/src/init.mjs",
+    "./esm2020/init/**",
     "./fesm2015/init.mjs",
     "./fesm2020/init.mjs"
   ],
   "fesm2020": "./fesm2020/platform-server.mjs",
   "fesm2015": "./fesm2015/platform-server.mjs",
   "esm2020": "./esm2020/platform-server.mjs",
-  "typings": "./platform-server.d.ts",
+  "typings": "./index.d.ts",
   "module": "./fesm2015/platform-server.mjs",
   "es2020": "./fesm2020/platform-server.mjs",
   "type": "module",
@@ -62,7 +62,7 @@
       "default": "./package.json"
     },
     ".": {
-      "types": "./platform-server.d.ts",
+      "types": "./index.d.ts",
       "esm2020": "./esm2020/platform-server.mjs",
       "es2020": "./fesm2020/platform-server.mjs",
       "es2015": "./fesm2015/platform-server.mjs",
@@ -70,7 +70,7 @@
       "default": "./fesm2020/platform-server.mjs"
     },
     "./init": {
-      "types": "./init/init.d.ts",
+      "types": "./init/index.d.ts",
       "esm2020": "./esm2020/init/init.mjs",
       "es2020": "./fesm2020/init.mjs",
       "es2015": "./fesm2015/init.mjs",
@@ -78,7 +78,7 @@
       "default": "./fesm2020/init.mjs"
     },
     "./testing": {
-      "types": "./testing/testing.d.ts",
+      "types": "./testing/index.d.ts",
       "esm2020": "./esm2020/testing/testing.mjs",
       "es2020": "./fesm2020/testing.mjs",
       "es2015": "./fesm2015/testing.mjs",

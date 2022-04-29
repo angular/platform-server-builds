@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.0-next.15+sha-e1454ae
+ * @license Angular v14.0.0-next.15+sha-dff5586
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -24,8 +24,8 @@ import { Version } from '@angular/core';
 import { ɵSharedStylesHost } from '@angular/platform-browser';
 
 /**
- * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
- * before current platform state is rendered to string.
+ * A function that will be executed when calling `renderApplication`, `renderModuleFactory` or
+ * `renderModule` just before current platform state is rendered to string.
  *
  * @publicApi
  */
@@ -103,6 +103,42 @@ export declare class PlatformState {
     static ɵfac: i0.ɵɵFactoryDeclaration<PlatformState, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<PlatformState>;
 }
+
+/**
+ * Bootstraps an instance of an Angular application and renders it to a string.
+ *
+ * Note: the root component passed into this function *must* be a standalone one (should have the
+ * `standalone: true` flag in the `@Component` decorator config).
+ *
+ * ```typescript
+ * @Component({
+ *   standalone: true,
+ *   template: 'Hello world!'
+ * })
+ * class RootComponent {}
+ *
+ * const output: string = await renderApplication(RootComponent, 'server-app');
+ * ```
+ *
+ * @param rootComponent A reference to a Standalone Component that should be rendered.
+ * @param appId A string identifier for the application. The id is used to prefix all
+ *              server-generated stylings and state keys of the application in TransferState use
+ * cases.
+ * @param options Additional configuration for the render operation:
+ *  - `document` - the full document HTML of the page to render, as a string.
+ *  - `url` - the URL for the current render request.
+ *  - `providers` - set of application level providers for the current render request.
+ *  - `platformProviders` - the platform level providers for the current render request.
+ * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
+ *
+ * @publicApi
+ */
+export declare function renderApplication<T>(rootComponent: Type<T>, appId: string, options: {
+    document?: string;
+    url?: string;
+    providers?: Provider[];
+    platformProviders?: Provider[];
+}): Promise<string>;
 
 /**
  * Renders a Module to string.

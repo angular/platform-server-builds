@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.0-next.15+sha-a521571
+ * @license Angular v14.0.0-next.15+sha-d322052
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -10,6 +10,7 @@ import * as i0 from '@angular/core';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser/animations';
 import * as i3 from '@angular/platform-browser';
+import { ImportedNgModuleProviders } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
@@ -137,7 +138,7 @@ export declare function renderApplication<T>(rootComponent: Type<T>, options: {
     appId: string;
     document?: string;
     url?: string;
-    providers?: Provider[];
+    providers?: Array<Provider | ImportedNgModuleProviders>;
     platformProviders?: Provider[];
 }): Promise<string>;
 

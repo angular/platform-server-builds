@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.0-next.15+sha-752ddbc
+ * @license Angular v14.0.0-next.15+sha-22c71be
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -117,14 +117,14 @@ export declare class PlatformState {
  * })
  * class RootComponent {}
  *
- * const output: string = await renderApplication(RootComponent, 'server-app');
+ * const output: string = await renderApplication(RootComponent, {appId: 'server-app'});
  * ```
  *
  * @param rootComponent A reference to a Standalone Component that should be rendered.
- * @param appId A string identifier for the application. The id is used to prefix all
- *              server-generated stylings and state keys of the application in TransferState use
- * cases.
  * @param options Additional configuration for the render operation:
+ *  - `appId` - a string identifier of this application. The appId is used to prefix all
+ *              server-generated stylings and state keys of the application in TransferState
+ *              use-cases.
  *  - `document` - the full document HTML of the page to render, as a string.
  *  - `url` - the URL for the current render request.
  *  - `providers` - set of application level providers for the current render request.
@@ -133,7 +133,8 @@ export declare class PlatformState {
  *
  * @publicApi
  */
-export declare function renderApplication<T>(rootComponent: Type<T>, appId: string, options: {
+export declare function renderApplication<T>(rootComponent: Type<T>, options: {
+    appId: string;
     document?: string;
     url?: string;
     providers?: Provider[];

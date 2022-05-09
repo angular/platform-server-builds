@@ -1,5 +1,5 @@
 /**
- * @license Angular v13.3.6+12.sha-5056cfe
+ * @license Angular v13.3.6+17.sha-40b3cf4
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -30,10 +30,10 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  */
 class ServerTestingModule {
 }
-ServerTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.6+12.sha-5056cfe", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.6+12.sha-5056cfe", ngImport: i0, type: ServerTestingModule, imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
-ServerTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.6+12.sha-5056cfe", ngImport: i0, type: ServerTestingModule, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.6+12.sha-5056cfe", ngImport: i0, type: ServerTestingModule, decorators: [{
+ServerTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.6+17.sha-40b3cf4", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.6+17.sha-40b3cf4", ngImport: i0, type: ServerTestingModule, imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] });
+ServerTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.6+17.sha-40b3cf4", ngImport: i0, type: ServerTestingModule, providers: ɵSERVER_RENDER_PROVIDERS, imports: [[NoopAnimationsModule], BrowserDynamicTestingModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.6+17.sha-40b3cf4", ngImport: i0, type: ServerTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserDynamicTestingModule],

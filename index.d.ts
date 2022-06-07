@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0-next.0+sha-7b9569d
+ * @license Angular v14.1.0-next.0+sha-7173711
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -133,6 +133,7 @@ export declare class PlatformState {
  * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
  *
  * @publicApi
+ * @developerPreview
  */
 export declare function renderApplication<T>(rootComponent: Type<T>, options: {
     appId: string;

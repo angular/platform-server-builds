@@ -59,16 +59,16 @@ export const SERVER_RENDER_PROVIDERS = [
  */
 export class ServerModule {
 }
-ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-485c6a7", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.0+sha-485c6a7", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
-ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-485c6a7", ngImport: i0, type: ServerModule, providers: [
+ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-2b93a74", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.1.0-next.0+sha-2b93a74", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-2b93a74", ngImport: i0, type: ServerModule, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: TESTABILITY, useValue: null },
         { provide: ViewportScroller, useClass: NullViewportScroller },
     ], imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-485c6a7", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.1.0-next.0+sha-2b93a74", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],

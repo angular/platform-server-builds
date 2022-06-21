@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.0.2+sha-8fac299
+ * @license Angular v14.0.2+sha-6ad7b40
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -137,9 +137,9 @@ class PlatformState {
         return this._doc;
     }
 }
-PlatformState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-PlatformState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: PlatformState });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: PlatformState, decorators: [{
+PlatformState.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+PlatformState.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: PlatformState });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -183,9 +183,9 @@ class ServerXhr {
         return new xhr2.XMLHttpRequest();
     }
 }
-ServerXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-ServerXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerXhr });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerXhr, decorators: [{
+ServerXhr.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+ServerXhr.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerXhr });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 class ZoneMacroTaskWrapper {
@@ -389,9 +389,9 @@ class ServerPlatformLocation {
         return undefined;
     }
 }
-ServerPlatformLocation.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerPlatformLocation.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerPlatformLocation });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+ServerPlatformLocation.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerPlatformLocation.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerPlatformLocation });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -435,9 +435,9 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
         return this.addEventListener(target, eventName, handler);
     }
 }
-ServerEventManagerPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerEventManagerPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
+ServerEventManagerPlugin.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerEventManagerPlugin.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -492,9 +492,9 @@ class ServerRendererFactory2 {
     begin() { }
     end() { }
 }
-ServerRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerRendererFactory2 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerRendererFactory2, decorators: [{
+ServerRendererFactory2.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerRendererFactory2.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerRendererFactory2 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: undefined, decorators: [{
@@ -587,11 +587,12 @@ class DefaultServerRenderer2 {
     }
     setStyle(el, style, value, flags) {
         style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        value = value == null ? '' : `${value}`.trim();
         const styleMap = _readStyleAttribute(el);
         if (flags & RendererStyleFlags2.Important) {
             value += ' !important';
         }
-        styleMap[style] = value == null ? '' : value;
+        styleMap[style] = value;
         _writeStyleAttribute(el, styleMap);
     }
     removeStyle(el, style, flags) {
@@ -704,14 +705,22 @@ function _readStyleAttribute(element) {
     return styleMap;
 }
 function _writeStyleAttribute(element, styleMap) {
+    // We have to construct the `style` attribute ourselves, instead of going through
+    // `element.style.setProperty` like the other renderers, because `setProperty` won't
+    // write newer CSS properties that Domino doesn't know about like `clip-path`.
     let styleAttrValue = '';
     for (const key in styleMap) {
         const newValue = styleMap[key];
-        if (newValue != null) {
-            styleAttrValue += key + ':' + styleMap[key] + ';';
+        if (newValue != null && newValue !== '') {
+            styleAttrValue += key + ':' + newValue + ';';
         }
     }
-    element.setAttribute('style', styleAttrValue);
+    if (styleAttrValue) {
+        element.setAttribute('style', styleAttrValue);
+    }
+    else {
+        element.removeAttribute('style');
+    }
 }
 
 /**
@@ -747,9 +756,9 @@ class ServerStylesHost extends ɵSharedStylesHost {
         this._styleNodes.forEach(styleNode => styleNode.remove());
     }
 }
-ServerStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerStylesHost, deps: [{ token: DOCUMENT }, { token: ɵTRANSITION_ID, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-ServerStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerStylesHost });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerStylesHost, decorators: [{
+ServerStylesHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerStylesHost, deps: [{ token: DOCUMENT }, { token: ɵTRANSITION_ID, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+ServerStylesHost.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerStylesHost });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerStylesHost, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -808,16 +817,16 @@ const SERVER_RENDER_PROVIDERS = [
  */
 class ServerModule {
 }
-ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
-ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerModule, providers: [
+ServerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] });
+ServerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerModule, providers: [
         SERVER_RENDER_PROVIDERS,
         SERVER_HTTP_PROVIDERS,
         { provide: Testability, useValue: null },
         { provide: ɵTESTABILITY, useValue: null },
         { provide: ViewportScroller, useClass: ɵNullViewportScroller },
     ], imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -874,9 +883,9 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  */
 class ServerTransferStateModule {
 }
-ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerTransferStateModule });
-ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerTransferStateModule, providers: [
+ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerTransferStateModule });
+ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerTransferStateModule, providers: [
         TransferState, {
             provide: BEFORE_APP_SERIALIZED,
             useFactory: serializeTransferStateFactory,
@@ -884,7 +893,7 @@ ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0
             multi: true,
         }
     ] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-8fac299", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.2+sha-6ad7b40", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [
@@ -1056,7 +1065,7 @@ function renderModuleFactory(moduleFactory, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('14.0.2+sha-8fac299');
+const VERSION = new Version('14.0.2+sha-6ad7b40');
 
 /**
  * @license

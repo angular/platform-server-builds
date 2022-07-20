@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.1.0+sha-793326d
+ * @license Angular v14.1.0+sha-a8e9247
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -191,6 +191,9 @@ export declare class ServerModule {
 /**
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
+ *
+ * Note: this module is not needed if the `renderApplication` function is used.
+ * The `renderApplication` makes all providers from this module available in the application.
  *
  * @publicApi
  */

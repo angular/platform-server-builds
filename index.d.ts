@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.2.0-next.0+sha-65fd757
+ * @license Angular v14.2.0-next.0+sha-37ce31f
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -192,7 +192,12 @@ export declare class ServerModule {
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
  *
+ * Note: this module is not needed if the `renderApplication` function is used.
+ * The `renderApplication` makes all providers from this module available in the application.
+ *
  * @publicApi
+ * @deprecated no longer needed, you can inject the `TransferState` in an app without providing
+ *     this module.
  */
 export declare class ServerTransferStateModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerTransferStateModule, never>;

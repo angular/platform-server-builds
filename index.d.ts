@@ -1,5 +1,5 @@
 /**
- * @license Angular v14.2.0-next.0+sha-de1e280
+ * @license Angular v14.2.0-next.0+sha-2b4d7f6
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -126,7 +126,8 @@ export declare class PlatformState {
  *  - `appId` - a string identifier of this application. The appId is used to prefix all
  *              server-generated stylings and state keys of the application in TransferState
  *              use-cases.
- *  - `document` - the full document HTML of the page to render, as a string.
+ *  - `document` - the document of the page to render, either as an HTML string or
+ *                 as a reference to the `document` instance.
  *  - `url` - the URL for the current render request.
  *  - `providers` - set of application level providers for the current render request.
  *  - `platformProviders` - the platform level providers for the current render request.
@@ -137,7 +138,7 @@ export declare class PlatformState {
  */
 export declare function renderApplication<T>(rootComponent: Type<T>, options: {
     appId: string;
-    document?: string;
+    document?: string | Document;
     url?: string;
     providers?: Array<Provider | ImportedNgModuleProviders>;
     platformProviders?: Provider[];
@@ -146,14 +147,15 @@ export declare function renderApplication<T>(rootComponent: Type<T>, options: {
 /**
  * Renders a Module to string.
  *
- * `document` is the full document HTML of the page to render, as a string.
+ * `document` is the document of the page to render, either as an HTML string or
+ *  as a reference to the `document` instance.
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
  *
  * @publicApi
  */
 export declare function renderModule<T>(module: Type<T>, options: {
-    document?: string;
+    document?: string | Document;
     url?: string;
     extraProviders?: StaticProvider[];
 }): Promise<string>;

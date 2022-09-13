@@ -1,5 +1,5 @@
 /**
- * @license Angular v15.0.0-next.1+sha-ec9ee8e
+ * @license Angular v15.0.0-next.1+sha-6c7cd6b
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -131,6 +131,7 @@ export declare class PlatformState {
  *  - `url` - the URL for the current render request.
  *  - `providers` - set of application level providers for the current render request.
  *  - `platformProviders` - the platform level providers for the current render request.
+ *
  * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
  *
  * @publicApi
@@ -145,27 +146,34 @@ export declare function renderApplication<T>(rootComponent: Type<T>, options: {
 }): Promise<string>;
 
 /**
- * Renders a Module to string.
+ * Bootstraps an application using provided NgModule and serializes the page content to string.
  *
- * `document` is the document of the page to render, either as an HTML string or
- *  as a reference to the `document` instance.
- * `url` is the URL for the current render request.
- * `extraProviders` are the platform level providers for the current render request.
+ * @param moduleType A reference to an NgModule that should be used for bootstrap.
+ * @param options Additional configuration for the render operation:
+ *  - `document` - the document of the page to render, either as an HTML string or
+ *                 as a reference to the `document` instance.
+ *  - `url` - the URL for the current render request.
+ *  - `extraProviders` - set of platform level providers for the current render request.
  *
  * @publicApi
  */
-export declare function renderModule<T>(module: Type<T>, options: {
+export declare function renderModule<T>(moduleType: Type<T>, options: {
     document?: string | Document;
     url?: string;
     extraProviders?: StaticProvider[];
 }): Promise<string>;
 
 /**
- * Renders a {@link NgModuleFactory} to string.
+ * Bootstraps an application using provided {@link NgModuleFactory} and serializes the page content
+ * to string.
  *
- * `document` is the full document HTML of the page to render, as a string.
- * `url` is the URL for the current render request.
- * `extraProviders` are the platform level providers for the current render request.
+ * @param moduleFactory An instance of the {@link NgModuleFactory} that should be used for
+ *     bootstrap.
+ * @param options Additional configuration for the render operation:
+ *  - `document` - the document of the page to render, either as an HTML string or
+ *                 as a reference to the `document` instance.
+ *  - `url` - the URL for the current render request.
+ *  - `extraProviders` - set of platform level providers for the current render request.
  *
  * @publicApi
  *
@@ -213,6 +221,13 @@ export declare class ServerTransferStateModule {
 export declare const VERSION: Version;
 
 export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
+
+/**
+ * An internal token that allows providing extra information about the server context
+ * (e.g. whether SSR or SSG was used). The value is a string and characters other
+ * than [a-zA-Z0-9\-] are removed. See the default value in `DEFAULT_SERVER_CONTEXT` const.
+ */
+export declare const ɵSERVER_CONTEXT: InjectionToken<string>;
 
 export declare const ɵSERVER_RENDER_PROVIDERS: Provider[];
 

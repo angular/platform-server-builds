@@ -1,16 +1,16 @@
 /**
- * @license Angular v15.0.0-next.5+sha-deb4cab
+ * @license Angular v15.0.0-next.5+sha-07017a7
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { EnvironmentProviders } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser/animations';
 import * as i3 from '@angular/platform-browser';
-import { ImportedNgModuleProviders } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
@@ -141,7 +141,7 @@ export declare function renderApplication<T>(rootComponent: Type<T>, options: {
     appId: string;
     document?: string | Document;
     url?: string;
-    providers?: Array<Provider | ImportedNgModuleProviders>;
+    providers?: Array<Provider | EnvironmentProviders>;
     platformProviders?: Provider[];
 }): Promise<string>;
 

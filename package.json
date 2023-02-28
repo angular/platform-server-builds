@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "16.0.0-next.0+sha-75f48fe",
+  "version": "16.0.0-next.0+sha-8869289",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,12 +8,12 @@
     "node": "^14.20.0 || ^16.13.0 || >=18.10.0"
   },
   "peerDependencies": {
-    "@angular/animations": "16.0.0-next.0+sha-75f48fe",
-    "@angular/common": "16.0.0-next.0+sha-75f48fe",
-    "@angular/compiler": "16.0.0-next.0+sha-75f48fe",
-    "@angular/core": "16.0.0-next.0+sha-75f48fe",
-    "@angular/platform-browser": "16.0.0-next.0+sha-75f48fe",
-    "@angular/platform-browser-dynamic": "16.0.0-next.0+sha-75f48fe"
+    "@angular/animations": "16.0.0-next.0+sha-8869289",
+    "@angular/common": "16.0.0-next.0+sha-8869289",
+    "@angular/compiler": "16.0.0-next.0+sha-8869289",
+    "@angular/core": "16.0.0-next.0+sha-8869289",
+    "@angular/platform-browser": "16.0.0-next.0+sha-8869289",
+    "@angular/platform-browser-dynamic": "16.0.0-next.0+sha-8869289"
   },
   "dependencies": {
     "domino": "https://github.com/angular/domino.git#4280d0380df839d97b81e7680877ad5b55500e77",

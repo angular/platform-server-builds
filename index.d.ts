@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.1+sha-030060e
+ * @license Angular v16.0.0-next.1+sha-17abe6d
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -12,7 +12,6 @@ import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser/animations';
 import * as i3 from '@angular/platform-browser';
 import { InjectionToken } from '@angular/core';
-import { NgModuleFactory } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
@@ -25,7 +24,7 @@ import { Version } from '@angular/core';
 import { ɵSharedStylesHost } from '@angular/platform-browser';
 
 /**
- * A function that will be executed when calling `renderApplication`, `renderModuleFactory` or
+ * A function that will be executed when calling `renderApplication` or
  * `renderModule` just before current platform state is rendered to string.
  *
  * @publicApi
@@ -159,30 +158,6 @@ export declare function renderApplication<T>(rootComponent: Type<T>, options: {
  */
 export declare function renderModule<T>(moduleType: Type<T>, options: {
     document?: string | Document;
-    url?: string;
-    extraProviders?: StaticProvider[];
-}): Promise<string>;
-
-/**
- * Bootstraps an application using provided {@link NgModuleFactory} and serializes the page content
- * to string.
- *
- * @param moduleFactory An instance of the {@link NgModuleFactory} that should be used for
- *     bootstrap.
- * @param options Additional configuration for the render operation:
- *  - `document` - the document of the page to render, either as an HTML string or
- *                 as a reference to the `document` instance.
- *  - `url` - the URL for the current render request.
- *  - `extraProviders` - set of platform level providers for the current render request.
- *
- * @publicApi
- *
- * @deprecated
- * This symbol is no longer necessary as of Angular v13.
- * Use {@link renderModule} API instead.
- */
-export declare function renderModuleFactory<T>(moduleFactory: NgModuleFactory<T>, options: {
-    document?: string;
     url?: string;
     extraProviders?: StaticProvider[];
 }): Promise<string>;

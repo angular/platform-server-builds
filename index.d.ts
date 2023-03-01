@@ -1,10 +1,11 @@
 /**
- * @license Angular v16.0.0-next.1+sha-2e568b8
+ * @license Angular v16.0.0-next.1+sha-b5278cc
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 
+import { ApplicationRef } from '@angular/core';
 import { EnvironmentProviders } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import * as i0 from '@angular/core';
@@ -106,9 +107,36 @@ export declare class PlatformState {
 
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.
+
+ * ```typescript
+ * const bootstrap = () => bootstrapApplication(RootComponent, appConfig);
+ * const output: string = await renderApplication(bootstrap);
+ * ```
  *
- * Note: the root component passed into this function *must* be a standalone one (should have the
- * `standalone: true` flag in the `@Component` decorator config).
+ * @param bootstrap A method that when invoked returns a promise that returns an `ApplicationRef`
+ *     instance once resolved.
+ * @param options Additional configuration for the render operation:
+ *  - `document` - the document of the page to render, either as an HTML string or
+ *                 as a reference to the `document` instance.
+ *  - `url` - the URL for the current render request.
+ *  - `platformProviders` - the platform level providers for the current render request.
+ *
+ * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
+ *
+ * @publicApi
+ * @developerPreview
+ */
+export declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, options: {
+    document?: string | Document;
+    url?: string;
+    platformProviders?: Provider[];
+}): Promise<string>;
+
+/**
+ * Bootstraps an instance of an Angular application and renders it to a string.
+ *
+ * Note: the root component passed into this function *must* be a standalone one (should have
+ * the `standalone: true` flag in the `@Component` decorator config).
  *
  * ```typescript
  * @Component({
@@ -137,6 +165,7 @@ export declare class PlatformState {
  * @developerPreview
  */
 export declare function renderApplication<T>(rootComponent: Type<T>, options: {
+    /** @deprecated use `APP_ID` token to set the application ID. */
     appId: string;
     document?: string | Document;
     url?: string;

@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.2+sha-0b71b0a
+ * @license Angular v16.0.0-next.2+sha-86fc4d3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -240,10 +240,11 @@ export declare class ɵServerRendererFactory2 implements RendererFactory2 {
     private ngZone;
     private document;
     private sharedStylesHost;
+    private appId;
     private rendererByCompId;
     private defaultRenderer;
     private schema;
-    constructor(eventManager: EventManager, ngZone: NgZone, document: any, sharedStylesHost: ɵSharedStylesHost);
+    constructor(eventManager: EventManager, ngZone: NgZone, document: Document, sharedStylesHost: ɵSharedStylesHost, appId: string);
     createRenderer(element: any, type: RendererType2 | null): Renderer2;
     begin(): void;
     end(): void;

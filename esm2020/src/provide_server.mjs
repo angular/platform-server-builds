@@ -1,0 +1,34 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { makeEnvironmentProviders } from '@angular/core';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { PLATFORM_SERVER_PROVIDERS } from './server';
+/**
+ * Sets up providers necessary to enable server rendering functionality for the application.
+ *
+ * @usageNotes
+ *
+ * Basic example of how you can add server support to your application:
+ * ```ts
+ * bootstrapApplication(AppComponent, {
+ *   providers: [provideServerSupport()]
+ * });
+ * ```
+ *
+ * @publicApi
+ * @returns A set of providers to setup the server.
+ */
+export function provideServerSupport() {
+    return makeEnvironmentProviders([
+        provideHttpClient(withInterceptorsFromDi()),
+        provideNoopAnimations(),
+        ...PLATFORM_SERVER_PROVIDERS,
+    ]);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJvdmlkZV9zZXJ2ZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9wbGF0Zm9ybS1zZXJ2ZXIvc3JjL3Byb3ZpZGVfc2VydmVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxpQkFBaUIsRUFBRSxzQkFBc0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBQy9FLE9BQU8sRUFBdUIsd0JBQXdCLEVBQUMsTUFBTSxlQUFlLENBQUM7QUFDN0UsT0FBTyxFQUFDLHFCQUFxQixFQUFDLE1BQU0sc0NBQXNDLENBQUM7QUFFM0UsT0FBTyxFQUFDLHlCQUF5QixFQUFDLE1BQU0sVUFBVSxDQUFDO0FBRW5EOzs7Ozs7Ozs7Ozs7OztHQWNHO0FBQ0gsTUFBTSxVQUFVLG9CQUFvQjtJQUNsQyxPQUFPLHdCQUF3QixDQUFDO1FBQzlCLGlCQUFpQixDQUFDLHNCQUFzQixFQUFFLENBQUM7UUFDM0MscUJBQXFCLEVBQUU7UUFDdkIsR0FBRyx5QkFBeUI7S0FDN0IsQ0FBQyxDQUFDO0FBQ0wsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge3Byb3ZpZGVIdHRwQ2xpZW50LCB3aXRoSW50ZXJjZXB0b3JzRnJvbURpfSBmcm9tICdAYW5ndWxhci9jb21tb24vaHR0cCc7XG5pbXBvcnQge0Vudmlyb25tZW50UHJvdmlkZXJzLCBtYWtlRW52aXJvbm1lbnRQcm92aWRlcnN9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHtwcm92aWRlTm9vcEFuaW1hdGlvbnN9IGZyb20gJ0Bhbmd1bGFyL3BsYXRmb3JtLWJyb3dzZXIvYW5pbWF0aW9ucyc7XG5cbmltcG9ydCB7UExBVEZPUk1fU0VSVkVSX1BST1ZJREVSU30gZnJvbSAnLi9zZXJ2ZXInO1xuXG4vKipcbiAqIFNldHMgdXAgcHJvdmlkZXJzIG5lY2Vzc2FyeSB0byBlbmFibGUgc2VydmVyIHJlbmRlcmluZyBmdW5jdGlvbmFsaXR5IGZvciB0aGUgYXBwbGljYXRpb24uXG4gKlxuICogQHVzYWdlTm90ZXNcbiAqXG4gKiBCYXNpYyBleGFtcGxlIG9mIGhvdyB5b3UgY2FuIGFkZCBzZXJ2ZXIgc3VwcG9ydCB0byB5b3VyIGFwcGxpY2F0aW9uOlxuICogYGBgdHNcbiAqIGJvb3RzdHJhcEFwcGxpY2F0aW9uKEFwcENvbXBvbmVudCwge1xuICogICBwcm92aWRlcnM6IFtwcm92aWRlU2VydmVyU3VwcG9ydCgpXVxuICogfSk7XG4gKiBgYGBcbiAqXG4gKiBAcHVibGljQXBpXG4gKiBAcmV0dXJucyBBIHNldCBvZiBwcm92aWRlcnMgdG8gc2V0dXAgdGhlIHNlcnZlci5cbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHByb3ZpZGVTZXJ2ZXJTdXBwb3J0KCk6IEVudmlyb25tZW50UHJvdmlkZXJzIHtcbiAgcmV0dXJuIG1ha2VFbnZpcm9ubWVudFByb3ZpZGVycyhbXG4gICAgcHJvdmlkZUh0dHBDbGllbnQod2l0aEludGVyY2VwdG9yc0Zyb21EaSgpKSxcbiAgICBwcm92aWRlTm9vcEFuaW1hdGlvbnMoKSxcbiAgICAuLi5QTEFURk9STV9TRVJWRVJfUFJPVklERVJTLFxuICBdKTtcbn1cbiJdfQ==

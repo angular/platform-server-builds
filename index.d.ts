@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.3+sha-ff9d3b0
+ * @license Angular v16.0.0-next.3+sha-8ea1fb7
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -146,47 +146,6 @@ export declare function provideServerSupport(): EnvironmentProviders;
 export declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, options: {
     document?: string | Document;
     url?: string;
-    platformProviders?: Provider[];
-}): Promise<string>;
-
-/**
- * Bootstraps an instance of an Angular application and renders it to a string.
- *
- * Note: the root component passed into this function *must* be a standalone one (should have
- * the `standalone: true` flag in the `@Component` decorator config).
- *
- * ```typescript
- * @Component({
- *   standalone: true,
- *   template: 'Hello world!'
- * })
- * class RootComponent {}
- *
- * const output: string = await renderApplication(RootComponent, {appId: 'server-app'});
- * ```
- *
- * @param rootComponent A reference to a Standalone Component that should be rendered.
- * @param options Additional configuration for the render operation:
- *  - `appId` - a string identifier of this application. The appId is used to prefix all
- *              server-generated stylings and state keys of the application in TransferState
- *              use-cases.
- *  - `document` - the document of the page to render, either as an HTML string or
- *                 as a reference to the `document` instance.
- *  - `url` - the URL for the current render request.
- *  - `providers` - set of application level providers for the current render request.
- *  - `platformProviders` - the platform level providers for the current render request.
- *
- * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
- *
- * @publicApi
- * @developerPreview
- */
-export declare function renderApplication<T>(rootComponent: Type<T>, options: {
-    /** @deprecated use `APP_ID` token to set the application ID. */
-    appId: string;
-    document?: string | Document;
-    url?: string;
-    providers?: Array<Provider | EnvironmentProviders>;
     platformProviders?: Provider[];
 }): Promise<string>;
 

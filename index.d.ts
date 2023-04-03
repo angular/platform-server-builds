@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-de6dc5f
+ * @license Angular v16.0.0-next.6+sha-a5f1737
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -121,14 +121,14 @@ export declare class PlatformState {
  * Basic example of how you can add server support to your application:
  * ```ts
  * bootstrapApplication(AppComponent, {
- *   providers: [provideServerSupport()]
+ *   providers: [provideServerRendering()]
  * });
  * ```
  *
  * @publicApi
  * @returns A set of providers to setup the server.
  */
-export declare function provideServerSupport(): EnvironmentProviders;
+export declare function provideServerRendering(): EnvironmentProviders;
 
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.

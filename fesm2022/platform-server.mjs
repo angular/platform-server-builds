@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-b35fa73
+ * @license Angular v16.0.0-next.6+sha-b203e4c
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -4869,7 +4869,29 @@ var require_CSSStyleDeclaration = __commonJS({
   "external/npm/node_modules/domino/lib/CSSStyleDeclaration.js"(exports, module) {
     "use strict";
     var { parse } = require_style_parser();
-    module.exports = CSSStyleDeclaration;
+    module.exports = function(elt) {
+      const style = new CSSStyleDeclaration(elt);
+      const handler = {
+        get: function(target, property) {
+          return property in target ? target[property] : target.getPropertyValue(dasherizeProperty(property));
+        },
+        has: function(target, key) {
+          return true;
+        },
+        set: function(target, property, value) {
+          if (property in target) {
+            target[property] = value;
+          } else {
+            target.setProperty(dasherizeProperty(property), value != null ? value : void 0);
+          }
+          return true;
+        }
+      };
+      return new Proxy(style, handler);
+    };
+    function dasherizeProperty(property) {
+      return property.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+    }
     function CSSStyleDeclaration(elt) {
       this._element = elt;
     }
@@ -5018,396 +5040,6 @@ var require_CSSStyleDeclaration = __commonJS({
         }
       } }
     });
-    var cssProperties = {
-      alignContent: "align-content",
-      alignItems: "align-items",
-      alignmentBaseline: "alignment-baseline",
-      alignSelf: "align-self",
-      animation: "animation",
-      animationDelay: "animation-delay",
-      animationDirection: "animation-direction",
-      animationDuration: "animation-duration",
-      animationFillMode: "animation-fill-mode",
-      animationIterationCount: "animation-iteration-count",
-      animationName: "animation-name",
-      animationPlayState: "animation-play-state",
-      animationTimingFunction: "animation-timing-function",
-      backfaceVisibility: "backface-visibility",
-      background: "background",
-      backgroundAttachment: "background-attachment",
-      backgroundClip: "background-clip",
-      backgroundColor: "background-color",
-      backgroundImage: "background-image",
-      backgroundOrigin: "background-origin",
-      backgroundPosition: "background-position",
-      backgroundPositionX: "background-position-x",
-      backgroundPositionY: "background-position-y",
-      backgroundRepeat: "background-repeat",
-      backgroundSize: "background-size",
-      baselineShift: "baseline-shift",
-      border: "border",
-      borderBottom: "border-bottom",
-      borderBottomColor: "border-bottom-color",
-      borderBottomLeftRadius: "border-bottom-left-radius",
-      borderBottomRightRadius: "border-bottom-right-radius",
-      borderBottomStyle: "border-bottom-style",
-      borderBottomWidth: "border-bottom-width",
-      borderCollapse: "border-collapse",
-      borderColor: "border-color",
-      borderImage: "border-image",
-      borderImageOutset: "border-image-outset",
-      borderImageRepeat: "border-image-repeat",
-      borderImageSlice: "border-image-slice",
-      borderImageSource: "border-image-source",
-      borderImageWidth: "border-image-width",
-      borderLeft: "border-left",
-      borderLeftColor: "border-left-color",
-      borderLeftStyle: "border-left-style",
-      borderLeftWidth: "border-left-width",
-      borderRadius: "border-radius",
-      borderRight: "border-right",
-      borderRightColor: "border-right-color",
-      borderRightStyle: "border-right-style",
-      borderRightWidth: "border-right-width",
-      borderSpacing: "border-spacing",
-      borderStyle: "border-style",
-      borderTop: "border-top",
-      borderTopColor: "border-top-color",
-      borderTopLeftRadius: "border-top-left-radius",
-      borderTopRightRadius: "border-top-right-radius",
-      borderTopStyle: "border-top-style",
-      borderTopWidth: "border-top-width",
-      borderWidth: "border-width",
-      bottom: "bottom",
-      boxShadow: "box-shadow",
-      boxSizing: "box-sizing",
-      breakAfter: "break-after",
-      breakBefore: "break-before",
-      breakInside: "break-inside",
-      captionSide: "caption-side",
-      clear: "clear",
-      clip: "clip",
-      clipPath: "clip-path",
-      clipRule: "clip-rule",
-      color: "color",
-      colorInterpolationFilters: "color-interpolation-filters",
-      columnCount: "column-count",
-      columnFill: "column-fill",
-      columnGap: "column-gap",
-      columnRule: "column-rule",
-      columnRuleColor: "column-rule-color",
-      columnRuleStyle: "column-rule-style",
-      columnRuleWidth: "column-rule-width",
-      columns: "columns",
-      columnSpan: "column-span",
-      columnWidth: "column-width",
-      content: "content",
-      counterIncrement: "counter-increment",
-      counterReset: "counter-reset",
-      cssFloat: "float",
-      cursor: "cursor",
-      direction: "direction",
-      display: "display",
-      dominantBaseline: "dominant-baseline",
-      emptyCells: "empty-cells",
-      enableBackground: "enable-background",
-      fill: "fill",
-      fillOpacity: "fill-opacity",
-      fillRule: "fill-rule",
-      filter: "filter",
-      flex: "flex",
-      flexBasis: "flex-basis",
-      flexDirection: "flex-direction",
-      flexFlow: "flex-flow",
-      flexGrow: "flex-grow",
-      flexShrink: "flex-shrink",
-      flexWrap: "flex-wrap",
-      floodColor: "flood-color",
-      floodOpacity: "flood-opacity",
-      font: "font",
-      fontFamily: "font-family",
-      fontFeatureSettings: "font-feature-settings",
-      fontSize: "font-size",
-      fontSizeAdjust: "font-size-adjust",
-      fontStretch: "font-stretch",
-      fontStyle: "font-style",
-      fontVariant: "font-variant",
-      fontWeight: "font-weight",
-      glyphOrientationHorizontal: "glyph-orientation-horizontal",
-      glyphOrientationVertical: "glyph-orientation-vertical",
-      grid: "grid",
-      gridArea: "grid-area",
-      gridAutoColumns: "grid-auto-columns",
-      gridAutoFlow: "grid-auto-flow",
-      gridAutoRows: "grid-auto-rows",
-      gridColumn: "grid-column",
-      gridColumnEnd: "grid-column-end",
-      gridColumnGap: "grid-column-gap",
-      gridColumnStart: "grid-column-start",
-      gridGap: "grid-gap",
-      gridRow: "grid-row",
-      gridRowEnd: "grid-row-end",
-      gridRowGap: "grid-row-gap",
-      gridRowStart: "grid-row-start",
-      gridTemplate: "grid-template",
-      gridTemplateAreas: "grid-template-areas",
-      gridTemplateColumns: "grid-template-columns",
-      gridTemplateRows: "grid-template-rows",
-      height: "height",
-      imeMode: "ime-mode",
-      justifyContent: "justify-content",
-      kerning: "kerning",
-      layoutGrid: "layout-grid",
-      layoutGridChar: "layout-grid-char",
-      layoutGridLine: "layout-grid-line",
-      layoutGridMode: "layout-grid-mode",
-      layoutGridType: "layout-grid-type",
-      left: "left",
-      letterSpacing: "letter-spacing",
-      lightingColor: "lighting-color",
-      lineBreak: "line-break",
-      lineHeight: "line-height",
-      listStyle: "list-style",
-      listStyleImage: "list-style-image",
-      listStylePosition: "list-style-position",
-      listStyleType: "list-style-type",
-      margin: "margin",
-      marginBottom: "margin-bottom",
-      marginLeft: "margin-left",
-      marginRight: "margin-right",
-      marginTop: "margin-top",
-      marker: "marker",
-      markerEnd: "marker-end",
-      markerMid: "marker-mid",
-      markerStart: "marker-start",
-      mask: "mask",
-      maxHeight: "max-height",
-      maxWidth: "max-width",
-      minHeight: "min-height",
-      minWidth: "min-width",
-      msContentZoomChaining: "-ms-content-zoom-chaining",
-      msContentZooming: "-ms-content-zooming",
-      msContentZoomLimit: "-ms-content-zoom-limit",
-      msContentZoomLimitMax: "-ms-content-zoom-limit-max",
-      msContentZoomLimitMin: "-ms-content-zoom-limit-min",
-      msContentZoomSnap: "-ms-content-zoom-snap",
-      msContentZoomSnapPoints: "-ms-content-zoom-snap-points",
-      msContentZoomSnapType: "-ms-content-zoom-snap-type",
-      msFlowFrom: "-ms-flow-from",
-      msFlowInto: "-ms-flow-into",
-      msFontFeatureSettings: "-ms-font-feature-settings",
-      msGridColumn: "-ms-grid-column",
-      msGridColumnAlign: "-ms-grid-column-align",
-      msGridColumns: "-ms-grid-columns",
-      msGridColumnSpan: "-ms-grid-column-span",
-      msGridRow: "-ms-grid-row",
-      msGridRowAlign: "-ms-grid-row-align",
-      msGridRows: "-ms-grid-rows",
-      msGridRowSpan: "-ms-grid-row-span",
-      msHighContrastAdjust: "-ms-high-contrast-adjust",
-      msHyphenateLimitChars: "-ms-hyphenate-limit-chars",
-      msHyphenateLimitLines: "-ms-hyphenate-limit-lines",
-      msHyphenateLimitZone: "-ms-hyphenate-limit-zone",
-      msHyphens: "-ms-hyphens",
-      msImeAlign: "-ms-ime-align",
-      msOverflowStyle: "-ms-overflow-style",
-      msScrollChaining: "-ms-scroll-chaining",
-      msScrollLimit: "-ms-scroll-limit",
-      msScrollLimitXMax: "-ms-scroll-limit-x-max",
-      msScrollLimitXMin: "-ms-scroll-limit-x-min",
-      msScrollLimitYMax: "-ms-scroll-limit-y-max",
-      msScrollLimitYMin: "-ms-scroll-limit-y-min",
-      msScrollRails: "-ms-scroll-rails",
-      msScrollSnapPointsX: "-ms-scroll-snap-points-x",
-      msScrollSnapPointsY: "-ms-scroll-snap-points-y",
-      msScrollSnapType: "-ms-scroll-snap-type",
-      msScrollSnapX: "-ms-scroll-snap-x",
-      msScrollSnapY: "-ms-scroll-snap-y",
-      msScrollTranslation: "-ms-scroll-translation",
-      msTextCombineHorizontal: "-ms-text-combine-horizontal",
-      msTextSizeAdjust: "-ms-text-size-adjust",
-      msTouchAction: "-ms-touch-action",
-      msTouchSelect: "-ms-touch-select",
-      msUserSelect: "-ms-user-select",
-      msWrapFlow: "-ms-wrap-flow",
-      msWrapMargin: "-ms-wrap-margin",
-      msWrapThrough: "-ms-wrap-through",
-      opacity: "opacity",
-      order: "order",
-      orphans: "orphans",
-      outline: "outline",
-      outlineColor: "outline-color",
-      outlineOffset: "outline-offset",
-      outlineStyle: "outline-style",
-      outlineWidth: "outline-width",
-      overflow: "overflow",
-      overflowX: "overflow-x",
-      overflowY: "overflow-y",
-      padding: "padding",
-      paddingBottom: "padding-bottom",
-      paddingLeft: "padding-left",
-      paddingRight: "padding-right",
-      paddingTop: "padding-top",
-      page: "page",
-      pageBreakAfter: "page-break-after",
-      pageBreakBefore: "page-break-before",
-      pageBreakInside: "page-break-inside",
-      perspective: "perspective",
-      perspectiveOrigin: "perspective-origin",
-      pointerEvents: "pointer-events",
-      position: "position",
-      quotes: "quotes",
-      right: "right",
-      rotate: "rotate",
-      rubyAlign: "ruby-align",
-      rubyOverhang: "ruby-overhang",
-      rubyPosition: "ruby-position",
-      scale: "scale",
-      size: "size",
-      stopColor: "stop-color",
-      stopOpacity: "stop-opacity",
-      stroke: "stroke",
-      strokeDasharray: "stroke-dasharray",
-      strokeDashoffset: "stroke-dashoffset",
-      strokeLinecap: "stroke-linecap",
-      strokeLinejoin: "stroke-linejoin",
-      strokeMiterlimit: "stroke-miterlimit",
-      strokeOpacity: "stroke-opacity",
-      strokeWidth: "stroke-width",
-      tableLayout: "table-layout",
-      textAlign: "text-align",
-      textAlignLast: "text-align-last",
-      textAnchor: "text-anchor",
-      textDecoration: "text-decoration",
-      textIndent: "text-indent",
-      textJustify: "text-justify",
-      textKashida: "text-kashida",
-      textKashidaSpace: "text-kashida-space",
-      textOverflow: "text-overflow",
-      textShadow: "text-shadow",
-      textTransform: "text-transform",
-      textUnderlinePosition: "text-underline-position",
-      top: "top",
-      touchAction: "touch-action",
-      transform: "transform",
-      transformOrigin: "transform-origin",
-      transformStyle: "transform-style",
-      transition: "transition",
-      transitionDelay: "transition-delay",
-      transitionDuration: "transition-duration",
-      transitionProperty: "transition-property",
-      transitionTimingFunction: "transition-timing-function",
-      translate: "translate",
-      unicodeBidi: "unicode-bidi",
-      verticalAlign: "vertical-align",
-      visibility: "visibility",
-      webkitAlignContent: "-webkit-align-content",
-      webkitAlignItems: "-webkit-align-items",
-      webkitAlignSelf: "-webkit-align-self",
-      webkitAnimation: "-webkit-animation",
-      webkitAnimationDelay: "-webkit-animation-delay",
-      webkitAnimationDirection: "-webkit-animation-direction",
-      webkitAnimationDuration: "-webkit-animation-duration",
-      webkitAnimationFillMode: "-webkit-animation-fill-mode",
-      webkitAnimationIterationCount: "-webkit-animation-iteration-count",
-      webkitAnimationName: "-webkit-animation-name",
-      webkitAnimationPlayState: "-webkit-animation-play-state",
-      webkitAnimationTimingFunction: "-webkit-animation-timing-funciton",
-      webkitAppearance: "-webkit-appearance",
-      webkitBackfaceVisibility: "-webkit-backface-visibility",
-      webkitBackgroundClip: "-webkit-background-clip",
-      webkitBackgroundOrigin: "-webkit-background-origin",
-      webkitBackgroundSize: "-webkit-background-size",
-      webkitBorderBottomLeftRadius: "-webkit-border-bottom-left-radius",
-      webkitBorderBottomRightRadius: "-webkit-border-bottom-right-radius",
-      webkitBorderImage: "-webkit-border-image",
-      webkitBorderRadius: "-webkit-border-radius",
-      webkitBorderTopLeftRadius: "-webkit-border-top-left-radius",
-      webkitBorderTopRightRadius: "-webkit-border-top-right-radius",
-      webkitBoxAlign: "-webkit-box-align",
-      webkitBoxDirection: "-webkit-box-direction",
-      webkitBoxFlex: "-webkit-box-flex",
-      webkitBoxOrdinalGroup: "-webkit-box-ordinal-group",
-      webkitBoxOrient: "-webkit-box-orient",
-      webkitBoxPack: "-webkit-box-pack",
-      webkitBoxSizing: "-webkit-box-sizing",
-      webkitColumnBreakAfter: "-webkit-column-break-after",
-      webkitColumnBreakBefore: "-webkit-column-break-before",
-      webkitColumnBreakInside: "-webkit-column-break-inside",
-      webkitColumnCount: "-webkit-column-count",
-      webkitColumnGap: "-webkit-column-gap",
-      webkitColumnRule: "-webkit-column-rule",
-      webkitColumnRuleColor: "-webkit-column-rule-color",
-      webkitColumnRuleStyle: "-webkit-column-rule-style",
-      webkitColumnRuleWidth: "-webkit-column-rule-width",
-      webkitColumns: "-webkit-columns",
-      webkitColumnSpan: "-webkit-column-span",
-      webkitColumnWidth: "-webkit-column-width",
-      webkitFilter: "-webkit-filter",
-      webkitFlex: "-webkit-flex",
-      webkitFlexBasis: "-webkit-flex-basis",
-      webkitFlexDirection: "-webkit-flex-direction",
-      webkitFlexFlow: "-webkit-flex-flow",
-      webkitFlexGrow: "-webkit-flex-grow",
-      webkitFlexShrink: "-webkit-flex-shrink",
-      webkitFlexWrap: "-webkit-flex-wrap",
-      webkitJustifyContent: "-webkit-justify-content",
-      webkitOrder: "-webkit-order",
-      webkitPerspective: "-webkit-perspective-origin",
-      webkitPerspectiveOrigin: "-webkit-perspective-origin",
-      webkitTapHighlightColor: "-webkit-tap-highlight-color",
-      webkitTextFillColor: "-webkit-text-fill-color",
-      webkitTextSizeAdjust: "-webkit-text-size-adjust",
-      webkitTextStroke: "-webkit-text-stroke",
-      webkitTextStrokeColor: "-webkit-text-stroke-color",
-      webkitTextStrokeWidth: "-webkit-text-stroke-width",
-      webkitTransform: "-webkit-transform",
-      webkitTransformOrigin: "-webkit-transform-origin",
-      webkitTransformStyle: "-webkit-transform-style",
-      webkitTransition: "-webkit-transition",
-      webkitTransitionDelay: "-webkit-transition-delay",
-      webkitTransitionDuration: "-webkit-transition-duration",
-      webkitTransitionProperty: "-webkit-transition-property",
-      webkitTransitionTimingFunction: "-webkit-transition-timing-function",
-      webkitUserModify: "-webkit-user-modify",
-      webkitUserSelect: "-webkit-user-select",
-      webkitWritingMode: "-webkit-writing-mode",
-      whiteSpace: "white-space",
-      widows: "widows",
-      width: "width",
-      wordBreak: "word-break",
-      wordSpacing: "word-spacing",
-      wordWrap: "word-wrap",
-      writingMode: "writing-mode",
-      zIndex: "z-index",
-      zoom: "zoom",
-      resize: "resize",
-      userSelect: "user-select"
-    };
-    for (prop in cssProperties)
-      defineStyleProperty(prop);
-    var prop;
-    function defineStyleProperty(jsname) {
-      var cssname = cssProperties[jsname];
-      Object.defineProperty(CSSStyleDeclaration.prototype, jsname, {
-        get: function() {
-          return this.getPropertyValue(cssname);
-        },
-        set: function(value) {
-          this.setProperty(cssname, value);
-        }
-      });
-      if (!CSSStyleDeclaration.prototype.hasOwnProperty(cssname)) {
-        Object.defineProperty(CSSStyleDeclaration.prototype, cssname, {
-          get: function() {
-            return this.getPropertyValue(cssname);
-          },
-          set: function(value) {
-            this.setProperty(cssname, value);
-          }
-        });
-      }
-    }
   }
 });
 
@@ -16554,10 +16186,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16568,10 +16200,10 @@ class ServerXhr {
     build() {
         return new xhr2.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 const SERVER_HTTP_PROVIDERS = [
@@ -16686,10 +16318,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16715,10 +16347,10 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16764,10 +16396,10 @@ class ServerRendererFactory2 {
     }
     begin() { }
     end() { }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerRendererFactory2 }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerRendererFactory2 }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerRendererFactory2, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerRendererFactory2, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: Document, decorators: [{
                     type: Inject,
@@ -17028,11 +16660,11 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *     this module.
  */
 class ServerTransferStateModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerTransferStateModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerTransferStateModule }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });
@@ -17080,11 +16712,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b35fa73", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-b203e4c", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -17282,7 +16914,7 @@ function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('16.0.0-next.6+sha-b35fa73');
+const VERSION = new Version('16.0.0-next.6+sha-b203e4c');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.

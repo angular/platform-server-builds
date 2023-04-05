@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-next.6+sha-a6fc8b3
+ * @license Angular v16.0.0-next.6+sha-dc9651b
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,22 +7,16 @@
 
 import { ApplicationRef } from '@angular/core';
 import { EnvironmentProviders } from '@angular/core';
-import { EventManager } from '@angular/platform-browser';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common/http';
 import * as i2 from '@angular/platform-browser/animations';
 import * as i3 from '@angular/platform-browser';
 import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
-import { Renderer2 } from '@angular/core';
-import { RendererFactory2 } from '@angular/core';
-import { RendererType2 } from '@angular/core';
 import { StaticProvider } from '@angular/core';
 import { Type } from '@angular/core';
 import { Version } from '@angular/core';
-import { ɵSharedStylesHost } from '@angular/platform-browser';
 
 /**
  * A function that will be executed when calling `renderApplication` or
@@ -218,23 +212,6 @@ export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 export declare const ɵSERVER_CONTEXT: InjectionToken<string>;
 
 export declare const ɵSERVER_RENDER_PROVIDERS: Provider[];
-
-export declare class ɵServerRendererFactory2 implements RendererFactory2 {
-    private eventManager;
-    private ngZone;
-    private document;
-    private sharedStylesHost;
-    private appId;
-    private rendererByCompId;
-    private defaultRenderer;
-    private schema;
-    constructor(eventManager: EventManager, ngZone: NgZone, document: Document, sharedStylesHost: ɵSharedStylesHost, appId: string);
-    createRenderer(element: any, type: RendererType2 | null): Renderer2;
-    begin(): void;
-    end(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ɵServerRendererFactory2, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ɵServerRendererFactory2>;
-}
 
 export declare function ɵsetDomTypes(): void;
 

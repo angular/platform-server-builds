@@ -1,22 +1,19 @@
 /**
- * @license Angular v16.0.0-next.6+sha-a6fc8b3
+ * @license Angular v16.0.0-next.6+sha-dc9651b
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, InjectionToken, Optional, ViewEncapsulation, APP_ID, RendererStyleFlags2, TransferState, ɵescapeTransferStateContent, NgModule, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, RendererFactory2, NgZone, Testability, ɵTESTABILITY, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, Renderer2, ApplicationRef, ɵInitialRenderPendingTasks, ɵIS_HYDRATION_FEATURE_ENABLED, ɵannotateForHydration, ɵisPromise, Version } from '@angular/core';
-import * as i1 from '@angular/platform-browser';
-import { ɵBrowserDomAdapter, ɵshimStyles, ɵNAMESPACE_URIS, ɵshimContentAttribute, ɵshimHostAttribute, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
+import { Injectable, Inject, InjectionToken, Optional, APP_ID, TransferState, ɵescapeTransferStateContent, NgModule, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, Renderer2, ApplicationRef, ɵInitialRenderPendingTasks, ɵIS_HYDRATION_FEATURE_ENABLED, ɵannotateForHydration, ɵisPromise, Version } from '@angular/core';
+import { ɵBrowserDomAdapter, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { ɵAnimationRendererFactory, NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ɵAnimationEngine } from '@angular/animations/browser';
+import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ɵplatformCoreDynamic } from '@angular/platform-browser-dynamic';
 import * as xhr2 from 'xhr2';
 import { Subject } from 'rxjs';
 import * as url from 'url';
-import { DomElementSchemaRegistry } from '@angular/compiler';
 import { first } from 'rxjs/operators';
 
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -16194,10 +16191,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16208,10 +16205,10 @@ class ServerXhr {
     build() {
         return new xhr2.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 const SERVER_HTTP_PROVIDERS = [
@@ -16326,10 +16323,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16355,280 +16352,15 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }]; } });
-
-const EMPTY_ARRAY = [];
-const DEFAULT_SCHEMA = new DomElementSchemaRegistry();
-class ServerRendererFactory2 {
-    constructor(eventManager, ngZone, document, sharedStylesHost, appId) {
-        this.eventManager = eventManager;
-        this.ngZone = ngZone;
-        this.document = document;
-        this.sharedStylesHost = sharedStylesHost;
-        this.appId = appId;
-        this.rendererByCompId = new Map();
-        this.schema = DEFAULT_SCHEMA;
-        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
-    }
-    createRenderer(element, type) {
-        if (!element || !type) {
-            return this.defaultRenderer;
-        }
-        switch (type.encapsulation) {
-            case ViewEncapsulation.Emulated: {
-                let renderer = this.rendererByCompId.get(type.id);
-                if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type, this.appId);
-                    this.rendererByCompId.set(type.id, renderer);
-                }
-                renderer.applyToHost(element);
-                return renderer;
-            }
-            default: {
-                if (!this.rendererByCompId.has(type.id)) {
-                    const styles = ɵshimStyles(type.id, type.styles);
-                    this.sharedStylesHost.addStyles(styles);
-                    this.rendererByCompId.set(type.id, this.defaultRenderer);
-                }
-                return this.defaultRenderer;
-            }
-        }
-    }
-    begin() { }
-    end() { }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerRendererFactory2, deps: [{ token: i1.EventManager }, { token: i0.NgZone }, { token: DOCUMENT }, { token: i1.ɵSharedStylesHost }, { token: APP_ID }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerRendererFactory2 }); }
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerRendererFactory2, decorators: [{
-            type: Injectable
-        }], ctorParameters: function () { return [{ type: i1.EventManager }, { type: i0.NgZone }, { type: Document, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }, { type: i1.ɵSharedStylesHost }, { type: undefined, decorators: [{
-                    type: Inject,
-                    args: [APP_ID]
-                }] }]; } });
-class DefaultServerRenderer2 {
-    constructor(eventManager, document, ngZone, schema) {
-        this.eventManager = eventManager;
-        this.document = document;
-        this.ngZone = ngZone;
-        this.schema = schema;
-        this.data = Object.create(null);
-        this.destroyNode = null;
-    }
-    destroy() { }
-    createElement(name, namespace) {
-        if (namespace) {
-            const doc = this.document || ɵgetDOM().getDefaultDocument();
-            return doc.createElementNS(ɵNAMESPACE_URIS[namespace], name);
-        }
-        return ɵgetDOM().createElement(name, this.document);
-    }
-    createComment(value) {
-        return ɵgetDOM().getDefaultDocument().createComment(value);
-    }
-    createText(value) {
-        const doc = ɵgetDOM().getDefaultDocument();
-        return doc.createTextNode(value);
-    }
-    appendChild(parent, newChild) {
-        const targetParent = isTemplateNode(parent) ? parent.content : parent;
-        targetParent.appendChild(newChild);
-    }
-    insertBefore(parent, newChild, refChild) {
-        if (parent) {
-            const targetParent = isTemplateNode(parent) ? parent.content : parent;
-            targetParent.insertBefore(newChild, refChild);
-        }
-    }
-    removeChild(parent, oldChild) {
-        if (parent) {
-            parent.removeChild(oldChild);
-        }
-    }
-    selectRootElement(selectorOrNode, preserveContent) {
-        const el = typeof selectorOrNode === 'string' ? this.document.querySelector(selectorOrNode) :
-            selectorOrNode;
-        if (!el) {
-            throw new Error(`The selector "${selectorOrNode}" did not match any elements`);
-        }
-        if (!preserveContent) {
-            while (el.firstChild) {
-                el.removeChild(el.firstChild);
-            }
-        }
-        return el;
-    }
-    parentNode(node) {
-        return node.parentNode;
-    }
-    nextSibling(node) {
-        return node.nextSibling;
-    }
-    setAttribute(el, name, value, namespace) {
-        if (namespace) {
-            el.setAttributeNS(ɵNAMESPACE_URIS[namespace], namespace + ':' + name, value);
-        }
-        else {
-            el.setAttribute(name, value);
-        }
-    }
-    removeAttribute(el, name, namespace) {
-        if (namespace) {
-            el.removeAttributeNS(ɵNAMESPACE_URIS[namespace], name);
-        }
-        else {
-            el.removeAttribute(name);
-        }
-    }
-    addClass(el, name) {
-        el.classList.add(name);
-    }
-    removeClass(el, name) {
-        el.classList.remove(name);
-    }
-    setStyle(el, style, value, flags) {
-        style = style.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        value = value == null ? '' : `${value}`.trim();
-        const styleMap = _readStyleAttribute(el);
-        if (flags & RendererStyleFlags2.Important) {
-            value += ' !important';
-        }
-        styleMap[style] = value;
-        _writeStyleAttribute(el, styleMap);
-    }
-    removeStyle(el, style, flags) {
-        // IE requires '' instead of null
-        // see https://github.com/angular/angular/issues/7916
-        this.setStyle(el, style, '', flags);
-    }
-    // The value was validated already as a property binding, against the property name.
-    // To know this value is safe to use as an attribute, the security context of the
-    // attribute with the given name is checked against that security context of the
-    // property.
-    _isSafeToReflectProperty(tagName, propertyName) {
-        return this.schema.securityContext(tagName, propertyName, true) ===
-            this.schema.securityContext(tagName, propertyName, false);
-    }
-    setProperty(el, name, value) {
-        checkNoSyntheticProp(name, 'property');
-        if (name === 'innerText') {
-            // Domino does not support innerText. Just map it to textContent.
-            el.textContent = value;
-        }
-        el[name] = value;
-        // Mirror property values for known HTML element properties in the attributes.
-        // Skip `innerhtml` which is conservatively marked as an attribute for security
-        // purposes but is not actually an attribute.
-        const tagName = el.tagName.toLowerCase();
-        if (value != null && (typeof value === 'number' || typeof value == 'string') &&
-            name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
-            this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
-            this._isSafeToReflectProperty(tagName, name)) {
-            this.setAttribute(el, name, value.toString());
-        }
-    }
-    setValue(node, value) {
-        node.textContent = value;
-    }
-    listen(target, eventName, callback) {
-        checkNoSyntheticProp(eventName, 'listener');
-        return this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback));
-    }
-    decoratePreventDefault(eventHandler) {
-        return (event) => {
-            // Ivy uses `Function` as a special token that allows us to unwrap the function
-            // so that it can be invoked programmatically by `DebugNode.triggerEventHandler`.
-            if (event === Function) {
-                return eventHandler;
-            }
-            // Run the event handler inside the ngZone because event handlers are not patched
-            // by Zone on the server. This is required only for tests.
-            const allowDefaultBehavior = this.ngZone.runGuarded(() => eventHandler(event));
-            if (allowDefaultBehavior === false) {
-                event.preventDefault();
-                event.returnValue = false;
-            }
-            return undefined;
-        };
-    }
-}
-const AT_CHARCODE = '@'.charCodeAt(0);
-function checkNoSyntheticProp(name, nameKind) {
-    if (name.charCodeAt(0) === AT_CHARCODE) {
-        throw new Error(`Unexpected synthetic ${nameKind} ${name} found. Please make sure that:
-  - Either \`BrowserAnimationsModule\` or \`NoopAnimationsModule\` are imported in your application.
-  - There is corresponding configuration for the animation named \`${name}\` defined in the \`animations\` field of the \`@Component\` decorator (see https://angular.io/api/core/Component#animations).`);
-    }
-}
-function isTemplateNode(node) {
-    return node.tagName === 'TEMPLATE' && node.content !== undefined;
-}
-class EmulatedEncapsulationServerRenderer2 extends DefaultServerRenderer2 {
-    constructor(eventManager, document, ngZone, sharedStylesHost, schema, component, appId) {
-        super(eventManager, document, ngZone, schema);
-        this.component = component;
-        const componentShortId = appId + '-' + this.component.id;
-        const styles = ɵshimStyles(componentShortId, this.component.styles);
-        sharedStylesHost.addStyles(styles);
-        this.contentAttr = ɵshimContentAttribute(componentShortId);
-        this.hostAttr = ɵshimHostAttribute(componentShortId);
-    }
-    applyToHost(element) {
-        super.setAttribute(element, this.hostAttr, '');
-    }
-    createElement(parent, name) {
-        const el = super.createElement(parent, name);
-        super.setAttribute(el, this.contentAttr, '');
-        return el;
-    }
-}
-function _readStyleAttribute(element) {
-    const styleMap = {};
-    const styleAttribute = element.getAttribute('style');
-    if (styleAttribute) {
-        const styleList = styleAttribute.split(/;+/g);
-        for (let i = 0; i < styleList.length; i++) {
-            const style = styleList[i].trim();
-            if (style.length > 0) {
-                const colonIndex = style.indexOf(':');
-                if (colonIndex === -1) {
-                    throw new Error(`Invalid CSS style: ${style}`);
-                }
-                const name = style.slice(0, colonIndex).trim();
-                styleMap[name] = style.slice(colonIndex + 1).trim();
-            }
-        }
-    }
-    return styleMap;
-}
-function _writeStyleAttribute(element, styleMap) {
-    // We have to construct the `style` attribute ourselves, instead of going through
-    // `element.style.setProperty` like the other renderers, because `setProperty` won't
-    // write newer CSS properties that Domino doesn't know about like `clip-path`.
-    let styleAttrValue = '';
-    for (const key in styleMap) {
-        const newValue = styleMap[key];
-        if (newValue != null && newValue !== '') {
-            styleAttrValue += key + ':' + newValue + ';';
-        }
-    }
-    if (styleAttrValue) {
-        element.setAttribute('style', styleAttrValue);
-    }
-    else {
-        element.removeAttribute('style');
-    }
-}
 
 const TRANSFER_STATE_SERIALIZATION_PROVIDERS = [{
         provide: BEFORE_APP_SERIALIZED,
@@ -16668,11 +16400,11 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *     this module.
  */
 class ServerTransferStateModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerTransferStateModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerTransferStateModule }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });
@@ -16694,16 +16426,7 @@ function initDominoAdapter() {
         DominoAdapter.makeCurrent();
     };
 }
-function instantiateServerRendererFactory(renderer, engine, zone) {
-    return new ɵAnimationRendererFactory(renderer, engine, zone);
-}
 const SERVER_RENDER_PROVIDERS = [
-    ServerRendererFactory2,
-    {
-        provide: RendererFactory2,
-        useFactory: instantiateServerRendererFactory,
-        deps: [ServerRendererFactory2, ɵAnimationEngine, NgZone]
-    },
     { provide: EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
 ];
 const PLATFORM_SERVER_PROVIDERS = [
@@ -16720,11 +16443,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-a6fc8b3", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.6+sha-dc9651b", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16922,7 +16645,7 @@ function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('16.0.0-next.6+sha-a6fc8b3');
+const VERSION = new Version('16.0.0-next.6+sha-dc9651b');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.
@@ -16933,5 +16656,5 @@ const VERSION = new Version('16.0.0-next.6+sha-a6fc8b3');
  * Generated bundle index. Do not edit.
  */
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, ServerTransferStateModule, VERSION, platformDynamicServer, platformServer, provideServerRendering, renderApplication, renderModule, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, ServerRendererFactory2 as ɵServerRendererFactory2, setDomTypes as ɵsetDomTypes };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, ServerTransferStateModule, VERSION, platformDynamicServer, platformServer, provideServerRendering, renderApplication, renderModule, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, setDomTypes as ɵsetDomTypes };
 //# sourceMappingURL=platform-server.mjs.map

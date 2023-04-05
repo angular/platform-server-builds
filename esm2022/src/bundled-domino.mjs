@@ -5485,8 +5485,15 @@ var require_htmlelts = __commonJS({
         title: String,
         lang: String,
         dir: { type: ["ltr", "rtl", "auto"], missing: "" },
+        draggable: { type: ["true", "false"], treatNullAsEmptyString: true },
+        spellcheck: { type: ["true", "false"], missing: "" },
+        enterKeyHint: { type: ["enter", "done", "go", "next", "previous", "search", "send"], missing: "" },
+        autoCapitalize: { type: ["off", "on", "none", "sentences", "words", "characters"], missing: "" },
+        autoFocus: Boolean,
         accessKey: String,
+        nonce: String,
         hidden: Boolean,
+        translate: { type: ["no", "yes"], missing: "" },
         tabIndex: { type: "long", default: function() {
           if (this.tagName in focusableElements || this.contentEditable)
             return 0;
@@ -5685,6 +5692,7 @@ var require_htmlelts = __commonJS({
         autofocus: Boolean,
         type: { type: ["submit", "reset", "button", "menu"], missing: "submit" },
         formTarget: String,
+        formAction: URL,
         formNoValidate: Boolean,
         formMethod: { type: ["get", "post", "dialog"], invalid: "get", missing: "" },
         formEnctype: { type: ["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"], invalid: "application/x-www-form-urlencoded", missing: "" }
@@ -5820,6 +5828,7 @@ var require_htmlelts = __commonJS({
         HTMLElement.call(this, doc, localName, prefix);
       },
       attributes: {
+        xmlns: URL,
         version: String
       }
     });
@@ -5836,10 +5845,12 @@ var require_htmlelts = __commonJS({
         width: String,
         height: String,
         seamless: Boolean,
+        allow: Boolean,
         allowFullscreen: Boolean,
         allowUserMedia: Boolean,
         allowPaymentRequest: Boolean,
         referrerPolicy: REFERRER,
+        loading: { type: ["eager", "lazy"], treatNullAsEmptyString: true },
         align: String,
         scrolling: String,
         frameBorder: String,
@@ -5861,9 +5872,11 @@ var require_htmlelts = __commonJS({
         crossOrigin: CORS,
         useMap: String,
         isMap: Boolean,
+        sizes: String,
         height: { type: "unsigned long", default: 0 },
         width: { type: "unsigned long", default: 0 },
         referrerPolicy: REFERRER,
+        loading: { type: ["eager", "lazy"], missing: "" },
         name: String,
         lowsrc: URL,
         align: String,
@@ -6019,6 +6032,8 @@ var require_htmlelts = __commonJS({
         nonce: String,
         integrity: String,
         referrerPolicy: REFERRER,
+        imageSizes: String,
+        imageSrcset: String,
         charset: String,
         rev: String,
         target: String
@@ -6279,8 +6294,10 @@ var require_htmlelts = __commonJS({
         src: URL,
         type: String,
         charset: String,
+        referrerPolicy: REFERRER,
         defer: Boolean,
         async: Boolean,
+        nomodule: Boolean,
         crossOrigin: CORS,
         nonce: String,
         integrity: String
@@ -6306,18 +6323,6 @@ var require_htmlelts = __commonJS({
         multiple: Boolean,
         required: Boolean,
         size: { type: "unsigned long", default: 0 }
-      }
-    });
-    define({
-      tag: "source",
-      name: "HTMLSourceElement",
-      ctor: function HTMLSourceElement(doc, localName, prefix) {
-        HTMLElement.call(this, doc, localName, prefix);
-      },
-      attributes: {
-        src: URL,
-        type: String,
-        media: String
       }
     });
     define({
@@ -6695,7 +6700,9 @@ var require_htmlelts = __commonJS({
         sizes: String,
         media: String,
         src: URL,
-        type: String
+        type: String,
+        width: String,
+        height: String
       }
     });
     define({
@@ -6760,6 +6767,7 @@ var require_htmlelts = __commonJS({
         "bdi",
         "bdo",
         "cite",
+        "content",
         "code",
         "dd",
         "dfn",

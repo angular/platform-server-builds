@@ -49,10 +49,10 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  */
 export class ServerTransferStateModule {
 }
-ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.8+sha-1584b32", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.2.8+sha-1584b32", ngImport: i0, type: ServerTransferStateModule });
-ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.2.8+sha-1584b32", ngImport: i0, type: ServerTransferStateModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.8+sha-1584b32", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+ServerTransferStateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.8+sha-9107e93", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+ServerTransferStateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.2.8+sha-9107e93", ngImport: i0, type: ServerTransferStateModule });
+ServerTransferStateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.2.8+sha-9107e93", ngImport: i0, type: ServerTransferStateModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.2.8+sha-9107e93", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });

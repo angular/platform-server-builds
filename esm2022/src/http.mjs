@@ -13,11 +13,11 @@ class ServerXhr {
     build() {
         return new xhr2.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerXhr }); }
 }
 export { ServerXhr };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 export const SERVER_HTTP_PROVIDERS = [

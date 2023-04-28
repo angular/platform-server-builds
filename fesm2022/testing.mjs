@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-rc.3+sha-4a5d4a9
+ * @license Angular v16.0.0-rc.3+sha-6da1054
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -22,11 +22,11 @@ const platformServerTesting = createPlatformFactory(ɵplatformCoreDynamicTesting
  * @publicApi
  */
 class ServerTestingModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerTestingModule, imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerTestingModule, providers: ɵSERVER_RENDER_PROVIDERS, imports: [NoopAnimationsModule, BrowserDynamicTestingModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerTestingModule, imports: [NoopAnimationsModule], exports: [BrowserDynamicTestingModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerTestingModule, providers: ɵSERVER_RENDER_PROVIDERS, imports: [NoopAnimationsModule, BrowserDynamicTestingModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-4a5d4a9", ngImport: i0, type: ServerTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.3+sha-6da1054", ngImport: i0, type: ServerTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserDynamicTestingModule],

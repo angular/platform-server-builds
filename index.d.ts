@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.0.0-rc.3+sha-6dc3add
+ * @license Angular v16.0.0-rc.3+sha-d6d347f
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -78,6 +78,9 @@ export declare interface PlatformConfig {
 /**
  * The server platform that supports the runtime compiler.
  *
+ * @see `platformServer`
+ * @deprecated add an `import @angular/compiler` and replace the usage with `platformServer`
+ *     instead.
  * @publicApi
  */
 export declare const platformDynamicServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;

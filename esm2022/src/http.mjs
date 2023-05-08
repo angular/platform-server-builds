@@ -7,20 +7,33 @@
  */
 import { XhrFactory } from '@angular/common';
 import { Injectable } from '@angular/core';
-import * as xhr2 from 'xhr2';
 import * as i0 from "@angular/core";
 class ServerXhr {
-    build() {
-        return new xhr2.XMLHttpRequest();
+    // The `xhr2` dependency has a side-effect of accessing and modifying a
+    // global scope. Loading `xhr2` dynamically allows us to delay the loading
+    // and start the process once the global scope is established by the underlying
+    // server platform (via shims, etc).
+    async ɵloadImpl() {
+        if (!this.xhrImpl) {
+            const { default: xhr } = await import('xhr2');
+            this.xhrImpl = xhr;
+        }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-f780d6f", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-f780d6f", ngImport: i0, type: ServerXhr }); }
+    build() {
+        const impl = this.xhrImpl;
+        if (!impl) {
+            throw new Error('Unexpected state in ServerXhr: XHR implementation is not loaded.');
+        }
+        return new impl.XMLHttpRequest();
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-e60b3d4", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-e60b3d4", ngImport: i0, type: ServerXhr }); }
 }
 export { ServerXhr };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-f780d6f", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-e60b3d4", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 export const SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr },
 ];
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaHR0cC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL3BsYXRmb3JtLXNlcnZlci9zcmMvaHR0cC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQUMsVUFBVSxFQUFDLE1BQU0saUJBQWlCLENBQUM7QUFDM0MsT0FBTyxFQUFDLFVBQVUsRUFBVyxNQUFNLGVBQWUsQ0FBQztBQUNuRCxPQUFPLEtBQUssSUFBSSxNQUFNLE1BQU0sQ0FBQzs7QUFFN0IsTUFDYSxTQUFTO0lBQ3BCLEtBQUs7UUFDSCxPQUFPLElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRSxDQUFDO0lBQ25DLENBQUM7eUhBSFUsU0FBUzs2SEFBVCxTQUFTOztTQUFULFNBQVM7c0dBQVQsU0FBUztrQkFEckIsVUFBVTs7QUFRWCxNQUFNLENBQUMsTUFBTSxxQkFBcUIsR0FBZTtJQUMvQyxFQUFDLE9BQU8sRUFBRSxVQUFVLEVBQUUsUUFBUSxFQUFFLFNBQVMsRUFBQztDQUMzQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7WGhyRmFjdG9yeX0gZnJvbSAnQGFuZ3VsYXIvY29tbW9uJztcbmltcG9ydCB7SW5qZWN0YWJsZSwgUHJvdmlkZXJ9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0ICogYXMgeGhyMiBmcm9tICd4aHIyJztcblxuQEluamVjdGFibGUoKVxuZXhwb3J0IGNsYXNzIFNlcnZlclhociBpbXBsZW1lbnRzIFhockZhY3Rvcnkge1xuICBidWlsZCgpOiBYTUxIdHRwUmVxdWVzdCB7XG4gICAgcmV0dXJuIG5ldyB4aHIyLlhNTEh0dHBSZXF1ZXN0KCk7XG4gIH1cbn1cblxuXG5leHBvcnQgY29uc3QgU0VSVkVSX0hUVFBfUFJPVklERVJTOiBQcm92aWRlcltdID0gW1xuICB7cHJvdmlkZTogWGhyRmFjdG9yeSwgdXNlQ2xhc3M6IFNlcnZlclhocn0sXG5dO1xuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaHR0cC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3BhY2thZ2VzL3BsYXRmb3JtLXNlcnZlci9zcmMvaHR0cC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQUMsVUFBVSxFQUFDLE1BQU0saUJBQWlCLENBQUM7QUFDM0MsT0FBTyxFQUFDLFVBQVUsRUFBVyxNQUFNLGVBQWUsQ0FBQzs7QUFFbkQsTUFDYSxTQUFTO0lBR3BCLHVFQUF1RTtJQUN2RSwwRUFBMEU7SUFDMUUsK0VBQStFO0lBQy9FLG9DQUFvQztJQUM1QixLQUFLLENBQUMsU0FBUztRQUNyQixJQUFJLENBQUMsSUFBSSxDQUFDLE9BQU8sRUFBRTtZQUNqQixNQUFNLEVBQUMsT0FBTyxFQUFFLEdBQUcsRUFBQyxHQUFHLE1BQU0sTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1lBQzVDLElBQUksQ0FBQyxPQUFPLEdBQUcsR0FBRyxDQUFDO1NBQ3BCO0lBQ0gsQ0FBQztJQUVELEtBQUs7UUFDSCxNQUFNLElBQUksR0FBRyxJQUFJLENBQUMsT0FBTyxDQUFDO1FBQzFCLElBQUksQ0FBQyxJQUFJLEVBQUU7WUFDVCxNQUFNLElBQUksS0FBSyxDQUFDLGtFQUFrRSxDQUFDLENBQUM7U0FDckY7UUFFRCxPQUFPLElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRSxDQUFDO0lBQ25DLENBQUM7eUhBckJVLFNBQVM7NkhBQVQsU0FBUzs7U0FBVCxTQUFTO3NHQUFULFNBQVM7a0JBRHJCLFVBQVU7O0FBMEJYLE1BQU0sQ0FBQyxNQUFNLHFCQUFxQixHQUFlO0lBQy9DLEVBQUMsT0FBTyxFQUFFLFVBQVUsRUFBRSxRQUFRLEVBQUUsU0FBUyxFQUFDO0NBQzNDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtYaHJGYWN0b3J5fSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHtJbmplY3RhYmxlLCBQcm92aWRlcn0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbkBJbmplY3RhYmxlKClcbmV4cG9ydCBjbGFzcyBTZXJ2ZXJYaHIgaW1wbGVtZW50cyBYaHJGYWN0b3J5IHtcbiAgcHJpdmF0ZSB4aHJJbXBsOiB0eXBlb2YgaW1wb3J0KCd4aHIyJyl8dW5kZWZpbmVkO1xuXG4gIC8vIFRoZSBgeGhyMmAgZGVwZW5kZW5jeSBoYXMgYSBzaWRlLWVmZmVjdCBvZiBhY2Nlc3NpbmcgYW5kIG1vZGlmeWluZyBhXG4gIC8vIGdsb2JhbCBzY29wZS4gTG9hZGluZyBgeGhyMmAgZHluYW1pY2FsbHkgYWxsb3dzIHVzIHRvIGRlbGF5IHRoZSBsb2FkaW5nXG4gIC8vIGFuZCBzdGFydCB0aGUgcHJvY2VzcyBvbmNlIHRoZSBnbG9iYWwgc2NvcGUgaXMgZXN0YWJsaXNoZWQgYnkgdGhlIHVuZGVybHlpbmdcbiAgLy8gc2VydmVyIHBsYXRmb3JtICh2aWEgc2hpbXMsIGV0YykuXG4gIHByaXZhdGUgYXN5bmMgybVsb2FkSW1wbCgpOiBQcm9taXNlPHZvaWQ+IHtcbiAgICBpZiAoIXRoaXMueGhySW1wbCkge1xuICAgICAgY29uc3Qge2RlZmF1bHQ6IHhocn0gPSBhd2FpdCBpbXBvcnQoJ3hocjInKTtcbiAgICAgIHRoaXMueGhySW1wbCA9IHhocjtcbiAgICB9XG4gIH1cblxuICBidWlsZCgpOiBYTUxIdHRwUmVxdWVzdCB7XG4gICAgY29uc3QgaW1wbCA9IHRoaXMueGhySW1wbDtcbiAgICBpZiAoIWltcGwpIHtcbiAgICAgIHRocm93IG5ldyBFcnJvcignVW5leHBlY3RlZCBzdGF0ZSBpbiBTZXJ2ZXJYaHI6IFhIUiBpbXBsZW1lbnRhdGlvbiBpcyBub3QgbG9hZGVkLicpO1xuICAgIH1cblxuICAgIHJldHVybiBuZXcgaW1wbC5YTUxIdHRwUmVxdWVzdCgpO1xuICB9XG59XG5cblxuZXhwb3J0IGNvbnN0IFNFUlZFUl9IVFRQX1BST1ZJREVSUzogUHJvdmlkZXJbXSA9IFtcbiAge3Byb3ZpZGU6IFhockZhY3RvcnksIHVzZUNsYXNzOiBTZXJ2ZXJYaHJ9LFxuXTtcbiJdfQ==

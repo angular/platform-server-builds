@@ -1,12 +1,12 @@
 /**
- * @license Angular v16.1.0-next.0+sha-ea3b5f1
+ * @license Angular v16.1.0-next.0+sha-0243722
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, PlatformLocation, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, InjectionToken, Optional, APP_ID, TransferState, ɵescapeTransferStateContent, NgModule, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵENABLED_SSR_FEATURES, Renderer2, ɵInitialRenderPendingTasks, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, InjectionToken, Optional, APP_ID, TransferState, NgModule, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵENABLED_SSR_FEATURES, Renderer2, ɵInitialRenderPendingTasks, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, ApplicationRef, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -16189,10 +16189,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16217,10 +16217,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 const SERVER_HTTP_PROVIDERS = [
@@ -16335,10 +16335,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16364,10 +16364,10 @@ class ServerEventManagerPlugin /* extends EventManagerPlugin which is private */
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16393,7 +16393,7 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
         const script = doc.createElement('script');
         script.id = appId + '-state';
         script.setAttribute('type', 'application/json');
-        script.textContent = ɵescapeTransferStateContent(content);
+        script.textContent = content;
         // It is intentional that we add the script at the very bottom. Angular CLI script tags for
         // bundles are always `type="module"`. These are deferred by default and cause the transfer
         // transfer data to be queried only after the browser has finished parsing the DOM.
@@ -16412,11 +16412,11 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *     this module.
  */
 class ServerTransferStateModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerTransferStateModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerTransferStateModule }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });
@@ -16455,11 +16455,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-ea3b5f1", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.0+sha-0243722", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16662,7 +16662,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('16.1.0-next.0+sha-ea3b5f1');
+const VERSION = new Version('16.1.0-next.0+sha-0243722');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.

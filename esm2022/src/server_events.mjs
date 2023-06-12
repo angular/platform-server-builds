@@ -19,10 +19,10 @@ export class ServerEventManagerPlugin /* extends EventManagerPlugin which is pri
     addEventListener(element, eventName, handler) {
         return getDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-24c8e4e", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-24c8e4e", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-58549e7", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-58549e7", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */ }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-24c8e4e", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.2.0-next.0+sha-58549e7", ngImport: i0, type: ServerEventManagerPlugin /* extends EventManagerPlugin which is private */, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined, decorators: [{
                     type: Inject,

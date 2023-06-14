@@ -1,5 +1,5 @@
 /**
- * @license Angular v16.1.0+sha-f48c0bc
+ * @license Angular v16.1.0+sha-0a72df6
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -78,7 +78,7 @@ export declare interface PlatformConfig {
 /**
  * The server platform that supports the runtime compiler.
  *
- * @see `platformServer`
+ * @see {@link platformServer}
  * @deprecated add an `import @angular/compiler` and replace the usage with `platformServer`
  *     instead.
  * @publicApi

@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "16.2.0-next.2+sha-89c84bf",
+  "version": "16.2.0-next.2+sha-1ec3a2b",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,11 +8,11 @@
     "node": "^16.14.0 || >=18.10.0"
   },
   "peerDependencies": {
-    "@angular/animations": "16.2.0-next.2+sha-89c84bf",
-    "@angular/common": "16.2.0-next.2+sha-89c84bf",
-    "@angular/compiler": "16.2.0-next.2+sha-89c84bf",
-    "@angular/core": "16.2.0-next.2+sha-89c84bf",
-    "@angular/platform-browser": "16.2.0-next.2+sha-89c84bf"
+    "@angular/animations": "16.2.0-next.2+sha-1ec3a2b",
+    "@angular/common": "16.2.0-next.2+sha-1ec3a2b",
+    "@angular/compiler": "16.2.0-next.2+sha-1ec3a2b",
+    "@angular/core": "16.2.0-next.2+sha-1ec3a2b",
+    "@angular/platform-browser": "16.2.0-next.2+sha-1ec3a2b"
   },
   "dependencies": {
     "tslib": "^2.3.0",

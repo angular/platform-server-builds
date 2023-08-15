@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.0+sha-93675dc
+ * @license Angular v17.0.0-next.0+sha-be3edad
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -24,7 +24,7 @@ import { Version } from '@angular/core';
  *
  * @publicApi
  */
-export declare const BEFORE_APP_SERIALIZED: InjectionToken<(() => void | Promise<void>)[]>;
+export declare const BEFORE_APP_SERIALIZED: InjectionToken<readonly (() => void | Promise<void>)[]>;
 
 /**
  * The DI token for setting the initial config for the platform.

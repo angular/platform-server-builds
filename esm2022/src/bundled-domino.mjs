@@ -654,7 +654,10 @@ var require_NodeUtils = __commonJS({
   "external/npm/node_modules/domino/lib/NodeUtils.js"(exports, module) {
     "use strict";
     module.exports = {
-      serializeOne
+      serializeOne,
+      \u0275escapeMatchingClosingTag: escapeMatchingClosingTag,
+      \u0275escapeClosingCommentTag: escapeClosingCommentTag,
+      \u0275escapeProcessingInstructionContent: escapeProcessingInstructionContent
     };
     var utils = require_utils();
     var NAMESPACE = utils.NAMESPACE;
@@ -688,8 +691,13 @@ var require_NodeUtils = __commonJS({
       wbr: true
     };
     var extraNewLine = {};
+    var ESCAPE_REGEXP = /[&<>\u00A0]/g;
+    var ESCAPE_ATTR_REGEXP = /[&"<>\u00A0]/g;
     function escape(s) {
-      return s.replace(/[&<>\u00A0]/g, function(c) {
+      if (!ESCAPE_REGEXP.test(s)) {
+        return s;
+      }
+      return s.replace(ESCAPE_REGEXP, (c) => {
         switch (c) {
           case "&":
             return "&amp;";
@@ -703,21 +711,23 @@ var require_NodeUtils = __commonJS({
       });
     }
     function escapeAttr(s) {
-      var toEscape = /[&"\u00A0]/g;
-      if (!toEscape.test(s)) {
+      if (!ESCAPE_ATTR_REGEXP.test(s)) {
         return s;
-      } else {
-        return s.replace(toEscape, function(c) {
-          switch (c) {
-            case "&":
-              return "&amp;";
-            case '"':
-              return "&quot;";
-            case "\xA0":
-              return "&nbsp;";
-          }
-        });
       }
+      return s.replace(ESCAPE_ATTR_REGEXP, (c) => {
+        switch (c) {
+          case "<":
+            return "&lt;";
+          case ">":
+            return "&gt;";
+          case "&":
+            return "&amp;";
+          case '"':
+            return "&quot;";
+          case "\xA0":
+            return "&nbsp;";
+        }
+      });
     }
     function attrname(a) {
       var ns = a.namespaceURI;
@@ -734,6 +744,28 @@ var require_NodeUtils = __commonJS({
           return "xmlns:" + a.localName;
       }
       return a.name;
+    }
+    function escapeMatchingClosingTag(rawText, parentTag) {
+      const parentClosingTag = "</" + parentTag;
+      if (!rawText.toLowerCase().includes(parentClosingTag)) {
+        return rawText;
+      }
+      const result = [...rawText];
+      const matches = rawText.matchAll(new RegExp(parentClosingTag, "ig"));
+      for (const match of matches) {
+        result[match.index] = "&lt;";
+      }
+      return result.join("");
+    }
+    var CLOSING_COMMENT_REGEXP = /--!?>/;
+    function escapeClosingCommentTag(rawContent) {
+      if (!CLOSING_COMMENT_REGEXP.test(rawContent)) {
+        return rawContent;
+      }
+      return rawContent.replace(/(--\!?)>/g, "$1&gt;");
+    }
+    function escapeProcessingInstructionContent(rawContent) {
+      return rawContent.includes(">") ? rawContent.replaceAll(">", "&gt;") : rawContent;
     }
     function serializeOne(kid, parent) {
       var s = "";
@@ -752,6 +784,9 @@ var require_NodeUtils = __commonJS({
           s += ">";
           if (!(html && emptyElements[tagname])) {
             var ss = kid.serialize();
+            if (hasRawContent[tagname.toUpperCase()]) {
+              ss = escapeMatchingClosingTag(ss, tagname);
+            }
             if (html && extraNewLine[tagname] && ss.charAt(0) === "\n")
               s += "\n";
             s += ss;
@@ -772,10 +807,11 @@ var require_NodeUtils = __commonJS({
           }
           break;
         case 8:
-          s += "<!--" + kid.data + "-->";
+          s += "<!--" + escapeClosingCommentTag(kid.data) + "-->";
           break;
         case 7:
-          s += "<?" + kid.target + " " + kid.data + "?>";
+          const content = escapeProcessingInstructionContent(kid.data);
+          s += "<?" + kid.target + " " + content + "?>";
           break;
         case 10:
           s += "<!DOCTYPE " + kid.name;
@@ -10826,9 +10862,6 @@ var require_HTMLParser = __commonJS({
             case "plaintext":
               tokenizer = plaintext_state;
               break;
-            case "noscript":
-              if (scripting_enabled)
-                tokenizer = plaintext_state;
           }
         }
         var root = doc.createElement("html");
@@ -14582,12 +14615,6 @@ var require_HTMLParser = __commonJS({
               case "noembed":
                 parseRawText(value, arg3);
                 return;
-              case "noscript":
-                if (scripting_enabled) {
-                  parseRawText(value, arg3);
-                  return;
-                }
-                break;
               case "select":
                 afereconstruct();
                 insertHTMLElement(value, arg3);

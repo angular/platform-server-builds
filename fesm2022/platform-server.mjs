@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.0.0-next.6+sha-32cfbb4
+ * @license Angular v17.0.0-next.6+sha-e9c3790
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -669,7 +669,10 @@ var require_NodeUtils = __commonJS({
   "external/npm/node_modules/domino/lib/NodeUtils.js"(exports, module) {
     "use strict";
     module.exports = {
-      serializeOne
+      serializeOne,
+      \u0275escapeMatchingClosingTag: escapeMatchingClosingTag,
+      \u0275escapeClosingCommentTag: escapeClosingCommentTag,
+      \u0275escapeProcessingInstructionContent: escapeProcessingInstructionContent
     };
     var utils = require_utils();
     var NAMESPACE = utils.NAMESPACE;
@@ -703,8 +706,13 @@ var require_NodeUtils = __commonJS({
       wbr: true
     };
     var extraNewLine = {};
+    var ESCAPE_REGEXP = /[&<>\u00A0]/g;
+    var ESCAPE_ATTR_REGEXP = /[&"<>\u00A0]/g;
     function escape(s) {
-      return s.replace(/[&<>\u00A0]/g, function(c) {
+      if (!ESCAPE_REGEXP.test(s)) {
+        return s;
+      }
+      return s.replace(ESCAPE_REGEXP, (c) => {
         switch (c) {
           case "&":
             return "&amp;";
@@ -718,21 +726,23 @@ var require_NodeUtils = __commonJS({
       });
     }
     function escapeAttr(s) {
-      var toEscape = /[&"\u00A0]/g;
-      if (!toEscape.test(s)) {
+      if (!ESCAPE_ATTR_REGEXP.test(s)) {
         return s;
-      } else {
-        return s.replace(toEscape, function(c) {
-          switch (c) {
-            case "&":
-              return "&amp;";
-            case '"':
-              return "&quot;";
-            case "\xA0":
-              return "&nbsp;";
-          }
-        });
       }
+      return s.replace(ESCAPE_ATTR_REGEXP, (c) => {
+        switch (c) {
+          case "<":
+            return "&lt;";
+          case ">":
+            return "&gt;";
+          case "&":
+            return "&amp;";
+          case '"':
+            return "&quot;";
+          case "\xA0":
+            return "&nbsp;";
+        }
+      });
     }
     function attrname(a) {
       var ns = a.namespaceURI;
@@ -749,6 +759,28 @@ var require_NodeUtils = __commonJS({
           return "xmlns:" + a.localName;
       }
       return a.name;
+    }
+    function escapeMatchingClosingTag(rawText, parentTag) {
+      const parentClosingTag = "</" + parentTag;
+      if (!rawText.toLowerCase().includes(parentClosingTag)) {
+        return rawText;
+      }
+      const result = [...rawText];
+      const matches = rawText.matchAll(new RegExp(parentClosingTag, "ig"));
+      for (const match of matches) {
+        result[match.index] = "&lt;";
+      }
+      return result.join("");
+    }
+    var CLOSING_COMMENT_REGEXP = /--!?>/;
+    function escapeClosingCommentTag(rawContent) {
+      if (!CLOSING_COMMENT_REGEXP.test(rawContent)) {
+        return rawContent;
+      }
+      return rawContent.replace(/(--\!?)>/g, "$1&gt;");
+    }
+    function escapeProcessingInstructionContent(rawContent) {
+      return rawContent.includes(">") ? rawContent.replaceAll(">", "&gt;") : rawContent;
     }
     function serializeOne(kid, parent) {
       var s = "";
@@ -767,6 +799,9 @@ var require_NodeUtils = __commonJS({
           s += ">";
           if (!(html && emptyElements[tagname])) {
             var ss = kid.serialize();
+            if (hasRawContent[tagname.toUpperCase()]) {
+              ss = escapeMatchingClosingTag(ss, tagname);
+            }
             if (html && extraNewLine[tagname] && ss.charAt(0) === "\n")
               s += "\n";
             s += ss;
@@ -787,10 +822,11 @@ var require_NodeUtils = __commonJS({
           }
           break;
         case 8:
-          s += "<!--" + kid.data + "-->";
+          s += "<!--" + escapeClosingCommentTag(kid.data) + "-->";
           break;
         case 7:
-          s += "<?" + kid.target + " " + kid.data + "?>";
+          const content = escapeProcessingInstructionContent(kid.data);
+          s += "<?" + kid.target + " " + content + "?>";
           break;
         case 10:
           s += "<!DOCTYPE " + kid.name;
@@ -10841,9 +10877,6 @@ var require_HTMLParser = __commonJS({
             case "plaintext":
               tokenizer = plaintext_state;
               break;
-            case "noscript":
-              if (scripting_enabled)
-                tokenizer = plaintext_state;
           }
         }
         var root = doc.createElement("html");
@@ -14597,12 +14630,6 @@ var require_HTMLParser = __commonJS({
               case "noembed":
                 parseRawText(value, arg3);
                 return;
-              case "noscript":
-                if (scripting_enabled) {
-                  parseRawText(value, arg3);
-                  return;
-                }
-                break;
               case "select":
                 afereconstruct();
                 insertHTMLElement(value, arg3);
@@ -16188,10 +16215,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16216,10 +16243,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 const SERVER_HTTP_PROVIDERS = [
@@ -16334,10 +16361,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16361,10 +16388,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerEventManagerPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerEventManagerPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16409,11 +16436,11 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *     this module.
  */
 class ServerTransferStateModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerTransferStateModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerTransferStateModule }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerTransferStateModule }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerTransferStateModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerTransferStateModule, decorators: [{
             type: NgModule,
             args: [{}]
         }] });
@@ -16452,11 +16479,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-32cfbb4", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6+sha-e9c3790", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16676,7 +16703,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('17.0.0-next.6+sha-32cfbb4');
+const VERSION = new Version('17.0.0-next.6+sha-e9c3790');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.

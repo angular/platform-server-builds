@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-83f5911
+ * @license Angular v17.1.0-next.0+sha-b0f9b33
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -146,7 +146,6 @@ export declare function provideServerRendering(): EnvironmentProviders;
  * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
  *
  * @publicApi
- * @developerPreview
  */
 export declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, options: {
     document?: string | Document;

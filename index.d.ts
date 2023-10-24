@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-47ab069
+ * @license Angular v17.1.0-next.0+sha-dcc4a80
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -214,7 +214,5 @@ export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 export declare const ɵSERVER_CONTEXT: InjectionToken<string>;
 
 export declare const ɵSERVER_RENDER_PROVIDERS: Provider[];
-
-export declare function ɵsetDomTypes(): void;
 
 export { }

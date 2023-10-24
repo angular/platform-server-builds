@@ -1,9 +1,3 @@
-/**
- * @license Angular v17.1.0-next.0+sha-dcc4a80
- * (c) 2010-2022 Google LLC. https://angular.io/
- * License: MIT
- */
-
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -16103,35 +16097,12 @@ var require_lib = __commonJS({
     exports.impl = impl;
   }
 });
-var domino = require_lib();
-
+export default require_lib();
 /**
- * Apply the necessary shims to make DOM globals (such as `Element`, `HTMLElement`, etc.) available
- * on the environment.
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-function applyShims() {
-    // Make all Domino types available in the global env.
-    // NB: Any changes here should also be done in `packages/platform-server/src/domino_adapter.ts`.
-    Object.assign(globalThis, domino.impl);
-    globalThis['KeyboardEvent'] = domino.impl.Event;
-}
-
-/**
- * @module
- * @description
- * Entry point for all initialization APIs of the platform-server package.
- */
-applyShims();
-
-/**
- * @module
- * @description
- * Entry point for all public APIs of this package.
- */
-
-// This file is not used to build this module. It is only used during editing
-
-/**
- * Generated bundle index. Do not edit.
- */
-//# sourceMappingURL=init.mjs.map
+//# sourceMappingURL=bundled-domino.mjs.map

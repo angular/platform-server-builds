@@ -1,5 +1,5 @@
 /**
- * @license Angular v17.1.0-next.0+sha-cb8a741
+ * @license Angular v17.1.0-next.0+sha-7888819
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -282,7 +282,7 @@ var require_DOMException = __commonJS({
 // external/npm/node_modules/domino/lib/config.js
 var require_config = __commonJS({
   "external/npm/node_modules/domino/lib/config.js"(exports) {
-    exports.isApiWritable = !global.__domino_frozen__;
+    exports.isApiWritable = !globalThis.__domino_frozen__;
   }
 });
 
@@ -3704,8 +3704,9 @@ var require_Element = __commonJS({
         return this.element._attrsByLName[this.element._attrKeys[n]];
       } }
     });
-    if (global.Symbol && global.Symbol.iterator) {
-      AttributesArray.prototype[global.Symbol.iterator] = function() {
+    var _a;
+    if ((_a = globalThis.Symbol) == null ? void 0 : _a.iterator) {
+      AttributesArray.prototype[globalThis.Symbol.iterator] = function() {
         var i = 0, n = this.length, self = this;
         return {
           next: function() {

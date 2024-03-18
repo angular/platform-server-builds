@@ -1,12 +1,12 @@
 /**
- * @license Angular v18.0.0-next.0+sha-0be64c1
+ * @license Angular v18.0.0-next.0+sha-89eca1d
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, inject, InjectionToken, Optional, APP_ID, TransferState, NgModule, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, inject, InjectionToken, Optional, APP_ID, TransferState, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, ApplicationRef, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS, HttpClientModule } from '@angular/common/http';
@@ -16216,10 +16216,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16244,10 +16244,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 function relativeUrlsTransformerInterceptorFn(request, next) {
@@ -16290,22 +16290,7 @@ const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 const RESOLVE_PROTOCOL = 'resolve:';
 function parseUrl(urlStr) {
-    let { hostname, protocol, port, pathname, search, hash } = new URL(urlStr, RESOLVE_PROTOCOL + '//');
-    /**
-     * TODO(alanagius): Remove the below in version 18.
-     * The following are done to maintain the same behaviour as `url.parse`.
-     * The main differences are;
-     *  - `pathname` is always suffixed with a `/`.
-     *  - `port` is empty when `http:` protocol and port in url is `80`
-     *  - `port` is empty when `https:` protocol and port in url is `443`
-     */
-    if (protocol !== RESOLVE_PROTOCOL && port === '' && /\:(80|443)/.test(urlStr)) {
-        port = protocol === 'http:' ? '80' : '443';
-    }
-    if (protocol === RESOLVE_PROTOCOL && urlStr.charAt(0) !== '/') {
-        pathname = pathname.slice(1); // Remove leading slash.
-    }
-    // END TODO
+    const { hostname, protocol, port, pathname, search, hash } = new URL(urlStr, RESOLVE_PROTOCOL + '//');
     return {
         hostname,
         protocol: protocol === RESOLVE_PROTOCOL ? '' : protocol,
@@ -16343,15 +16328,6 @@ class ServerPlatformLocation {
             this.search = url.search;
             this.hash = url.hash;
             this.href = _doc.location.href;
-        }
-        if (config.useAbsoluteUrl) {
-            if (!config.baseUrl) {
-                throw new Error(`"PlatformConfig.baseUrl" must be set if "useAbsoluteUrl" is true`);
-            }
-            const url = parseUrl(config.baseUrl);
-            this.protocol = url.protocol;
-            this.hostname = url.hostname;
-            this.port = url.port;
         }
     }
     getBaseHrefFromDOM() {
@@ -16398,10 +16374,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16425,22 +16401,24 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerEventManagerPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerEventManagerPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }] });
 
-const TRANSFER_STATE_SERIALIZATION_PROVIDERS = [{
+const TRANSFER_STATE_SERIALIZATION_PROVIDERS = [
+    {
         provide: BEFORE_APP_SERIALIZED,
         useFactory: serializeTransferStateFactory,
         deps: [DOCUMENT, APP_ID, TransferState],
         multi: true,
-    }];
+    },
+];
 function serializeTransferStateFactory(doc, appId, transferStore) {
     return () => {
         // The `.toJSON` here causes the `onSerialize` callbacks to be called.
@@ -16461,26 +16439,6 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
         doc.body.appendChild(script);
     };
 }
-/**
- * NgModule to install on the server side while using the `TransferState` to transfer state from
- * server to client.
- *
- * Note: this module is not needed if the `renderApplication` function is used.
- * The `renderApplication` makes all providers from this module available in the application.
- *
- * @publicApi
- * @deprecated no longer needed, you can inject the `TransferState` in an app without providing
- *     this module.
- */
-class ServerTransferStateModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerTransferStateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerTransferStateModule }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerTransferStateModule }); }
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerTransferStateModule, decorators: [{
-            type: NgModule,
-            args: [{}]
-        }] });
 
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
@@ -16516,11 +16474,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-0be64c1", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0+sha-89eca1d", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16546,15 +16504,6 @@ function _document(injector) {
  * @publicApi
  */
 const platformServer = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-/**
- * The server platform that supports the runtime compiler.
- *
- * @see {@link platformServer}
- * @deprecated add an `import @angular/compiler` and replace the usage with `platformServer`
- *     instead.
- * @publicApi
- */
-const platformDynamicServer = platformServer;
 
 /**
  * Sets up providers necessary to enable server rendering functionality for the application.
@@ -16734,7 +16683,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('18.0.0-next.0+sha-0be64c1');
+const VERSION = new Version('18.0.0-next.0+sha-89eca1d');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.
@@ -16745,5 +16694,5 @@ const VERSION = new Version('18.0.0-next.0+sha-0be64c1');
  * Generated bundle index. Do not edit.
  */
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, ServerTransferStateModule, VERSION, platformDynamicServer, platformServer, provideServerRendering, renderApplication, renderModule, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS };
 //# sourceMappingURL=platform-server.mjs.map

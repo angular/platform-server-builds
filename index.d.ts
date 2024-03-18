@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.0+sha-0be64c1
+ * @license Angular v18.0.0-next.0+sha-89eca1d
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -51,39 +51,7 @@ export declare interface PlatformConfig {
      * @default none
      */
     url?: string;
-    /**
-     * Note: this option has no effect and can be removed from the config.
-     *
-     * Whether to append the absolute URL to any relative HTTP requests. If set to
-     * true, this logic executes prior to any HTTP interceptors that may run later
-     * on in the request. `baseUrl` must be supplied if this flag is enabled.
-     *
-     * @deprecated This option is a noop.
-     * @default false
-     */
-    useAbsoluteUrl?: boolean;
-    /**
-     * Note: this option has no effect and can be removed from the config.
-     *
-     * The base URL for resolving absolute URL for HTTP requests. It must be set
-     * if `useAbsoluteUrl` is true, and must consist of protocol, hostname,
-     * and optional port. This option has no effect if `useAbsoluteUrl` is not
-     * enabled.
-     *
-     * @deprecated This option is a noop.
-     */
-    baseUrl?: string;
 }
-
-/**
- * The server platform that supports the runtime compiler.
- *
- * @see {@link platformServer}
- * @deprecated add an `import @angular/compiler` and replace the usage with `platformServer`
- *     instead.
- * @publicApi
- */
-export declare const platformDynamicServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
 
 /**
  * @publicApi
@@ -180,23 +148,6 @@ export declare class ServerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<ServerModule, never, [typeof i1.HttpClientModule, typeof i2.NoopAnimationsModule], [typeof i3.BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<ServerModule>;
-}
-
-/**
- * NgModule to install on the server side while using the `TransferState` to transfer state from
- * server to client.
- *
- * Note: this module is not needed if the `renderApplication` function is used.
- * The `renderApplication` makes all providers from this module available in the application.
- *
- * @publicApi
- * @deprecated no longer needed, you can inject the `TransferState` in an app without providing
- *     this module.
- */
-export declare class ServerTransferStateModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<ServerTransferStateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerTransferStateModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<ServerTransferStateModule>;
 }
 
 /**

@@ -1,5 +1,5 @@
 /**
- * @license Angular v18.0.0-next.5+sha-a730f09
+ * @license Angular v18.0.0-next.5+sha-a743d37
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -5024,7 +5024,7 @@ var require_CSSStyleDeclaration = __commonJS({
             delete styles.priority[property];
           }
         } else {
-          if (value.indexOf(";") !== -1)
+          if (value.includes(";") && !value.includes("data:"))
             return;
           var newprops = parseStyles(property + ":" + value);
           if (Object.getOwnPropertyNames(newprops.property).length === 0) {

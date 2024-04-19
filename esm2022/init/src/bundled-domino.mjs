@@ -5018,7 +5018,7 @@ var require_CSSStyleDeclaration = __commonJS({
             delete styles.priority[property];
           }
         } else {
-          if (value.indexOf(";") !== -1)
+          if (value.includes(";") && !value.includes("data:"))
             return;
           var newprops = parseStyles(property + ":" + value);
           if (Object.getOwnPropertyNames(newprops.property).length === 0) {

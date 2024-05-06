@@ -1,12 +1,12 @@
 /**
- * @license Angular v18.1.0-next.0+sha-8f273ce
+ * @license Angular v18.1.0-next.0+sha-3e1d6e9
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, inject, InjectionToken, Optional, APP_ID, TransferState, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ApplicationRef, Version } from '@angular/core';
+import { Injectable, Inject, inject, InjectionToken, Optional, APP_ID, TransferState, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ApplicationRef, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS, HttpClientModule } from '@angular/common/http';
@@ -16216,10 +16216,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16244,10 +16244,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 function relativeUrlsTransformerInterceptorFn(request, next) {
@@ -16379,10 +16379,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16406,10 +16406,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerEventManagerPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerEventManagerPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16493,11 +16493,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerModule, imports: [HttpClientModule, NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [HttpClientModule, NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-8f273ce", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.0+sha-3e1d6e9", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16580,6 +16580,29 @@ function removeEventDispatchScript(doc) {
     findEventDispatchScript(doc)?.remove();
 }
 /**
+ * Annotate nodes for hydration and remove event dispatch script when not needed.
+ */
+function prepareForHydration(platformState, applicationRef) {
+    const environmentInjector = applicationRef.injector;
+    const doc = platformState.getDocument();
+    if (!environmentInjector.get(ɵIS_HYDRATION_DOM_REUSE_ENABLED, false)) {
+        // Hydration is diabled, remove inlined event dispatch script.
+        // (which was injected by the build process) from the HTML.
+        removeEventDispatchScript(doc);
+        return;
+    }
+    appendSsrContentIntegrityMarker(doc);
+    const eventTypesToBeReplayed = ɵannotateForHydration(applicationRef, doc);
+    if (eventTypesToBeReplayed) {
+        insertEventRecordScript(environmentInjector.get(APP_ID), doc, eventTypesToBeReplayed, environmentInjector.get(CSP_NONCE, null));
+    }
+    else {
+        // No events to replay, we should remove inlined event dispatch script
+        // (which was injected by the build process) from the HTML.
+        removeEventDispatchScript(doc);
+    }
+}
+/**
  * Creates a marker comment node and append it into the `<body>`.
  * Some CDNs have mechanisms to remove all comment node from HTML.
  * This behaviour breaks hydration, so we'll detect on the client side if this
@@ -16620,24 +16643,12 @@ function insertEventRecordScript(appId, doc, eventTypesToBeReplayed, nonce) {
     }
 }
 async function _render(platformRef, applicationRef) {
-    const environmentInjector = applicationRef.injector;
     // Block until application is stable.
     await ɵwhenStable(applicationRef);
     const platformState = platformRef.injector.get(PlatformState);
-    if (environmentInjector.get(ɵIS_HYDRATION_DOM_REUSE_ENABLED, false)) {
-        const doc = platformState.getDocument();
-        appendSsrContentIntegrityMarker(doc);
-        const eventTypesToBeReplayed = ɵannotateForHydration(applicationRef, doc);
-        if (eventTypesToBeReplayed) {
-            insertEventRecordScript(environmentInjector.get(APP_ID), doc, eventTypesToBeReplayed, environmentInjector.get(CSP_NONCE, null));
-        }
-        else {
-            // No events to replay, we should remove inlined event dispatch script
-            // (which was injected by the build process) from the HTML.
-            removeEventDispatchScript(doc);
-        }
-    }
+    prepareForHydration(platformState, applicationRef);
     // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
+    const environmentInjector = applicationRef.injector;
     const callbacks = environmentInjector.get(BEFORE_APP_SERIALIZED, null);
     if (callbacks) {
         const asyncCallbacks = [];
@@ -16745,7 +16756,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('18.1.0-next.0+sha-8f273ce');
+const VERSION = new Version('18.1.0-next.0+sha-3e1d6e9');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.

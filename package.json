@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "19.0.0-next.1+sha-226a67d",
+  "version": "19.0.0-next.1+sha-774d983",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,11 +8,11 @@
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "19.0.0-next.1+sha-226a67d",
-    "@angular/common": "19.0.0-next.1+sha-226a67d",
-    "@angular/compiler": "19.0.0-next.1+sha-226a67d",
-    "@angular/core": "19.0.0-next.1+sha-226a67d",
-    "@angular/platform-browser": "19.0.0-next.1+sha-226a67d"
+    "@angular/animations": "19.0.0-next.1+sha-774d983",
+    "@angular/common": "19.0.0-next.1+sha-774d983",
+    "@angular/compiler": "19.0.0-next.1+sha-774d983",
+    "@angular/core": "19.0.0-next.1+sha-774d983",
+    "@angular/platform-browser": "19.0.0-next.1+sha-774d983"
   },
   "dependencies": {
     "tslib": "^2.3.0",
@@ -44,7 +44,6 @@
     ]
   },
   "sideEffects": [
-    "./esm2022/init/**",
     "./fesm2022/init.mjs"
   ],
   "module": "./fesm2022/platform-server.mjs",
@@ -56,20 +55,14 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2022": "./esm2022/platform-server.mjs",
-      "esm": "./esm2022/platform-server.mjs",
       "default": "./fesm2022/platform-server.mjs"
     },
     "./init": {
       "types": "./init/index.d.ts",
-      "esm2022": "./esm2022/init/init.mjs",
-      "esm": "./esm2022/init/init.mjs",
       "default": "./fesm2022/init.mjs"
     },
     "./testing": {
       "types": "./testing/index.d.ts",
-      "esm2022": "./esm2022/testing/testing.mjs",
-      "esm": "./esm2022/testing/testing.mjs",
       "default": "./fesm2022/testing.mjs"
     }
   }

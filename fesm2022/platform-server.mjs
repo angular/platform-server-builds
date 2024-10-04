@@ -1,12 +1,12 @@
 /**
- * @license Angular v19.0.0-next.8+sha-58bfb4a
+ * @license Angular v19.0.0-next.8+sha-84b6896
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, Inject, inject, InjectionToken, Optional, APP_ID, TransferState, Injector, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ApplicationRef, Version } from '@angular/core';
+import { InjectionToken, inject, Injector, ɵstartMeasuring, ɵstopMeasuring, Injectable, Inject, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ɵwhenStable, ApplicationRef, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS } from '@angular/common/http';
@@ -16196,6 +16196,21 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 }
 
 /**
+ * The DI token for setting the initial config for the platform.
+ *
+ * @publicApi
+ */
+const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+/**
+ * A function that will be executed when calling `renderApplication` or
+ * `renderModule` just before current platform state is rendered to string.
+ *
+ * @publicApi
+ */
+const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
+const ENABLE_DOM_EMULATION = new InjectionToken('ENABLE_DOM_EMULATION');
+
+/**
  * Representation of the current platform state.
  *
  * @publicApi
@@ -16203,12 +16218,24 @@ class DominoAdapter extends ɵBrowserDomAdapter {
 class PlatformState {
     constructor(_doc) {
         this._doc = _doc;
+        /* @internal */
+        this._enableDomEmulation = enableDomEmulation(inject(Injector));
     }
     /**
      * Renders the current state of the platform to string.
      */
     renderToString() {
-        return serializeDocument(this._doc);
+        if (ngDevMode && !this._enableDomEmulation && !window?.document) {
+            throw new Error('Disabled DOM emulation should only run in browser environments');
+        }
+        const measuringLabel = 'renderToString';
+        ɵstartMeasuring(measuringLabel);
+        const rendered = this._enableDomEmulation
+            ? serializeDocument(this._doc)
+            : // In the case we run/test the platform-server in a browser environment
+                this._doc.documentElement.outerHTML;
+        ɵstopMeasuring(measuringLabel);
+        return rendered;
     }
     /**
      * Returns the current DOM state.
@@ -16216,15 +16243,18 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: PlatformState }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: PlatformState }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
                     args: [DOCUMENT]
                 }] }] });
+function enableDomEmulation(injector) {
+    return injector.get(ENABLE_DOM_EMULATION, true);
+}
 
 class ServerXhr {
     // The `xhr2` dependency has a side-effect of accessing and modifying a
@@ -16244,10 +16274,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerXhr }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerXhr }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 function relativeUrlsTransformerInterceptorFn(request, next) {
@@ -16273,20 +16303,6 @@ const SERVER_HTTP_PROVIDERS = [
         multi: true,
     },
 ];
-
-/**
- * The DI token for setting the initial config for the platform.
- *
- * @publicApi
- */
-const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
-/**
- * A function that will be executed when calling `renderApplication` or
- * `renderModule` just before current platform state is rendered to string.
- *
- * @publicApi
- */
-const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
 
 const RESOLVE_PROTOCOL = 'resolve:';
 function parseUrl(urlStr) {
@@ -16379,10 +16395,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerPlatformLocation }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerPlatformLocation }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16406,10 +16422,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler) {
         return ɵgetDOM().onAndCancel(element, eventName, handler);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerEventManagerPlugin }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerEventManagerPlugin }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16435,6 +16451,8 @@ function createScript(doc, textContent, nonce) {
 }
 function serializeTransferStateFactory(doc, appId, transferStore) {
     return () => {
+        const measuringLabel = 'serializeTransferStateFactory';
+        ɵstartMeasuring(measuringLabel);
         // The `.toJSON` here causes the `onSerialize` callbacks to be called.
         // These callbacks can be used to provide the value for a given key.
         const content = transferStore.toJson();
@@ -16455,13 +16473,14 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
         // bundles are always `type="module"`. These are deferred by default and cause the transfer
         // transfer data to be queried only after the browser has finished parsing the DOM.
         doc.body.appendChild(script);
+        ɵstopMeasuring(measuringLabel);
     };
 }
 
 const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
     { provide: PLATFORM_ID, useValue: ɵPLATFORM_SERVER_ID },
-    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true },
+    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector] },
     {
         provide: PlatformLocation,
         useClass: ServerPlatformLocation,
@@ -16471,9 +16490,15 @@ const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     // Add special provider that allows multiple instances of platformServer* to be created.
     { provide: ɵALLOW_MULTIPLE_PLATFORMS, useValue: true },
 ];
-function initDominoAdapter() {
+function initDominoAdapter(injector) {
+    const _enableDomEmulation = enableDomEmulation(injector);
     return () => {
-        DominoAdapter.makeCurrent();
+        if (_enableDomEmulation) {
+            DominoAdapter.makeCurrent();
+        }
+        else {
+            ɵBrowserDomAdapter.makeCurrent();
+        }
     };
 }
 const SERVER_RENDER_PROVIDERS = [
@@ -16493,11 +16518,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerModule, imports: [NoopAnimationsModule], exports: [BrowserModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [NoopAnimationsModule, BrowserModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerModule, imports: [NoopAnimationsModule], exports: [BrowserModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [NoopAnimationsModule, BrowserModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-58bfb4a", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sha-84b6896", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16507,11 +16532,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.8+sh
         }] });
 function _document(injector) {
     const config = injector.get(INITIAL_CONFIG, null);
+    const _enableDomEmulation = enableDomEmulation(injector);
     let document;
     if (config && config.document) {
         document =
             typeof config.document === 'string'
-                ? parseDocument(config.document, config.url)
+                ? _enableDomEmulation
+                    ? parseDocument(config.document, config.url)
+                    : window.document
                 : config.document;
     }
     else {
@@ -16545,54 +16573,6 @@ function provideServerRendering() {
     return makeEnvironmentProviders([provideNoopAnimations(), ...PLATFORM_SERVER_PROVIDERS]);
 }
 
-const PERFORMANCE_MARK_PREFIX = '🅰️';
-let enablePerfLogging = false;
-function runAndMeasurePerf(label, method) {
-    if (!enablePerfLogging) {
-        return method();
-    }
-    const labelName = `${PERFORMANCE_MARK_PREFIX}:${label}`;
-    const startLabel = `start:${labelName}`;
-    const endLabel = `end:${labelName}`;
-    const end = () => {
-        /* tslint:disable:ban */
-        performance.mark(endLabel);
-        performance.measure(labelName, startLabel, endLabel);
-        performance.clearMarks(startLabel);
-        performance.clearMarks(endLabel);
-        /* tslint:enable:ban */
-    };
-    /* tslint:disable:ban */
-    performance.mark(startLabel);
-    /* tslint:enable:ban */
-    const returnValue = method();
-    if (returnValue instanceof Promise) {
-        return returnValue.finally(() => end());
-    }
-    else {
-        end();
-        return returnValue;
-    }
-}
-let warningLogged = false;
-/**
- * This enables an internal performance profiler for SSR apps
- *
- * It should not be imported in application code
- */
-function enableSsrProfiling() {
-    if (!warningLogged &&
-        (typeof performance === 'undefined' || !performance.mark || !performance.measure)) {
-        warningLogged = true;
-        console.warn('Performance API is not supported on this platform');
-        return;
-    }
-    enablePerfLogging = true;
-}
-function disableSsrProfiling() {
-    enablePerfLogging = false;
-}
-
 /**
  * Event dispatch (JSAction) script is inlined into the HTML by the build
  * process to avoid extra blocking request on a page. The script looks like this:
@@ -16608,10 +16588,14 @@ const EVENT_DISPATCH_SCRIPT_ID = 'ng-event-dispatch-contract';
  */
 function createServerPlatform(options) {
     const extraProviders = options.platformProviders ?? [];
-    return platformServer([
+    const measuringLabel = 'createServerPlatform';
+    ɵstartMeasuring(measuringLabel);
+    const platform = platformServer([
         { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
         extraProviders,
     ]);
+    ɵstopMeasuring(measuringLabel);
+    return platform;
 }
 /**
  * Finds and returns inlined event dispatch script if it exists.
@@ -16631,6 +16615,8 @@ function removeEventDispatchScript(doc) {
  * Annotate nodes for hydration and remove event dispatch script when not needed.
  */
 function prepareForHydration(platformState, applicationRef) {
+    const measuringLabel = 'prepareForHydration';
+    ɵstartMeasuring(measuringLabel);
     const environmentInjector = applicationRef.injector;
     const doc = platformState.getDocument();
     if (!environmentInjector.get(ɵIS_HYDRATION_DOM_REUSE_ENABLED, false)) {
@@ -16649,6 +16635,7 @@ function prepareForHydration(platformState, applicationRef) {
         // (which was injected by the build process) from the HTML.
         removeEventDispatchScript(doc);
     }
+    ɵstopMeasuring(measuringLabel);
 }
 /**
  * Creates a marker comment node and append it into the `<body>`.
@@ -16679,8 +16666,11 @@ function appendServerContextInfo(applicationRef) {
     });
 }
 function insertEventRecordScript(appId, doc, eventTypesToReplay, nonce) {
+    const measuringLabel = 'insertEventRecordScript';
+    ɵstartMeasuring(measuringLabel);
     const { regular, capture } = eventTypesToReplay;
     const eventDispatchScript = findEventDispatchScript(doc);
+    // Note: this is only true when build with the CLI tooling, which inserts the script in the HTML
     if (eventDispatchScript) {
         // This is defined in packages/core/primitives/event-dispatch/contract_binary.ts
         const replayScriptContents = `window.__jsaction_bootstrap(` +
@@ -16694,10 +16684,14 @@ function insertEventRecordScript(appId, doc, eventTypesToReplay, nonce) {
         // relies on `__jsaction_bootstrap` to be defined in the global scope.
         eventDispatchScript.after(replayScript);
     }
+    ɵstopMeasuring(measuringLabel);
 }
 async function _render(platformRef, applicationRef) {
+    const measuringLabel = 'whenStable';
+    ɵstartMeasuring(measuringLabel);
     // Block until application is stable.
     await ɵwhenStable(applicationRef);
+    ɵstopMeasuring(measuringLabel);
     const platformState = platformRef.injector.get(PlatformState);
     prepareForHydration(platformState, applicationRef);
     // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
@@ -16796,11 +16790,19 @@ async function renderModule(moduleType, options) {
  * @publicApi
  */
 async function renderApplication(bootstrap, options) {
-    return runAndMeasurePerf('renderApplication', async () => {
-        const platformRef = createServerPlatform(options);
-        const applicationRef = await bootstrap();
-        return _render(platformRef, applicationRef);
-    });
+    const renderAppLabel = 'renderApplication';
+    const bootstrapLabel = 'bootstrap';
+    const _renderLabel = '_render';
+    ɵstartMeasuring(renderAppLabel);
+    const platformRef = createServerPlatform(options);
+    ɵstartMeasuring(bootstrapLabel);
+    const applicationRef = await bootstrap();
+    ɵstopMeasuring(bootstrapLabel);
+    ɵstartMeasuring(_renderLabel);
+    const rendered = await _render(platformRef, applicationRef);
+    ɵstopMeasuring(_renderLabel);
+    ɵstopMeasuring(renderAppLabel);
+    return rendered;
 }
 
 /**
@@ -16811,7 +16813,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.0.0-next.8+sha-58bfb4a');
+const VERSION = new Version('19.0.0-next.8+sha-84b6896');
 
 /// <reference types="node" />
 // This file only reexports content of the `src` folder. Keep it that way.
@@ -16822,5 +16824,5 @@ const VERSION = new Version('19.0.0-next.8+sha-58bfb4a');
  * Generated bundle index. Do not edit.
  */
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, disableSsrProfiling as ɵdisableSsrProfiling, enableSsrProfiling as ɵenableSsrProfiling };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS };
 //# sourceMappingURL=platform-server.mjs.map

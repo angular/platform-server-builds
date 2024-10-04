@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.8+sha-58bfb4a
+ * @license Angular v19.0.0-next.8+sha-84b6896
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -154,14 +154,7 @@ export declare class ServerModule {
  */
 export declare const VERSION: Version;
 
-export declare function ɵdisableSsrProfiling(): void;
-
-/**
- * This enables an internal performance profiler for SSR apps
- *
- * It should not be imported in application code
- */
-export declare function ɵenableSsrProfiling(): void;
+export declare const ɵENABLE_DOM_EMULATION: InjectionToken<boolean>;
 
 export declare const ɵINTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 

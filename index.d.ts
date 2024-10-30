@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.0-next.11+sha-616b411
+ * @license Angular v19.0.0-next.11+sha-3230d78
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -55,7 +55,7 @@ export declare interface PlatformConfig {
 /**
  * @publicApi
  */
-export declare const platformServer: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
+export declare function platformServer(extraProviders?: StaticProvider[] | undefined): PlatformRef;
 
 /**
  * Representation of the current platform state.

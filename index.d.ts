@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.0.2+sha-6ae3ce7
+ * @license Angular v19.0.2+sha-5f3ba06
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -97,7 +97,7 @@ export declare function provideServerRendering(): EnvironmentProviders;
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.
 
- * ```typescript
+ * ```ts
  * const bootstrap = () => bootstrapApplication(RootComponent, appConfig);
  * const output: string = await renderApplication(bootstrap);
  * ```

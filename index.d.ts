@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.0-next.0+sha-0c1ecb4
+ * @license Angular v19.2.0-next.0+sha-b5f9018
  * (c) 2010-2024 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -8,8 +8,7 @@
 import { ApplicationRef } from '@angular/core';
 import { EnvironmentProviders } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser/animations';
-import * as i2 from '@angular/platform-browser';
+import * as i1 from '@angular/platform-browser';
 import { InjectionToken } from '@angular/core';
 import { PlatformRef } from '@angular/core';
 import { Provider } from '@angular/core';
@@ -145,7 +144,7 @@ export declare function renderModule<T>(moduleType: Type<T>, options: {
  */
 export declare class ServerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerModule, never, [typeof i1.NoopAnimationsModule], [typeof i2.BrowserModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerModule, never, never, [typeof i1.BrowserModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<ServerModule>;
 }
 

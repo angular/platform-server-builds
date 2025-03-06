@@ -1,12 +1,12 @@
 /**
- * @license Angular v19.2.1+sha-dad02c6
+ * @license Angular v19.2.1+sha-48dc0d6
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { ɵsetRootDomAdapter, DOCUMENT, PlatformLocation, XhrFactory, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
+import { ɵsetRootDomAdapter, DOCUMENT, XhrFactory, PlatformLocation, ɵgetDOM, ɵPLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ɵstartMeasuring, ɵstopMeasuring, Injectable, Inject, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, ApplicationRef, Version } from '@angular/core';
+import { InjectionToken, inject, Injector, ɵstartMeasuring, ɵstopMeasuring, Injectable, Inject, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY, NgModule, ɵsetDocument, createPlatformFactory, platformCore, makeEnvironmentProviders, ApplicationRef, ɵIS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration, CSP_NONCE, ɵSSR_CONTENT_INTEGRITY_MARKER, Renderer2, Version } from '@angular/core';
 import { ɵBrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -19,7 +19,6 @@ var __commonJS = (cb, mod) => function __require() {
 // external/npm/node_modules/domino/lib/Event.js
 var require_Event = __commonJS({
   "external/npm/node_modules/domino/lib/Event.js"(exports, module) {
-    "use strict";
     module.exports = Event;
     Event.CAPTURING_PHASE = 1;
     Event.AT_TARGET = 2;
@@ -79,7 +78,6 @@ var require_Event = __commonJS({
 // external/npm/node_modules/domino/lib/UIEvent.js
 var require_UIEvent = __commonJS({
   "external/npm/node_modules/domino/lib/UIEvent.js"(exports, module) {
-    "use strict";
     var Event = require_Event();
     module.exports = UIEvent;
     function UIEvent() {
@@ -101,7 +99,6 @@ var require_UIEvent = __commonJS({
 // external/npm/node_modules/domino/lib/MouseEvent.js
 var require_MouseEvent = __commonJS({
   "external/npm/node_modules/domino/lib/MouseEvent.js"(exports, module) {
-    "use strict";
     var UIEvent = require_UIEvent();
     module.exports = MouseEvent;
     function MouseEvent() {
@@ -162,7 +159,6 @@ var require_MouseEvent = __commonJS({
 // external/npm/node_modules/domino/lib/DOMException.js
 var require_DOMException = __commonJS({
   "external/npm/node_modules/domino/lib/DOMException.js"(exports, module) {
-    "use strict";
     module.exports = DOMException;
     var INDEX_SIZE_ERR = 1;
     var HIERARCHY_REQUEST_ERR = 3;
@@ -296,7 +292,6 @@ var require_config = __commonJS({
 // external/npm/node_modules/domino/lib/utils.js
 var require_utils = __commonJS({
   "external/npm/node_modules/domino/lib/utils.js"(exports) {
-    "use strict";
     var DOMException = require_DOMException();
     var ERR = DOMException;
     var isApiWritable = require_config().isApiWritable;
@@ -411,7 +406,6 @@ var require_utils = __commonJS({
 // external/npm/node_modules/domino/lib/EventTarget.js
 var require_EventTarget = __commonJS({
   "external/npm/node_modules/domino/lib/EventTarget.js"(exports, module) {
-    "use strict";
     var Event = require_Event();
     var MouseEvent = require_MouseEvent();
     var utils = require_utils();
@@ -619,7 +613,6 @@ var require_EventTarget = __commonJS({
 // external/npm/node_modules/domino/lib/LinkedList.js
 var require_LinkedList = __commonJS({
   "external/npm/node_modules/domino/lib/LinkedList.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     var LinkedList = module.exports = {
       valid: function(a) {
@@ -665,7 +658,6 @@ var require_LinkedList = __commonJS({
 // external/npm/node_modules/domino/lib/NodeUtils.js
 var require_NodeUtils = __commonJS({
   "external/npm/node_modules/domino/lib/NodeUtils.js"(exports, module) {
-    "use strict";
     module.exports = {
       serializeOne,
       \u0275escapeMatchingClosingTag: escapeMatchingClosingTag,
@@ -828,14 +820,6 @@ var require_NodeUtils = __commonJS({
           break;
         case 10:
           s += "<!DOCTYPE " + kid.name;
-          if (false) {
-            if (kid.publicID) {
-              s += ' PUBLIC "' + kid.publicId + '"';
-            }
-            if (kid.systemId) {
-              s += ' "' + kid.systemId + '"';
-            }
-          }
           s += ">";
           break;
         default:
@@ -849,7 +833,6 @@ var require_NodeUtils = __commonJS({
 // external/npm/node_modules/domino/lib/Node.js
 var require_Node = __commonJS({
   "external/npm/node_modules/domino/lib/Node.js"(exports, module) {
-    "use strict";
     module.exports = Node;
     var EventTarget = require_EventTarget();
     var LinkedList = require_LinkedList();
@@ -1415,7 +1398,6 @@ var require_Node = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.es6.js
 var require_NodeList_es6 = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.es6.js"(exports, module) {
-    "use strict";
     module.exports = class NodeList extends Array {
       constructor(a) {
         super(a && a.length || 0);
@@ -1435,7 +1417,6 @@ var require_NodeList_es6 = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.es5.js
 var require_NodeList_es5 = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.es5.js"(exports, module) {
-    "use strict";
     function item(i) {
       return this[i] || null;
     }
@@ -1452,7 +1433,6 @@ var require_NodeList_es5 = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.js
 var require_NodeList = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.js"(exports, module) {
-    "use strict";
     var NodeList;
     try {
       NodeList = require_NodeList_es6();
@@ -1466,7 +1446,6 @@ var require_NodeList = __commonJS({
 // external/npm/node_modules/domino/lib/ContainerNode.js
 var require_ContainerNode = __commonJS({
   "external/npm/node_modules/domino/lib/ContainerNode.js"(exports, module) {
-    "use strict";
     module.exports = ContainerNode;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -1537,7 +1516,6 @@ var require_ContainerNode = __commonJS({
 // external/npm/node_modules/domino/lib/xmlnames.js
 var require_xmlnames = __commonJS({
   "external/npm/node_modules/domino/lib/xmlnames.js"(exports) {
-    "use strict";
     exports.isValidName = isValidName;
     exports.isValidQName = isValidQName;
     var simplename = /^[_:A-Za-z][-.:\w]+$/;
@@ -1589,7 +1567,6 @@ var require_xmlnames = __commonJS({
 // external/npm/node_modules/domino/lib/attributes.js
 var require_attributes = __commonJS({
   "external/npm/node_modules/domino/lib/attributes.js"(exports) {
-    "use strict";
     var utils = require_utils();
     exports.property = function(attr) {
       if (Array.isArray(attr.type)) {
@@ -1728,7 +1705,6 @@ var require_attributes = __commonJS({
 // external/npm/node_modules/domino/lib/FilteredElementList.js
 var require_FilteredElementList = __commonJS({
   "external/npm/node_modules/domino/lib/FilteredElementList.js"(exports, module) {
-    "use strict";
     module.exports = FilteredElementList;
     var Node = require_Node();
     function FilteredElementList(root, filter) {
@@ -1797,7 +1773,6 @@ var require_FilteredElementList = __commonJS({
 // external/npm/node_modules/domino/lib/DOMTokenList.js
 var require_DOMTokenList = __commonJS({
   "external/npm/node_modules/domino/lib/DOMTokenList.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     module.exports = DOMTokenList;
     function DOMTokenList(getter, setter) {
@@ -1962,7 +1937,6 @@ var require_DOMTokenList = __commonJS({
 // external/npm/node_modules/domino/lib/select.js
 var require_select = __commonJS({
   "external/npm/node_modules/domino/lib/select.js"(exports, module) {
-    "use strict";
     var window = Object.create(null, {
       location: { get: function() {
         throw new Error("window.location is not supported.");
@@ -2101,12 +2075,6 @@ var require_select = __commonJS({
     };
     var selectors = {
       "*": function() {
-        if (false) {
-          return function(el) {
-            if (el.nodeType === 1)
-              return true;
-          };
-        }
         return function() {
           return true;
         };
@@ -2713,7 +2681,6 @@ var require_select = __commonJS({
 // external/npm/node_modules/domino/lib/ChildNode.js
 var require_ChildNode = __commonJS({
   "external/npm/node_modules/domino/lib/ChildNode.js"(exports, module) {
-    "use strict";
     var Node = require_Node();
     var LinkedList = require_LinkedList();
     var createDocumentFragmentFromArguments = function(document, args) {
@@ -2806,7 +2773,6 @@ var require_ChildNode = __commonJS({
 // external/npm/node_modules/domino/lib/NonDocumentTypeChildNode.js
 var require_NonDocumentTypeChildNode = __commonJS({
   "external/npm/node_modules/domino/lib/NonDocumentTypeChildNode.js"(exports, module) {
-    "use strict";
     var Node = require_Node();
     var NonDocumentTypeChildNode = {
       nextElementSibling: { get: function() {
@@ -2835,7 +2801,6 @@ var require_NonDocumentTypeChildNode = __commonJS({
 // external/npm/node_modules/domino/lib/NamedNodeMap.js
 var require_NamedNodeMap = __commonJS({
   "external/npm/node_modules/domino/lib/NamedNodeMap.js"(exports, module) {
-    "use strict";
     module.exports = NamedNodeMap;
     var utils = require_utils();
     function NamedNodeMap(element) {
@@ -2875,7 +2840,6 @@ var require_NamedNodeMap = __commonJS({
 // external/npm/node_modules/domino/lib/Element.js
 var require_Element = __commonJS({
   "external/npm/node_modules/domino/lib/Element.js"(exports, module) {
-    "use strict";
     module.exports = Element;
     var xml = require_xmlnames();
     var utils = require_utils();
@@ -3320,12 +3284,6 @@ var require_Element = __commonJS({
           }
           this._attrKeys.push(key);
           this._addQName(attr);
-        } else if (false) {
-          if (attr.prefix !== prefix) {
-            this._removeQName(attr);
-            attr.prefix = prefix;
-            this._addQName(attr);
-          }
         }
         attr.value = value;
         if (isnew && this._newattrhook)
@@ -3814,7 +3772,6 @@ var require_Element = __commonJS({
 // external/npm/node_modules/domino/lib/Leaf.js
 var require_Leaf = __commonJS({
   "external/npm/node_modules/domino/lib/Leaf.js"(exports, module) {
-    "use strict";
     module.exports = Leaf;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -3859,7 +3816,6 @@ var require_Leaf = __commonJS({
 // external/npm/node_modules/domino/lib/CharacterData.js
 var require_CharacterData = __commonJS({
   "external/npm/node_modules/domino/lib/CharacterData.js"(exports, module) {
-    "use strict";
     module.exports = CharacterData;
     var Leaf = require_Leaf();
     var utils = require_utils();
@@ -3919,7 +3875,6 @@ var require_CharacterData = __commonJS({
 // external/npm/node_modules/domino/lib/Text.js
 var require_Text = __commonJS({
   "external/npm/node_modules/domino/lib/Text.js"(exports, module) {
-    "use strict";
     module.exports = Text;
     var utils = require_utils();
     var Node = require_Node();
@@ -3992,7 +3947,6 @@ var require_Text = __commonJS({
 // external/npm/node_modules/domino/lib/Comment.js
 var require_Comment = __commonJS({
   "external/npm/node_modules/domino/lib/Comment.js"(exports, module) {
-    "use strict";
     module.exports = Comment;
     var Node = require_Node();
     var CharacterData = require_CharacterData();
@@ -4038,7 +3992,6 @@ var require_Comment = __commonJS({
 // external/npm/node_modules/domino/lib/DocumentFragment.js
 var require_DocumentFragment = __commonJS({
   "external/npm/node_modules/domino/lib/DocumentFragment.js"(exports, module) {
-    "use strict";
     module.exports = DocumentFragment;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -4099,7 +4052,6 @@ var require_DocumentFragment = __commonJS({
 // external/npm/node_modules/domino/lib/ProcessingInstruction.js
 var require_ProcessingInstruction = __commonJS({
   "external/npm/node_modules/domino/lib/ProcessingInstruction.js"(exports, module) {
-    "use strict";
     module.exports = ProcessingInstruction;
     var Node = require_Node();
     var CharacterData = require_CharacterData();
@@ -4151,7 +4103,6 @@ var require_ProcessingInstruction = __commonJS({
 // external/npm/node_modules/domino/lib/NodeFilter.js
 var require_NodeFilter = __commonJS({
   "external/npm/node_modules/domino/lib/NodeFilter.js"(exports, module) {
-    "use strict";
     var NodeFilter = {
       FILTER_ACCEPT: 1,
       FILTER_REJECT: 2,
@@ -4177,8 +4128,7 @@ var require_NodeFilter = __commonJS({
 // external/npm/node_modules/domino/lib/NodeTraversal.js
 var require_NodeTraversal = __commonJS({
   "external/npm/node_modules/domino/lib/NodeTraversal.js"(exports, module) {
-    "use strict";
-    var NodeTraversal = module.exports = {
+    module.exports = {
       nextSkippingChildren,
       nextAncestorSibling,
       next,
@@ -4244,7 +4194,6 @@ var require_NodeTraversal = __commonJS({
 // external/npm/node_modules/domino/lib/TreeWalker.js
 var require_TreeWalker = __commonJS({
   "external/npm/node_modules/domino/lib/TreeWalker.js"(exports, module) {
-    "use strict";
     module.exports = TreeWalker;
     var Node = require_Node();
     var NodeFilter = require_NodeFilter();
@@ -4477,7 +4426,6 @@ var require_TreeWalker = __commonJS({
 // external/npm/node_modules/domino/lib/NodeIterator.js
 var require_NodeIterator = __commonJS({
   "external/npm/node_modules/domino/lib/NodeIterator.js"(exports, module) {
-    "use strict";
     module.exports = NodeIterator;
     var NodeFilter = require_NodeFilter();
     var NodeTraversal = require_NodeTraversal();
@@ -4622,7 +4570,6 @@ var require_NodeIterator = __commonJS({
 // external/npm/node_modules/domino/lib/URL.js
 var require_URL = __commonJS({
   "external/npm/node_modules/domino/lib/URL.js"(exports, module) {
-    "use strict";
     module.exports = URL;
     function URL(url) {
       if (!url)
@@ -4798,7 +4745,6 @@ var require_URL = __commonJS({
 // external/npm/node_modules/domino/lib/CustomEvent.js
 var require_CustomEvent = __commonJS({
   "external/npm/node_modules/domino/lib/CustomEvent.js"(exports, module) {
-    "use strict";
     module.exports = CustomEvent;
     var Event = require_Event();
     function CustomEvent(type, dictionary) {
@@ -4813,7 +4759,6 @@ var require_CustomEvent = __commonJS({
 // external/npm/node_modules/domino/lib/events.js
 var require_events = __commonJS({
   "external/npm/node_modules/domino/lib/events.js"(exports, module) {
-    "use strict";
     module.exports = {
       Event: require_Event(),
       UIEvent: require_UIEvent(),
@@ -4826,7 +4771,6 @@ var require_events = __commonJS({
 // external/npm/node_modules/domino/lib/style_parser.js
 var require_style_parser = __commonJS({
   "external/npm/node_modules/domino/lib/style_parser.js"(exports) {
-    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.hyphenate = exports.parse = void 0;
     function parse(value) {
@@ -4896,7 +4840,6 @@ var require_style_parser = __commonJS({
 // external/npm/node_modules/domino/lib/CSSStyleDeclaration.js
 var require_CSSStyleDeclaration = __commonJS({
   "external/npm/node_modules/domino/lib/CSSStyleDeclaration.js"(exports, module) {
-    "use strict";
     var { parse } = require_style_parser();
     module.exports = function(elt) {
       const style = new CSSStyleDeclaration(elt);
@@ -5075,7 +5018,6 @@ var require_CSSStyleDeclaration = __commonJS({
 // external/npm/node_modules/domino/lib/URLUtils.js
 var require_URLUtils = __commonJS({
   "external/npm/node_modules/domino/lib/URLUtils.js"(exports, module) {
-    "use strict";
     var URL = require_URL();
     module.exports = URLUtils;
     function URLUtils() {
@@ -5313,7 +5255,6 @@ var require_URLUtils = __commonJS({
 // external/npm/node_modules/domino/lib/defineElement.js
 var require_defineElement = __commonJS({
   "external/npm/node_modules/domino/lib/defineElement.js"(exports, module) {
-    "use strict";
     var attributes = require_attributes();
     var isApiWritable = require_config().isApiWritable;
     module.exports = function(spec, defaultConstructor, tagList, tagNameToImpl) {
@@ -5379,7 +5320,6 @@ var require_defineElement = __commonJS({
 // external/npm/node_modules/domino/lib/htmlelts.js
 var require_htmlelts = __commonJS({
   "external/npm/node_modules/domino/lib/htmlelts.js"(exports) {
-    "use strict";
     var Node = require_Node();
     var Element = require_Element();
     var CSSStyleDeclaration = require_CSSStyleDeclaration();
@@ -6868,7 +6808,6 @@ var require_htmlelts = __commonJS({
 // external/npm/node_modules/domino/lib/svg.js
 var require_svg = __commonJS({
   "external/npm/node_modules/domino/lib/svg.js"(exports) {
-    "use strict";
     var Element = require_Element();
     var defineElement = require_defineElement();
     var utils = require_utils();
@@ -6997,7 +6936,6 @@ var require_svg = __commonJS({
 // external/npm/node_modules/domino/lib/MutationConstants.js
 var require_MutationConstants = __commonJS({
   "external/npm/node_modules/domino/lib/MutationConstants.js"(exports, module) {
-    "use strict";
     module.exports = {
       VALUE: 1,
       ATTR: 2,
@@ -7012,7 +6950,6 @@ var require_MutationConstants = __commonJS({
 // external/npm/node_modules/domino/lib/Document.js
 var require_Document = __commonJS({
   "external/npm/node_modules/domino/lib/Document.js"(exports, module) {
-    "use strict";
     module.exports = Document;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -7418,8 +7355,6 @@ var require_Document = __commonJS({
           utils.InvalidStateError();
         if (!this._parser)
           return;
-        if (!this._parser) {
-        }
         var s = arguments.join("");
         this._parser.parse(s);
       } },
@@ -7728,7 +7663,6 @@ var require_Document = __commonJS({
 // external/npm/node_modules/domino/lib/DocumentType.js
 var require_DocumentType = __commonJS({
   "external/npm/node_modules/domino/lib/DocumentType.js"(exports, module) {
-    "use strict";
     module.exports = DocumentType;
     var Node = require_Node();
     var Leaf = require_Leaf();
@@ -7766,7 +7700,6 @@ var require_DocumentType = __commonJS({
 // external/npm/node_modules/domino/lib/HTMLParser.js
 var require_HTMLParser = __commonJS({
   "external/npm/node_modules/domino/lib/HTMLParser.js"(exports, module) {
-    "use strict";
     module.exports = HTMLParser;
     var Document = require_Document();
     var DocumentType = require_DocumentType();
@@ -11965,8 +11898,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12128,8 +12059,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12299,8 +12228,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12604,8 +12531,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -13092,7 +13017,7 @@ var require_HTMLParser = __commonJS({
         switch (c) {
           case 62:
             tokenizer = data_state;
-            emitSelfClosingTag(true);
+            emitSelfClosingTag();
             break;
           case -1:
             emitEOF();
@@ -13774,8 +13699,6 @@ var require_HTMLParser = __commonJS({
             emitDoctype();
             emitEOF();
             break;
-          default:
-            break;
         }
       }
       function cdata_section_state(c) {
@@ -13864,8 +13787,6 @@ var require_HTMLParser = __commonJS({
                 return;
               }
             }
-            break;
-          default:
             break;
         }
         beginTempBuf();
@@ -15715,8 +15636,6 @@ var require_HTMLParser = __commonJS({
             adjustForeignAttributes(arg3);
             insertForeignElement(value, arg3, current.namespaceURI);
             if (arg4) {
-              if (value === "script" && current.namespaceURI === NAMESPACE.SVG) {
-              }
               stack.pop();
             }
             return;
@@ -15800,8 +15719,6 @@ var require_HTMLParser = __commonJS({
             case 3:
               tokens.push(["EndTag", value]);
               break;
-            case -1:
-              break;
           }
         };
         if (!charbychar) {
@@ -15822,7 +15739,6 @@ var require_HTMLParser = __commonJS({
 // external/npm/node_modules/domino/lib/DOMImplementation.js
 var require_DOMImplementation = __commonJS({
   "external/npm/node_modules/domino/lib/DOMImplementation.js"(exports, module) {
-    "use strict";
     module.exports = DOMImplementation;
     var Document = require_Document();
     var DocumentType = require_DocumentType();
@@ -15899,7 +15815,6 @@ var require_DOMImplementation = __commonJS({
 // external/npm/node_modules/domino/lib/Location.js
 var require_Location = __commonJS({
   "external/npm/node_modules/domino/lib/Location.js"(exports, module) {
-    "use strict";
     var URL = require_URL();
     var URLUtils = require_URLUtils();
     module.exports = Location;
@@ -15938,7 +15853,6 @@ var require_Location = __commonJS({
 // external/npm/node_modules/domino/lib/NavigatorID.js
 var require_NavigatorID = __commonJS({
   "external/npm/node_modules/domino/lib/NavigatorID.js"(exports, module) {
-    "use strict";
     var NavigatorID = Object.create(null, {
       appCodeName: { value: "Mozilla" },
       appName: { value: "Netscape" },
@@ -15960,7 +15874,6 @@ var require_NavigatorID = __commonJS({
 // external/npm/node_modules/domino/lib/WindowTimers.js
 var require_WindowTimers = __commonJS({
   "external/npm/node_modules/domino/lib/WindowTimers.js"(exports, module) {
-    "use strict";
     var WindowTimers = {
       setTimeout,
       clearTimeout,
@@ -15974,7 +15887,6 @@ var require_WindowTimers = __commonJS({
 // external/npm/node_modules/domino/lib/impl.js
 var require_impl = __commonJS({
   "external/npm/node_modules/domino/lib/impl.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     exports = module.exports = {
       CSSStyleDeclaration: require_CSSStyleDeclaration(),
@@ -16005,7 +15917,6 @@ var require_impl = __commonJS({
 // external/npm/node_modules/domino/lib/Window.js
 var require_Window = __commonJS({
   "external/npm/node_modules/domino/lib/Window.js"(exports, module) {
-    "use strict";
     var DOMImplementation = require_DOMImplementation();
     var EventTarget = require_EventTarget();
     var Location = require_Location();
@@ -16065,7 +15976,7 @@ var require_lib = __commonJS({
   "external/npm/node_modules/domino/lib/index.js"(exports) {
     var DOMImplementation = require_DOMImplementation();
     var HTMLParser = require_HTMLParser();
-    var Window = require_Window();
+    require_Window();
     var impl = require_impl();
     exports.createDOMImplementation = function() {
       return new DOMImplementation(null);
@@ -16241,10 +16152,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: PlatformState });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: PlatformState });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16273,10 +16184,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 function relativeUrlsTransformerInterceptorFn(request, next) {
@@ -16395,10 +16306,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerPlatformLocation });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerPlatformLocation });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16423,10 +16334,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler, options) {
         return ɵgetDOM().onAndCancel(element, eventName, handler, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerEventManagerPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerEventManagerPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -16542,11 +16453,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-dad02c6", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.1+sha-48dc0d6", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -16861,16 +16772,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.2.1+sha-dad02c6');
-
-/// <reference types="node" />
-// This file only reexports content of the `src` folder. Keep it that way.
-
-// This file is not used to build this module. It is only used during editing
-
-/**
- * Generated bundle index. Do not edit.
- */
+const VERSION = new Version('19.2.1+sha-48dc0d6');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS };
 //# sourceMappingURL=platform-server.mjs.map

@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.2+sha-4930ed3
+ * @license Angular v20.0.0-next.2+sha-bf5d995
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -97,6 +97,16 @@ declare const BEFORE_APP_SERIALIZED: InjectionToken<readonly (() => void | Promi
 declare const ENABLE_DOM_EMULATION: InjectionToken<boolean>;
 
 /**
+ * Renders an Angular application to a string.
+ *
+ * @private
+ *
+ * @param platformRef - Reference to the Angular platform.
+ * @param applicationRef - Reference to the Angular application.
+ * @returns A promise that resolves to the rendered string.
+ */
+declare function renderInternal(platformRef: PlatformRef, applicationRef: ApplicationRef): Promise<string>;
+/**
  * An internal token that allows providing extra information about the server context
  * (e.g. whether SSR or SSG was used). The value is a string and characters other
  * than [a-zA-Z0-9\-] are removed. See the default value in `DEFAULT_SERVER_CONTEXT` const.
@@ -156,4 +166,4 @@ declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, 
  */
 declare const VERSION: Version;
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, type PlatformConfig, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, type PlatformConfig, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };

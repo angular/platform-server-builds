@@ -1,10 +1,11 @@
 /**
- * @license Angular v20.0.0-next.3+sha-911ad40
+ * @license Angular v20.0.0-next.3+sha-70bdb88
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
+import { StaticProvider } from '@angular/core';
 import * as i1 from '@angular/platform-browser-dynamic/testing';
 
 /**
@@ -12,7 +13,7 @@ import * as i1 from '@angular/platform-browser-dynamic/testing';
  *
  * @publicApi
  */
-declare const platformServerTesting: (extraProviders?: i0.StaticProvider[]) => i0.PlatformRef;
+declare const platformServerTesting: (extraProviders?: StaticProvider[]) => i0.PlatformRef;
 /**
  * NgModule for testing.
  *

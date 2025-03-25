@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.3+sha-7499b74
+ * @license Angular v20.0.0-next.3+sha-6d3849f
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -26,11 +26,11 @@ const platformServerTesting = createPlatformFactory(platformCore, 'serverTesting
  * @publicApi
  */
 class ServerTestingModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-7499b74", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.3+sha-7499b74", ngImport: i0, type: ServerTestingModule, exports: [BrowserDynamicTestingModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-7499b74", ngImport: i0, type: ServerTestingModule, providers: _SERVER_RENDER_PROVIDERS, imports: [BrowserDynamicTestingModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-6d3849f", ngImport: i0, type: ServerTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.3+sha-6d3849f", ngImport: i0, type: ServerTestingModule, exports: [BrowserDynamicTestingModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-6d3849f", ngImport: i0, type: ServerTestingModule, providers: _SERVER_RENDER_PROVIDERS, imports: [BrowserDynamicTestingModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-7499b74", ngImport: i0, type: ServerTestingModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.3+sha-6d3849f", ngImport: i0, type: ServerTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserDynamicTestingModule],

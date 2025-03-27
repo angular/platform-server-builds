@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-next.4+sha-5948cd0
+ * @license Angular v20.0.0-next.4+sha-0b34c58
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -166,4 +166,5 @@ declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, 
  */
 declare const VERSION: Version;
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, type PlatformConfig, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };
+export type { PlatformConfig };

@@ -1,11 +1,11 @@
 /**
- * @license Angular v19.2.5+sha-1b36f6e
+ * @license Angular v19.2.5+sha-e9a719e
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { P as PLATFORM_SERVER_PROVIDERS, a as PlatformState, B as BEFORE_APP_SERIALIZED, p as platformServer, I as INITIAL_CONFIG, c as createScript } from './server-BqNlvI2m.mjs';
-export { S as ServerModule, E as ɵENABLE_DOM_EMULATION, b as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, d as ɵSERVER_RENDER_PROVIDERS } from './server-BqNlvI2m.mjs';
+import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, platformServer, INITIAL_CONFIG, createScript } from './server-BPmC12ZL.mjs';
+export { ServerModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './server-BPmC12ZL.mjs';
 import { makeEnvironmentProviders, InjectionToken, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ApplicationRef, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, Renderer2, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Version } from '@angular/core';
 import '@angular/common';
 import '@angular/platform-browser';
@@ -301,7 +301,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.2.5+sha-1b36f6e');
+const VERSION = new Version('19.2.5+sha-e9a719e');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

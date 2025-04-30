@@ -1,32 +1,30 @@
 /**
- * @license Angular v18.1.0-next.0+sha-87c5f3c
- * (c) 2010-2024 Google LLC. https://angular.io/
+ * @license Angular v20.0.0-next.9+sha-f4d60ff
+ * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/platform-browser/animations';
-import * as i2 from '@angular/platform-browser-dynamic/testing';
-import { PlatformRef } from '@angular/core';
 import { StaticProvider } from '@angular/core';
+import * as i1 from '@angular/platform-browser-dynamic/testing';
 
 /**
  * Platform for testing
  *
  * @publicApi
+ * @deprecated from v20.0.0, use e2e testing to verify SSR behavior.
  */
-export declare const platformServerTesting: (extraProviders?: StaticProvider[] | undefined) => PlatformRef;
-
+declare const platformServerTesting: (extraProviders?: StaticProvider[]) => i0.PlatformRef;
 /**
  * NgModule for testing.
  *
  * @publicApi
+ * @deprecated from v20.0.0, use e2e testing to verify SSR behavior.
  */
-export declare class ServerTestingModule {
+declare class ServerTestingModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<ServerTestingModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerTestingModule, never, [typeof i1.NoopAnimationsModule], [typeof i2.BrowserDynamicTestingModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<ServerTestingModule, never, never, [typeof i1.BrowserDynamicTestingModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<ServerTestingModule>;
 }
 
-export { }
+export { ServerTestingModule, platformServerTesting };

@@ -1,3 +1,16 @@
+/**
+ * @license Angular v20.0.0-next.9+sha-f4d60ff
+ * (c) 2010-2025 Google LLC. https://angular.io/
+ * License: MIT
+ */
+
+import { ɵsetRootDomAdapter as _setRootDomAdapter, DOCUMENT, XhrFactory, PlatformLocation, ɵgetDOM as _getDOM, ɵPLATFORM_SERVER_ID as _PLATFORM_SERVER_ID, ɵNullViewportScroller as _NullViewportScroller, ViewportScroller } from '@angular/common';
+import * as i0 from '@angular/core';
+import { InjectionToken, inject, Injector, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, Inject, Injectable, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, ɵALLOW_MULTIPLE_PLATFORMS as _ALLOW_MULTIPLE_PLATFORMS, Testability, ɵTESTABILITY as _TESTABILITY, createPlatformFactory, platformCore, ɵsetDocument as _setDocument, NgModule } from '@angular/core';
+import { ɵBrowserDomAdapter as _BrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
+import { ɵHTTP_ROOT_INTERCEPTOR_FNS as _HTTP_ROOT_INTERCEPTOR_FNS } from '@angular/common/http';
+import { Subject } from 'rxjs';
+
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
@@ -6,7 +19,6 @@ var __commonJS = (cb, mod) => function __require() {
 // external/npm/node_modules/domino/lib/Event.js
 var require_Event = __commonJS({
   "external/npm/node_modules/domino/lib/Event.js"(exports, module) {
-    "use strict";
     module.exports = Event;
     Event.CAPTURING_PHASE = 1;
     Event.AT_TARGET = 2;
@@ -66,7 +78,6 @@ var require_Event = __commonJS({
 // external/npm/node_modules/domino/lib/UIEvent.js
 var require_UIEvent = __commonJS({
   "external/npm/node_modules/domino/lib/UIEvent.js"(exports, module) {
-    "use strict";
     var Event = require_Event();
     module.exports = UIEvent;
     function UIEvent() {
@@ -88,7 +99,6 @@ var require_UIEvent = __commonJS({
 // external/npm/node_modules/domino/lib/MouseEvent.js
 var require_MouseEvent = __commonJS({
   "external/npm/node_modules/domino/lib/MouseEvent.js"(exports, module) {
-    "use strict";
     var UIEvent = require_UIEvent();
     module.exports = MouseEvent;
     function MouseEvent() {
@@ -149,7 +159,6 @@ var require_MouseEvent = __commonJS({
 // external/npm/node_modules/domino/lib/DOMException.js
 var require_DOMException = __commonJS({
   "external/npm/node_modules/domino/lib/DOMException.js"(exports, module) {
-    "use strict";
     module.exports = DOMException;
     var INDEX_SIZE_ERR = 1;
     var HIERARCHY_REQUEST_ERR = 3;
@@ -283,7 +292,6 @@ var require_config = __commonJS({
 // external/npm/node_modules/domino/lib/utils.js
 var require_utils = __commonJS({
   "external/npm/node_modules/domino/lib/utils.js"(exports) {
-    "use strict";
     var DOMException = require_DOMException();
     var ERR = DOMException;
     var isApiWritable = require_config().isApiWritable;
@@ -398,7 +406,6 @@ var require_utils = __commonJS({
 // external/npm/node_modules/domino/lib/EventTarget.js
 var require_EventTarget = __commonJS({
   "external/npm/node_modules/domino/lib/EventTarget.js"(exports, module) {
-    "use strict";
     var Event = require_Event();
     var MouseEvent = require_MouseEvent();
     var utils = require_utils();
@@ -606,7 +613,6 @@ var require_EventTarget = __commonJS({
 // external/npm/node_modules/domino/lib/LinkedList.js
 var require_LinkedList = __commonJS({
   "external/npm/node_modules/domino/lib/LinkedList.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     var LinkedList = module.exports = {
       valid: function(a) {
@@ -652,7 +658,6 @@ var require_LinkedList = __commonJS({
 // external/npm/node_modules/domino/lib/NodeUtils.js
 var require_NodeUtils = __commonJS({
   "external/npm/node_modules/domino/lib/NodeUtils.js"(exports, module) {
-    "use strict";
     module.exports = {
       serializeOne,
       \u0275escapeMatchingClosingTag: escapeMatchingClosingTag,
@@ -815,14 +820,6 @@ var require_NodeUtils = __commonJS({
           break;
         case 10:
           s += "<!DOCTYPE " + kid.name;
-          if (false) {
-            if (kid.publicID) {
-              s += ' PUBLIC "' + kid.publicId + '"';
-            }
-            if (kid.systemId) {
-              s += ' "' + kid.systemId + '"';
-            }
-          }
           s += ">";
           break;
         default:
@@ -836,7 +833,6 @@ var require_NodeUtils = __commonJS({
 // external/npm/node_modules/domino/lib/Node.js
 var require_Node = __commonJS({
   "external/npm/node_modules/domino/lib/Node.js"(exports, module) {
-    "use strict";
     module.exports = Node;
     var EventTarget = require_EventTarget();
     var LinkedList = require_LinkedList();
@@ -1402,7 +1398,6 @@ var require_Node = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.es6.js
 var require_NodeList_es6 = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.es6.js"(exports, module) {
-    "use strict";
     module.exports = class NodeList extends Array {
       constructor(a) {
         super(a && a.length || 0);
@@ -1422,7 +1417,6 @@ var require_NodeList_es6 = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.es5.js
 var require_NodeList_es5 = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.es5.js"(exports, module) {
-    "use strict";
     function item(i) {
       return this[i] || null;
     }
@@ -1439,7 +1433,6 @@ var require_NodeList_es5 = __commonJS({
 // external/npm/node_modules/domino/lib/NodeList.js
 var require_NodeList = __commonJS({
   "external/npm/node_modules/domino/lib/NodeList.js"(exports, module) {
-    "use strict";
     var NodeList;
     try {
       NodeList = require_NodeList_es6();
@@ -1453,7 +1446,6 @@ var require_NodeList = __commonJS({
 // external/npm/node_modules/domino/lib/ContainerNode.js
 var require_ContainerNode = __commonJS({
   "external/npm/node_modules/domino/lib/ContainerNode.js"(exports, module) {
-    "use strict";
     module.exports = ContainerNode;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -1524,7 +1516,6 @@ var require_ContainerNode = __commonJS({
 // external/npm/node_modules/domino/lib/xmlnames.js
 var require_xmlnames = __commonJS({
   "external/npm/node_modules/domino/lib/xmlnames.js"(exports) {
-    "use strict";
     exports.isValidName = isValidName;
     exports.isValidQName = isValidQName;
     var simplename = /^[_:A-Za-z][-.:\w]+$/;
@@ -1576,7 +1567,6 @@ var require_xmlnames = __commonJS({
 // external/npm/node_modules/domino/lib/attributes.js
 var require_attributes = __commonJS({
   "external/npm/node_modules/domino/lib/attributes.js"(exports) {
-    "use strict";
     var utils = require_utils();
     exports.property = function(attr) {
       if (Array.isArray(attr.type)) {
@@ -1715,7 +1705,6 @@ var require_attributes = __commonJS({
 // external/npm/node_modules/domino/lib/FilteredElementList.js
 var require_FilteredElementList = __commonJS({
   "external/npm/node_modules/domino/lib/FilteredElementList.js"(exports, module) {
-    "use strict";
     module.exports = FilteredElementList;
     var Node = require_Node();
     function FilteredElementList(root, filter) {
@@ -1784,7 +1773,6 @@ var require_FilteredElementList = __commonJS({
 // external/npm/node_modules/domino/lib/DOMTokenList.js
 var require_DOMTokenList = __commonJS({
   "external/npm/node_modules/domino/lib/DOMTokenList.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     module.exports = DOMTokenList;
     function DOMTokenList(getter, setter) {
@@ -1949,7 +1937,6 @@ var require_DOMTokenList = __commonJS({
 // external/npm/node_modules/domino/lib/select.js
 var require_select = __commonJS({
   "external/npm/node_modules/domino/lib/select.js"(exports, module) {
-    "use strict";
     var window = Object.create(null, {
       location: { get: function() {
         throw new Error("window.location is not supported.");
@@ -2088,12 +2075,6 @@ var require_select = __commonJS({
     };
     var selectors = {
       "*": function() {
-        if (false) {
-          return function(el) {
-            if (el.nodeType === 1)
-              return true;
-          };
-        }
         return function() {
           return true;
         };
@@ -2700,7 +2681,6 @@ var require_select = __commonJS({
 // external/npm/node_modules/domino/lib/ChildNode.js
 var require_ChildNode = __commonJS({
   "external/npm/node_modules/domino/lib/ChildNode.js"(exports, module) {
-    "use strict";
     var Node = require_Node();
     var LinkedList = require_LinkedList();
     var createDocumentFragmentFromArguments = function(document, args) {
@@ -2793,7 +2773,6 @@ var require_ChildNode = __commonJS({
 // external/npm/node_modules/domino/lib/NonDocumentTypeChildNode.js
 var require_NonDocumentTypeChildNode = __commonJS({
   "external/npm/node_modules/domino/lib/NonDocumentTypeChildNode.js"(exports, module) {
-    "use strict";
     var Node = require_Node();
     var NonDocumentTypeChildNode = {
       nextElementSibling: { get: function() {
@@ -2822,7 +2801,6 @@ var require_NonDocumentTypeChildNode = __commonJS({
 // external/npm/node_modules/domino/lib/NamedNodeMap.js
 var require_NamedNodeMap = __commonJS({
   "external/npm/node_modules/domino/lib/NamedNodeMap.js"(exports, module) {
-    "use strict";
     module.exports = NamedNodeMap;
     var utils = require_utils();
     function NamedNodeMap(element) {
@@ -2862,7 +2840,6 @@ var require_NamedNodeMap = __commonJS({
 // external/npm/node_modules/domino/lib/Element.js
 var require_Element = __commonJS({
   "external/npm/node_modules/domino/lib/Element.js"(exports, module) {
-    "use strict";
     module.exports = Element;
     var xml = require_xmlnames();
     var utils = require_utils();
@@ -3307,12 +3284,6 @@ var require_Element = __commonJS({
           }
           this._attrKeys.push(key);
           this._addQName(attr);
-        } else if (false) {
-          if (attr.prefix !== prefix) {
-            this._removeQName(attr);
-            attr.prefix = prefix;
-            this._addQName(attr);
-          }
         }
         attr.value = value;
         if (isnew && this._newattrhook)
@@ -3801,7 +3772,6 @@ var require_Element = __commonJS({
 // external/npm/node_modules/domino/lib/Leaf.js
 var require_Leaf = __commonJS({
   "external/npm/node_modules/domino/lib/Leaf.js"(exports, module) {
-    "use strict";
     module.exports = Leaf;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -3846,7 +3816,6 @@ var require_Leaf = __commonJS({
 // external/npm/node_modules/domino/lib/CharacterData.js
 var require_CharacterData = __commonJS({
   "external/npm/node_modules/domino/lib/CharacterData.js"(exports, module) {
-    "use strict";
     module.exports = CharacterData;
     var Leaf = require_Leaf();
     var utils = require_utils();
@@ -3906,7 +3875,6 @@ var require_CharacterData = __commonJS({
 // external/npm/node_modules/domino/lib/Text.js
 var require_Text = __commonJS({
   "external/npm/node_modules/domino/lib/Text.js"(exports, module) {
-    "use strict";
     module.exports = Text;
     var utils = require_utils();
     var Node = require_Node();
@@ -3979,7 +3947,6 @@ var require_Text = __commonJS({
 // external/npm/node_modules/domino/lib/Comment.js
 var require_Comment = __commonJS({
   "external/npm/node_modules/domino/lib/Comment.js"(exports, module) {
-    "use strict";
     module.exports = Comment;
     var Node = require_Node();
     var CharacterData = require_CharacterData();
@@ -4025,7 +3992,6 @@ var require_Comment = __commonJS({
 // external/npm/node_modules/domino/lib/DocumentFragment.js
 var require_DocumentFragment = __commonJS({
   "external/npm/node_modules/domino/lib/DocumentFragment.js"(exports, module) {
-    "use strict";
     module.exports = DocumentFragment;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -4086,7 +4052,6 @@ var require_DocumentFragment = __commonJS({
 // external/npm/node_modules/domino/lib/ProcessingInstruction.js
 var require_ProcessingInstruction = __commonJS({
   "external/npm/node_modules/domino/lib/ProcessingInstruction.js"(exports, module) {
-    "use strict";
     module.exports = ProcessingInstruction;
     var Node = require_Node();
     var CharacterData = require_CharacterData();
@@ -4138,7 +4103,6 @@ var require_ProcessingInstruction = __commonJS({
 // external/npm/node_modules/domino/lib/NodeFilter.js
 var require_NodeFilter = __commonJS({
   "external/npm/node_modules/domino/lib/NodeFilter.js"(exports, module) {
-    "use strict";
     var NodeFilter = {
       FILTER_ACCEPT: 1,
       FILTER_REJECT: 2,
@@ -4164,8 +4128,7 @@ var require_NodeFilter = __commonJS({
 // external/npm/node_modules/domino/lib/NodeTraversal.js
 var require_NodeTraversal = __commonJS({
   "external/npm/node_modules/domino/lib/NodeTraversal.js"(exports, module) {
-    "use strict";
-    var NodeTraversal = module.exports = {
+    module.exports = {
       nextSkippingChildren,
       nextAncestorSibling,
       next,
@@ -4231,7 +4194,6 @@ var require_NodeTraversal = __commonJS({
 // external/npm/node_modules/domino/lib/TreeWalker.js
 var require_TreeWalker = __commonJS({
   "external/npm/node_modules/domino/lib/TreeWalker.js"(exports, module) {
-    "use strict";
     module.exports = TreeWalker;
     var Node = require_Node();
     var NodeFilter = require_NodeFilter();
@@ -4464,7 +4426,6 @@ var require_TreeWalker = __commonJS({
 // external/npm/node_modules/domino/lib/NodeIterator.js
 var require_NodeIterator = __commonJS({
   "external/npm/node_modules/domino/lib/NodeIterator.js"(exports, module) {
-    "use strict";
     module.exports = NodeIterator;
     var NodeFilter = require_NodeFilter();
     var NodeTraversal = require_NodeTraversal();
@@ -4609,7 +4570,6 @@ var require_NodeIterator = __commonJS({
 // external/npm/node_modules/domino/lib/URL.js
 var require_URL = __commonJS({
   "external/npm/node_modules/domino/lib/URL.js"(exports, module) {
-    "use strict";
     module.exports = URL;
     function URL(url) {
       if (!url)
@@ -4785,7 +4745,6 @@ var require_URL = __commonJS({
 // external/npm/node_modules/domino/lib/CustomEvent.js
 var require_CustomEvent = __commonJS({
   "external/npm/node_modules/domino/lib/CustomEvent.js"(exports, module) {
-    "use strict";
     module.exports = CustomEvent;
     var Event = require_Event();
     function CustomEvent(type, dictionary) {
@@ -4800,7 +4759,6 @@ var require_CustomEvent = __commonJS({
 // external/npm/node_modules/domino/lib/events.js
 var require_events = __commonJS({
   "external/npm/node_modules/domino/lib/events.js"(exports, module) {
-    "use strict";
     module.exports = {
       Event: require_Event(),
       UIEvent: require_UIEvent(),
@@ -4813,7 +4771,6 @@ var require_events = __commonJS({
 // external/npm/node_modules/domino/lib/style_parser.js
 var require_style_parser = __commonJS({
   "external/npm/node_modules/domino/lib/style_parser.js"(exports) {
-    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.hyphenate = exports.parse = void 0;
     function parse(value) {
@@ -4883,7 +4840,6 @@ var require_style_parser = __commonJS({
 // external/npm/node_modules/domino/lib/CSSStyleDeclaration.js
 var require_CSSStyleDeclaration = __commonJS({
   "external/npm/node_modules/domino/lib/CSSStyleDeclaration.js"(exports, module) {
-    "use strict";
     var { parse } = require_style_parser();
     module.exports = function(elt) {
       const style = new CSSStyleDeclaration(elt);
@@ -5062,7 +5018,6 @@ var require_CSSStyleDeclaration = __commonJS({
 // external/npm/node_modules/domino/lib/URLUtils.js
 var require_URLUtils = __commonJS({
   "external/npm/node_modules/domino/lib/URLUtils.js"(exports, module) {
-    "use strict";
     var URL = require_URL();
     module.exports = URLUtils;
     function URLUtils() {
@@ -5300,7 +5255,6 @@ var require_URLUtils = __commonJS({
 // external/npm/node_modules/domino/lib/defineElement.js
 var require_defineElement = __commonJS({
   "external/npm/node_modules/domino/lib/defineElement.js"(exports, module) {
-    "use strict";
     var attributes = require_attributes();
     var isApiWritable = require_config().isApiWritable;
     module.exports = function(spec, defaultConstructor, tagList, tagNameToImpl) {
@@ -5366,7 +5320,6 @@ var require_defineElement = __commonJS({
 // external/npm/node_modules/domino/lib/htmlelts.js
 var require_htmlelts = __commonJS({
   "external/npm/node_modules/domino/lib/htmlelts.js"(exports) {
-    "use strict";
     var Node = require_Node();
     var Element = require_Element();
     var CSSStyleDeclaration = require_CSSStyleDeclaration();
@@ -6855,7 +6808,6 @@ var require_htmlelts = __commonJS({
 // external/npm/node_modules/domino/lib/svg.js
 var require_svg = __commonJS({
   "external/npm/node_modules/domino/lib/svg.js"(exports) {
-    "use strict";
     var Element = require_Element();
     var defineElement = require_defineElement();
     var utils = require_utils();
@@ -6984,7 +6936,6 @@ var require_svg = __commonJS({
 // external/npm/node_modules/domino/lib/MutationConstants.js
 var require_MutationConstants = __commonJS({
   "external/npm/node_modules/domino/lib/MutationConstants.js"(exports, module) {
-    "use strict";
     module.exports = {
       VALUE: 1,
       ATTR: 2,
@@ -6999,7 +6950,6 @@ var require_MutationConstants = __commonJS({
 // external/npm/node_modules/domino/lib/Document.js
 var require_Document = __commonJS({
   "external/npm/node_modules/domino/lib/Document.js"(exports, module) {
-    "use strict";
     module.exports = Document;
     var Node = require_Node();
     var NodeList = require_NodeList();
@@ -7405,8 +7355,6 @@ var require_Document = __commonJS({
           utils.InvalidStateError();
         if (!this._parser)
           return;
-        if (!this._parser) {
-        }
         var s = arguments.join("");
         this._parser.parse(s);
       } },
@@ -7715,7 +7663,6 @@ var require_Document = __commonJS({
 // external/npm/node_modules/domino/lib/DocumentType.js
 var require_DocumentType = __commonJS({
   "external/npm/node_modules/domino/lib/DocumentType.js"(exports, module) {
-    "use strict";
     module.exports = DocumentType;
     var Node = require_Node();
     var Leaf = require_Leaf();
@@ -7753,7 +7700,6 @@ var require_DocumentType = __commonJS({
 // external/npm/node_modules/domino/lib/HTMLParser.js
 var require_HTMLParser = __commonJS({
   "external/npm/node_modules/domino/lib/HTMLParser.js"(exports, module) {
-    "use strict";
     module.exports = HTMLParser;
     var Document = require_Document();
     var DocumentType = require_DocumentType();
@@ -10413,7 +10359,6 @@ var require_HTMLParser = __commonJS({
       "zwnj;": 8204
     };
     var NAMEDCHARREF = /(A(?:Elig;?|MP;?|acute;?|breve;|c(?:irc;?|y;)|fr;|grave;?|lpha;|macr;|nd;|o(?:gon;|pf;)|pplyFunction;|ring;?|s(?:cr;|sign;)|tilde;?|uml;?)|B(?:a(?:ckslash;|r(?:v;|wed;))|cy;|e(?:cause;|rnoullis;|ta;)|fr;|opf;|reve;|scr;|umpeq;)|C(?:Hcy;|OPY;?|a(?:cute;|p(?:;|italDifferentialD;)|yleys;)|c(?:aron;|edil;?|irc;|onint;)|dot;|e(?:dilla;|nterDot;)|fr;|hi;|ircle(?:Dot;|Minus;|Plus;|Times;)|lo(?:ckwiseContourIntegral;|seCurly(?:DoubleQuote;|Quote;))|o(?:lon(?:;|e;)|n(?:gruent;|int;|tourIntegral;)|p(?:f;|roduct;)|unterClockwiseContourIntegral;)|ross;|scr;|up(?:;|Cap;))|D(?:D(?:;|otrahd;)|Jcy;|Scy;|Zcy;|a(?:gger;|rr;|shv;)|c(?:aron;|y;)|el(?:;|ta;)|fr;|i(?:a(?:critical(?:Acute;|Do(?:t;|ubleAcute;)|Grave;|Tilde;)|mond;)|fferentialD;)|o(?:pf;|t(?:;|Dot;|Equal;)|uble(?:ContourIntegral;|Do(?:t;|wnArrow;)|L(?:eft(?:Arrow;|RightArrow;|Tee;)|ong(?:Left(?:Arrow;|RightArrow;)|RightArrow;))|Right(?:Arrow;|Tee;)|Up(?:Arrow;|DownArrow;)|VerticalBar;)|wn(?:Arrow(?:;|Bar;|UpArrow;)|Breve;|Left(?:RightVector;|TeeVector;|Vector(?:;|Bar;))|Right(?:TeeVector;|Vector(?:;|Bar;))|Tee(?:;|Arrow;)|arrow;))|s(?:cr;|trok;))|E(?:NG;|TH;?|acute;?|c(?:aron;|irc;?|y;)|dot;|fr;|grave;?|lement;|m(?:acr;|pty(?:SmallSquare;|VerySmallSquare;))|o(?:gon;|pf;)|psilon;|qu(?:al(?:;|Tilde;)|ilibrium;)|s(?:cr;|im;)|ta;|uml;?|x(?:ists;|ponentialE;))|F(?:cy;|fr;|illed(?:SmallSquare;|VerySmallSquare;)|o(?:pf;|rAll;|uriertrf;)|scr;)|G(?:Jcy;|T;?|amma(?:;|d;)|breve;|c(?:edil;|irc;|y;)|dot;|fr;|g;|opf;|reater(?:Equal(?:;|Less;)|FullEqual;|Greater;|Less;|SlantEqual;|Tilde;)|scr;|t;)|H(?:ARDcy;|a(?:cek;|t;)|circ;|fr;|ilbertSpace;|o(?:pf;|rizontalLine;)|s(?:cr;|trok;)|ump(?:DownHump;|Equal;))|I(?:Ecy;|Jlig;|Ocy;|acute;?|c(?:irc;?|y;)|dot;|fr;|grave;?|m(?:;|a(?:cr;|ginaryI;)|plies;)|n(?:t(?:;|e(?:gral;|rsection;))|visible(?:Comma;|Times;))|o(?:gon;|pf;|ta;)|scr;|tilde;|u(?:kcy;|ml;?))|J(?:c(?:irc;|y;)|fr;|opf;|s(?:cr;|ercy;)|ukcy;)|K(?:Hcy;|Jcy;|appa;|c(?:edil;|y;)|fr;|opf;|scr;)|L(?:Jcy;|T;?|a(?:cute;|mbda;|ng;|placetrf;|rr;)|c(?:aron;|edil;|y;)|e(?:ft(?:A(?:ngleBracket;|rrow(?:;|Bar;|RightArrow;))|Ceiling;|Do(?:ubleBracket;|wn(?:TeeVector;|Vector(?:;|Bar;)))|Floor;|Right(?:Arrow;|Vector;)|T(?:ee(?:;|Arrow;|Vector;)|riangle(?:;|Bar;|Equal;))|Up(?:DownVector;|TeeVector;|Vector(?:;|Bar;))|Vector(?:;|Bar;)|arrow;|rightarrow;)|ss(?:EqualGreater;|FullEqual;|Greater;|Less;|SlantEqual;|Tilde;))|fr;|l(?:;|eftarrow;)|midot;|o(?:ng(?:Left(?:Arrow;|RightArrow;)|RightArrow;|left(?:arrow;|rightarrow;)|rightarrow;)|pf;|wer(?:LeftArrow;|RightArrow;))|s(?:cr;|h;|trok;)|t;)|M(?:ap;|cy;|e(?:diumSpace;|llintrf;)|fr;|inusPlus;|opf;|scr;|u;)|N(?:Jcy;|acute;|c(?:aron;|edil;|y;)|e(?:gative(?:MediumSpace;|Thi(?:ckSpace;|nSpace;)|VeryThinSpace;)|sted(?:GreaterGreater;|LessLess;)|wLine;)|fr;|o(?:Break;|nBreakingSpace;|pf;|t(?:;|C(?:ongruent;|upCap;)|DoubleVerticalBar;|E(?:lement;|qual(?:;|Tilde;)|xists;)|Greater(?:;|Equal;|FullEqual;|Greater;|Less;|SlantEqual;|Tilde;)|Hump(?:DownHump;|Equal;)|Le(?:ftTriangle(?:;|Bar;|Equal;)|ss(?:;|Equal;|Greater;|Less;|SlantEqual;|Tilde;))|Nested(?:GreaterGreater;|LessLess;)|Precedes(?:;|Equal;|SlantEqual;)|R(?:everseElement;|ightTriangle(?:;|Bar;|Equal;))|S(?:quareSu(?:bset(?:;|Equal;)|perset(?:;|Equal;))|u(?:bset(?:;|Equal;)|cceeds(?:;|Equal;|SlantEqual;|Tilde;)|perset(?:;|Equal;)))|Tilde(?:;|Equal;|FullEqual;|Tilde;)|VerticalBar;))|scr;|tilde;?|u;)|O(?:Elig;|acute;?|c(?:irc;?|y;)|dblac;|fr;|grave;?|m(?:acr;|ega;|icron;)|opf;|penCurly(?:DoubleQuote;|Quote;)|r;|s(?:cr;|lash;?)|ti(?:lde;?|mes;)|uml;?|ver(?:B(?:ar;|rac(?:e;|ket;))|Parenthesis;))|P(?:artialD;|cy;|fr;|hi;|i;|lusMinus;|o(?:incareplane;|pf;)|r(?:;|ecedes(?:;|Equal;|SlantEqual;|Tilde;)|ime;|o(?:duct;|portion(?:;|al;)))|s(?:cr;|i;))|Q(?:UOT;?|fr;|opf;|scr;)|R(?:Barr;|EG;?|a(?:cute;|ng;|rr(?:;|tl;))|c(?:aron;|edil;|y;)|e(?:;|verse(?:E(?:lement;|quilibrium;)|UpEquilibrium;))|fr;|ho;|ight(?:A(?:ngleBracket;|rrow(?:;|Bar;|LeftArrow;))|Ceiling;|Do(?:ubleBracket;|wn(?:TeeVector;|Vector(?:;|Bar;)))|Floor;|T(?:ee(?:;|Arrow;|Vector;)|riangle(?:;|Bar;|Equal;))|Up(?:DownVector;|TeeVector;|Vector(?:;|Bar;))|Vector(?:;|Bar;)|arrow;)|o(?:pf;|undImplies;)|rightarrow;|s(?:cr;|h;)|uleDelayed;)|S(?:H(?:CHcy;|cy;)|OFTcy;|acute;|c(?:;|aron;|edil;|irc;|y;)|fr;|hort(?:DownArrow;|LeftArrow;|RightArrow;|UpArrow;)|igma;|mallCircle;|opf;|q(?:rt;|uare(?:;|Intersection;|Su(?:bset(?:;|Equal;)|perset(?:;|Equal;))|Union;))|scr;|tar;|u(?:b(?:;|set(?:;|Equal;))|c(?:ceeds(?:;|Equal;|SlantEqual;|Tilde;)|hThat;)|m;|p(?:;|erset(?:;|Equal;)|set;)))|T(?:HORN;?|RADE;|S(?:Hcy;|cy;)|a(?:b;|u;)|c(?:aron;|edil;|y;)|fr;|h(?:e(?:refore;|ta;)|i(?:ckSpace;|nSpace;))|ilde(?:;|Equal;|FullEqual;|Tilde;)|opf;|ripleDot;|s(?:cr;|trok;))|U(?:a(?:cute;?|rr(?:;|ocir;))|br(?:cy;|eve;)|c(?:irc;?|y;)|dblac;|fr;|grave;?|macr;|n(?:der(?:B(?:ar;|rac(?:e;|ket;))|Parenthesis;)|ion(?:;|Plus;))|o(?:gon;|pf;)|p(?:Arrow(?:;|Bar;|DownArrow;)|DownArrow;|Equilibrium;|Tee(?:;|Arrow;)|arrow;|downarrow;|per(?:LeftArrow;|RightArrow;)|si(?:;|lon;))|ring;|scr;|tilde;|uml;?)|V(?:Dash;|bar;|cy;|dash(?:;|l;)|e(?:e;|r(?:bar;|t(?:;|ical(?:Bar;|Line;|Separator;|Tilde;))|yThinSpace;))|fr;|opf;|scr;|vdash;)|W(?:circ;|edge;|fr;|opf;|scr;)|X(?:fr;|i;|opf;|scr;)|Y(?:Acy;|Icy;|Ucy;|acute;?|c(?:irc;|y;)|fr;|opf;|scr;|uml;)|Z(?:Hcy;|acute;|c(?:aron;|y;)|dot;|e(?:roWidthSpace;|ta;)|fr;|opf;|scr;)|a(?:acute;?|breve;|c(?:;|E;|d;|irc;?|ute;?|y;)|elig;?|f(?:;|r;)|grave;?|l(?:e(?:fsym;|ph;)|pha;)|m(?:a(?:cr;|lg;)|p;?)|n(?:d(?:;|and;|d;|slope;|v;)|g(?:;|e;|le;|msd(?:;|a(?:a;|b;|c;|d;|e;|f;|g;|h;))|rt(?:;|vb(?:;|d;))|s(?:ph;|t;)|zarr;))|o(?:gon;|pf;)|p(?:;|E;|acir;|e;|id;|os;|prox(?:;|eq;))|ring;?|s(?:cr;|t;|ymp(?:;|eq;))|tilde;?|uml;?|w(?:conint;|int;))|b(?:Not;|a(?:ck(?:cong;|epsilon;|prime;|sim(?:;|eq;))|r(?:vee;|wed(?:;|ge;)))|brk(?:;|tbrk;)|c(?:ong;|y;)|dquo;|e(?:caus(?:;|e;)|mptyv;|psi;|rnou;|t(?:a;|h;|ween;))|fr;|ig(?:c(?:ap;|irc;|up;)|o(?:dot;|plus;|times;)|s(?:qcup;|tar;)|triangle(?:down;|up;)|uplus;|vee;|wedge;)|karow;|l(?:a(?:ck(?:lozenge;|square;|triangle(?:;|down;|left;|right;))|nk;)|k(?:1(?:2;|4;)|34;)|ock;)|n(?:e(?:;|quiv;)|ot;)|o(?:pf;|t(?:;|tom;)|wtie;|x(?:D(?:L;|R;|l;|r;)|H(?:;|D;|U;|d;|u;)|U(?:L;|R;|l;|r;)|V(?:;|H;|L;|R;|h;|l;|r;)|box;|d(?:L;|R;|l;|r;)|h(?:;|D;|U;|d;|u;)|minus;|plus;|times;|u(?:L;|R;|l;|r;)|v(?:;|H;|L;|R;|h;|l;|r;)))|prime;|r(?:eve;|vbar;?)|s(?:cr;|emi;|im(?:;|e;)|ol(?:;|b;|hsub;))|u(?:ll(?:;|et;)|mp(?:;|E;|e(?:;|q;))))|c(?:a(?:cute;|p(?:;|and;|brcup;|c(?:ap;|up;)|dot;|s;)|r(?:et;|on;))|c(?:a(?:ps;|ron;)|edil;?|irc;|ups(?:;|sm;))|dot;|e(?:dil;?|mptyv;|nt(?:;|erdot;|))|fr;|h(?:cy;|eck(?:;|mark;)|i;)|ir(?:;|E;|c(?:;|eq;|le(?:arrow(?:left;|right;)|d(?:R;|S;|ast;|circ;|dash;)))|e;|fnint;|mid;|scir;)|lubs(?:;|uit;)|o(?:lon(?:;|e(?:;|q;))|m(?:ma(?:;|t;)|p(?:;|fn;|le(?:ment;|xes;)))|n(?:g(?:;|dot;)|int;)|p(?:f;|rod;|y(?:;|sr;|)))|r(?:arr;|oss;)|s(?:cr;|u(?:b(?:;|e;)|p(?:;|e;)))|tdot;|u(?:darr(?:l;|r;)|e(?:pr;|sc;)|larr(?:;|p;)|p(?:;|brcap;|c(?:ap;|up;)|dot;|or;|s;)|r(?:arr(?:;|m;)|ly(?:eq(?:prec;|succ;)|vee;|wedge;)|ren;?|vearrow(?:left;|right;))|vee;|wed;)|w(?:conint;|int;)|ylcty;)|d(?:Arr;|Har;|a(?:gger;|leth;|rr;|sh(?:;|v;))|b(?:karow;|lac;)|c(?:aron;|y;)|d(?:;|a(?:gger;|rr;)|otseq;)|e(?:g;?|lta;|mptyv;)|f(?:isht;|r;)|har(?:l;|r;)|i(?:am(?:;|ond(?:;|suit;)|s;)|e;|gamma;|sin;|v(?:;|ide(?:;|ontimes;|)|onx;))|jcy;|lc(?:orn;|rop;)|o(?:llar;|pf;|t(?:;|eq(?:;|dot;)|minus;|plus;|square;)|ublebarwedge;|wn(?:arrow;|downarrows;|harpoon(?:left;|right;)))|r(?:bkarow;|c(?:orn;|rop;))|s(?:c(?:r;|y;)|ol;|trok;)|t(?:dot;|ri(?:;|f;))|u(?:arr;|har;)|wangle;|z(?:cy;|igrarr;))|e(?:D(?:Dot;|ot;)|a(?:cute;?|ster;)|c(?:aron;|ir(?:;|c;?)|olon;|y;)|dot;|e;|f(?:Dot;|r;)|g(?:;|rave;?|s(?:;|dot;))|l(?:;|inters;|l;|s(?:;|dot;))|m(?:acr;|pty(?:;|set;|v;)|sp(?:1(?:3;|4;)|;))|n(?:g;|sp;)|o(?:gon;|pf;)|p(?:ar(?:;|sl;)|lus;|si(?:;|lon;|v;))|q(?:c(?:irc;|olon;)|s(?:im;|lant(?:gtr;|less;))|u(?:als;|est;|iv(?:;|DD;))|vparsl;)|r(?:Dot;|arr;)|s(?:cr;|dot;|im;)|t(?:a;|h;?)|u(?:ml;?|ro;)|x(?:cl;|ist;|p(?:ectation;|onentiale;)))|f(?:allingdotseq;|cy;|emale;|f(?:ilig;|l(?:ig;|lig;)|r;)|ilig;|jlig;|l(?:at;|lig;|tns;)|nof;|o(?:pf;|r(?:all;|k(?:;|v;)))|partint;|r(?:a(?:c(?:1(?:2;?|3;|4;?|5;|6;|8;)|2(?:3;|5;)|3(?:4;?|5;|8;)|45;|5(?:6;|8;)|78;)|sl;)|own;)|scr;)|g(?:E(?:;|l;)|a(?:cute;|mma(?:;|d;)|p;)|breve;|c(?:irc;|y;)|dot;|e(?:;|l;|q(?:;|q;|slant;)|s(?:;|cc;|dot(?:;|o(?:;|l;))|l(?:;|es;)))|fr;|g(?:;|g;)|imel;|jcy;|l(?:;|E;|a;|j;)|n(?:E;|ap(?:;|prox;)|e(?:;|q(?:;|q;))|sim;)|opf;|rave;|s(?:cr;|im(?:;|e;|l;))|t(?:;|c(?:c;|ir;)|dot;|lPar;|quest;|r(?:a(?:pprox;|rr;)|dot;|eq(?:less;|qless;)|less;|sim;)|)|v(?:ertneqq;|nE;))|h(?:Arr;|a(?:irsp;|lf;|milt;|r(?:dcy;|r(?:;|cir;|w;)))|bar;|circ;|e(?:arts(?:;|uit;)|llip;|rcon;)|fr;|ks(?:earow;|warow;)|o(?:arr;|mtht;|ok(?:leftarrow;|rightarrow;)|pf;|rbar;)|s(?:cr;|lash;|trok;)|y(?:bull;|phen;))|i(?:acute;?|c(?:;|irc;?|y;)|e(?:cy;|xcl;?)|f(?:f;|r;)|grave;?|i(?:;|i(?:int;|nt;)|nfin;|ota;)|jlig;|m(?:a(?:cr;|g(?:e;|line;|part;)|th;)|of;|ped;)|n(?:;|care;|fin(?:;|tie;)|odot;|t(?:;|cal;|e(?:gers;|rcal;)|larhk;|prod;))|o(?:cy;|gon;|pf;|ta;)|prod;|quest;?|s(?:cr;|in(?:;|E;|dot;|s(?:;|v;)|v;))|t(?:;|ilde;)|u(?:kcy;|ml;?))|j(?:c(?:irc;|y;)|fr;|math;|opf;|s(?:cr;|ercy;)|ukcy;)|k(?:appa(?:;|v;)|c(?:edil;|y;)|fr;|green;|hcy;|jcy;|opf;|scr;)|l(?:A(?:arr;|rr;|tail;)|Barr;|E(?:;|g;)|Har;|a(?:cute;|emptyv;|gran;|mbda;|ng(?:;|d;|le;)|p;|quo;?|rr(?:;|b(?:;|fs;)|fs;|hk;|lp;|pl;|sim;|tl;)|t(?:;|ail;|e(?:;|s;)))|b(?:arr;|brk;|r(?:ac(?:e;|k;)|k(?:e;|sl(?:d;|u;))))|c(?:aron;|e(?:dil;|il;)|ub;|y;)|d(?:ca;|quo(?:;|r;)|r(?:dhar;|ushar;)|sh;)|e(?:;|ft(?:arrow(?:;|tail;)|harpoon(?:down;|up;)|leftarrows;|right(?:arrow(?:;|s;)|harpoons;|squigarrow;)|threetimes;)|g;|q(?:;|q;|slant;)|s(?:;|cc;|dot(?:;|o(?:;|r;))|g(?:;|es;)|s(?:approx;|dot;|eq(?:gtr;|qgtr;)|gtr;|sim;)))|f(?:isht;|loor;|r;)|g(?:;|E;)|h(?:ar(?:d;|u(?:;|l;))|blk;)|jcy;|l(?:;|arr;|corner;|hard;|tri;)|m(?:idot;|oust(?:;|ache;))|n(?:E;|ap(?:;|prox;)|e(?:;|q(?:;|q;))|sim;)|o(?:a(?:ng;|rr;)|brk;|ng(?:left(?:arrow;|rightarrow;)|mapsto;|rightarrow;)|oparrow(?:left;|right;)|p(?:ar;|f;|lus;)|times;|w(?:ast;|bar;)|z(?:;|enge;|f;))|par(?:;|lt;)|r(?:arr;|corner;|har(?:;|d;)|m;|tri;)|s(?:aquo;|cr;|h;|im(?:;|e;|g;)|q(?:b;|uo(?:;|r;))|trok;)|t(?:;|c(?:c;|ir;)|dot;|hree;|imes;|larr;|quest;|r(?:Par;|i(?:;|e;|f;))|)|ur(?:dshar;|uhar;)|v(?:ertneqq;|nE;))|m(?:DDot;|a(?:cr;?|l(?:e;|t(?:;|ese;))|p(?:;|sto(?:;|down;|left;|up;))|rker;)|c(?:omma;|y;)|dash;|easuredangle;|fr;|ho;|i(?:cro;?|d(?:;|ast;|cir;|dot;?)|nus(?:;|b;|d(?:;|u;)))|l(?:cp;|dr;)|nplus;|o(?:dels;|pf;)|p;|s(?:cr;|tpos;)|u(?:;|ltimap;|map;))|n(?:G(?:g;|t(?:;|v;))|L(?:eft(?:arrow;|rightarrow;)|l;|t(?:;|v;))|Rightarrow;|V(?:Dash;|dash;)|a(?:bla;|cute;|ng;|p(?:;|E;|id;|os;|prox;)|tur(?:;|al(?:;|s;)))|b(?:sp;?|ump(?:;|e;))|c(?:a(?:p;|ron;)|edil;|ong(?:;|dot;)|up;|y;)|dash;|e(?:;|Arr;|ar(?:hk;|r(?:;|ow;))|dot;|quiv;|s(?:ear;|im;)|xist(?:;|s;))|fr;|g(?:E;|e(?:;|q(?:;|q;|slant;)|s;)|sim;|t(?:;|r;))|h(?:Arr;|arr;|par;)|i(?:;|s(?:;|d;)|v;)|jcy;|l(?:Arr;|E;|arr;|dr;|e(?:;|ft(?:arrow;|rightarrow;)|q(?:;|q;|slant;)|s(?:;|s;))|sim;|t(?:;|ri(?:;|e;)))|mid;|o(?:pf;|t(?:;|in(?:;|E;|dot;|v(?:a;|b;|c;))|ni(?:;|v(?:a;|b;|c;))|))|p(?:ar(?:;|allel;|sl;|t;)|olint;|r(?:;|cue;|e(?:;|c(?:;|eq;))))|r(?:Arr;|arr(?:;|c;|w;)|ightarrow;|tri(?:;|e;))|s(?:c(?:;|cue;|e;|r;)|hort(?:mid;|parallel;)|im(?:;|e(?:;|q;))|mid;|par;|qsu(?:be;|pe;)|u(?:b(?:;|E;|e;|set(?:;|eq(?:;|q;)))|cc(?:;|eq;)|p(?:;|E;|e;|set(?:;|eq(?:;|q;)))))|t(?:gl;|ilde;?|lg;|riangle(?:left(?:;|eq;)|right(?:;|eq;)))|u(?:;|m(?:;|ero;|sp;))|v(?:Dash;|Harr;|ap;|dash;|g(?:e;|t;)|infin;|l(?:Arr;|e;|t(?:;|rie;))|r(?:Arr;|trie;)|sim;)|w(?:Arr;|ar(?:hk;|r(?:;|ow;))|near;))|o(?:S;|a(?:cute;?|st;)|c(?:ir(?:;|c;?)|y;)|d(?:ash;|blac;|iv;|ot;|sold;)|elig;|f(?:cir;|r;)|g(?:on;|rave;?|t;)|h(?:bar;|m;)|int;|l(?:arr;|c(?:ir;|ross;)|ine;|t;)|m(?:acr;|ega;|i(?:cron;|d;|nus;))|opf;|p(?:ar;|erp;|lus;)|r(?:;|arr;|d(?:;|er(?:;|of;)|f;?|m;?)|igof;|or;|slope;|v;)|s(?:cr;|lash;?|ol;)|ti(?:lde;?|mes(?:;|as;))|uml;?|vbar;)|p(?:ar(?:;|a(?:;|llel;|)|s(?:im;|l;)|t;)|cy;|er(?:cnt;|iod;|mil;|p;|tenk;)|fr;|h(?:i(?:;|v;)|mmat;|one;)|i(?:;|tchfork;|v;)|l(?:an(?:ck(?:;|h;)|kv;)|us(?:;|acir;|b;|cir;|d(?:o;|u;)|e;|mn;?|sim;|two;))|m;|o(?:intint;|pf;|und;?)|r(?:;|E;|ap;|cue;|e(?:;|c(?:;|approx;|curlyeq;|eq;|n(?:approx;|eqq;|sim;)|sim;))|ime(?:;|s;)|n(?:E;|ap;|sim;)|o(?:d;|f(?:alar;|line;|surf;)|p(?:;|to;))|sim;|urel;)|s(?:cr;|i;)|uncsp;)|q(?:fr;|int;|opf;|prime;|scr;|u(?:at(?:ernions;|int;)|est(?:;|eq;)|ot;?))|r(?:A(?:arr;|rr;|tail;)|Barr;|Har;|a(?:c(?:e;|ute;)|dic;|emptyv;|ng(?:;|d;|e;|le;)|quo;?|rr(?:;|ap;|b(?:;|fs;)|c;|fs;|hk;|lp;|pl;|sim;|tl;|w;)|t(?:ail;|io(?:;|nals;)))|b(?:arr;|brk;|r(?:ac(?:e;|k;)|k(?:e;|sl(?:d;|u;))))|c(?:aron;|e(?:dil;|il;)|ub;|y;)|d(?:ca;|ldhar;|quo(?:;|r;)|sh;)|e(?:al(?:;|ine;|part;|s;)|ct;|g;?)|f(?:isht;|loor;|r;)|h(?:ar(?:d;|u(?:;|l;))|o(?:;|v;))|i(?:ght(?:arrow(?:;|tail;)|harpoon(?:down;|up;)|left(?:arrows;|harpoons;)|rightarrows;|squigarrow;|threetimes;)|ng;|singdotseq;)|l(?:arr;|har;|m;)|moust(?:;|ache;)|nmid;|o(?:a(?:ng;|rr;)|brk;|p(?:ar;|f;|lus;)|times;)|p(?:ar(?:;|gt;)|polint;)|rarr;|s(?:aquo;|cr;|h;|q(?:b;|uo(?:;|r;)))|t(?:hree;|imes;|ri(?:;|e;|f;|ltri;))|uluhar;|x;)|s(?:acute;|bquo;|c(?:;|E;|a(?:p;|ron;)|cue;|e(?:;|dil;)|irc;|n(?:E;|ap;|sim;)|polint;|sim;|y;)|dot(?:;|b;|e;)|e(?:Arr;|ar(?:hk;|r(?:;|ow;))|ct;?|mi;|swar;|tm(?:inus;|n;)|xt;)|fr(?:;|own;)|h(?:arp;|c(?:hcy;|y;)|ort(?:mid;|parallel;)|y;?)|i(?:gma(?:;|f;|v;)|m(?:;|dot;|e(?:;|q;)|g(?:;|E;)|l(?:;|E;)|ne;|plus;|rarr;))|larr;|m(?:a(?:llsetminus;|shp;)|eparsl;|i(?:d;|le;)|t(?:;|e(?:;|s;)))|o(?:ftcy;|l(?:;|b(?:;|ar;))|pf;)|pa(?:des(?:;|uit;)|r;)|q(?:c(?:ap(?:;|s;)|up(?:;|s;))|su(?:b(?:;|e;|set(?:;|eq;))|p(?:;|e;|set(?:;|eq;)))|u(?:;|ar(?:e;|f;)|f;))|rarr;|s(?:cr;|etmn;|mile;|tarf;)|t(?:ar(?:;|f;)|r(?:aight(?:epsilon;|phi;)|ns;))|u(?:b(?:;|E;|dot;|e(?:;|dot;)|mult;|n(?:E;|e;)|plus;|rarr;|s(?:et(?:;|eq(?:;|q;)|neq(?:;|q;))|im;|u(?:b;|p;)))|cc(?:;|approx;|curlyeq;|eq;|n(?:approx;|eqq;|sim;)|sim;)|m;|ng;|p(?:1;?|2;?|3;?|;|E;|d(?:ot;|sub;)|e(?:;|dot;)|hs(?:ol;|ub;)|larr;|mult;|n(?:E;|e;)|plus;|s(?:et(?:;|eq(?:;|q;)|neq(?:;|q;))|im;|u(?:b;|p;))))|w(?:Arr;|ar(?:hk;|r(?:;|ow;))|nwar;)|zlig;?)|t(?:a(?:rget;|u;)|brk;|c(?:aron;|edil;|y;)|dot;|elrec;|fr;|h(?:e(?:re(?:4;|fore;)|ta(?:;|sym;|v;))|i(?:ck(?:approx;|sim;)|nsp;)|k(?:ap;|sim;)|orn;?)|i(?:lde;|mes(?:;|b(?:;|ar;)|d;|)|nt;)|o(?:ea;|p(?:;|bot;|cir;|f(?:;|ork;))|sa;)|prime;|r(?:ade;|i(?:angle(?:;|down;|left(?:;|eq;)|q;|right(?:;|eq;))|dot;|e;|minus;|plus;|sb;|time;)|pezium;)|s(?:c(?:r;|y;)|hcy;|trok;)|w(?:ixt;|ohead(?:leftarrow;|rightarrow;)))|u(?:Arr;|Har;|a(?:cute;?|rr;)|br(?:cy;|eve;)|c(?:irc;?|y;)|d(?:arr;|blac;|har;)|f(?:isht;|r;)|grave;?|h(?:ar(?:l;|r;)|blk;)|l(?:c(?:orn(?:;|er;)|rop;)|tri;)|m(?:acr;|l;?)|o(?:gon;|pf;)|p(?:arrow;|downarrow;|harpoon(?:left;|right;)|lus;|si(?:;|h;|lon;)|uparrows;)|r(?:c(?:orn(?:;|er;)|rop;)|ing;|tri;)|scr;|t(?:dot;|ilde;|ri(?:;|f;))|u(?:arr;|ml;?)|wangle;)|v(?:Arr;|Bar(?:;|v;)|Dash;|a(?:ngrt;|r(?:epsilon;|kappa;|nothing;|p(?:hi;|i;|ropto;)|r(?:;|ho;)|s(?:igma;|u(?:bsetneq(?:;|q;)|psetneq(?:;|q;)))|t(?:heta;|riangle(?:left;|right;))))|cy;|dash;|e(?:e(?:;|bar;|eq;)|llip;|r(?:bar;|t;))|fr;|ltri;|nsu(?:b;|p;)|opf;|prop;|rtri;|s(?:cr;|u(?:bn(?:E;|e;)|pn(?:E;|e;)))|zigzag;)|w(?:circ;|e(?:d(?:bar;|ge(?:;|q;))|ierp;)|fr;|opf;|p;|r(?:;|eath;)|scr;)|x(?:c(?:ap;|irc;|up;)|dtri;|fr;|h(?:Arr;|arr;)|i;|l(?:Arr;|arr;)|map;|nis;|o(?:dot;|p(?:f;|lus;)|time;)|r(?:Arr;|arr;)|s(?:cr;|qcup;)|u(?:plus;|tri;)|vee;|wedge;)|y(?:ac(?:ute;?|y;)|c(?:irc;|y;)|en;?|fr;|icy;|opf;|scr;|u(?:cy;|ml;?))|z(?:acute;|c(?:aron;|y;)|dot;|e(?:etrf;|ta;)|fr;|hcy;|igrarr;|opf;|scr;|w(?:j;|nj;)))|[\s\S]/g;
-    var NAMEDCHARREF_MAXLEN = 32;
     var DBLQUOTEATTRVAL = /[^\r"&\u0000]+/g;
     var SINGLEQUOTEATTRVAL = /[^\r'&\u0000]+/g;
     var UNQUOTEDATTRVAL = /[^\r\t\n\f &>\u0000]+/g;
@@ -11952,8 +11897,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12115,8 +12058,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12286,8 +12227,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -12591,8 +12530,6 @@ var require_HTMLParser = __commonJS({
             tagnamebuf += String.fromCharCode(c);
             tempbuf.push(c);
             return;
-          default:
-            break;
         }
         textrun.push(60);
         textrun.push(47);
@@ -13079,7 +13016,7 @@ var require_HTMLParser = __commonJS({
         switch (c) {
           case 62:
             tokenizer = data_state;
-            emitSelfClosingTag(true);
+            emitSelfClosingTag();
             break;
           case -1:
             emitEOF();
@@ -13761,8 +13698,6 @@ var require_HTMLParser = __commonJS({
             emitDoctype();
             emitEOF();
             break;
-          default:
-            break;
         }
       }
       function cdata_section_state(c) {
@@ -13852,8 +13787,6 @@ var require_HTMLParser = __commonJS({
               }
             }
             break;
-          default:
-            break;
         }
         beginTempBuf();
         var rv = namedCharRefs[name];
@@ -13864,7 +13797,7 @@ var require_HTMLParser = __commonJS({
         }
         tokenizer = character_reference_end_state;
       }
-      named_character_reference_state.lookahead = -NAMEDCHARREF_MAXLEN;
+      named_character_reference_state.lookahead = -32;
       function numeric_character_reference_state(c) {
         character_reference_code = 0;
         switch (c) {
@@ -15702,8 +15635,6 @@ var require_HTMLParser = __commonJS({
             adjustForeignAttributes(arg3);
             insertForeignElement(value, arg3, current.namespaceURI);
             if (arg4) {
-              if (value === "script" && current.namespaceURI === NAMESPACE.SVG) {
-              }
               stack.pop();
             }
             return;
@@ -15787,8 +15718,6 @@ var require_HTMLParser = __commonJS({
             case 3:
               tokens.push(["EndTag", value]);
               break;
-            case -1:
-              break;
           }
         };
         if (!charbychar) {
@@ -15809,7 +15738,6 @@ var require_HTMLParser = __commonJS({
 // external/npm/node_modules/domino/lib/DOMImplementation.js
 var require_DOMImplementation = __commonJS({
   "external/npm/node_modules/domino/lib/DOMImplementation.js"(exports, module) {
-    "use strict";
     module.exports = DOMImplementation;
     var Document = require_Document();
     var DocumentType = require_DocumentType();
@@ -15886,7 +15814,6 @@ var require_DOMImplementation = __commonJS({
 // external/npm/node_modules/domino/lib/Location.js
 var require_Location = __commonJS({
   "external/npm/node_modules/domino/lib/Location.js"(exports, module) {
-    "use strict";
     var URL = require_URL();
     var URLUtils = require_URLUtils();
     module.exports = Location;
@@ -15925,7 +15852,6 @@ var require_Location = __commonJS({
 // external/npm/node_modules/domino/lib/NavigatorID.js
 var require_NavigatorID = __commonJS({
   "external/npm/node_modules/domino/lib/NavigatorID.js"(exports, module) {
-    "use strict";
     var NavigatorID = Object.create(null, {
       appCodeName: { value: "Mozilla" },
       appName: { value: "Netscape" },
@@ -15947,7 +15873,6 @@ var require_NavigatorID = __commonJS({
 // external/npm/node_modules/domino/lib/WindowTimers.js
 var require_WindowTimers = __commonJS({
   "external/npm/node_modules/domino/lib/WindowTimers.js"(exports, module) {
-    "use strict";
     var WindowTimers = {
       setTimeout,
       clearTimeout,
@@ -15961,7 +15886,6 @@ var require_WindowTimers = __commonJS({
 // external/npm/node_modules/domino/lib/impl.js
 var require_impl = __commonJS({
   "external/npm/node_modules/domino/lib/impl.js"(exports, module) {
-    "use strict";
     var utils = require_utils();
     exports = module.exports = {
       CSSStyleDeclaration: require_CSSStyleDeclaration(),
@@ -15992,7 +15916,6 @@ var require_impl = __commonJS({
 // external/npm/node_modules/domino/lib/Window.js
 var require_Window = __commonJS({
   "external/npm/node_modules/domino/lib/Window.js"(exports, module) {
-    "use strict";
     var DOMImplementation = require_DOMImplementation();
     var EventTarget = require_EventTarget();
     var Location = require_Location();
@@ -16052,7 +15975,7 @@ var require_lib = __commonJS({
   "external/npm/node_modules/domino/lib/index.js"(exports) {
     var DOMImplementation = require_DOMImplementation();
     var HTMLParser = require_HTMLParser();
-    var Window = require_Window();
+    require_Window();
     var impl = require_impl();
     exports.createDOMImplementation = function() {
       return new DOMImplementation(null);
@@ -16098,12 +16021,480 @@ var require_lib = __commonJS({
     exports.impl = impl;
   }
 });
-export default require_lib();
+var domino = require_lib();
+
+function setDomTypes() {
+    // Make all Domino types available in the global env.
+    // NB: Any changes here should also be done in `packages/platform-server/init/src/shims.ts`.
+    Object.assign(globalThis, domino.impl);
+    globalThis['KeyboardEvent'] = domino.impl.Event;
+}
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Parses a document string to a Document object.
  */
-//# sourceMappingURL=bundled-domino.mjs.map
+function parseDocument(html, url = '/') {
+    let window = domino.createWindow(html, url);
+    let doc = window.document;
+    return doc;
+}
+/**
+ * Serializes a document to string.
+ */
+function serializeDocument(doc) {
+    return doc.serialize();
+}
+/**
+ * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
+ */
+class DominoAdapter extends _BrowserDomAdapter {
+    static makeCurrent() {
+        setDomTypes();
+        _setRootDomAdapter(new DominoAdapter());
+    }
+    supportsDOMEvents = false;
+    static defaultDoc;
+    createHtmlDocument() {
+        return parseDocument('<html><head><title>fakeTitle</title></head><body></body></html>');
+    }
+    getDefaultDocument() {
+        if (!DominoAdapter.defaultDoc) {
+            DominoAdapter.defaultDoc = domino.createDocument();
+        }
+        return DominoAdapter.defaultDoc;
+    }
+    isElementNode(node) {
+        return node ? node.nodeType === DominoAdapter.defaultDoc.ELEMENT_NODE : false;
+    }
+    isShadowRoot(node) {
+        return node.shadowRoot == node;
+    }
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
+    getGlobalEventTarget(doc, target) {
+        if (target === 'window') {
+            return doc.defaultView;
+        }
+        if (target === 'document') {
+            return doc;
+        }
+        if (target === 'body') {
+            return doc.body;
+        }
+        return null;
+    }
+    getBaseHref(doc) {
+        // TODO(alxhub): Need relative path logic from BrowserDomAdapter here?
+        return doc.documentElement.querySelector('base')?.getAttribute('href') || '';
+    }
+    dispatchEvent(el, evt) {
+        el.dispatchEvent(evt);
+        // Dispatch the event to the window also.
+        const doc = el.ownerDocument || el;
+        const win = doc.defaultView;
+        if (win) {
+            win.dispatchEvent(evt);
+        }
+    }
+    getUserAgent() {
+        return 'Fake user agent';
+    }
+    getCookie(name) {
+        throw new Error('getCookie has not been implemented');
+    }
+}
+
+/**
+ * The DI token for setting the initial config for the platform.
+ *
+ * @publicApi
+ */
+const INITIAL_CONFIG = new InjectionToken('Server.INITIAL_CONFIG');
+/**
+ * A function that will be executed when calling `renderApplication` or
+ * `renderModule` just before current platform state is rendered to string.
+ *
+ * @publicApi
+ */
+const BEFORE_APP_SERIALIZED = new InjectionToken('Server.RENDER_MODULE_HOOK');
+const ENABLE_DOM_EMULATION = new InjectionToken('ENABLE_DOM_EMULATION');
+
+/**
+ * Representation of the current platform state.
+ *
+ * @publicApi
+ */
+class PlatformState {
+    _doc;
+    /* @internal */
+    _enableDomEmulation = enableDomEmulation(inject(Injector));
+    constructor(_doc) {
+        this._doc = _doc;
+    }
+    /**
+     * Renders the current state of the platform to string.
+     */
+    renderToString() {
+        if (ngDevMode && !this._enableDomEmulation && !window?.document) {
+            throw new Error('Disabled DOM emulation should only run in browser environments');
+        }
+        const measuringLabel = 'renderToString';
+        _startMeasuring(measuringLabel);
+        const rendered = this._enableDomEmulation
+            ? serializeDocument(this._doc)
+            : // In the case we run/test the platform-server in a browser environment
+                this._doc.documentElement.outerHTML;
+        _stopMeasuring(measuringLabel);
+        return rendered;
+    }
+    /**
+     * Returns the current DOM state.
+     */
+    getDocument() {
+        return this._doc;
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: PlatformState });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: PlatformState, decorators: [{
+            type: Injectable
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }] });
+function enableDomEmulation(injector) {
+    return injector.get(ENABLE_DOM_EMULATION, true);
+}
+
+class ServerXhr {
+    xhrImpl;
+    // The `xhr2` dependency has a side-effect of accessing and modifying a
+    // global scope. Loading `xhr2` dynamically allows us to delay the loading
+    // and start the process once the global scope is established by the underlying
+    // server platform (via shims, etc).
+    async ɵloadImpl() {
+        if (!this.xhrImpl) {
+            const { default: xhr } = await import('xhr2');
+            this.xhrImpl = xhr;
+        }
+    }
+    build() {
+        const impl = this.xhrImpl;
+        if (!impl) {
+            throw new Error('Unexpected state in ServerXhr: XHR implementation is not loaded.');
+        }
+        return new impl.XMLHttpRequest();
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerXhr });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerXhr, decorators: [{
+            type: Injectable
+        }] });
+function relativeUrlsTransformerInterceptorFn(request, next) {
+    const platformLocation = inject(PlatformLocation);
+    const { href, protocol, hostname, port } = platformLocation;
+    if (!protocol.startsWith('http')) {
+        return next(request);
+    }
+    let urlPrefix = `${protocol}//${hostname}`;
+    if (port) {
+        urlPrefix += `:${port}`;
+    }
+    const baseHref = platformLocation.getBaseHrefFromDOM() || href;
+    const baseUrl = new URL(baseHref, urlPrefix);
+    const newUrl = new URL(request.url, baseUrl).toString();
+    return next(request.clone({ url: newUrl }));
+}
+const SERVER_HTTP_PROVIDERS = [
+    { provide: XhrFactory, useClass: ServerXhr },
+    {
+        provide: _HTTP_ROOT_INTERCEPTOR_FNS,
+        useValue: relativeUrlsTransformerInterceptorFn,
+        multi: true,
+    },
+];
+
+const RESOLVE_PROTOCOL = 'resolve:';
+function parseUrl(urlStr) {
+    const { hostname, protocol, port, pathname, search, hash } = new URL(urlStr, RESOLVE_PROTOCOL + '//');
+    return {
+        hostname,
+        protocol: protocol === RESOLVE_PROTOCOL ? '' : protocol,
+        port,
+        pathname,
+        search,
+        hash,
+    };
+}
+/**
+ * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
+ * but not the state stack.
+ */
+class ServerPlatformLocation {
+    _doc;
+    href = '/';
+    hostname = '/';
+    protocol = '/';
+    port = '/';
+    pathname = '/';
+    search = '';
+    hash = '';
+    _hashUpdate = new Subject();
+    constructor(_doc, _config) {
+        this._doc = _doc;
+        const config = _config;
+        if (!config) {
+            return;
+        }
+        if (config.url) {
+            const url = parseUrl(config.url);
+            this.protocol = url.protocol;
+            this.hostname = url.hostname;
+            this.port = url.port;
+            this.pathname = url.pathname;
+            this.search = url.search;
+            this.hash = url.hash;
+            this.href = _doc.location.href;
+        }
+    }
+    getBaseHrefFromDOM() {
+        return _getDOM().getBaseHref(this._doc);
+    }
+    onPopState(fn) {
+        // No-op: a state stack is not implemented, so
+        // no events will ever come.
+        return () => { };
+    }
+    onHashChange(fn) {
+        const subscription = this._hashUpdate.subscribe(fn);
+        return () => subscription.unsubscribe();
+    }
+    get url() {
+        return `${this.pathname}${this.search}${this.hash}`;
+    }
+    setHash(value, oldUrl) {
+        if (this.hash === value) {
+            // Don't fire events if the hash has not changed.
+            return;
+        }
+        this.hash = value;
+        const newUrl = this.url;
+        queueMicrotask(() => this._hashUpdate.next({
+            type: 'hashchange',
+            state: null,
+            oldUrl,
+            newUrl,
+        }));
+    }
+    replaceState(state, title, newUrl) {
+        const oldUrl = this.url;
+        const parsedUrl = parseUrl(newUrl);
+        this.pathname = parsedUrl.pathname;
+        this.search = parsedUrl.search;
+        this.setHash(parsedUrl.hash, oldUrl);
+    }
+    pushState(state, title, newUrl) {
+        this.replaceState(state, title, newUrl);
+    }
+    forward() {
+        throw new Error('Not implemented');
+    }
+    back() {
+        throw new Error('Not implemented');
+    }
+    // History API isn't available on server, therefore return undefined
+    getState() {
+        return undefined;
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerPlatformLocation });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+            type: Injectable
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }, { type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [INITIAL_CONFIG]
+                }] }] });
+
+class ServerEventManagerPlugin extends EventManagerPlugin {
+    doc;
+    constructor(doc) {
+        super(doc);
+        this.doc = doc;
+    }
+    // Handle all events on the server.
+    supports(eventName) {
+        return true;
+    }
+    addEventListener(element, eventName, handler, options) {
+        return _getDOM().onAndCancel(element, eventName, handler, options);
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerEventManagerPlugin });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+            type: Injectable
+        }], ctorParameters: () => [{ type: undefined, decorators: [{
+                    type: Inject,
+                    args: [DOCUMENT]
+                }] }] });
+
+// Tracks whether the server-side application state for a given app ID has been serialized already.
+const TRANSFER_STATE_SERIALIZED_FOR_APPID = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'TRANSFER_STATE_SERIALIZED_FOR_APPID' : '', {
+    providedIn: 'platform',
+    factory: () => new Set(),
+});
+const TRANSFER_STATE_SERIALIZATION_PROVIDERS = [
+    {
+        provide: BEFORE_APP_SERIALIZED,
+        useFactory: serializeTransferStateFactory,
+        multi: true,
+    },
+];
+/** TODO: Move this to a utils folder and convert to use SafeValues. */
+function createScript(doc, textContent, nonce) {
+    const script = doc.createElement('script');
+    script.textContent = textContent;
+    if (nonce) {
+        script.setAttribute('nonce', nonce);
+    }
+    return script;
+}
+function warnIfStateTransferHappened(injector) {
+    const appId = injector.get(APP_ID);
+    const appIdsWithTransferStateSerialized = injector.get(TRANSFER_STATE_SERIALIZED_FOR_APPID);
+    if (appIdsWithTransferStateSerialized.has(appId)) {
+        console.warn(`Angular detected an incompatible configuration, which causes duplicate serialization of the server-side application state.\n\n` +
+            `This can happen if the server providers have been provided more than once using different mechanisms. For example:\n\n` +
+            `  imports: [ServerModule], // Registers server providers\n` +
+            `  providers: [provideServerRendering()] // Also registers server providers\n\n` +
+            `To fix this, ensure that the \`provideServerRendering()\` function is the only provider used and remove the other(s).`);
+    }
+    appIdsWithTransferStateSerialized.add(appId);
+}
+function serializeTransferStateFactory() {
+    const doc = inject(DOCUMENT);
+    const appId = inject(APP_ID);
+    const transferStore = inject(TransferState);
+    const injector = inject(Injector);
+    return () => {
+        const measuringLabel = 'serializeTransferStateFactory';
+        _startMeasuring(measuringLabel);
+        // The `.toJSON` here causes the `onSerialize` callbacks to be called.
+        // These callbacks can be used to provide the value for a given key.
+        const content = transferStore.toJson();
+        if (transferStore.isEmpty) {
+            // The state is empty, nothing to transfer,
+            // avoid creating an extra `<script>` tag in this case.
+            return;
+        }
+        if (typeof ngDevMode !== 'undefined' && ngDevMode) {
+            warnIfStateTransferHappened(injector);
+        }
+        const script = createScript(doc, content, 
+        /**
+         * `nonce` is not required for 'application/json'
+         * See: https://html.spec.whatwg.org/multipage/scripting.html#attr-script-type
+         */
+        null);
+        script.id = appId + '-state';
+        script.setAttribute('type', 'application/json');
+        // It is intentional that we add the script at the very bottom. Angular CLI script tags for
+        // bundles are always `type="module"`. These are deferred by default and cause the
+        // transfer data to be queried only after the browser has finished parsing the DOM.
+        doc.body.appendChild(script);
+        _stopMeasuring(measuringLabel);
+    };
+}
+
+const INTERNAL_SERVER_PLATFORM_PROVIDERS = [
+    { provide: DOCUMENT, useFactory: _document, deps: [Injector] },
+    { provide: PLATFORM_ID, useValue: _PLATFORM_SERVER_ID },
+    { provide: PLATFORM_INITIALIZER, useFactory: initDominoAdapter, multi: true, deps: [Injector] },
+    {
+        provide: PlatformLocation,
+        useClass: ServerPlatformLocation,
+        deps: [DOCUMENT, [Optional, INITIAL_CONFIG]],
+    },
+    { provide: PlatformState, deps: [DOCUMENT] },
+    // Add special provider that allows multiple instances of platformServer* to be created.
+    { provide: _ALLOW_MULTIPLE_PLATFORMS, useValue: true },
+];
+function initDominoAdapter(injector) {
+    const _enableDomEmulation = enableDomEmulation(injector);
+    return () => {
+        if (_enableDomEmulation) {
+            DominoAdapter.makeCurrent();
+        }
+        else {
+            _BrowserDomAdapter.makeCurrent();
+        }
+    };
+}
+const SERVER_RENDER_PROVIDERS = [
+    { provide: EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
+];
+const PLATFORM_SERVER_PROVIDERS = [
+    TRANSFER_STATE_SERIALIZATION_PROVIDERS,
+    SERVER_RENDER_PROVIDERS,
+    SERVER_HTTP_PROVIDERS,
+    { provide: Testability, useValue: null }, // Keep for backwards-compatibility.
+    { provide: _TESTABILITY, useValue: null },
+    { provide: ViewportScroller, useClass: _NullViewportScroller },
+];
+/**
+ * The ng module for the server.
+ *
+ * @publicApi
+ */
+class ServerModule {
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.9+sha-f4d60ff", ngImport: i0, type: ServerModule, decorators: [{
+            type: NgModule,
+            args: [{
+                    exports: [BrowserModule],
+                    providers: PLATFORM_SERVER_PROVIDERS,
+                }]
+        }] });
+function _document(injector) {
+    const config = injector.get(INITIAL_CONFIG, null);
+    const _enableDomEmulation = enableDomEmulation(injector);
+    let document;
+    if (config && config.document) {
+        document =
+            typeof config.document === 'string'
+                ? _enableDomEmulation
+                    ? parseDocument(config.document, config.url)
+                    : window.document
+                : config.document;
+    }
+    else {
+        document = _getDOM().createHtmlDocument();
+    }
+    // Tell ivy about the global document
+    _setDocument(document);
+    return document;
+}
+/**
+ * @publicApi
+ */
+function platformServer(extraProviders) {
+    if (typeof ngServerMode === 'undefined') {
+        globalThis['ngServerMode'] = true;
+    }
+    const platform = createPlatformFactory(platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS)(extraProviders);
+    platform.onDestroy(() => {
+        globalThis['ngServerMode'] = undefined;
+    });
+    return platform;
+}
+
+export { BEFORE_APP_SERIALIZED, ENABLE_DOM_EMULATION, INITIAL_CONFIG, INTERNAL_SERVER_PLATFORM_PROVIDERS, PLATFORM_SERVER_PROVIDERS, PlatformState, SERVER_RENDER_PROVIDERS, ServerModule, createScript, platformServer };
+//# sourceMappingURL=server-BPmC12ZL.mjs.map

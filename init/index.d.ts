@@ -1,8 +1,9 @@
 /**
- * @license Angular v18.1.0-next.0+sha-87c5f3c
- * (c) 2010-2024 Google LLC. https://angular.io/
+ * @license Angular v20.0.0-next.9+sha-f4d60ff
+ * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
+declare const ɵɵmoduleMarker = true;
 
-export { }
+export { ɵɵmoduleMarker };

@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.10+sha-ac77e30
+ * @license Angular v19.2.10+sha-3047638
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -301,7 +301,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('19.2.10+sha-ac77e30');
+const VERSION = new Version('19.2.10+sha-3047638');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

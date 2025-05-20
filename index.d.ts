@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.0.0-rc.1+sha-29d8283
+ * @license Angular v20.0.0-rc.1+sha-6218b38
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,6 +7,7 @@
 import * as i0 from '@angular/core';
 import { EnvironmentProviders, StaticProvider, PlatformRef, Provider, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
+import { ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
 
 /**
  * Representation of the current platform state.
@@ -156,6 +157,25 @@ declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, 
 }): Promise<string>;
 
 /**
+ * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
+ */
+declare class DominoAdapter extends _BrowserDomAdapter {
+    static makeCurrent(): void;
+    readonly supportsDOMEvents = false;
+    private static defaultDoc;
+    createHtmlDocument(): Document;
+    getDefaultDocument(): Document;
+    isElementNode(node: any): boolean;
+    isShadowRoot(node: any): boolean;
+    /** @deprecated No longer being used in Ivy code. To be removed in version 14. */
+    getGlobalEventTarget(doc: Document, target: string): EventTarget | null;
+    getBaseHref(doc: Document): string;
+    dispatchEvent(el: Node, evt: any): void;
+    getUserAgent(): string;
+    getCookie(name: string): string;
+}
+
+/**
  * @module
  * @description
  * Entry point for all public APIs of the platform-server package.
@@ -166,5 +186,5 @@ declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, 
  */
 declare const VERSION: Version;
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };
 export type { PlatformConfig };

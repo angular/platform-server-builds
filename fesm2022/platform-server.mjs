@@ -1,12 +1,12 @@
 /**
- * @license Angular v20.1.0-next.0+sha-4178e82
+ * @license Angular v20.1.0-next.0+sha-b839d08
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
-import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, platformServer, INITIAL_CONFIG, createScript } from './server-_br4z1cG.mjs';
-export { ServerModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './server-_br4z1cG.mjs';
-import { makeEnvironmentProviders, InjectionToken, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ApplicationRef, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, Renderer2, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Version } from '@angular/core';
+import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, platformServer, INITIAL_CONFIG, createScript } from './server-BVfcFHaW.mjs';
+export { ServerModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './server-BVfcFHaW.mjs';
+import { makeEnvironmentProviders, InjectionToken, ApplicationRef, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Renderer2, Version } from '@angular/core';
 import '@angular/common';
 import '@angular/platform-browser';
 import '@angular/common/http';
@@ -301,7 +301,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('20.1.0-next.0+sha-4178e82');
+const VERSION = new Version('20.1.0-next.0+sha-b839d08');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

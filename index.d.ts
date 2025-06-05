@@ -1,11 +1,11 @@
 /**
- * @license Angular v20.0.1+sha-49e273a
+ * @license Angular v20.0.1+sha-e98ef80
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { EnvironmentProviders, StaticProvider, PlatformRef, Provider, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
+import { EnvironmentProviders, StaticProvider, Provider, PlatformRef, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 import { ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-next.0+sha-5c54cb8
+ * @license Angular v20.2.0-next.0+sha-9ed9375
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -301,7 +301,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('20.2.0-next.0+sha-5c54cb8');
+const VERSION = new Version('20.2.0-next.0+sha-9ed9375');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

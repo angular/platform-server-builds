@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.0-next.2+sha-5f7cc12
+ * @license Angular v20.2.0-next.2+sha-6ad01e6
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -6952,7 +6952,9 @@ function requireHtmlelts () {
 	// is actually hard to compute, so for now, I'll follow Firefox and
 	// just base the default value on the type of the element.
 	var focusableElements = {
-	  };
+	  "A":true, "LINK":true, "BUTTON":true, "INPUT":true,
+	  "SELECT":true, "TEXTAREA":true, "COMMAND":true
+	};
 
 	var HTMLFormElement = function(doc, localName, prefix) {
 	  HTMLElement.call(this, doc, localName, prefix);

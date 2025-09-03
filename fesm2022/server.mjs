@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.2.3+sha-f4a2d0a
+ * @license Angular v20.2.3+sha-0c2255b
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17399,10 +17399,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                     args: [DOCUMENT]
                 }] }] });
 
-// Tracks whether the server-side application state for a given app ID has been serialized already.
-const TRANSFER_STATE_SERIALIZED_FOR_APPID = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'TRANSFER_STATE_SERIALIZED_FOR_APPID' : '', {
-    providedIn: 'platform',
-    factory: () => new Set(),
+/** Tracks whether the server-side application transfer state has already been serialized. */
+const TRANSFER_STATE_STATUS = new InjectionToken(typeof ngDevMode === 'undefined' || ngDevMode ? 'TRANSFER_STATE_STATUS' : '', {
+    providedIn: 'root',
+    factory: () => ({ serialized: false }),
 });
 const TRANSFER_STATE_SERIALIZATION_PROVIDERS = [
     {
@@ -17421,16 +17421,15 @@ function createScript(doc, textContent, nonce) {
     return script;
 }
 function warnIfStateTransferHappened(injector) {
-    const appId = injector.get(APP_ID);
-    const appIdsWithTransferStateSerialized = injector.get(TRANSFER_STATE_SERIALIZED_FOR_APPID);
-    if (appIdsWithTransferStateSerialized.has(appId)) {
+    const transferStateStatus = injector.get(TRANSFER_STATE_STATUS);
+    if (transferStateStatus.serialized) {
         console.warn(`Angular detected an incompatible configuration, which causes duplicate serialization of the server-side application state.\n\n` +
             `This can happen if the server providers have been provided more than once using different mechanisms. For example:\n\n` +
             `  imports: [ServerModule], // Registers server providers\n` +
             `  providers: [provideServerRendering()] // Also registers server providers\n\n` +
             `To fix this, ensure that the \`provideServerRendering()\` function is the only provider used and remove the other(s).`);
     }
-    appIdsWithTransferStateSerialized.add(appId);
+    transferStateStatus.serialized = true;
 }
 function serializeTransferStateFactory() {
     const doc = inject(DOCUMENT);

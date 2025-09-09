@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.0-next.0+sha-90e798b
+ * @license Angular v20.3.0-next.0+sha-6117cce
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -249,14 +249,24 @@ async function renderModule(moduleType, options) {
 }
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.
-
+ *
+ * @usageNotes
+ *
  * ```ts
- * const bootstrap = () => bootstrapApplication(RootComponent, appConfig);
- * const output: string = await renderApplication(bootstrap);
+ * import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
+ * import { renderApplication } from '@angular/platform-server';
+ * import { ApplicationConfig } from '@angular/core';
+ * import { AppComponent } from './app.component';
+ *
+ * const appConfig: ApplicationConfig = { providers: [...] };
+ * const bootstrap = (context: BootstrapContext) =>
+ *   bootstrapApplication(AppComponent, config, context);
+ * const output = await renderApplication(bootstrap);
  * ```
  *
  * @param bootstrap A method that when invoked returns a promise that returns an `ApplicationRef`
- *     instance once resolved.
+ *     instance once resolved. The method is invoked with an `Injector` instance that
+ *     provides access to the platform-level dependency injection context.
  * @param options Additional configuration for the render operation:
  *  - `document` - the document of the page to render, either as an HTML string or
  *                 as a reference to the `document` instance.
@@ -275,7 +285,7 @@ async function renderApplication(bootstrap, options) {
     const platformRef = createServerPlatform(options);
     try {
         _startMeasuring(bootstrapLabel);
-        const applicationRef = await bootstrap();
+        const applicationRef = await bootstrap({ platformRef });
         _stopMeasuring(bootstrapLabel);
         _startMeasuring(_renderLabel);
         const measuringLabel = 'whenStable';
@@ -301,7 +311,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = new Version('20.3.0-next.0+sha-90e798b');
+const VERSION = new Version('20.3.0-next.0+sha-6117cce');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

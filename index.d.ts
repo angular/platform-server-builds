@@ -1,5 +1,5 @@
 /**
- * @license Angular v19.2.14+sha-6f6db99
+ * @license Angular v19.2.14+sha-70d0639
  * (c) 2010-2025 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -7,7 +7,7 @@
 import * as i0 from '@angular/core';
 import { EnvironmentProviders, StaticProvider, PlatformRef, Provider, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
-import { ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
+import { BootstrapContext, ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
 
 /**
  * Representation of the current platform state.
@@ -59,6 +59,13 @@ declare class ServerModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<ServerModule>;
 }
 /**
+ * Creates a server-side instance of an Angular platform.
+ *
+ * This platform should be used when performing server-side rendering of an Angular application.
+ * Standalone applications can be bootstrapped on the server using the `bootstrapApplication`
+ * function from `@angular/platform-browser`. When using `bootstrapApplication`, the `platformServer`
+ * should be created first and passed to the bootstrap function using the `BootstrapContext`.
+ *
  * @publicApi
  */
 declare function platformServer(extraProviders?: StaticProvider[] | undefined): PlatformRef;
@@ -132,14 +139,24 @@ declare function renderModule<T>(moduleType: Type<T>, options: {
 }): Promise<string>;
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.
-
+ *
+ * @usageNotes
+ *
  * ```ts
- * const bootstrap = () => bootstrapApplication(RootComponent, appConfig);
- * const output: string = await renderApplication(bootstrap);
+ * import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
+ * import { renderApplication } from '@angular/platform-server';
+ * import { ApplicationConfig } from '@angular/core';
+ * import { AppComponent } from './app.component';
+ *
+ * const appConfig: ApplicationConfig = { providers: [...] };
+ * const bootstrap = (context: BootstrapContext) =>
+ *   bootstrapApplication(AppComponent, config, context);
+ * const output = await renderApplication(bootstrap);
  * ```
  *
  * @param bootstrap A method that when invoked returns a promise that returns an `ApplicationRef`
- *     instance once resolved.
+ *     instance once resolved. The method is invoked with an `Injector` instance that
+ *     provides access to the platform-level dependency injection context.
  * @param options Additional configuration for the render operation:
  *  - `document` - the document of the page to render, either as an HTML string or
  *                 as a reference to the `document` instance.
@@ -150,7 +167,7 @@ declare function renderModule<T>(moduleType: Type<T>, options: {
  *
  * @publicApi
  */
-declare function renderApplication<T>(bootstrap: () => Promise<ApplicationRef>, options: {
+declare function renderApplication(bootstrap: (context: BootstrapContext) => Promise<ApplicationRef>, options: {
     document?: string | Document;
     url?: string;
     platformProviders?: Provider[];

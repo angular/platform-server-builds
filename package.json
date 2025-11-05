@@ -1,6 +1,6 @@
 {
   "name": "@angular/platform-server",
-  "version": "21.0.0-rc.0+sha-e1f933f",
+  "version": "21.0.0-rc.0+sha-507b346",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
@@ -8,10 +8,10 @@
     "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "21.0.0-rc.0+sha-e1f933f",
-    "@angular/compiler": "21.0.0-rc.0+sha-e1f933f",
-    "@angular/core": "21.0.0-rc.0+sha-e1f933f",
-    "@angular/platform-browser": "21.0.0-rc.0+sha-e1f933f",
+    "@angular/common": "21.0.0-rc.0+sha-507b346",
+    "@angular/compiler": "21.0.0-rc.0+sha-507b346",
+    "@angular/core": "21.0.0-rc.0+sha-507b346",
+    "@angular/platform-browser": "21.0.0-rc.0+sha-507b346",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {

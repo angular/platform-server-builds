@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-rc.1+sha-0552e72
+ * @license Angular v21.0.0-rc.1+sha-f54cc4f
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -179,7 +179,7 @@ async function renderApplication(bootstrap, options) {
   }
 }
 
-const VERSION = new Version('21.0.0-rc.1+sha-0552e72');
+const VERSION = new Version('21.0.0-rc.1+sha-f54cc4f');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

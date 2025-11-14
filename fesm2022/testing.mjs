@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.0.0-rc.2+sha-911999e
+ * @license Angular v21.0.0-rc.2+sha-966bfae
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -18,7 +18,7 @@ const platformServerTesting = createPlatformFactory(platformCore, 'serverTesting
 class ServerTestingModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.2+sha-911999e",
+    version: "21.0.0-rc.2+sha-966bfae",
     ngImport: i0,
     type: ServerTestingModule,
     deps: [],
@@ -26,14 +26,14 @@ class ServerTestingModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0-rc.2+sha-911999e",
+    version: "21.0.0-rc.2+sha-966bfae",
     ngImport: i0,
     type: ServerTestingModule,
     exports: [BrowserDynamicTestingModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0-rc.2+sha-911999e",
+    version: "21.0.0-rc.2+sha-966bfae",
     ngImport: i0,
     type: ServerTestingModule,
     providers: SERVER_RENDER_PROVIDERS,
@@ -42,7 +42,7 @@ class ServerTestingModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0-rc.2+sha-911999e",
+  version: "21.0.0-rc.2+sha-966bfae",
   ngImport: i0,
   type: ServerTestingModule,
   decorators: [{

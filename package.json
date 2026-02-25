@@ -1,17 +1,17 @@
 {
   "name": "@angular/platform-server",
-  "version": "22.0.0-next.0+sha-a5981b8",
+  "version": "22.0.0-next.0+sha-957466d",
   "description": "Angular - library for using Angular in Node.js",
   "author": "angular",
   "license": "MIT",
   "engines": {
-    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
+    "node": "^22.22.0 || >=24.13.1"
   },
   "peerDependencies": {
-    "@angular/common": "22.0.0-next.0+sha-a5981b8",
-    "@angular/compiler": "22.0.0-next.0+sha-a5981b8",
-    "@angular/core": "22.0.0-next.0+sha-a5981b8",
-    "@angular/platform-browser": "22.0.0-next.0+sha-a5981b8",
+    "@angular/common": "22.0.0-next.0+sha-957466d",
+    "@angular/compiler": "22.0.0-next.0+sha-957466d",
+    "@angular/core": "22.0.0-next.0+sha-957466d",
+    "@angular/platform-browser": "22.0.0-next.0+sha-957466d",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {

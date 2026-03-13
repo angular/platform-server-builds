@@ -1,11 +1,11 @@
 /**
- * @license Angular v22.0.0-next.3+sha-412788f
+ * @license Angular v22.0.0-next.3+sha-e127927
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import * as i0 from '@angular/core';
-import { EnvironmentProviders, StaticProvider, Provider, PlatformRef, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
+import { EnvironmentProviders, StaticProvider, PlatformRef, Provider, InjectionToken, ApplicationRef, Type, Version } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 import { BootstrapContext, ɵBrowserDomAdapter as _BrowserDomAdapter } from '@angular/platform-browser';
 

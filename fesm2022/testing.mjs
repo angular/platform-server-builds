@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.5+sha-a6c49e0
+ * @license Angular v21.2.5+sha-c157916
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -10,6 +10,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { SERVER_RENDER_PROVIDERS, INTERNAL_SERVER_PLATFORM_PROVIDERS } from './_server-chunk.mjs';
 import '@angular/common';
 import '@angular/platform-browser';
+import '../third_party/domino/bundled-domino.mjs';
 import '@angular/common/http';
 import 'rxjs';
 
@@ -18,7 +19,7 @@ const platformServerTesting = createPlatformFactory(platformCore, 'serverTesting
 class ServerTestingModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.5+sha-a6c49e0",
+    version: "21.2.5+sha-c157916",
     ngImport: i0,
     type: ServerTestingModule,
     deps: [],
@@ -26,14 +27,14 @@ class ServerTestingModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.5+sha-a6c49e0",
+    version: "21.2.5+sha-c157916",
     ngImport: i0,
     type: ServerTestingModule,
     exports: [BrowserDynamicTestingModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.5+sha-a6c49e0",
+    version: "21.2.5+sha-c157916",
     ngImport: i0,
     type: ServerTestingModule,
     providers: SERVER_RENDER_PROVIDERS,
@@ -42,7 +43,7 @@ class ServerTestingModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.5+sha-a6c49e0",
+  version: "21.2.5+sha-c157916",
   ngImport: i0,
   type: ServerTestingModule,
   decorators: [{

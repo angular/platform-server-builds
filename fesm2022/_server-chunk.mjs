@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.8+sha-c3d69ae
+ * @license Angular v21.2.8+sha-4f65bb3
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -109,7 +109,7 @@ class PlatformState {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: PlatformState,
     deps: [{
@@ -119,14 +119,14 @@ class PlatformState {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: PlatformState
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.8+sha-c3d69ae",
+  version: "21.2.8+sha-4f65bb3",
   ngImport: i0,
   type: PlatformState,
   decorators: [{
@@ -163,7 +163,7 @@ class ServerXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerXhr,
     deps: [],
@@ -171,14 +171,14 @@ class ServerXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.8+sha-c3d69ae",
+  version: "21.2.8+sha-4f65bb3",
   ngImport: i0,
   type: ServerXhr,
   decorators: [{
@@ -217,24 +217,8 @@ const SERVER_HTTP_PROVIDERS = [{
 }];
 
 function parseUrl(urlStr, origin) {
-  const {
-    hostname,
-    protocol,
-    port,
-    pathname,
-    search,
-    hash,
-    href
-  } = new URL(urlStr, origin);
-  return {
-    hostname,
-    href,
-    protocol,
-    port,
-    pathname,
-    search,
-    hash
-  };
+  const urlToParse = urlStr.length === 0 || urlStr[0] === '/' ? origin + urlStr : urlStr;
+  return new URL(urlToParse);
 }
 class ServerPlatformLocation {
   href = '/';
@@ -254,14 +238,22 @@ class ServerPlatformLocation {
       return;
     }
     if (config.url) {
-      const url = parseUrl(config.url, this._doc.location.origin);
-      this.protocol = url.protocol;
-      this.hostname = url.hostname;
-      this.port = url.port;
-      this.pathname = url.pathname;
-      this.search = url.search;
-      this.hash = url.hash;
-      this.href = url.href;
+      const {
+        protocol,
+        hostname,
+        port,
+        pathname,
+        search,
+        hash,
+        href
+      } = parseUrl(config.url, this._doc.location.origin);
+      this.protocol = protocol;
+      this.hostname = hostname;
+      this.port = port;
+      this.pathname = pathname;
+      this.search = search;
+      this.hash = hash;
+      this.href = href;
     }
   }
   getBaseHrefFromDOM() {
@@ -292,12 +284,19 @@ class ServerPlatformLocation {
   }
   replaceState(state, title, newUrl) {
     const oldUrl = this.url;
-    const parsedUrl = parseUrl(newUrl, this._doc.location.origin);
-    this.pathname = parsedUrl.pathname;
-    this.search = parsedUrl.search;
-    this.href = parsedUrl.href;
-    this.protocol = parsedUrl.protocol;
-    this.setHash(parsedUrl.hash, oldUrl);
+    const {
+      pathname,
+      search,
+      hash,
+      href,
+      protocol
+    } = parseUrl(newUrl, this._doc.location.origin);
+    const writableThis = this;
+    writableThis.pathname = pathname;
+    writableThis.search = search;
+    writableThis.href = href;
+    writableThis.protocol = protocol;
+    this.setHash(hash, oldUrl);
   }
   pushState(state, title, newUrl) {
     this.replaceState(state, title, newUrl);
@@ -313,7 +312,7 @@ class ServerPlatformLocation {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerPlatformLocation,
     deps: [],
@@ -321,14 +320,14 @@ class ServerPlatformLocation {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerPlatformLocation
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.8+sha-c3d69ae",
+  version: "21.2.8+sha-4f65bb3",
   ngImport: i0,
   type: ServerPlatformLocation,
   decorators: [{
@@ -351,7 +350,7 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerEventManagerPlugin,
     deps: [{
@@ -361,14 +360,14 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerEventManagerPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.8+sha-c3d69ae",
+  version: "21.2.8+sha-4f65bb3",
   ngImport: i0,
   type: ServerEventManagerPlugin,
   decorators: [{
@@ -478,7 +477,7 @@ const PLATFORM_SERVER_PROVIDERS = [TRANSFER_STATE_SERIALIZATION_PROVIDERS, SERVE
 class ServerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerModule,
     deps: [],
@@ -486,14 +485,14 @@ class ServerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.8+sha-c3d69ae",
+    version: "21.2.8+sha-4f65bb3",
     ngImport: i0,
     type: ServerModule,
     providers: PLATFORM_SERVER_PROVIDERS,
@@ -502,7 +501,7 @@ class ServerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.8+sha-c3d69ae",
+  version: "21.2.8+sha-4f65bb3",
   ngImport: i0,
   type: ServerModule,
   decorators: [{

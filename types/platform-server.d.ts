@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.11+sha-fd9dda5
+ * @license Angular v22.0.0-next.11+sha-a3d4631
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -127,13 +127,14 @@ declare const SERVER_CONTEXT: InjectionToken<string>;
  *                 as a reference to the `document` instance.
  *  - `url` - the URL for the current render request.
  *  - `extraProviders` - set of platform level providers for the current render request.
- *
+ *  - `allowedHosts` - the allowed hosts list for host validation in server-side rendering.
  * @publicApi
  */
 declare function renderModule<T>(moduleType: Type<T>, options: {
     document?: string | Document;
     url?: string;
     extraProviders?: StaticProvider[];
+    allowedHosts?: Readonly<string>[];
 }): Promise<string>;
 /**
  * Bootstraps an instance of an Angular application and renders it to a string.
@@ -160,6 +161,7 @@ declare function renderModule<T>(moduleType: Type<T>, options: {
  *                 as a reference to the `document` instance.
  *  - `url` - the URL for the current render request.
  *  - `platformProviders` - the platform level providers for the current render request.
+ *  - `allowedHosts` - the allowed hosts list for host validation in server-side rendering.
  *
  * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
  *
@@ -169,7 +171,17 @@ declare function renderApplication(bootstrap: (context: BootstrapContext) => Pro
     document?: string | Document;
     url?: string;
     platformProviders?: Provider[];
+    allowedHosts?: Readonly<string>[];
 }): Promise<string>;
+/**
+ * Checks if the hostname is allowed.
+ * @param hostname - The hostname to check.
+ * @param allowedHosts - A set of allowed hostnames.
+ * @returns `true` if the hostname is allowed, `false` otherwise.
+ * @note Used also in `@angular/ssr`.
+ * @private
+ */
+declare function isHostAllowed(hostname: string, allowedHosts: ReadonlySet<string>): boolean;
 
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
@@ -201,5 +213,5 @@ declare class DominoAdapter extends _BrowserDomAdapter {
  */
 declare const VERSION: Version;
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, renderInternal as ɵrenderInternal };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_CONTEXT as ɵSERVER_CONTEXT, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 export type { PlatformConfig };

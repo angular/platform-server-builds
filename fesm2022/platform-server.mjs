@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.11+sha-fd9dda5
+ * @license Angular v22.0.0-next.11+sha-a3d4631
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -25,11 +25,15 @@ function createServerPlatform(options) {
   const extraProviders = options.platformProviders ?? [];
   const measuringLabel = 'createServerPlatform';
   _startMeasuring(measuringLabel);
+  const {
+    document,
+    url
+  } = options;
   const platform = platformServer([{
     provide: INITIAL_CONFIG,
     useValue: {
-      document: options.document,
-      url: options.url
+      document,
+      url
     }
   }, extraProviders]);
   _stopMeasuring(measuringLabel);
@@ -135,8 +139,10 @@ async function renderModule(moduleType, options) {
   const {
     document,
     url,
-    extraProviders: platformProviders
+    extraProviders: platformProviders,
+    allowedHosts
   } = options;
+  validateAllowedHosts(url, allowedHosts);
   const platformRef = createServerPlatform({
     document,
     url,
@@ -158,6 +164,11 @@ async function renderApplication(bootstrap, options) {
   const renderAppLabel = 'renderApplication';
   const bootstrapLabel = 'bootstrap';
   const _renderLabel = '_render';
+  const {
+    url,
+    allowedHosts
+  } = options;
+  validateAllowedHosts(url, allowedHosts);
   _startMeasuring(renderAppLabel);
   const platformRef = createServerPlatform(options);
   try {
@@ -179,8 +190,32 @@ async function renderApplication(bootstrap, options) {
     _stopMeasuring(renderAppLabel);
   }
 }
+function validateAllowedHosts(url, allowedHosts) {
+  if (typeof url === 'string' && URL.canParse(url)) {
+    const hostname = new URL(url).hostname;
+    const allowedHostsSet = new Set(allowedHosts);
+    if (!isHostAllowed(hostname, allowedHostsSet)) {
+      throw new Error(`Host ${url} is not allowed. You can configure \`allowedHosts\` option.`);
+    }
+  }
+}
+function isHostAllowed(hostname, allowedHosts) {
+  if (allowedHosts.has('*') || allowedHosts.has(hostname)) {
+    return true;
+  }
+  for (const allowedHost of allowedHosts) {
+    if (!allowedHost.startsWith('*.')) {
+      continue;
+    }
+    const domain = allowedHost.slice(1);
+    if (hostname.endsWith(domain)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-const VERSION = /* @__PURE__ */new Version('22.0.0-next.11+sha-fd9dda5');
+const VERSION = /* @__PURE__ */new Version('22.0.0-next.11+sha-a3d4631');
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

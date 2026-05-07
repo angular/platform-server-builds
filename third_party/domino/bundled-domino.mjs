@@ -2438,7 +2438,7 @@ var hasRequiredSelect;
 function requireSelect () {
 	if (hasRequiredSelect) return select.exports;
 	hasRequiredSelect = 1;
-	(function (module, exports$1) {
+	(function (module, exports) {
 		/* jshint eqnull: true */
 		/**
 		 * Zest (https://github.com/chjj/zest)
@@ -3326,7 +3326,7 @@ function requireSelect () {
 		 * Expose
 		 */
 
-		module.exports = exports$1 = function(sel, context) {
+		module.exports = exports = function(sel, context) {
 		  /* when context isn't a DocumentFragment and the selector is simple: */
 		  var id, r;
 		  if (context.nodeType !== 11 && sel.indexOf(' ') === -1) {
@@ -3350,11 +3350,11 @@ function requireSelect () {
 		  return find(sel, context);
 		};
 
-		exports$1.selectors = selectors;
-		exports$1.operators = operators;
-		exports$1.combinators = combinators;
+		exports.selectors = selectors;
+		exports.operators = operators;
+		exports.combinators = combinators;
 
-		exports$1.matches = function(el, sel) {
+		exports.matches = function(el, sel) {
 		  var test = { sel: sel };
 		  do {
 		    test = compile(test.sel);
@@ -8420,16 +8420,16 @@ var hasRequiredSvg;
 function requireSvg () {
 	if (hasRequiredSvg) return svg;
 	hasRequiredSvg = 1;
-	(function (exports$1) {
+	(function (exports) {
 		var Element = requireElement();
 		var defineElement = requireDefineElement();
 		var utils = requireUtils();
 		var CSSStyleDeclaration = requireCSSStyleDeclaration();
 
-		var svgElements = exports$1.elements = {};
+		var svgElements = exports.elements = {};
 		var svgNameToImpl = Object.create(null);
 
-		exports$1.createElement = function(doc, localName, prefix) {
+		exports.createElement = function(doc, localName, prefix) {
 		  var impl = svgNameToImpl[localName] || SVGElement;
 		  return new impl(doc, localName, prefix);
 		};
@@ -8461,7 +8461,7 @@ function requireSvg () {
 		  tag: 'svg',
 		  props: {
 		    createSVGRect: { value: function () {
-		      return exports$1.createElement(this.ownerDocument, 'rect', null);
+		      return exports.createElement(this.ownerDocument, 'rect', null);
 		    } }
 		  }
 		});
@@ -16898,10 +16898,10 @@ var hasRequiredImpl;
 function requireImpl () {
 	if (hasRequiredImpl) return impl.exports;
 	hasRequiredImpl = 1;
-	(function (module, exports$1) {
+	(function (module, exports) {
 		var utils = requireUtils();
 
-		exports$1 = module.exports = {
+		exports = module.exports = {
 		  CSSStyleDeclaration: requireCSSStyleDeclaration(),
 		  CharacterData: requireCharacterData(),
 		  Comment: requireComment(),
@@ -16921,9 +16921,9 @@ function requireImpl () {
 		  Window: requireWindow()
 		};
 
-		utils.merge(exports$1, requireEvents());
-		utils.merge(exports$1, requireHtmlelts().elements);
-		utils.merge(exports$1, requireSvg().elements); 
+		utils.merge(exports, requireEvents());
+		utils.merge(exports, requireHtmlelts().elements);
+		utils.merge(exports, requireSvg().elements); 
 	} (impl, impl.exports));
 	return impl.exports;
 }
@@ -17001,17 +17001,17 @@ var hasRequiredLib;
 function requireLib () {
 	if (hasRequiredLib) return lib;
 	hasRequiredLib = 1;
-	(function (exports$1) {
+	(function (exports) {
 		var DOMImplementation = requireDOMImplementation();
 		var HTMLParser = requireHTMLParser();
 		requireWindow();
 		var impl = requireImpl();
 
-		exports$1.createDOMImplementation = function() {
+		exports.createDOMImplementation = function() {
 		  return new DOMImplementation(null);
 		};
 
-		exports$1.createDocument = function(html, force) {
+		exports.createDocument = function(html, force) {
 		  // Previous API couldn't let you pass '' as a document, and that
 		  // yields a slightly different document than createHTMLDocument('')
 		  // does.  The new `force` parameter lets you pass '' if you want to.
@@ -17023,7 +17023,7 @@ function requireLib () {
 		  return new DOMImplementation(null).createHTMLDocument("");
 		};
 
-		exports$1.createIncrementalHTMLParser = function() {
+		exports.createIncrementalHTMLParser = function() {
 		    var parser = new HTMLParser();
 		    /** API for incremental parser. */
 		    return {
@@ -17074,13 +17074,13 @@ function requireLib () {
 		    };  
 		};
 
-		exports$1.createWindow = function(html, address) {
-		  var document = exports$1.createDocument(html);
+		exports.createWindow = function(html, address) {
+		  var document = exports.createDocument(html);
 		  if (address !== undefined) { document._address = address; }
 		  return new impl.Window(document);
 		};
 
-		exports$1.impl = impl; 
+		exports.impl = impl; 
 	} (lib));
 	return lib;
 }

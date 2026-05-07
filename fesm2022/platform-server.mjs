@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.20+sha-4aee744
+ * @license Angular v20.3.20+sha-f584840
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -51,8 +51,15 @@ function createServerPlatform(options) {
     const extraProviders = options.platformProviders ?? [];
     const measuringLabel = 'createServerPlatform';
     _startMeasuring(measuringLabel);
+    const { document, url } = options;
     const platform = platformServer([
-        { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
+        {
+            provide: INITIAL_CONFIG,
+            useValue: {
+                document,
+                url,
+            },
+        },
         extraProviders,
     ]);
     _stopMeasuring(measuringLabel);
@@ -227,11 +234,12 @@ function sanitizeServerContext(serverContext) {
  *                 as a reference to the `document` instance.
  *  - `url` - the URL for the current render request.
  *  - `extraProviders` - set of platform level providers for the current render request.
- *
+ *  - `allowedHosts` - the allowed hosts list for host validation in server-side rendering.
  * @publicApi
  */
 async function renderModule(moduleType, options) {
-    const { document, url, extraProviders: platformProviders } = options;
+    const { document, url, extraProviders: platformProviders, allowedHosts } = options;
+    validateAllowedHosts(url, allowedHosts);
     const platformRef = createServerPlatform({ document, url, platformProviders });
     try {
         const moduleRef = await platformRef.bootstrapModule(moduleType);
@@ -272,6 +280,7 @@ async function renderModule(moduleType, options) {
  *                 as a reference to the `document` instance.
  *  - `url` - the URL for the current render request.
  *  - `platformProviders` - the platform level providers for the current render request.
+ *  - `allowedHosts` - the allowed hosts list for host validation in server-side rendering.
  *
  * @returns A Promise, that returns serialized (to a string) rendered page, once resolved.
  *
@@ -281,6 +290,8 @@ async function renderApplication(bootstrap, options) {
     const renderAppLabel = 'renderApplication';
     const bootstrapLabel = 'bootstrap';
     const _renderLabel = '_render';
+    const { url, allowedHosts } = options;
+    validateAllowedHosts(url, allowedHosts);
     _startMeasuring(renderAppLabel);
     const platformRef = createServerPlatform(options);
     try {
@@ -302,6 +313,38 @@ async function renderApplication(bootstrap, options) {
         _stopMeasuring(renderAppLabel);
     }
 }
+function validateAllowedHosts(url, allowedHosts) {
+    if (typeof url === 'string' && URL.canParse(url)) {
+        const hostname = new URL(url).hostname;
+        const allowedHostsSet = new Set(allowedHosts);
+        if (!isHostAllowed(hostname, allowedHostsSet)) {
+            throw new Error(`Host ${url} is not allowed. You can configure \`allowedHosts\` option.`);
+        }
+    }
+}
+/**
+ * Checks if the hostname is allowed.
+ * @param hostname - The hostname to check.
+ * @param allowedHosts - A set of allowed hostnames.
+ * @returns `true` if the hostname is allowed, `false` otherwise.
+ * @note Used also in `@angular/ssr`.
+ * @private
+ */
+function isHostAllowed(hostname, allowedHosts) {
+    if (allowedHosts.has('*') || allowedHosts.has(hostname)) {
+        return true;
+    }
+    for (const allowedHost of allowedHosts) {
+        if (!allowedHost.startsWith('*.')) {
+            continue;
+        }
+        const domain = allowedHost.slice(1);
+        if (hostname.endsWith(domain)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @module
@@ -311,7 +354,7 @@ async function renderApplication(bootstrap, options) {
 /**
  * @publicApi
  */
-const VERSION = /* @__PURE__ */ new Version('20.3.20+sha-4aee744');
+const VERSION = /* @__PURE__ */ new Version('20.3.20+sha-f584840');
 
-export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, renderInternal as ɵrenderInternal };
+export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

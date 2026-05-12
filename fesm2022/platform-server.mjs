@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.20+sha-f584840
+ * @license Angular v20.3.21+sha-591fa53
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -354,7 +354,7 @@ function isHostAllowed(hostname, allowedHosts) {
 /**
  * @publicApi
  */
-const VERSION = /* @__PURE__ */ new Version('20.3.20+sha-f584840');
+const VERSION = /* @__PURE__ */ new Version('20.3.21+sha-591fa53');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

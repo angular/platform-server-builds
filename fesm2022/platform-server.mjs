@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-next.12+sha-7017557
+ * @license Angular v22.0.0-next.12+sha-ccb7d42
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -216,7 +216,7 @@ function isHostAllowed(hostname, allowedHosts) {
   return false;
 }
 
-const VERSION = /* @__PURE__ */new Version('22.0.0-next.12+sha-7017557');
+const VERSION = /* @__PURE__ */new Version('22.0.0-next.12+sha-ccb7d42');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

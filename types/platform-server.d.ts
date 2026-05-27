@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.0.0-rc.1+sha-618c850
+ * @license Angular v22.0.0-rc.1+sha-d88b796
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -32,6 +32,9 @@ declare class PlatformState {
 /**
  * Sets up providers necessary to enable server rendering functionality for the application.
  *
+ * @param options An object to configure the server providers. Currently supports the following options:
+ * - `maxResponseBodySize`: The maximum allowed response body size when using the Fetch API.
+ *
  * @usageNotes
  *
  * Basic example of how you can add server support to your application:
@@ -44,7 +47,9 @@ declare class PlatformState {
  * @publicApi
  * @returns A set of providers to setup the server.
  */
-declare function provideServerRendering(): EnvironmentProviders;
+declare function provideServerRendering(options?: {
+    maxResponseBodySize: number;
+}): EnvironmentProviders;
 
 declare const INTERNAL_SERVER_PLATFORM_PROVIDERS: StaticProvider[];
 declare const SERVER_RENDER_PROVIDERS: Provider[];

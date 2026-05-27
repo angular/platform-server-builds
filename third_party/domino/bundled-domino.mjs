@@ -744,6 +744,7 @@ function requireNodeUtils () {
 	  XMP: true,
 	  IFRAME: true,
 	  NOEMBED: true,
+	  NOSCRIPT: true,
 	  NOFRAMES: true,
 	  PLAINTEXT: true
 	};
@@ -852,12 +853,15 @@ function requireNodeUtils () {
 	  if (!rawText.toLowerCase().includes(parentClosingTag)) {
 	    return rawText; // fast path
 	  }
-	  const result = [...rawText];
-	  const matches = rawText.matchAll(new RegExp(parentClosingTag, 'ig'));
-	  for (const match of matches) {
-	    result[match.index] = '&lt;';
-	  }
-	  return result.join('');
+	  // Replace via String.prototype.replace so we don't have to reconcile
+	  // UTF-16 code-unit offsets (match.index) with code-point indexing
+	  // (`[...rawText]`). Astral characters (e.g. emoji) before the match
+	  // would otherwise shift the replacement and leave a real `</tag>`
+	  // break-out in the output.
+	  return rawText.replace(
+	    new RegExp(parentClosingTag, 'ig'),
+	    (m) => '&lt;' + m.slice(1)
+	  );
 	}
 
 	const CLOSING_COMMENT_REGEXP = /--!?>/;
@@ -906,7 +910,8 @@ function requireNodeUtils () {
 	        var ss = kid.serialize();
 	        // If an element can have raw content, this content may
 	        // potentially require escaping to avoid XSS.
-	        if (hasRawContent[tagname.toUpperCase()]) {
+	        var upperTag = tagname.toUpperCase();
+	        if (hasRawContent[upperTag]) {
 	          ss = escapeMatchingClosingTag(ss, tagname);
 	        }
 	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
@@ -924,8 +929,7 @@ function requireNodeUtils () {
 	      else
 	        parenttag = '';
 
-	      if (hasRawContent[parenttag] ||
-	          (parenttag==='NOSCRIPT' && parent.ownerDocument._scripting_enabled)) {
+	      if (hasRawContent[parenttag]) {
 	        s += kid.data;
 	      } else {
 	        s += escape(kid.data);

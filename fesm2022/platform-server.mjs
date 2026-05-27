@@ -1,10 +1,10 @@
 /**
- * @license Angular v20.3.21+sha-591fa53
+ * @license Angular v20.3.21+sha-3d135ce
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
 
-import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, platformServer, INITIAL_CONFIG, createScript } from './server.mjs';
+import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, parseUrl, platformServer, INITIAL_CONFIG, createScript } from './server.mjs';
 export { ServerModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './server.mjs';
 import { makeEnvironmentProviders, InjectionToken, ApplicationRef, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Renderer2, Version } from '@angular/core';
 import '@angular/common';
@@ -314,11 +314,14 @@ async function renderApplication(bootstrap, options) {
     }
 }
 function validateAllowedHosts(url, allowedHosts) {
-    if (typeof url === 'string' && URL.canParse(url)) {
-        const hostname = new URL(url).hostname;
-        const allowedHostsSet = new Set(allowedHosts);
-        if (!isHostAllowed(hostname, allowedHostsSet)) {
-            throw new Error(`Host ${url} is not allowed. You can configure \`allowedHosts\` option.`);
+    if (typeof url === 'string') {
+        const parsedUrl = parseUrl(url);
+        if (parsedUrl !== null) {
+            const hostname = parsedUrl.hostname;
+            const allowedHostsSet = new Set(allowedHosts);
+            if (!isHostAllowed(hostname, allowedHostsSet)) {
+                throw new Error(`Host ${url} is not allowed. You can configure \`allowedHosts\` option.`);
+            }
         }
     }
 }
@@ -354,7 +357,7 @@ function isHostAllowed(hostname, allowedHosts) {
 /**
  * @publicApi
  */
-const VERSION = /* @__PURE__ */ new Version('20.3.21+sha-591fa53');
+const VERSION = /* @__PURE__ */ new Version('20.3.21+sha-3d135ce');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

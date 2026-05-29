@@ -1,10 +1,10 @@
 /**
- * @license Angular v22.1.0-next.0+sha-89c28d3
+ * @license Angular v22.1.0-next.0+sha-d109bf9
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
-import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, parseUrl, platformServer, INITIAL_CONFIG, createScript } from './_server-chunk.mjs';
+import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, resolveUrl, platformServer, INITIAL_CONFIG, createScript } from './_server-chunk.mjs';
 export { ServerModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './_server-chunk.mjs';
 import { makeEnvironmentProviders, InjectionToken, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ApplicationRef, ɵINTERNAL_APPLICATION_ERROR_HANDLER as _INTERNAL_APPLICATION_ERROR_HANDLER, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, Renderer2, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Version } from '@angular/core';
 import { ɵHTTP_FETCH_MAX_RESPONSE_SIZE as _HTTP_FETCH_MAX_RESPONSE_SIZE } from '@angular/common/http';
@@ -200,7 +200,7 @@ async function renderApplication(bootstrap, options) {
 }
 function validateAllowedHosts(url, allowedHosts) {
   if (typeof url === 'string') {
-    const parsedUrl = parseUrl(url);
+    const parsedUrl = resolveUrl(url);
     if (parsedUrl !== null) {
       const hostname = parsedUrl.hostname;
       const allowedHostsSet = new Set(allowedHosts);
@@ -226,7 +226,7 @@ function isHostAllowed(hostname, allowedHosts) {
   return false;
 }
 
-const VERSION = /* @__PURE__ */new Version('22.1.0-next.0+sha-89c28d3');
+const VERSION = /* @__PURE__ */new Version('22.1.0-next.0+sha-d109bf9');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

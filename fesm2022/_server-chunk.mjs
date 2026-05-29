@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.0-next.0+sha-89c28d3
+ * @license Angular v22.1.0-next.0+sha-d109bf9
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -109,7 +109,7 @@ class PlatformState {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: PlatformState,
     deps: [{
@@ -119,14 +119,14 @@ class PlatformState {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: PlatformState
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0+sha-89c28d3",
+  version: "22.1.0-next.0+sha-d109bf9",
   ngImport: i0,
   type: PlatformState,
   decorators: [{
@@ -142,6 +142,40 @@ i0.ɵɵngDeclareClassMetadata({
 });
 function enableDomEmulation(injector) {
   return injector.get(ENABLE_DOM_EMULATION, true);
+}
+
+function resolveUrl(urlStr, origin, options = {}) {
+  if (!urlStr) {
+    return origin !== undefined ? new URL('/', origin) : null;
+  }
+  urlStr = urlStr.trim();
+  try {
+    return new URL(urlStr);
+  } catch {}
+  if (!URL.canParse(urlStr, 'http://fake')) {
+    throw new Error(`Invalid URL: ${urlStr}`);
+  }
+  if (origin === undefined) {
+    return null;
+  }
+  const {
+    allowProtocolRelative = false
+  } = options;
+  const isProtocolRelative = allowProtocolRelative && urlStr[0] === '/' && urlStr[1] === '/' && urlStr.length > 2 && urlStr[2] !== '/' && urlStr[2] !== '\\';
+  if (isProtocolRelative) {
+    return new URL(urlStr, origin);
+  }
+  const startsWithSlash = urlStr[0] === '/' || urlStr[0] === '\\';
+  if (!startsWithSlash) {
+    return new URL(urlStr, origin);
+  }
+  let startIdx = 0;
+  while (startIdx < urlStr.length && (urlStr[startIdx] === '/' || urlStr[startIdx] === '\\')) {
+    startIdx++;
+  }
+  const pathWithoutLeadingSlashes = urlStr.slice(startIdx);
+  const normalizedPath = '/' + pathWithoutLeadingSlashes;
+  return new URL(normalizedPath, origin);
 }
 
 class ServerXhr {
@@ -163,7 +197,7 @@ class ServerXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerXhr,
     deps: [],
@@ -171,14 +205,14 @@ class ServerXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0+sha-89c28d3",
+  version: "22.1.0-next.0+sha-d109bf9",
   ngImport: i0,
   type: ServerXhr,
   decorators: [{
@@ -207,13 +241,9 @@ function relativeUrlsTransformerInterceptorFn(request, next) {
   }
   const baseHref = platformLocation.getBaseHrefFromDOM() || href;
   const baseUrl = new URL(baseHref, urlPrefix);
-  let parsedUrl = new URL(request.url, baseUrl);
-  if (parsedUrl.origin !== baseUrl.origin) {
-    const isProtocolRelative = /^\/\/[^/\\]/.test(trimmedUrl);
-    if (!isProtocolRelative) {
-      parsedUrl = new URL(trimmedUrl.replace(/^[/\\]+/, '/'), baseUrl);
-    }
-  }
+  const parsedUrl = resolveUrl(request.url, baseUrl, {
+    allowProtocolRelative: true
+  });
   return next(request.clone({
     url: parsedUrl.toString()
   }));
@@ -226,27 +256,6 @@ const SERVER_HTTP_PROVIDERS = [{
   useValue: relativeUrlsTransformerInterceptorFn,
   multi: true
 }];
-
-const LEADING_SLASHES_REGEX = /^[/\\]+/;
-function parseUrl(urlStr, origin) {
-  if (!urlStr) {
-    return origin !== undefined ? new URL('/', origin) : null;
-  }
-  if (URL.canParse(urlStr)) {
-    return new URL(urlStr);
-  }
-  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:(\/\/|\\\\)/.test(urlStr)) {
-    throw new Error(`Invalid URL: ${urlStr}`);
-  }
-  if (origin === undefined) {
-    return null;
-  }
-  let normalizedPath = urlStr.replace(LEADING_SLASHES_REGEX, '/');
-  if (normalizedPath[0] !== '/') {
-    normalizedPath = `/${normalizedPath}`;
-  }
-  return new URL(normalizedPath, origin);
-}
 
 class ServerPlatformLocation {
   href = '/';
@@ -274,7 +283,7 @@ class ServerPlatformLocation {
         search,
         hash,
         href
-      } = parseUrl(config.url, this._doc.location.origin);
+      } = resolveUrl(config.url, this._doc.location.origin);
       this.protocol = protocol;
       this.hostname = hostname;
       this.port = port;
@@ -318,7 +327,7 @@ class ServerPlatformLocation {
       hash,
       href,
       protocol
-    } = parseUrl(newUrl, this._doc.location.origin);
+    } = resolveUrl(newUrl, this._doc.location.origin);
     const writableThis = this;
     writableThis.pathname = pathname;
     writableThis.search = search;
@@ -340,7 +349,7 @@ class ServerPlatformLocation {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerPlatformLocation,
     deps: [],
@@ -348,14 +357,14 @@ class ServerPlatformLocation {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerPlatformLocation
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0+sha-89c28d3",
+  version: "22.1.0-next.0+sha-d109bf9",
   ngImport: i0,
   type: ServerPlatformLocation,
   decorators: [{
@@ -378,7 +387,7 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerEventManagerPlugin,
     deps: [{
@@ -388,14 +397,14 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerEventManagerPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0+sha-89c28d3",
+  version: "22.1.0-next.0+sha-d109bf9",
   ngImport: i0,
   type: ServerEventManagerPlugin,
   decorators: [{
@@ -505,7 +514,7 @@ const PLATFORM_SERVER_PROVIDERS = [TRANSFER_STATE_SERIALIZATION_PROVIDERS, SERVE
 class ServerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerModule,
     deps: [],
@@ -513,14 +522,14 @@ class ServerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0+sha-89c28d3",
+    version: "22.1.0-next.0+sha-d109bf9",
     ngImport: i0,
     type: ServerModule,
     providers: PLATFORM_SERVER_PROVIDERS,
@@ -529,7 +538,7 @@ class ServerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0+sha-89c28d3",
+  version: "22.1.0-next.0+sha-d109bf9",
   ngImport: i0,
   type: ServerModule,
   decorators: [{
@@ -546,7 +555,7 @@ function _document() {
   const _enableDomEmulation = enableDomEmulation(injector);
   let document;
   if (config && config.document) {
-    document = typeof config.document === 'string' ? _enableDomEmulation ? parseDocument(config.document, config.url !== undefined ? parseUrl(config.url, 'http://localhost').href : undefined) : window.document : config.document;
+    document = typeof config.document === 'string' ? _enableDomEmulation ? parseDocument(config.document, config.url !== undefined ? resolveUrl(config.url, 'http://localhost').href : undefined) : window.document : config.document;
   } else {
     document = _getDOM().createHtmlDocument();
   }
@@ -567,5 +576,5 @@ function platformServer(extraProviders) {
   return platform;
 }
 
-export { BEFORE_APP_SERIALIZED, DominoAdapter, ENABLE_DOM_EMULATION, INITIAL_CONFIG, INTERNAL_SERVER_PLATFORM_PROVIDERS, PLATFORM_SERVER_PROVIDERS, PlatformState, SERVER_RENDER_PROVIDERS, ServerModule, createScript, parseUrl, platformServer };
+export { BEFORE_APP_SERIALIZED, DominoAdapter, ENABLE_DOM_EMULATION, INITIAL_CONFIG, INTERNAL_SERVER_PLATFORM_PROVIDERS, PLATFORM_SERVER_PROVIDERS, PlatformState, SERVER_RENDER_PROVIDERS, ServerModule, createScript, platformServer, resolveUrl };
 //# sourceMappingURL=_server-chunk.mjs.map

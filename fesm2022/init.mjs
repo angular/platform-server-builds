@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.23+sha-a1eeeb8
+ * @license Angular v20.3.23+sha-8680b51
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -750,6 +750,7 @@ function requireNodeUtils () {
 	  XMP: true,
 	  IFRAME: true,
 	  NOEMBED: true,
+	  NOSCRIPT: true,
 	  NOFRAMES: true,
 	  PLAINTEXT: true
 	};
@@ -858,12 +859,15 @@ function requireNodeUtils () {
 	  if (!rawText.toLowerCase().includes(parentClosingTag)) {
 	    return rawText; // fast path
 	  }
-	  const result = [...rawText];
-	  const matches = rawText.matchAll(new RegExp(parentClosingTag, 'ig'));
-	  for (const match of matches) {
-	    result[match.index] = '&lt;';
-	  }
-	  return result.join('');
+	  // Replace via String.prototype.replace so we don't have to reconcile
+	  // UTF-16 code-unit offsets (match.index) with code-point indexing
+	  // (`[...rawText]`). Astral characters (e.g. emoji) before the match
+	  // would otherwise shift the replacement and leave a real `</tag>`
+	  // break-out in the output.
+	  return rawText.replace(
+	    new RegExp(parentClosingTag, 'ig'),
+	    (m) => '&lt;' + m.slice(1)
+	  );
 	}
 
 	const CLOSING_COMMENT_REGEXP = /--!?>/;
@@ -912,7 +916,8 @@ function requireNodeUtils () {
 	        var ss = kid.serialize();
 	        // If an element can have raw content, this content may
 	        // potentially require escaping to avoid XSS.
-	        if (hasRawContent[tagname.toUpperCase()]) {
+	        var upperTag = tagname.toUpperCase();
+	        if (hasRawContent[upperTag]) {
 	          ss = escapeMatchingClosingTag(ss, tagname);
 	        }
 	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
@@ -930,8 +935,7 @@ function requireNodeUtils () {
 	      else
 	        parenttag = '';
 
-	      if (hasRawContent[parenttag] ||
-	          (parenttag==='NOSCRIPT' && parent.ownerDocument._scripting_enabled)) {
+	      if (hasRawContent[parenttag]) {
 	        s += kid.data;
 	      } else {
 	        s += escape(kid.data);
@@ -3611,9 +3615,9 @@ function requireElement () {
 	  ContainerNode.call(this);
 	  this.nodeType = Node.ELEMENT_NODE;
 	  this.ownerDocument = doc;
-	  this.localName = localName;
+	  this._localName = localName;
 	  this.namespaceURI = namespaceURI;
-	  this.prefix = prefix;
+	  this._prefix = prefix;
 	  this._tagName = undefined;
 
 	  // These properties maintain the set of attributes
@@ -3633,6 +3637,14 @@ function requireElement () {
 	}
 
 	Element.prototype = Object.create(ContainerNode.prototype, {
+	  localName: {
+	    get: function () { return this._localName; },
+	    set: function () { /* no-op per spec */ }
+	  },
+	  prefix: {
+	    get: function () { return this._prefix; },
+	    set: function () { /* no-op per spec */ }
+	  },
 	  isHTML: { get: function isHTML() {
 	    return this.namespaceURI === NAMESPACE.HTML && this.ownerDocument.isHTML;
 	  }},
@@ -3655,7 +3667,9 @@ function requireElement () {
 	      this._tagName = tn;
 	    }
 	    return this._tagName;
-	  }},
+	    },
+	    set: function () { /* no-op per spec */ }
+	  },
 	  nodeName: { get: function() { return this.tagName; }},
 	  nodeValue: {
 	    get: function() {
@@ -4561,8 +4575,8 @@ function requireElement () {
 	function Attr(elt, lname, prefix, namespace, value) {
 	  // localName and namespace are constant for any attr object.
 	  // But value may change.  And so can prefix, and so, therefore can name.
-	  this.localName = lname;
-	  this.prefix = (prefix===null || prefix==='') ? null : ('' + prefix);
+	  this._localName = lname;
+	  this._prefix = (prefix===null || prefix==='') ? null : ('' + prefix);
 	  this.namespaceURI = (namespace===null || namespace==='') ? null : ('' + namespace);
 	  this.data = value;
 	  // Set ownerElement last to ensure it is hooked up to onchange handler
@@ -4571,6 +4585,14 @@ function requireElement () {
 
 	// In DOM 3 Attr was supposed to extend Node; in DOM 4 that was abandoned.
 	Attr.prototype = Object.create(Object.prototype, {
+	  localName: {
+	    get: function () { return this._localName; },
+	    set: function () { /* no-op per spec */ }
+	  },
+	  prefix: {
+	    get: function () { return this._prefix; },
+	    set: function () { /* no-op per spec */ }
+	  },
 	  ownerElement: {
 	    get: function() { return this._ownerElement; },
 	  },
@@ -5203,7 +5225,7 @@ function requireProcessingInstruction () {
 	  CharacterData.call(this);
 	  this.nodeType = Node.PROCESSING_INSTRUCTION_NODE;
 	  this.ownerDocument = doc;
-	  this.target = target;
+	  this._target = target;
 	  this._data = data;
 	}
 
@@ -5217,6 +5239,10 @@ function requireProcessingInstruction () {
 	};
 
 	ProcessingInstruction.prototype = Object.create(CharacterData.prototype, {
+	  target: {
+	    get: function () { return this._target; },
+	    set: function () { /* no-op per spec */ }
+	  },
 	  nodeName: { get: function() { return this.target; }},
 	  nodeValue: nodeValue,
 	  textContent: nodeValue,
@@ -9382,12 +9408,16 @@ function requireDocumentType () {
 	  Leaf.call(this);
 	  this.nodeType = Node.DOCUMENT_TYPE_NODE;
 	  this.ownerDocument = ownerDocument || null;
-	  this.name = name;
+	  this._name = name;
 	  this.publicId = publicId || "";
 	  this.systemId = systemId || "";
 	}
 
 	DocumentType.prototype = Object.create(Leaf.prototype, {
+	  name: {
+	    get: function() { return this._name; },
+	    set: function() { /* no-op per spec */ }
+	  },
 	  nodeName: { get: function() { return this.name; }},
 	  nodeValue: {
 	    get: function() { return null; },

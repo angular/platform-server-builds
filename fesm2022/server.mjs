@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.23+sha-8680b51
+ * @license Angular v20.3.23+sha-6ca433e
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -17237,10 +17237,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: PlatformState });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: PlatformState });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17248,6 +17248,72 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680
                 }] }] });
 function enableDomEmulation(injector) {
     return injector.get(ENABLE_DOM_EMULATION, true);
+}
+
+/**
+ * Matches http: or https:
+ */
+const HTTP_OR_HTTPS_PROTOCOL_REGEX = /^https?:/i;
+function parseUrl(urlStr, origin, options = {}) {
+    const originUrl = typeof origin === 'string' ? new URL('/', origin) : origin;
+    if (!urlStr) {
+        return originUrl || null;
+    }
+    urlStr = urlStr.trim();
+    // Fast-path: if the URL is a valid, standard absolute URL, parse and return it immediately.
+    let resolved;
+    try {
+        resolved = new URL(urlStr);
+    }
+    catch { }
+    if (resolved) {
+        if (originUrl && !isSafeOriginChange(resolved, originUrl, urlStr)) {
+            throwSuspiciousUrlError(urlStr);
+        }
+        return resolved;
+    }
+    // We identify and throw on malformed absolute URLs (like double port).
+    // Per the WHATWG URL standard, parsing an input starting with a scheme (like 'http:') against
+    // a standard base (like 'http://fake') ignores the base argument and parses strictly as an
+    // absolute URL. Since it is malformed, the native URL constructor will throw a validation
+    // error. Standard relative/protocol-relative paths parse successfully, allowing the flow to continue.
+    if (!URL.canParse(urlStr, 'http://fake')) {
+        throw new Error(`Invalid URL: ${urlStr}`);
+    }
+    if (!originUrl) {
+        return null;
+    }
+    const { allowProtocolRelative = false } = options;
+    // Check if we have a legitimate protocol-relative URL (starts with '//' and not a duplicate/backslash bypass)
+    // and we are configured to allow and preserve standard cross-origin protocol-relative requests.
+    if (urlStr.startsWith('//')) {
+        if (!allowProtocolRelative) {
+            throw new Error(`Protocol relative URLs are not allowed in this context. URL: ${urlStr}`);
+        }
+        return new URL(urlStr, origin);
+    }
+    resolved = new URL(urlStr, origin);
+    if (!isSafeOriginChange(resolved, originUrl, urlStr)) {
+        throwSuspiciousUrlError(urlStr);
+    }
+    return resolved;
+}
+/**
+ * Throws a suspicious URL error indicating a security bypass attempt.
+ */
+function throwSuspiciousUrlError(urlStr) {
+    throw new Error(`URL ${urlStr} changed origin unexpectedly. This is suspicious and may indicate a security bypass attempt.`);
+}
+/**
+ * Checks if the origin has changed in a safe way.
+ *
+ * @param resolved The resolved URL.
+ * @param origin The origin URL.
+ * @param urlStr The URL string.
+ * @returns True if the origin has changed in a safe way, false otherwise.
+ */
+function isSafeOriginChange(resolved, origin, urlStr) {
+    return origin.origin === resolved.origin || HTTP_OR_HTTPS_PROTOCOL_REGEX.test(urlStr);
 }
 
 class ServerXhr {
@@ -17269,13 +17335,22 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
+/**
+ * Regex to match a URL schema.
+ */
+const URL_SCHEMA_REGEXP = /^(?:[a-zA-Z][a-zA-Z0-9+\-.]*:)/;
 function relativeUrlsTransformerInterceptorFn(request, next) {
+    const trimmedUrl = request.url.trim();
+    if (URL_SCHEMA_REGEXP.test(trimmedUrl)) {
+        // URLs with a schema should be left unchanged.
+        return next(request);
+    }
     const platformLocation = inject(PlatformLocation);
     const { href, protocol, hostname, port } = platformLocation;
     if (!protocol.startsWith('http')) {
@@ -17287,8 +17362,10 @@ function relativeUrlsTransformerInterceptorFn(request, next) {
     }
     const baseHref = platformLocation.getBaseHrefFromDOM() || href;
     const baseUrl = new URL(baseHref, urlPrefix);
-    const newUrl = new URL(request.url, baseUrl).toString();
-    return next(request.clone({ url: newUrl }));
+    const parsedUrl = parseUrl(request.url, baseUrl, {
+        allowProtocolRelative: true,
+    });
+    return next(request.clone({ url: parsedUrl.toString() }));
 }
 const SERVER_HTTP_PROVIDERS = [
     { provide: XhrFactory, useClass: ServerXhr },
@@ -17298,27 +17375,6 @@ const SERVER_HTTP_PROVIDERS = [
         multi: true,
     },
 ];
-
-const LEADING_SLASHES_REGEX = /^[/\\]+/;
-function parseUrl(urlStr, origin) {
-    if (!urlStr) {
-        return origin !== undefined ? new URL('/', origin) : null;
-    }
-    if (URL.canParse(urlStr)) {
-        return new URL(urlStr);
-    }
-    if (/^[a-zA-Z][a-zA-Z0-9+.-]*:(\/\/|\\\\)/.test(urlStr)) {
-        throw new Error(`Invalid URL: ${urlStr}`);
-    }
-    if (origin === undefined) {
-        return null;
-    }
-    let normalizedPath = urlStr.replace(LEADING_SLASHES_REGEX, '/');
-    if (normalizedPath[0] !== '/') {
-        normalizedPath = `/${normalizedPath}`;
-    }
-    return new URL(normalizedPath, origin);
-}
 
 /**
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
@@ -17403,10 +17459,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerPlatformLocation });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerPlatformLocation });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17431,10 +17487,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler, options) {
         return _getDOM().onAndCancel(element, eventName, handler, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerEventManagerPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerEventManagerPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17547,11 +17603,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-8680b51", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.23+sha-6ca433e", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],
@@ -17566,7 +17622,12 @@ function _document(injector) {
         document =
             typeof config.document === 'string'
                 ? _enableDomEmulation
-                    ? parseDocument(config.document, config.url !== undefined ? parseUrl(config.url, 'http://localhost').href : undefined)
+                    ? parseDocument(config.document, config.url !== undefined
+                        ? // A fallback same-origin base ('http://localhost') is provided so that relative
+                            // page URLs are parsed and resolved as same-origin paths, preventing empty
+                            // or invalid location values in the parsed virtual DOM document.
+                            parseUrl(config.url, 'http://localhost').href
+                        : undefined)
                     : window.document
                 : config.document;
     }

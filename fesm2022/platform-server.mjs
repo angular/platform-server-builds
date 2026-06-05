@@ -1,12 +1,12 @@
 /**
- * @license Angular v21.2.16+sha-bc55749
+ * @license Angular v21.2.16+sha-3551074
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { PLATFORM_SERVER_PROVIDERS, PlatformState, BEFORE_APP_SERIALIZED, resolveUrl, platformServer, INITIAL_CONFIG, createScript } from './_server-chunk.mjs';
 export { ServerModule, DominoAdapter as ɵDominoAdapter, ENABLE_DOM_EMULATION as ɵENABLE_DOM_EMULATION, INTERNAL_SERVER_PLATFORM_PROVIDERS as ɵINTERNAL_SERVER_PLATFORM_PROVIDERS, SERVER_RENDER_PROVIDERS as ɵSERVER_RENDER_PROVIDERS } from './_server-chunk.mjs';
-import { makeEnvironmentProviders, InjectionToken, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ApplicationRef, ɵINTERNAL_APPLICATION_ERROR_HANDLER as _INTERNAL_APPLICATION_ERROR_HANDLER, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, Renderer2, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Version } from '@angular/core';
+import { makeEnvironmentProviders, InjectionToken, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, ApplicationRef, ɵINTERNAL_APPLICATION_ERROR_HANDLER as _INTERNAL_APPLICATION_ERROR_HANDLER, ɵRuntimeError as _RuntimeError, ɵIS_HYDRATION_DOM_REUSE_ENABLED as _IS_HYDRATION_DOM_REUSE_ENABLED, ɵannotateForHydration as _annotateForHydration, CSP_NONCE, APP_ID, Renderer2, ɵSSR_CONTENT_INTEGRITY_MARKER as _SSR_CONTENT_INTEGRITY_MARKER, Version } from '@angular/core';
 import '@angular/common';
 import '@angular/platform-browser';
 import '../third_party/domino/bundled-domino.mjs';
@@ -198,7 +198,7 @@ function validateAllowedHosts(url, allowedHosts) {
       const hostname = parsedUrl.hostname;
       const allowedHostsSet = new Set(allowedHosts);
       if (!isHostAllowed(hostname, allowedHostsSet)) {
-        throw new Error(`Host ${url} is not allowed. You can configure \`allowedHosts\` option.`);
+        throw new _RuntimeError(5706, typeof ngDevMode === 'undefined' || ngDevMode ? `Host ${url} is not allowed. You can configure \`allowedHosts\` option.` : url);
       }
     }
   }
@@ -219,7 +219,7 @@ function isHostAllowed(hostname, allowedHosts) {
   return false;
 }
 
-const VERSION = /* @__PURE__ */new Version('21.2.16+sha-bc55749');
+const VERSION = /* @__PURE__ */new Version('21.2.16+sha-3551074');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map

@@ -1,12 +1,12 @@
 /**
- * @license Angular v20.3.24+sha-a68ec70
+ * @license Angular v20.3.24+sha-49368c1
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
 
 import { ɵsetRootDomAdapter as _setRootDomAdapter, DOCUMENT, XhrFactory, PlatformLocation, ɵgetDOM as _getDOM, ɵPLATFORM_SERVER_ID as _PLATFORM_SERVER_ID, ViewportScroller, ɵNullViewportScroller as _NullViewportScroller } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, Injectable, Inject, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, NgModule, ɵsetDocument as _setDocument, createPlatformFactory, platformCore, Testability, ɵTESTABILITY as _TESTABILITY } from '@angular/core';
+import { ɵRuntimeError as _RuntimeError, InjectionToken, inject, Injector, ɵstartMeasuring as _startMeasuring, ɵstopMeasuring as _stopMeasuring, Injectable, Inject, Optional, APP_ID, TransferState, PLATFORM_ID, PLATFORM_INITIALIZER, NgModule, ɵsetDocument as _setDocument, createPlatformFactory, platformCore, Testability, ɵTESTABILITY as _TESTABILITY } from '@angular/core';
 import { ɵBrowserDomAdapter as _BrowserDomAdapter, EventManagerPlugin, EVENT_MANAGER_PLUGINS, BrowserModule } from '@angular/platform-browser';
 import { ɵHTTP_ROOT_INTERCEPTOR_FNS as _HTTP_ROOT_INTERCEPTOR_FNS } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -17184,7 +17184,7 @@ class DominoAdapter extends _BrowserDomAdapter {
         return 'Fake user agent';
     }
     getCookie(name) {
-        throw new Error('getCookie has not been implemented');
+        throw new _RuntimeError(5700 /* RuntimeErrorCode.GET_COOKIE_NOT_IMPLEMENTED */, (typeof ngDevMode === 'undefined' || ngDevMode) && 'getCookie has not been implemented');
     }
 }
 
@@ -17220,7 +17220,8 @@ class PlatformState {
      */
     renderToString() {
         if (ngDevMode && !this._enableDomEmulation && !window?.document) {
-            throw new Error('Disabled DOM emulation should only run in browser environments');
+            throw new _RuntimeError(5704 /* RuntimeErrorCode.DISABLED_DOM_EMULATION_IN_NON_BROWSER */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                'Disabled DOM emulation should only run in browser environments');
         }
         const measuringLabel = 'renderToString';
         _startMeasuring(measuringLabel);
@@ -17237,10 +17238,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: PlatformState });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: PlatformState });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17266,8 +17267,9 @@ function parseUrl(urlStr, origin, options = {}) {
         resolved = new URL(urlStr);
     }
     catch { }
+    const { allowProtocolRelative = false, allowOriginChange = true } = options;
     if (resolved) {
-        if (originUrl && !isSafeOriginChange(resolved, originUrl, urlStr)) {
+        if (originUrl && !isSafeOriginChange(resolved, originUrl, urlStr, allowOriginChange)) {
             throwSuspiciousUrlError(urlStr);
         }
         return resolved;
@@ -17278,22 +17280,23 @@ function parseUrl(urlStr, origin, options = {}) {
     // absolute URL. Since it is malformed, the native URL constructor will throw a validation
     // error. Standard relative/protocol-relative paths parse successfully, allowing the flow to continue.
     if (!URL.canParse(urlStr, 'http://fake')) {
-        throw new Error(`Invalid URL: ${urlStr}`);
+        throw new _RuntimeError(5701 /* RuntimeErrorCode.INVALID_URL */, typeof ngDevMode === 'undefined' || ngDevMode ? `Invalid URL: ${urlStr}` : urlStr);
     }
     if (!originUrl) {
         return null;
     }
-    const { allowProtocolRelative = false } = options;
     // Check if we have a legitimate protocol-relative URL (starts with '//' and not a duplicate/backslash bypass)
     // and we are configured to allow and preserve standard cross-origin protocol-relative requests.
     if (urlStr.startsWith('//')) {
         if (!allowProtocolRelative) {
-            throw new Error(`Protocol relative URLs are not allowed in this context. URL: ${urlStr}`);
+            throw new _RuntimeError(5702 /* RuntimeErrorCode.PROTOCOL_RELATIVE_URL_NOT_ALLOWED */, typeof ngDevMode === 'undefined' || ngDevMode
+                ? `Protocol relative URLs are not allowed in this context. URL: ${urlStr}`
+                : urlStr);
         }
         return new URL(urlStr, origin);
     }
     resolved = new URL(urlStr, origin);
-    if (!isSafeOriginChange(resolved, originUrl, urlStr)) {
+    if (!isSafeOriginChange(resolved, originUrl, urlStr, allowOriginChange)) {
         throwSuspiciousUrlError(urlStr);
     }
     return resolved;
@@ -17302,7 +17305,9 @@ function parseUrl(urlStr, origin, options = {}) {
  * Throws a suspicious URL error indicating a security bypass attempt.
  */
 function throwSuspiciousUrlError(urlStr) {
-    throw new Error(`URL ${urlStr} changed origin unexpectedly. This is suspicious and may indicate a security bypass attempt.`);
+    throw new _RuntimeError(5703 /* RuntimeErrorCode.SUSPICIOUS_URL_CHANGE_ORIGIN */, typeof ngDevMode === 'undefined' || ngDevMode
+        ? `URL ${urlStr} changed origin unexpectedly. This is suspicious and may indicate a security bypass attempt.`
+        : urlStr);
 }
 /**
  * Checks if the origin has changed in a safe way.
@@ -17310,10 +17315,17 @@ function throwSuspiciousUrlError(urlStr) {
  * @param resolved The resolved URL.
  * @param origin The origin URL.
  * @param urlStr The URL string.
+ * @param allowOriginChange Whether to allow origin changes.
  * @returns True if the origin has changed in a safe way, false otherwise.
  */
-function isSafeOriginChange(resolved, origin, urlStr) {
-    return origin.origin === resolved.origin || HTTP_OR_HTTPS_PROTOCOL_REGEX.test(urlStr);
+function isSafeOriginChange(resolved, origin, urlStr, allowOriginChange) {
+    if (origin.origin === resolved.origin) {
+        return true;
+    }
+    if (!allowOriginChange) {
+        return false;
+    }
+    return HTTP_OR_HTTPS_PROTOCOL_REGEX.test(urlStr);
 }
 
 class ServerXhr {
@@ -17331,14 +17343,15 @@ class ServerXhr {
     build() {
         const impl = this.xhrImpl;
         if (!impl) {
-            throw new Error('Unexpected state in ServerXhr: XHR implementation is not loaded.');
+            throw new _RuntimeError(5705 /* RuntimeErrorCode.XHR_NOT_LOADED */, (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                'Unexpected state in ServerXhr: XHR implementation is not loaded.');
         }
         return new impl.XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 /**
@@ -17390,14 +17403,13 @@ class ServerPlatformLocation {
     search = '';
     hash = '';
     _hashUpdate = new Subject();
+    origin;
     constructor(_doc, _config) {
         this._doc = _doc;
+        let origin = this._doc.location.origin;
         const config = _config;
-        if (!config) {
-            return;
-        }
-        if (config.url) {
-            const { protocol, hostname, port, pathname, search, hash, href } = parseUrl(config.url, this._doc.location.origin);
+        if (config && config.url) {
+            const { protocol, hostname, port, pathname, search, hash, href, origin: parsedOrigin, } = parseUrl(config.url, origin);
             this.protocol = protocol;
             this.hostname = hostname;
             this.port = port;
@@ -17405,7 +17417,9 @@ class ServerPlatformLocation {
             this.search = search;
             this.hash = hash;
             this.href = href;
+            origin = parsedOrigin;
         }
+        this.origin = origin;
     }
     getBaseHrefFromDOM() {
         return _getDOM().getBaseHref(this._doc);
@@ -17438,7 +17452,9 @@ class ServerPlatformLocation {
     }
     replaceState(state, title, newUrl) {
         const oldUrl = this.url;
-        const { pathname, search, hash, href, protocol } = parseUrl(newUrl, this._doc.location.origin);
+        const { pathname, search, hash, href, protocol } = parseUrl(newUrl, this.origin, {
+            allowOriginChange: false,
+        });
         const writableThis = this;
         writableThis.pathname = pathname;
         writableThis.search = search;
@@ -17459,10 +17475,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerPlatformLocation });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerPlatformLocation });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17487,10 +17503,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler, options) {
         return _getDOM().onAndCancel(element, eventName, handler, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerEventManagerPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerEventManagerPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17603,11 +17619,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-a68ec70", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.24+sha-49368c1", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],

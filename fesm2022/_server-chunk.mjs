@@ -1,5 +1,5 @@
 /**
- * @license Angular v21.2.16+sha-86a56dc
+ * @license Angular v21.2.16+sha-13fb0af
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -109,7 +109,7 @@ class PlatformState {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: PlatformState,
     deps: [{
@@ -119,14 +119,14 @@ class PlatformState {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: PlatformState
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.16+sha-86a56dc",
+  version: "21.2.16+sha-13fb0af",
   ngImport: i0,
   type: PlatformState,
   decorators: [{
@@ -200,6 +200,9 @@ class ServerXhr {
   xhrImpl;
   async ɵloadImpl() {
     if (!this.xhrImpl) {
+      if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        console.warn('XHR support in `@angular/platform-server` is deprecated and will be removed ' + 'in a future version of Angular. It has known security and performance issues in server ' + 'environments, such as forwarding `Authorization` headers on cross-origin ' + 'redirects and susceptibility to denial-of-service (DoS) via redirect loops. ' + 'Please enable the HttpClient fetch backend instead by using `withFetch()`.');
+      }
       const {
         default: xhr
       } = await import('xhr2');
@@ -215,7 +218,7 @@ class ServerXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerXhr,
     deps: [],
@@ -223,14 +226,14 @@ class ServerXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.16+sha-86a56dc",
+  version: "21.2.16+sha-13fb0af",
   ngImport: i0,
   type: ServerXhr,
   decorators: [{
@@ -372,7 +375,7 @@ class ServerPlatformLocation {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerPlatformLocation,
     deps: [],
@@ -380,14 +383,14 @@ class ServerPlatformLocation {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerPlatformLocation
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.16+sha-86a56dc",
+  version: "21.2.16+sha-13fb0af",
   ngImport: i0,
   type: ServerPlatformLocation,
   decorators: [{
@@ -410,7 +413,7 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerEventManagerPlugin,
     deps: [{
@@ -420,14 +423,14 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerEventManagerPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.16+sha-86a56dc",
+  version: "21.2.16+sha-13fb0af",
   ngImport: i0,
   type: ServerEventManagerPlugin,
   decorators: [{
@@ -537,7 +540,7 @@ const PLATFORM_SERVER_PROVIDERS = [TRANSFER_STATE_SERIALIZATION_PROVIDERS, SERVE
 class ServerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerModule,
     deps: [],
@@ -545,14 +548,14 @@ class ServerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.2.16+sha-86a56dc",
+    version: "21.2.16+sha-13fb0af",
     ngImport: i0,
     type: ServerModule,
     providers: PLATFORM_SERVER_PROVIDERS,
@@ -561,7 +564,7 @@ class ServerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.2.16+sha-86a56dc",
+  version: "21.2.16+sha-13fb0af",
   ngImport: i0,
   type: ServerModule,
   decorators: [{

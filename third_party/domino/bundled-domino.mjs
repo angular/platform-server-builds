@@ -749,6 +749,15 @@ function requireNodeUtils () {
 	  PLAINTEXT: true
 	};
 
+	var hasRawContentFallback = {
+	  // Text in these fallback raw-content elements is inert for browser parsing,
+	  // but downstream SSR post-processing may reparse it without raw-text state.
+	  IFRAME: true,
+	  NOEMBED: true,
+	  NOSCRIPT: true,
+	  NOFRAMES: true
+	};
+
 	var emptyElements = {
 	  area: true,
 	  base: true,
@@ -849,7 +858,7 @@ function requireNodeUtils () {
 	 * and unsafe behavior after de-serialization.
 	 */
 	function escapeMatchingClosingTag(rawText, parentTag) {
-	  const parentClosingTag = '</' + parentTag;
+	  const parentClosingTag = ('</' + parentTag).toLowerCase();
 	  if (!rawText.toLowerCase().includes(parentClosingTag)) {
 	    return rawText; // fast path
 	  }
@@ -859,9 +868,51 @@ function requireNodeUtils () {
 	  // would otherwise shift the replacement and leave a real `</tag>`
 	  // break-out in the output.
 	  return rawText.replace(
-	    new RegExp(parentClosingTag, 'ig'),
+	    new RegExp(escapeRegExp(parentClosingTag), 'ig'),
 	    (m) => '&lt;' + m.slice(1)
 	  );
+	}
+
+	function escapeRegExp(text) {
+	  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	function escapeFallbackRawText(rawText, parentTag) {
+	  var result = '';
+	  var index = 0;
+
+	  while (index < rawText.length) {
+	    var commentStart = rawText.indexOf('<!--', index);
+	    if (commentStart === -1) {
+	      result += escape(rawText.slice(index));
+	      break;
+	    }
+
+	    result += escape(rawText.slice(index, commentStart));
+
+	    var commentEnd = findCommentEnd(rawText, commentStart + 4);
+	    if (commentEnd === -1) {
+	      result += escapeMatchingClosingTag(rawText.slice(commentStart), parentTag);
+	      break;
+	    }
+
+	    // A complete HTML comment remains inert if downstream tooling reparses
+	    // fallback raw text as normal HTML, so preserve its comment semantics.
+	    result += escapeMatchingClosingTag(rawText.slice(commentStart, commentEnd), parentTag);
+	    index = commentEnd;
+	  }
+
+	  return result;
+	}
+
+	function findCommentEnd(rawText, index) {
+	  if (rawText.charAt(index) === '>')
+	    return index + 1;
+	  if (rawText.charAt(index) === '-' && rawText.charAt(index + 1) === '>')
+	    return index + 2;
+
+	  var match = CLOSING_COMMENT_REGEXP.exec(rawText.slice(index));
+	  return match ? index + match.index + match[0].length : -1;
 	}
 
 	const CLOSING_COMMENT_REGEXP = /--!?>/;
@@ -911,7 +962,7 @@ function requireNodeUtils () {
 	        // If an element can have raw content, this content may
 	        // potentially require escaping to avoid XSS.
 	        var upperTag = tagname.toUpperCase();
-	        if (hasRawContent[upperTag]) {
+	        if (hasRawContent[upperTag] && !hasRawContentFallback[upperTag]) {
 	          ss = escapeMatchingClosingTag(ss, tagname);
 	        }
 	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
@@ -930,7 +981,9 @@ function requireNodeUtils () {
 	        parenttag = '';
 
 	      if (hasRawContent[parenttag]) {
-	        s += kid.data;
+	        // Preserve actual child element markup in fallback elements such as
+	        // <noscript>, but do not emit text-node payloads as raw HTML.
+	        s += hasRawContentFallback[parenttag] ? escapeFallbackRawText(kid.data, parent.localName) : kid.data;
 	      } else {
 	        s += escape(kid.data);
 	      }

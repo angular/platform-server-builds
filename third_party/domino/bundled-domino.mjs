@@ -848,6 +848,17 @@ function requireNodeUtils () {
 	  return a.name;
 	}
 
+	function fallbackRawContentTags(node) {
+	  const tags = [];
+	  while (node?.nodeType === 1 /*ELEMENT_NODE*/ && node.namespaceURI === NAMESPACE.HTML) {
+	    if (hasRawContentFallback[node.tagName]) {
+	      tags.push(node.localName);
+	    }
+	    node = node.parentNode;
+	  }
+	  return tags;
+	}
+
 	/**
 	 * Escapes matching closing tag in a raw text.
 	 *
@@ -877,12 +888,22 @@ function requireNodeUtils () {
 	  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	}
 
-	function escapeFallbackRawText(rawText, parentTag) {
-	  var result = '';
-	  var index = 0;
+	function escapeMatchingClosingTags(rawText, parentTag, ancestorTags) {
+	  let result = escapeMatchingClosingTag(rawText, parentTag);
+	  if (ancestorTags) {
+	    for (const ancestorTag of ancestorTags) {
+	      result = escapeMatchingClosingTag(result, ancestorTag);
+	    }
+	  }
+	  return result;
+	}
+
+	function escapeFallbackRawText(rawText, parentTag, ancestorTags) {
+	  let result = '';
+	  let index = 0;
 
 	  while (index < rawText.length) {
-	    var commentStart = rawText.indexOf('<!--', index);
+	    const commentStart = rawText.indexOf('<!--', index);
 	    if (commentStart === -1) {
 	      result += escape(rawText.slice(index));
 	      break;
@@ -890,15 +911,15 @@ function requireNodeUtils () {
 
 	    result += escape(rawText.slice(index, commentStart));
 
-	    var commentEnd = findCommentEnd(rawText, commentStart + 4);
+	    const commentEnd = findCommentEnd(rawText, commentStart + 4);
 	    if (commentEnd === -1) {
-	      result += escapeMatchingClosingTag(rawText.slice(commentStart), parentTag);
+	      result += escapeMatchingClosingTags(rawText.slice(commentStart), parentTag, ancestorTags);
 	      break;
 	    }
 
 	    // A complete HTML comment remains inert if downstream tooling reparses
 	    // fallback raw text as normal HTML, so preserve its comment semantics.
-	    result += escapeMatchingClosingTag(rawText.slice(commentStart, commentEnd), parentTag);
+	    result += escapeMatchingClosingTags(rawText.slice(commentStart, commentEnd), parentTag, ancestorTags);
 	    index = commentEnd;
 	  }
 
@@ -911,7 +932,7 @@ function requireNodeUtils () {
 	  if (rawText.charAt(index) === '-' && rawText.charAt(index + 1) === '>')
 	    return index + 2;
 
-	  var match = CLOSING_COMMENT_REGEXP.exec(rawText.slice(index));
+	  const match = CLOSING_COMMENT_REGEXP.exec(rawText.slice(index));
 	  return match ? index + match.index + match[0].length : -1;
 	}
 
@@ -962,8 +983,12 @@ function requireNodeUtils () {
 	        // If an element can have raw content, this content may
 	        // potentially require escaping to avoid XSS.
 	        var upperTag = tagname.toUpperCase();
-	        if (hasRawContent[upperTag] && !hasRawContentFallback[upperTag]) {
+	        if (hasRawContent[upperTag] && !hasRawContentFallback[upperTag] && ss.includes('</')) {
 	          ss = escapeMatchingClosingTag(ss, tagname);
+	          const fallbackTags = fallbackRawContentTags(parent);
+	          for (const fallbackTag of fallbackTags) {
+	            ss = escapeMatchingClosingTag(ss, fallbackTag);
+	          }
 	        }
 	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
 	        // Serialize children and add end tag for all others
@@ -983,22 +1008,27 @@ function requireNodeUtils () {
 	      if (hasRawContent[parenttag]) {
 	        // Preserve actual child element markup in fallback elements such as
 	        // <noscript>, but do not emit text-node payloads as raw HTML.
-	        s += hasRawContentFallback[parenttag] ? escapeFallbackRawText(kid.data, parent.localName) : kid.data;
+	        s += hasRawContentFallback[parenttag] ? escapeFallbackRawText(kid.data, parent.localName, fallbackRawContentTags(parent.parentNode)) : kid.data;
 	      } else {
 	        s += escape(kid.data);
 	      }
 	      break;
 	    case 8: //COMMENT_NODE
-	      s += '<!--' + escapeClosingCommentTag(kid.data) + '-->';
+	      let commentData = escapeClosingCommentTag(kid.data);
+	      if (commentData.includes('</')) {
+	        const fallbackTags = fallbackRawContentTags(parent);
+	        for (const fallbackTag of fallbackTags) {
+	          commentData = escapeMatchingClosingTag(commentData, fallbackTag);
+	        }
+	      }
+	      s += '<!--' + commentData + '-->';
 	      break;
 	    case 7: //PROCESSING_INSTRUCTION_NODE
 	      const content = escapeProcessingInstructionContent(kid.data);
 	      s += '<?' + kid.target + ' ' + content + '?>';
 	      break;
 	    case 10: //DOCUMENT_TYPE_NODE
-	      s += '<!DOCTYPE ' + kid.name;
-
-	      s += '>';
+	      s += '<!DOCTYPE ' + kid.name + '>';
 	      break;
 	    default:
 	      utils.InvalidStateError();
@@ -7588,7 +7618,7 @@ function requireHtmlelts () {
 	    required: Boolean,
 	    readOnly: Boolean,
 	    checked: Boolean,
-	    value: String,
+	    value: { type: String, treatNullAsEmptyString: true },
 	    src: URL,
 	    defaultChecked: {name: 'checked', type: Boolean},
 	    size: {type: 'unsigned long', default: 20, min: 1, setmin: 1},

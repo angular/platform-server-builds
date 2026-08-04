@@ -850,8 +850,8 @@ function requireNodeUtils () {
 
 	function fallbackRawContentTags(node) {
 	  const tags = [];
-	  while (node?.nodeType === 1 /*ELEMENT_NODE*/ && node.namespaceURI === NAMESPACE.HTML) {
-	    if (hasRawContentFallback[node.tagName]) {
+	  while (node?.nodeType === 1 /*ELEMENT_NODE*/) {
+	    if (node.namespaceURI === NAMESPACE.HTML && hasRawContentFallback[node.tagName]) {
 	      tags.push(node.localName);
 	    }
 	    node = node.parentNode;

@@ -850,11 +850,17 @@ function requireNodeUtils () {
 
 	function fallbackRawContentTags(node) {
 	  const tags = [];
-	  while (node?.nodeType === 1 /*ELEMENT_NODE*/) {
-	    if (node.namespaceURI === NAMESPACE.HTML && hasRawContentFallback[node.tagName]) {
-	      tags.push(node.localName);
+	  while (node) {
+	    if (node.nodeType === 1 /*ELEMENT_NODE*/) {
+	      if (node.namespaceURI === NAMESPACE.HTML && hasRawContentFallback[node.tagName]) {
+	        tags.push(node.localName);
+	      }
+	      node = node.parentNode;
+	    } else if (node.nodeType === 11 /*DOCUMENT_FRAGMENT_NODE*/ && node._host) {
+	      node = node._host;
+	    } else {
+	      node = node.parentNode;
 	    }
-	    node = node.parentNode;
 	  }
 	  return tags;
 	}
@@ -1024,7 +1030,13 @@ function requireNodeUtils () {
 	      s += '<!--' + commentData + '-->';
 	      break;
 	    case 7: //PROCESSING_INSTRUCTION_NODE
-	      const content = escapeProcessingInstructionContent(kid.data);
+	      let content = escapeProcessingInstructionContent(kid.data);
+	      if (content.includes('</')) {
+	        const fallbackTags = fallbackRawContentTags(parent);
+	        for (const fallbackTag of fallbackTags) {
+	          content = escapeMatchingClosingTag(content, fallbackTag);
+	        }
+	      }
 	      s += '<?' + kid.target + ' ' + content + '?>';
 	      break;
 	    case 10: //DOCUMENT_TYPE_NODE
@@ -8141,10 +8153,21 @@ function requireHtmlelts () {
 	  ctor: function HTMLTemplateElement(doc, localName, prefix) {
 	    HTMLElement.call(this, doc, localName, prefix);
 	    this._contentFragment = doc._templateDoc.createDocumentFragment();
+	    this._contentFragment._host = this;
 	  },
 	  props: {
 	    content: { get: function() { return this._contentFragment; } },
-	    serialize: { value: function() { return this.content.serialize(); } }
+	    serialize: { value: function() { return this.content.serialize(); } },
+	    cloneNode: {
+	      value: function(deep) {
+	        var clone = HTMLElement.prototype.cloneNode.call(this, deep);
+	        if (deep) {
+	          clone._contentFragment = this._contentFragment.cloneNode(true);
+	          clone._contentFragment._host = clone;
+	        }
+	        return clone;
+	      }
+	    }
 	  }
 	});
 

@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.1.4+sha-341bc0d
+ * @license Angular v22.1.4+sha-3b8723c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -109,7 +109,7 @@ class PlatformState {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: PlatformState,
     deps: [{
@@ -119,14 +119,14 @@ class PlatformState {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: PlatformState
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.4+sha-341bc0d",
+  version: "22.1.4+sha-3b8723c",
   ngImport: i0,
   type: PlatformState,
   decorators: [{
@@ -144,16 +144,19 @@ function enableDomEmulation(injector) {
   return injector.get(ENABLE_DOM_EMULATION, true);
 }
 
-const HTTP_OR_HTTPS_PROTOCOL_REGEX = /^https?:/i;
+const HTTP_OR_HTTPS_PROTOCOL_REGEXP = /^https?:/i;
+const HTTP_OR_HTTPS_NO_AUTHORITY_REGEXP = /^https?:(?![/\\]{2})/i;
 function resolveUrl(urlStr, origin, options = {}) {
   const originUrl = typeof origin === 'string' ? new URL('/', origin) : origin;
   if (!urlStr) {
     return originUrl || null;
   }
   let resolved;
-  try {
-    resolved = new URL(urlStr);
-  } catch {}
+  if (!originUrl || !HTTP_OR_HTTPS_NO_AUTHORITY_REGEXP.test(urlStr)) {
+    try {
+      resolved = new URL(urlStr);
+    } catch {}
+  }
   const {
     allowProtocolRelative = false,
     allowOriginChange = true
@@ -192,7 +195,7 @@ function isSafeOriginChange(resolved, origin, urlStr, allowOriginChange) {
   if (!allowOriginChange) {
     return false;
   }
-  return HTTP_OR_HTTPS_PROTOCOL_REGEX.test(urlStr);
+  return HTTP_OR_HTTPS_PROTOCOL_REGEXP.test(urlStr) && !HTTP_OR_HTTPS_NO_AUTHORITY_REGEXP.test(urlStr);
 }
 
 class ServerXhr {
@@ -217,7 +220,7 @@ class ServerXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerXhr,
     deps: [],
@@ -225,14 +228,14 @@ class ServerXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.4+sha-341bc0d",
+  version: "22.1.4+sha-3b8723c",
   ngImport: i0,
   type: ServerXhr,
   decorators: [{
@@ -242,7 +245,7 @@ i0.ɵɵngDeclareClassMetadata({
 const URL_SCHEMA_REGEXP = /^(?:[a-zA-Z][a-zA-Z0-9+\-.]*:)/;
 function relativeUrlsTransformerInterceptorFn(request, next) {
   const trimmedUrl = request.url.trim();
-  if (URL_SCHEMA_REGEXP.test(trimmedUrl)) {
+  if (URL_SCHEMA_REGEXP.test(trimmedUrl) && !HTTP_OR_HTTPS_NO_AUTHORITY_REGEXP.test(trimmedUrl)) {
     return next(request);
   }
   const platformLocation = inject(PlatformLocation);
@@ -374,7 +377,7 @@ class ServerPlatformLocation {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerPlatformLocation,
     deps: [],
@@ -382,14 +385,14 @@ class ServerPlatformLocation {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerPlatformLocation
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.4+sha-341bc0d",
+  version: "22.1.4+sha-3b8723c",
   ngImport: i0,
   type: ServerPlatformLocation,
   decorators: [{
@@ -412,7 +415,7 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerEventManagerPlugin,
     deps: [{
@@ -422,14 +425,14 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerEventManagerPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.4+sha-341bc0d",
+  version: "22.1.4+sha-3b8723c",
   ngImport: i0,
   type: ServerEventManagerPlugin,
   decorators: [{
@@ -539,7 +542,7 @@ const PLATFORM_SERVER_PROVIDERS = [TRANSFER_STATE_SERIALIZATION_PROVIDERS, SERVE
 class ServerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerModule,
     deps: [],
@@ -547,14 +550,14 @@ class ServerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.4+sha-341bc0d",
+    version: "22.1.4+sha-3b8723c",
     ngImport: i0,
     type: ServerModule,
     providers: PLATFORM_SERVER_PROVIDERS,
@@ -563,7 +566,7 @@ class ServerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.4+sha-341bc0d",
+  version: "22.1.4+sha-3b8723c",
   ngImport: i0,
   type: ServerModule,
   decorators: [{

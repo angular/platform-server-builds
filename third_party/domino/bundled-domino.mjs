@@ -14258,6 +14258,8 @@ function requireHTMLParser () {
 	      emitDoctype();
 	      break;
 	    case -1: // EOF
+	      // Lookahead states must consume the EOF marker explicitly.
+	      nextchar += 1;
 	      forcequirks();
 	      emitDoctype();
 	      emitEOF();

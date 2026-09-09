@@ -1,5 +1,5 @@
 /**
- * @license Angular v20.3.30+sha-4ee0421
+ * @license Angular v20.3.30+sha-3db26e2
  * (c) 2010-2025 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -958,17 +958,40 @@ function requireNodeUtils () {
 	const CLOSING_COMMENT_REGEXP = /--!?>/;
 
 	/**
+	 * Escapes a comment content that abruptly closes the comment.
+	 *
+	 * A comment can not carry content that starts with `>` or `->`: the parser
+	 * closes the comment as soon as it comes across such a sequence right after
+	 * `<!--` (the "abrupt-closing-of-empty-comment" parse error). For example,
+	 * `#comment('><img src=x onerror=alert(1)>')` would otherwise serialize into
+	 * `<!--><img src=x onerror=alert(1)>-->`, which de-serializes into an empty
+	 * comment followed by a live `<img>` element. Escaping the leading `>` keeps
+	 * the content inside the comment, where it stays inert.
+	 */
+	function escapeAbruptClosingCommentTag(rawContent) {
+	  if (rawContent.startsWith('>')) {
+	    return '&gt;' + rawContent.slice(1);
+	  }
+	  if (rawContent.startsWith('->')) {
+	    return '-&gt;' + rawContent.slice(2);
+	  }
+	  return rawContent; // fast path
+	}
+
+	/**
 	 * Escapes closing comment tag in a comment content.
 	 *
 	 * For example, given `#comment('-->')`, the content of a comment would be
 	 * updated to `--&gt;` to avoid unexpected and unsafe behavior after
-	 * de-serialization.
+	 * de-serialization. Content that abruptly closes an empty comment is
+	 * escaped as well, see `escapeAbruptClosingCommentTag()`.
 	 */
 	function escapeClosingCommentTag(rawContent) {
-	  if (!CLOSING_COMMENT_REGEXP.test(rawContent)) {
-	    return rawContent; // fast path
+	  const content = escapeAbruptClosingCommentTag(rawContent);
+	  if (!CLOSING_COMMENT_REGEXP.test(content)) {
+	    return content; // fast path
 	  }
-	  return rawContent.replace(/(--\!?)>/g, '$1&gt;');
+	  return content.replace(/(--\!?)>/g, '$1&gt;');
 	}
 
 	/**
@@ -14240,6 +14263,8 @@ function requireHTMLParser () {
 	      emitDoctype();
 	      break;
 	    case -1: // EOF
+	      // Lookahead states must consume the EOF marker explicitly.
+	      nextchar += 1;
 	      forcequirks();
 	      emitDoctype();
 	      emitEOF();
@@ -17344,10 +17369,10 @@ class PlatformState {
     getDocument() {
         return this._doc;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: PlatformState });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: PlatformState, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: PlatformState });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: PlatformState, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: PlatformState, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17466,10 +17491,10 @@ class ServerXhr {
         }
         return new impl.XMLHttpRequest();
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerXhr });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerXhr, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerXhr });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerXhr, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerXhr, decorators: [{
             type: Injectable
         }] });
 /**
@@ -17593,10 +17618,10 @@ class ServerPlatformLocation {
     getState() {
         return undefined;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerPlatformLocation });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerPlatformLocation, deps: [{ token: DOCUMENT }, { token: INITIAL_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerPlatformLocation });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerPlatformLocation, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerPlatformLocation, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17621,10 +17646,10 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
     addEventListener(element, eventName, handler, options) {
         return _getDOM().onAndCancel(element, eventName, handler, options);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
-    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerEventManagerPlugin });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerEventManagerPlugin, deps: [{ token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerEventManagerPlugin });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerEventManagerPlugin, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -17737,11 +17762,11 @@ const PLATFORM_SERVER_PROVIDERS = [
  * @publicApi
  */
 class ServerModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerModule, exports: [BrowserModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerModule, providers: PLATFORM_SERVER_PROVIDERS, imports: [BrowserModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-4ee0421", ngImport: i0, type: ServerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.3.30+sha-3db26e2", ngImport: i0, type: ServerModule, decorators: [{
             type: NgModule,
             args: [{
                     exports: [BrowserModule],

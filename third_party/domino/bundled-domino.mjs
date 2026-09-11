@@ -758,6 +758,18 @@ function requireNodeUtils () {
 	  NOFRAMES: true
 	};
 
+	// HTML's *escapable raw text* elements (a.k.a. RCDATA). Unlike the raw-text
+	// elements above, their text content IS escaped for character references --
+	// but the element is still terminated only by its own closing tag. So any
+	// payload that we emit verbatim underneath one of them (comment data,
+	// processing-instruction data, or the serialization of a nested raw-content
+	// element) must have that closing tag escaped, or it breaks the element open.
+	// https://html.spec.whatwg.org/multipage/syntax.html#escapable-raw-text-elements
+	var hasEscapableRawContent = {
+	  TEXTAREA: true,
+	  TITLE: true
+	};
+
 	var emptyElements = {
 	  area: true,
 	  base: true,
@@ -777,14 +789,6 @@ function requireNodeUtils () {
 	  source: true,
 	  track: true,
 	  wbr: true
-	};
-
-	var extraNewLine = {
-	  /* Removed in https://github.com/whatwg/html/issues/944
-	  pre: true,
-	  textarea: true,
-	  listing: true
-	  */
 	};
 
 	const ESCAPE_REGEXP = /[&<>\u00A0]/g;
@@ -848,12 +852,22 @@ function requireNodeUtils () {
 	  return a.name;
 	}
 
+	function serializedTagName(node) {
+	  var ns = node.namespaceURI;
+	  return (ns === NAMESPACE.HTML || ns === NAMESPACE.SVG || ns === NAMESPACE.MATHML)
+	    ? node.localName
+	    : node.tagName;
+	}
+
 	function fallbackRawContentTags(node) {
 	  const tags = [];
 	  while (node) {
 	    if (node.nodeType === 1 /*ELEMENT_NODE*/) {
-	      if (node.namespaceURI === NAMESPACE.HTML && hasRawContentFallback[node.tagName]) {
-	        tags.push(node.localName);
+	      const tagname = serializedTagName(node);
+	      if (tagname &&
+	          (hasRawContentFallback[tagname.toUpperCase()] ||
+	           hasEscapableRawContent[tagname.toUpperCase()])) {
+	        tags.push(tagname);
 	      }
 	      node = node.parentNode;
 	    } else if (node.nodeType === 11 /*DOCUMENT_FRAGMENT_NODE*/ && node._host) {
@@ -996,7 +1010,7 @@ function requireNodeUtils () {
 	    case 1: //ELEMENT_NODE
 	      var ns = kid.namespaceURI;
 	      var html = ns === NAMESPACE.HTML;
-	      var tagname = (html || ns === NAMESPACE.SVG || ns === NAMESPACE.MATHML) ? kid.localName : kid.tagName;
+	      var tagname = serializedTagName(kid);
 
 	      s += '<' + tagname;
 
@@ -1019,7 +1033,6 @@ function requireNodeUtils () {
 	            ss = escapeMatchingClosingTag(ss, fallbackTag);
 	          }
 	        }
-	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
 	        // Serialize children and add end tag for all others
 	        s += ss;
 	        s += '</' + tagname + '>';
@@ -11437,6 +11450,8 @@ function requireHTMLParser () {
 	    for(var i = 0, n = oldattrs.length; i < n; i++) {
 	      var oldname = oldattrs[i][0];
 	      var oldval = oldattrs[i][1];
+	      // Bare attributes have an empty string value in the DOM.
+	      if (oldval === undefined) oldval = "";
 	      if (!newelt.hasAttribute(oldname)) return false;
 	      if (newelt.getAttribute(oldname) !== oldval) return false;
 	    }

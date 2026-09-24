@@ -758,6 +758,18 @@ function requireNodeUtils () {
 	  NOFRAMES: true
 	};
 
+	// HTML's *escapable raw text* elements (a.k.a. RCDATA). Unlike the raw-text
+	// elements above, their text content IS escaped for character references --
+	// but the element is still terminated only by its own closing tag. So any
+	// payload that we emit verbatim underneath one of them (comment data,
+	// processing-instruction data, or the serialization of a nested raw-content
+	// element) must have that closing tag escaped, or it breaks the element open.
+	// https://html.spec.whatwg.org/multipage/syntax.html#escapable-raw-text-elements
+	var hasEscapableRawContent = {
+	  TEXTAREA: true,
+	  TITLE: true
+	};
+
 	var emptyElements = {
 	  area: true,
 	  base: true,
@@ -777,14 +789,6 @@ function requireNodeUtils () {
 	  source: true,
 	  track: true,
 	  wbr: true
-	};
-
-	var extraNewLine = {
-	  /* Removed in https://github.com/whatwg/html/issues/944
-	  pre: true,
-	  textarea: true,
-	  listing: true
-	  */
 	};
 
 	const ESCAPE_REGEXP = /[&<>\u00A0]/g;
@@ -848,12 +852,22 @@ function requireNodeUtils () {
 	  return a.name;
 	}
 
+	function serializedTagName(node) {
+	  var ns = node.namespaceURI;
+	  return (ns === NAMESPACE.HTML || ns === NAMESPACE.SVG || ns === NAMESPACE.MATHML)
+	    ? node.localName
+	    : node.tagName;
+	}
+
 	function fallbackRawContentTags(node) {
 	  const tags = [];
 	  while (node) {
 	    if (node.nodeType === 1 /*ELEMENT_NODE*/) {
-	      if (node.namespaceURI === NAMESPACE.HTML && hasRawContentFallback[node.tagName]) {
-	        tags.push(node.localName);
+	      const tagname = serializedTagName(node);
+	      if (tagname &&
+	          (hasRawContentFallback[tagname.toUpperCase()] ||
+	           hasEscapableRawContent[tagname.toUpperCase()])) {
+	        tags.push(tagname);
 	      }
 	      node = node.parentNode;
 	    } else if (node.nodeType === 11 /*DOCUMENT_FRAGMENT_NODE*/ && node._host) {
@@ -996,7 +1010,7 @@ function requireNodeUtils () {
 	    case 1: //ELEMENT_NODE
 	      var ns = kid.namespaceURI;
 	      var html = ns === NAMESPACE.HTML;
-	      var tagname = (html || ns === NAMESPACE.SVG || ns === NAMESPACE.MATHML) ? kid.localName : kid.tagName;
+	      var tagname = serializedTagName(kid);
 
 	      s += '<' + tagname;
 
@@ -1019,7 +1033,6 @@ function requireNodeUtils () {
 	            ss = escapeMatchingClosingTag(ss, fallbackTag);
 	          }
 	        }
-	        if (html && extraNewLine[tagname] && ss.charAt(0)==='\n') s += '\n';
 	        // Serialize children and add end tag for all others
 	        s += ss;
 	        s += '</' + tagname + '>';
@@ -3058,6 +3071,9 @@ function requireSelect () {
 		    return attr.indexOf(val) !== -1;
 		  },
 		  '~=': function(attr, val) {
+		    // An empty token never matches and would prevent the search from advancing.
+		    if (val === '') return false;
+
 		    var i
 		      , s
 		      , f
@@ -3174,7 +3190,14 @@ function requireSelect () {
 		 */
 
 		var rules = {
-		  escape: /\\(?:[^0-9A-Fa-f\r\n]|[0-9A-Fa-f]{1,6}[\r\n\t ]?)/g,
+		  // A hexadecimal escape takes the longest run of hex digits it can, up to six.
+		  // Spelling that as `[0-9A-Fa-f]{1,6}` also lets the engine hand digits back to
+		  // the `[-_a-zA-Z0-9]` branch of `cssid`, so `\aaa` has three readings and an
+		  // identifier built from n such runs has 3^n of them: a selector that ultimately
+		  // fails to parse costs exponential time. Pinning the run to either "exactly six"
+		  // or "fewer than six, and not followed by another hex digit" leaves a single
+		  // reading without changing which escapes are accepted.
+		  escape: /\\(?:[^0-9A-Fa-f\r\n]|(?:[0-9A-Fa-f]{6}|[0-9A-Fa-f]{1,5}(?![0-9A-Fa-f]))[\r\n\t ]?)/g,
 		  str_escape: /(escape)|\\(\n|\r\n?|\f)/g,
 		  nonascii: /[\u00A0-\uFFFF]/,
 		  cssid: /(?:(?!-?[0-9])(?:escape|nonascii|[-_a-zA-Z0-9])+)/,
@@ -3184,7 +3207,15 @@ function requireSelect () {
 		  combinator: /^(?: +([^ \w*.#\\]) +|( )+|([^ \w*.#\\]))(?! *$)/,
 		  attr: /^\[(cssid)(?:([^\w]?=)(inside))?\]/,
 		  pseudo: /^(:cssid)(?:\((inside)\))?/,
-		  inside: /(?:"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|<[^"'>]*>|\\["'>]|[^"'>])*/,
+		  // Every alternative below is disjoint on its first character, so a value has
+		  // exactly one reading: `\` always starts an escape pair (the plain branch and
+		  // the in-string branch both exclude it) and `<` always opens a nested group.
+		  // Letting them overlap instead -- `\\["'>]` against `[^"'>]`, which also
+		  // matches a lone `\` -- gives `\"` two readings and a value of n of them 2^n,
+		  // the same exponential parse as `escape` above. The trailing `\\?` keeps a
+		  // lone backslash before the closing delimiter acceptable, as browsers do,
+		  // without putting that choice inside the loop.
+		  inside: /(?:"(?:\\[\s\S]|[^\\"])*"|'(?:\\[\s\S]|[^\\'])*'|<[^"'>]*>|\\[\s\S]|[^\\"'<>])*\\?/,
 		  ident: /^(cssid)$/
 		};
 
@@ -3208,7 +3239,10 @@ function requireSelect () {
 		 */
 
 		var compile = function(sel_) {
-		  var sel = sel_.replace(/^\s+|\s+$/g, '')
+		  // `String.prototype.trim` removes exactly the code points `\s` matches, but scans
+		  // instead of backtracking. `/^\s+|\s+$/g` makes `\s+$` retry from every position in
+		  // an interior whitespace run, which is quadratic in the length of that run.
+		  var sel = sel_.trim()
 		    , test
 		    , filter = []
 		    , buff = []
@@ -3321,9 +3355,16 @@ function requireSelect () {
 		  // attr value
 		  if (cap[4]) {
 		    var value = cap[6];
-		    var i = /["'\s]\s*I$/i.test(value);
+		    // `["'\s]\s*I$` is equivalent to `["'\s]I$`: when `\s*` takes anything at all, the
+		    // character before the `I` is itself whitespace and so satisfies `["'\s]` on its own.
+		    // The shorter spelling cannot retry from every position of a long whitespace run.
+		    var i = /["'\s]I$/i.test(value);
 		    if (i) {
-		      value = value.replace(/\s*I$/i, '');
+		      // Drop the `I` and the whitespace run immediately before it -- the same text
+		      // `/\s*I$/` matched, found by scanning back rather than by backtracking.
+		      var end = value.length - 1;
+		      while (end > 0 && /\s/.test(value.charAt(end - 1))) { end--; }
+		      value = value.slice(0, end);
 		    }
 		    return selectors.attr(decodeid(cap[4]), cap[5] || '-', unquote(value), i);
 		  }
@@ -3733,7 +3774,8 @@ function requireElement () {
 	  this._tagName = undefined;
 
 	  // These properties maintain the set of attributes
-	  this._attrsByQName = Object.create(null); // The qname->Attr map
+	  // Map keeps numeric attribute names out of sparse object-index storage.
+	  this._attrsByQName = new Map();           // The qname->Attr map
 	  this._attrsByLName = Object.create(null); // The ns|lname->Attr map
 	  this._attrKeys = [];     // attr index -> ns|lname
 	}
@@ -4239,7 +4281,7 @@ function requireElement () {
 	    qname = String(qname);
 	    if (/[A-Z]/.test(qname) && this.isHTML)
 	      qname = utils.toASCIILowerCase(qname);
-	    var attr = this._attrsByQName[qname];
+	    var attr = this._attrsByQName.get(qname);
 	    if (!attr) return null;
 
 	    if (Array.isArray(attr))  // If there is more than one
@@ -4259,7 +4301,7 @@ function requireElement () {
 	    qname = String(qname);
 	    if (/[A-Z]/.test(qname) && this.isHTML)
 	      qname = utils.toASCIILowerCase(qname);
-	    return this._attrsByQName[qname] !== undefined;
+	    return this._attrsByQName.has(qname);
 	  }},
 
 	  hasAttributeNS: { value: function hasAttributeNS(ns, lname) {
@@ -4278,7 +4320,7 @@ function requireElement () {
 	    if (!xml.isValidName(qname)) utils.InvalidCharacterError();
 	    if (/[A-Z]/.test(qname) && this.isHTML)
 	      qname = utils.toASCIILowerCase(qname);
-	    var a = this._attrsByQName[qname];
+	    var a = this._attrsByQName.get(qname);
 	    if (a === undefined) {
 	      if (force === undefined || force === true) {
 	        this._setAttribute(qname, '');
@@ -4299,7 +4341,7 @@ function requireElement () {
 	    // XXX: the spec says that this next search should be done
 	    // on the local name, but I think that is an error.
 	    // email pending on www-dom about it.
-	    var attr = this._attrsByQName[qname];
+	    var attr = this._attrsByQName.get(qname);
 	    var isnew;
 	    if (!attr) {
 	      attr = this._newattr(qname);
@@ -4312,7 +4354,7 @@ function requireElement () {
 	    // Now set the attribute value on the new or existing Attr object.
 	    // The Attr.value setter method handles mutation events, etc.
 	    attr.value = value;
-	    if (this._attributes) this._attributes[qname] = attr;
+	    setNamedProperty(this._attributes, qname, attr);
 	    if (isnew && this._newattrhook) this._newattrhook(qname, value);
 	  }},
 
@@ -4387,7 +4429,7 @@ function requireElement () {
 	      utils.InUseAttributeError();
 	    }
 	    var result = null;
-	    var oldAttrs = this._attrsByQName[attr.name];
+	    var oldAttrs = this._attrsByQName.get(attr.name);
 	    if (oldAttrs) {
 	      if (!Array.isArray(oldAttrs)) { oldAttrs = [ oldAttrs ]; }
 	      if (oldAttrs.some(function(a) { return a===attr; })) {
@@ -4426,7 +4468,7 @@ function requireElement () {
 	    if (/[A-Z]/.test(qname) && this.isHTML)
 	      qname = utils.toASCIILowerCase(qname);
 
-	    var attr = this._attrsByQName[qname];
+	    var attr = this._attrsByQName.get(qname);
 	    if (!attr) return;
 
 	    // If there is more than one match for this qname
@@ -4437,13 +4479,13 @@ function requireElement () {
 	        attr = attr.shift();  // remove it from the array
 	      }
 	      else {
-	        this._attrsByQName[qname] = attr[1];
+	        this._attrsByQName.set(qname, attr[1]);
 	        attr = attr[0];
 	      }
 	    }
 	    else {
 	      // only a single match, so remove the qname mapping
-	      this._attrsByQName[qname] = undefined;
+	      this._attrsByQName.delete(qname);
 	    }
 
 	    var ns = attr.namespaceURI;
@@ -4455,7 +4497,7 @@ function requireElement () {
 	    var i = this._attrKeys.indexOf(key);
 	    if (this._attributes) {
 	      Array.prototype.splice.call(this._attributes, i, 1);
-	      this._attributes[qname] = undefined;
+	      setNamedProperty(this._attributes, qname, undefined);
 	    }
 	    this._attrKeys.splice(i, 1);
 
@@ -4524,20 +4566,20 @@ function requireElement () {
 	    // prefix will never have two matching Attr objects (because
 	    // setAttributeNS doesn't allow a non-null namespace with a
 	    // null prefix.
-	    var attr = this._attrsByQName[qname];
+	    var attr = this._attrsByQName.get(qname);
 	    return attr ? attr.value : null;
 	  }},
 
 	  // The raw version of setAttribute for reflected idl attributes.
 	  _setattr: { value: function _setattr(qname, value) {
-	    var attr = this._attrsByQName[qname];
+	    var attr = this._attrsByQName.get(qname);
 	    var isnew;
 	    if (!attr) {
 	      attr = this._newattr(qname);
 	      isnew = true;
 	    }
 	    attr.value = String(value);
-	    if (this._attributes) this._attributes[qname] = attr;
+	    setNamedProperty(this._attributes, qname, attr);
 	    if (isnew && this._newattrhook) this._newattrhook(qname, value);
 	  }},
 
@@ -4546,7 +4588,7 @@ function requireElement () {
 	  _newattr: { value: function _newattr(qname) {
 	    var attr = new Attr(this, qname, null, null);
 	    var key = '|' + qname;
-	    this._attrsByQName[qname] = attr;
+	    this._attrsByQName.set(qname, attr);
 	    this._attrsByLName[key] = attr;
 	    if (this._attributes) {
 	      this._attributes[this._attrKeys.length] = attr;
@@ -4555,52 +4597,48 @@ function requireElement () {
 	    return attr;
 	  }},
 
-	  // Add a qname->Attr mapping to the _attrsByQName object, taking into
+	  // Add a qname->Attr mapping to the _attrsByQName map, taking into
 	  // account that there may be more than one attr object with the
 	  // same qname
 	  _addQName: { value: function(attr) {
 	    var qname = attr.name;
-	    var existing = this._attrsByQName[qname];
+	    var existing = this._attrsByQName.get(qname);
 	    if (!existing) {
-	      this._attrsByQName[qname] = attr;
+	      this._attrsByQName.set(qname, attr);
 	    }
 	    else if (Array.isArray(existing)) {
 	      existing.push(attr);
 	    }
 	    else {
-	      this._attrsByQName[qname] = [existing, attr];
+	      this._attrsByQName.set(qname, [existing, attr]);
 	    }
-	    if (this._attributes) this._attributes[qname] = attr;
+	    setNamedProperty(this._attributes, qname, attr);
 	  }},
 
-	  // Remove a qname->Attr mapping to the _attrsByQName object, taking into
+	  // Remove a qname->Attr mapping from the _attrsByQName map, taking into
 	  // account that there may be more than one attr object with the
 	  // same qname
 	  _removeQName: { value: function(attr) {
 	    var qname = attr.name;
-	    var target = this._attrsByQName[qname];
+	    var target = this._attrsByQName.get(qname);
 
 	    if (Array.isArray(target)) {
 	      var idx = target.indexOf(attr);
 	      utils.assert(idx !== -1); // It must be here somewhere
 	      if (target.length === 2) {
-	        this._attrsByQName[qname] = target[1-idx];
-	        if (this._attributes) {
-	          this._attributes[qname] = this._attrsByQName[qname];
-	        }
+	        this._attrsByQName.set(qname, target[1-idx]);
+	        setNamedProperty(this._attributes, qname, this._attrsByQName.get(qname));
 	      } else {
 	        target.splice(idx, 1);
 	        if (this._attributes && this._attributes[qname] === attr) {
-	          this._attributes[qname] = target[0];
+	          setNamedProperty(this._attributes, qname, target[0]);
 	        }
 	      }
 	    }
 	    else {
 	      utils.assert(target === attr);  // If only one, it must match
-	      this._attrsByQName[qname] = undefined;
-	      if (this._attributes) {
-	        this._attributes[qname] = undefined;
-	      }
+	      this._attrsByQName.delete(qname);
+	      setNamedProperty(this._attributes, qname, undefined);
 	    }
 	  }},
 
@@ -4782,15 +4820,30 @@ function requireElement () {
 	// Sneakily export this class for use by Document.createAttribute()
 	Element._Attr = Attr;
 
+	// WebIDL reserves array indices for indexed access, even outside the list.
+	// Mirroring numeric names would also create sparse object-index storage.
+	function isArrayIndex(qname) {
+	  if (qname.length > 10) { return false; }
+	  var index = qname >>> 0;
+	  // Reject noncanonical spellings and 2^32-1, which is not an array index.
+	  return index !== 0xFFFFFFFF && String(index) === qname;
+	}
+
+	// Mirror a qname->Attr mapping onto an already-created NamedNodeMap.
+	function setNamedProperty(attributes, qname, attr) {
+	  if (attributes && !isArrayIndex(qname)) { attributes[qname] = attr; }
+	}
+
 	// The attributes property of an Element will be an instance of this class.
 	// This class is really just a dummy, though. It only defines a length
 	// property and an item() method. The AttrArrayProxy that
 	// defines the public API just uses the Element object itself.
 	function AttributesArray(elt) {
 	  NamedNodeMap.call(this, elt);
-	  for (var name in elt._attrsByQName) {
-	    this[name] = elt._attrsByQName[name];
-	  }
+	  var self = this;
+	  elt._attrsByQName.forEach(function(attr, qname) {
+	    setNamedProperty(self, qname, attr);
+	  });
 	  for (var i = 0; i < elt._attrKeys.length; i++) {
 	    this[i] = elt._attrsByLName[elt._attrKeys[i]];
 	  }
@@ -11437,6 +11490,8 @@ function requireHTMLParser () {
 	    for(var i = 0, n = oldattrs.length; i < n; i++) {
 	      var oldname = oldattrs[i][0];
 	      var oldval = oldattrs[i][1];
+	      // Bare attributes have an empty string value in the DOM.
+	      if (oldval === undefined) oldval = "";
 	      if (!newelt.hasAttribute(oldname)) return false;
 	      if (newelt.getAttribute(oldname) !== oldval) return false;
 	    }

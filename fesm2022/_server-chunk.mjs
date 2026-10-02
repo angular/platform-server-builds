@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.2.1+sha-576df28
+ * @license Angular v22.2.1+sha-70c8e96
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -109,7 +109,7 @@ class PlatformState {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: PlatformState,
     deps: [{
@@ -119,14 +119,14 @@ class PlatformState {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: PlatformState
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.1+sha-576df28",
+  version: "22.2.1+sha-70c8e96",
   ngImport: i0,
   type: PlatformState,
   decorators: [{
@@ -232,7 +232,7 @@ class ServerXhr {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerXhr,
     deps: [],
@@ -240,14 +240,14 @@ class ServerXhr {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerXhr
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.1+sha-576df28",
+  version: "22.2.1+sha-70c8e96",
   ngImport: i0,
   type: ServerXhr,
   decorators: [{
@@ -388,7 +388,7 @@ class ServerPlatformLocation {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerPlatformLocation,
     deps: [],
@@ -396,14 +396,14 @@ class ServerPlatformLocation {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerPlatformLocation
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.1+sha-576df28",
+  version: "22.2.1+sha-70c8e96",
   ngImport: i0,
   type: ServerPlatformLocation,
   decorators: [{
@@ -426,7 +426,7 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerEventManagerPlugin,
     deps: [{
@@ -436,14 +436,14 @@ class ServerEventManagerPlugin extends EventManagerPlugin {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerEventManagerPlugin
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.1+sha-576df28",
+  version: "22.2.1+sha-70c8e96",
   ngImport: i0,
   type: ServerEventManagerPlugin,
   decorators: [{
@@ -553,7 +553,7 @@ const PLATFORM_SERVER_PROVIDERS = [TRANSFER_STATE_SERIALIZATION_PROVIDERS, SERVE
 class ServerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerModule,
     deps: [],
@@ -561,14 +561,14 @@ class ServerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerModule,
     exports: [BrowserModule]
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.2.1+sha-576df28",
+    version: "22.2.1+sha-70c8e96",
     ngImport: i0,
     type: ServerModule,
     providers: PLATFORM_SERVER_PROVIDERS,
@@ -577,7 +577,7 @@ class ServerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.1+sha-576df28",
+  version: "22.2.1+sha-70c8e96",
   ngImport: i0,
   type: ServerModule,
   decorators: [{

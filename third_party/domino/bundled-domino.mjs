@@ -11636,6 +11636,7 @@ function requireHTMLParser () {
 	  var doctypepublicbuf = [];
 	  var doctypesystembuf = [];
 	  var attributes = [];
+	  var attributeNames = null;
 	  var is_end_tag = false;
 
 	  // Tree builder state
@@ -11991,8 +11992,21 @@ function requireHTMLParser () {
 	  function addAttribute(name,value) {
 	    // Make sure there isn't already an attribute with this name
 	    // If there is, ignore this one.
-	    for(var i = 0; i < attributes.length; i++) {
-	      if (attributes[i][0] === name) return;
+	    // Avoid allocating an index for small tags, but bound the linear scan.
+	    if (attributes.length < 24) {
+	      for (var i = 0; i < attributes.length; i++) {
+	        if (attributes[i][0] === name) return;
+	      }
+	    }
+	    else {
+	      if (!attributeNames) {
+	        attributeNames = new Set();
+	        for (var j = 0; j < attributes.length; j++) {
+	          attributeNames.add(attributes[j][0]);
+	        }
+	      }
+	      if (attributeNames.has(name)) return;
+	      attributeNames.add(name);
 	    }
 
 	    if (value !== undefined) {
@@ -12026,13 +12040,7 @@ function requireHTMLParser () {
 	      break;
 	    }
 
-	    // Make sure there isn't already an attribute with this name
-	    // If there is, ignore this one.
-	    for(var i = 0; i < attributes.length; i++) {
-	      if (attributes[i][0] === name) return true;
-	    }
-
-	    attributes.push([name, value]);
+	    addAttribute(name, value);
 	    return true;
 	  }
 
@@ -12040,11 +12048,13 @@ function requireHTMLParser () {
 	    is_end_tag = false;
 	    tagnamebuf = "";
 	    attributes.length = 0;
+	    attributeNames = null;
 	  }
 	  function beginEndTagName() {
 	    is_end_tag = true;
 	    tagnamebuf = "";
 	    attributes.length = 0;
+	    attributeNames = null;
 	  }
 
 	  function beginTempBuf() { tempbuf.length = 0; }

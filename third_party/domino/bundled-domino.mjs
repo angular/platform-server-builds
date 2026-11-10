@@ -3540,7 +3540,7 @@ function requireElement () {
 	  }},
 
 	  querySelector: { value: function(selector) {
-	    return select(selector, this)[0];
+	    return select(selector, this)[0] ?? null;
 	  }},
 
 	  querySelectorAll: { value: function(selector) {
@@ -9486,7 +9486,7 @@ function requireDocument () {
 	  }},
 
 	  querySelector: { value: function(selector) {
-	    return select(selector, this)[0];
+	    return select(selector, this)[0] ?? null;
 	  }},
 
 	  querySelectorAll: { value: function(selector) {

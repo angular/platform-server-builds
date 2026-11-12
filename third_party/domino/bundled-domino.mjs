@@ -823,7 +823,11 @@ function requireAttributes () {
 	  if (Array.isArray(attr.type)) {
 	    var valid = Object.create(null);
 	    attr.type.forEach(function(val) {
-	      valid[val.value || val] = val.alias || val;
+	      if (typeof val === 'string') {
+	        valid[val] = val;
+	      } else {
+	        valid[val.value] = val.alias;
+	      }
 	    });
 	    var missingValueDefault = attr.missing;
 	    if (missingValueDefault===undefined) { missingValueDefault = null; }
@@ -840,7 +844,11 @@ function requireAttributes () {
 	        return v;
 	      },
 	      set: function(v) {
-	        this._setattr(attr.name, v);
+	        if (attr.nullable && (v === null || v === undefined)) {
+	          this.removeAttribute(attr.name);
+	        } else {
+	          this._setattr(attr.name, v);
+	        }
 	      }
 	    };
 	  }
@@ -4816,6 +4824,35 @@ function requireHtmlelts () {
 	  };
 	}
 
+	// The autocorrect IDL attribute is a boolean over the "on"/"off" content
+	// attribute. See https://html.spec.whatwg.org/#dom-autocorrect
+	var autocorrectInheritingElements = Object.assign(Object.create(null), {
+	  "button": true, "fieldset": true, "input": true, "output": true,
+	  "select": true, "textarea": true
+	});
+
+	function AUTOCORRECT(attr) {
+	  return {
+	    get: function() {
+	      if (this.localName === 'input' &&
+	          (this.type === 'url' || this.type === 'email' || this.type === 'password')) {
+	        return false;
+	      }
+	      var v = this._getattr(attr);
+	      if (v !== null) {
+	        return v.toLowerCase() !== 'off';
+	      }
+	      if (this.localName in autocorrectInheritingElements && this.form) {
+	        return this.form.autocorrect;
+	      }
+	      return true;
+	    },
+	    set: function(value) {
+	      this._setattr(attr, value ? 'on' : 'off');
+	    }
+	  };
+	}
+
 	const REFERRER = {
 	  type: ["", "no-referrer", "no-referrer-when-downgrade", "same-origin", "origin", "strict-origin", "origin-when-cross-origin", "strict-origin-when-cross-origin", "unsafe-url"],
 	  missing: '',
@@ -4917,6 +4954,16 @@ function requireHtmlelts () {
 	      }
 	    }},
 	    submit: { value: utils.nyi },
+
+	    // Older domino names, kept for backwards compatibility.
+	    autoFocus: {
+	      get: function() { return this.autofocus; },
+	      set: function(v) { this.autofocus = v; }
+	    },
+	    autoCapitalize: {
+	      get: function() { return this.autocapitalize; },
+	      set: function(v) { this.autocapitalize = v; }
+	    },
 	  },
 	  attributes: {
 	    title: String,
@@ -4925,8 +4972,12 @@ function requireHtmlelts () {
 	    draggable: {type: ["true", "false"], treatNullAsEmptyString: true },
 	    spellcheck: {type: ["true", "false"], missing: ''},
 	    enterKeyHint: {type: ["enter", "done", "go", "next", "previous", "search", "send"], missing: ''},
-	    autoCapitalize: {type: ["off", "on", "none", "sentences", "words", "characters"], missing: '' },
-	    autoFocus: Boolean,
+	    autocapitalize: {type: [{value: "off", alias: "none"}, "none", {value: "on", alias: "sentences"}, "sentences", "words", "characters", ""], missing: '', invalid: 'sentences' },
+	    autocorrect: AUTOCORRECT,
+	    autofocus: Boolean,
+	    inert: Boolean,
+	    inputMode: {type: ["none", "text", "tel", "url", "email", "numeric", "decimal", "search"], missing: ''},
+	    popover: {type: ["auto", "manual", "hint", {value: "", alias: "auto"}], invalid: 'manual', nullable: true},
 	    accessKey: String,
 	    nonce: String,
 	    hidden: Boolean,
@@ -5119,14 +5170,15 @@ function requireHtmlelts () {
 	  ctor: function HTMLButtonElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: { form: formAssociatedProps.form },
 	  attributes: {
 	    name: String,
 	    value: String,
 	    disabled: Boolean,
-	    autofocus: Boolean,
 	    type: { type:["submit", "reset", "button", "menu"], missing: 'submit' },
 	    formTarget: String,
+	    command: String,
+	    popoverTargetAction: {type: ["toggle", "show", "hide"], missing: 'toggle'},
 	    formAction: URL,
 	    formNoValidate: Boolean,
 	    formMethod: { type: ["get", "post", "dialog"], invalid: 'get', missing: '' },
@@ -5172,7 +5224,8 @@ function requireHtmlelts () {
 	    HTMLElement.call(this, doc, localName, prefix);
 	  },
 	  attributes: {
-	    "open": Boolean
+	    "open": Boolean,
+	    name: String
 	  }
 	});
 
@@ -5211,7 +5264,10 @@ function requireHtmlelts () {
 	  ctor: function HTMLFieldSetElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: {
+	    form: formAssociatedProps.form,
+	    type: { get: function() { return 'fieldset'; } },
+	  },
 	  attributes: {
 	    disabled: Boolean,
 	    name: String
@@ -5230,6 +5286,7 @@ function requireHtmlelts () {
 	    name: String,
 	    acceptCharset: {name: "accept-charset"},
 	    target: String,
+	    rel: String,
 	    noValidate: Boolean,
 	    method: { type: ["get", "post", "dialog"], invalid: 'get', missing: 'get' },
 	    // Both enctype and encoding reflect the enctype content attribute
@@ -5334,6 +5391,8 @@ function requireHtmlelts () {
 	    height: { type: "unsigned long", default: 0 },
 	    width: { type: "unsigned long", default: 0 },
 	    referrerPolicy: REFERRER,
+	    decoding: {type: ["sync", "async", "auto"], missing: 'auto'},
+	    fetchPriority: {type: ["high", "low", "auto"], missing: 'auto'},
 	    loading: { type:['eager','lazy'], missing: '' },
 	    // Obsolete:
 	    name: String,
@@ -5370,7 +5429,6 @@ function requireHtmlelts () {
 	  attributes: {
 	    name: String,
 	    disabled: Boolean,
-	    autofocus: Boolean,
 	    accept: String,
 	    alt: String,
 	    max: String,
@@ -5393,6 +5451,7 @@ function requireHtmlelts () {
 	    minLength: {type: 'unsigned long', min: 0, setmin: 0, default: -1},
 	    maxLength: {type: 'unsigned long', min: 0, setmin: 0, default: -1},
 	    autocomplete: String, // It's complicated
+	    webkitdirectory: Boolean,
 	    type: { type:
 	            ["text", "hidden", "search", "tel", "url", "email", "password",
 	             "datetime", "date", "month", "week", "time", "datetime-local",
@@ -5400,10 +5459,11 @@ function requireHtmlelts () {
 	             "image", "reset", "button"],
 	            missing: 'text' },
 	    formTarget: String,
+	    formAction: URL,
+	    popoverTargetAction: {type: ["toggle", "show", "hide"], missing: 'toggle'},
 	    formNoValidate: Boolean,
 	    formMethod: { type: ["get", "post"], invalid: 'get', missing: '' },
 	    formEnctype: { type: ["application/x-www-form-urlencoded", "multipart/form-data", "text/plain"], invalid: "application/x-www-form-urlencoded", missing: '' },
-	    inputMode: { type: [ "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "kana-name", "katakana", "numeric", "tel", "email", "url" ], missing: '' },
 	    // Obsolete
 	    align: String,
 	    useMap: String,
@@ -5416,11 +5476,10 @@ function requireHtmlelts () {
 	  ctor: function HTMLKeygenElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: { form: formAssociatedProps.form },
 	  attributes: {
 	    name: String,
 	    disabled: Boolean,
-	    autofocus: Boolean,
 	    challenge: String,
 	    keytype: { type:["rsa"], missing: '' },
 	  }
@@ -5445,7 +5504,7 @@ function requireHtmlelts () {
 	  ctor: function HTMLLabelElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: { form: formAssociatedProps.form },
 	  attributes: {
 	    htmlFor: {name: 'for', type: String}
 	  }
@@ -5480,6 +5539,7 @@ function requireHtmlelts () {
 	    nonce: String,
 	    integrity: String,
 	    referrerPolicy: REFERRER,
+	    fetchPriority: {type: ["high", "low", "auto"], missing: 'auto'},
 	    imageSizes: String,
 	    imageSrcset: String,
 	    // Obsolete
@@ -5537,7 +5597,15 @@ function requireHtmlelts () {
 	  ctor: function HTMLMeterElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps
+	  props: { form: formAssociatedProps.form },
+	  attributes: {
+	    value: {type: Number, float: true, default: 0},
+	    min: {type: Number, float: true, default: 0},
+	    max: {type: Number, float: true, default: 1},
+	    low: {type: Number, float: true, default: 0},
+	    high: {type: Number, float: true, default: 1},
+	    optimum: {type: Number, float: true, default: 0.5},
+	  }
 	});
 
 	define({
@@ -5595,7 +5663,7 @@ function requireHtmlelts () {
 	  ctor: function HTMLObjectElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: { form: formAssociatedProps.form },
 	  attributes: {
 	    data: URL,
 	    type: String,
@@ -5670,9 +5738,21 @@ function requireHtmlelts () {
 	  ctor: function HTMLOutputElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: {
+	    form: formAssociatedProps.form,
+	    type: { get: function() { return 'output'; } },
+	    defaultValue: {
+	      get: function() { return this.textContent; },
+	      set: function(v) { this.textContent = v; },
+	    },
+	    value: {
+	      get: function() { return this.defaultValue; },
+	      set: function(v) { this.defaultValue = v; },
+	    },
+	  },
 	  attributes: {
 	    // XXX Reflect for/htmlFor as a settable token list
+	    htmlFor: {name: 'for'},
 	    name: String
 	  }
 	});
@@ -5722,8 +5802,9 @@ function requireHtmlelts () {
 	  ctor: function HTMLProgressElement(doc, localName, prefix) {
 	    HTMLFormElement.call(this, doc, localName, prefix);
 	  },
-	  props: formAssociatedProps,
+	  props: { form: formAssociatedProps.form },
 	  attributes: {
+	    value: {type: Number, float: true, default: 0, min: 0},
 	    max: {type: Number, float: true, default: 1.0, min: 0}
 	  }
 	});
@@ -5762,6 +5843,11 @@ function requireHtmlelts () {
 	          this.appendChild(this.ownerDocument.createTextNode(value));
 	        }
 	      }
+	    },
+	    // Older domino name, kept for backwards compatibility.
+	    nomodule: {
+	      get: function() { return this.noModule; },
+	      set: function(v) { this.noModule = v; }
 	    }
 	  },
 	  attributes: {
@@ -5769,9 +5855,10 @@ function requireHtmlelts () {
 	    type: String,
 	    charset: String,
 	    referrerPolicy: REFERRER,
+	    fetchPriority: {type: ["high", "low", "auto"], missing: 'auto'},
 	    defer: Boolean,
 	    async: Boolean,
-	    nomodule: Boolean,
+	    noModule: Boolean,
 	    crossOrigin: CORS,
 	    nonce: String,
 	    integrity: String,
@@ -5794,7 +5881,6 @@ function requireHtmlelts () {
 	    autocomplete: String, // It's complicated
 	    name: String,
 	    disabled: Boolean,
-	    autofocus: Boolean,
 	    multiple: Boolean,
 	    required: Boolean,
 	    size: {type: "unsigned long", default: 0}
@@ -5843,7 +5929,7 @@ function requireHtmlelts () {
 	  attributes: {
 	    colSpan: {type: "unsigned long", default: 1},
 	    rowSpan: {type: "unsigned long", default: 1},
-	    //XXX Also reflect settable token list headers
+	    headers: String,
 	    scope: { type: ['row','col','rowgroup','colgroup'], missing: '' },
 	    abbr: String,
 	    // Obsolete
@@ -5995,7 +6081,6 @@ function requireHtmlelts () {
 	    autocomplete: String, // It's complicated
 	    name: String,
 	    disabled: Boolean,
-	    autofocus: Boolean,
 	    placeholder: String,
 	    wrap: String,
 	    dirName: String,
@@ -6005,7 +6090,6 @@ function requireHtmlelts () {
 	    cols: {type: 'limited unsigned long with fallback', default: 20 },
 	    maxLength: {type: 'unsigned long', min: 0, setmin: 0, default: -1},
 	    minLength: {type: 'unsigned long', min: 0, setmin: 0, default: -1},
-	    inputMode: { type: [ "verbatim", "latin", "latin-name", "latin-prose", "full-width-latin", "kana", "kana-name", "katakana", "numeric", "tel", "email", "url" ], missing: '' },
 	  }
 	});
 
@@ -6060,6 +6144,7 @@ function requireHtmlelts () {
 	    autoplay: Boolean,
 	    mediaGroup: String,
 	    controls: Boolean,
+	    disableRemotePlayback: Boolean,
 	    defaultMuted: {name: "muted", type: Boolean}
 	  }
 	});
@@ -6082,6 +6167,8 @@ function requireHtmlelts () {
 	  },
 	  attributes: {
 	    poster: URL,
+	    playsInline: Boolean,
+	    disablePictureInPicture: Boolean,
 	    width: {type: "unsigned long", min: 0, default: 0 },
 	    height: {type: "unsigned long", min: 0, default: 0 }
 	  }

@@ -84,24 +84,39 @@ var hasRequiredUIEvent;
 function requireUIEvent () {
 	if (hasRequiredUIEvent) return UIEvent_1;
 	hasRequiredUIEvent = 1;
-	var Event = requireEvent();
+	var Event = typeof globalThis !== 'undefined' && globalThis.Event ? globalThis.Event : requireEvent();
 
 	UIEvent_1 = UIEvent;
 
-	function UIEvent() {
-	  // Just use the superclass constructor to initialize
-	  Event.call(this);
-	  this.view = null; // FF uses the current window
-	  this.detail = 0;
+	function UIEvent(type, dictionary) {
+	  var self;
+	  if (typeof Reflect !== 'undefined' && Reflect.construct) {
+	    try {
+	      self = Reflect.construct(Event, [type || '', dictionary], new.target || UIEvent);
+	    } catch (e) {
+	      Event.call(this, type, dictionary);
+	      self = this;
+	    }
+	  } else {
+	    Event.call(this, type, dictionary);
+	    self = this;
+	  }
+	  self.view = (dictionary && dictionary.view) || null; // FF uses the current window
+	  self.detail = (dictionary && dictionary.detail) || 0;
+	  return self;
 	}
 	UIEvent.prototype = Object.create(Event.prototype, {
-	  constructor: { value: UIEvent },
+	  constructor: { value: UIEvent, writable: true, configurable: true },
 	  initUIEvent: { value: function(type, bubbles, cancelable, view, detail) {
 	    this.initEvent(type, bubbles, cancelable);
+	    if (this._dispatching) return;
 	    this.view = view;
 	    this.detail = detail;
 	  }}
 	});
+	if (Object.setPrototypeOf) {
+	  Object.setPrototypeOf(UIEvent, Event);
+	}
 	return UIEvent_1;
 }
 
@@ -112,28 +127,51 @@ function requireMouseEvent () {
 	if (hasRequiredMouseEvent) return MouseEvent_1;
 	hasRequiredMouseEvent = 1;
 	var UIEvent = requireUIEvent();
+	var Event = typeof globalThis !== 'undefined' && globalThis.Event ? globalThis.Event : requireEvent();
 
 	MouseEvent_1 = MouseEvent;
 
-	function MouseEvent() {
-	  // Just use the superclass constructor to initialize
-	  UIEvent.call(this);
+	function MouseEvent(type, dictionary) {
+	  var self;
+	  if (typeof Reflect !== 'undefined' && Reflect.construct) {
+	    try {
+	      self = Reflect.construct(Event, [type || '', dictionary], new.target || MouseEvent);
+	    } catch (e) {
+	      UIEvent.call(this, type, dictionary);
+	      self = this;
+	    }
+	  } else {
+	    UIEvent.call(this, type, dictionary);
+	    self = this;
+	  }
 
-	  this.screenX = this.screenY = this.clientX = this.clientY = 0;
-	  this.ctrlKey = this.altKey = this.shiftKey = this.metaKey = false;
-	  this.button = 0;
-	  this.buttons = 1;
-	  this.relatedTarget = null;
+	  self.view = (dictionary && dictionary.view) || null;
+	  self.detail = (dictionary && dictionary.detail) || 0;
+	  self.screenX = (dictionary && dictionary.screenX) || 0;
+	  self.screenY = (dictionary && dictionary.screenY) || 0;
+	  self.clientX = (dictionary && dictionary.clientX) || 0;
+	  self.clientY = (dictionary && dictionary.clientY) || 0;
+	  self.ctrlKey = !!(dictionary && dictionary.ctrlKey);
+	  self.altKey = !!(dictionary && dictionary.altKey);
+	  self.shiftKey = !!(dictionary && dictionary.shiftKey);
+	  self.metaKey = !!(dictionary && dictionary.metaKey);
+	  self.button = (dictionary && dictionary.button) || 0;
+	  self.buttons = dictionary && dictionary.buttons !== undefined ? dictionary.buttons : 1;
+	  self.relatedTarget = (dictionary && dictionary.relatedTarget) || null;
+	  return self;
 	}
 	MouseEvent.prototype = Object.create(UIEvent.prototype, {
-	  constructor: { value: MouseEvent },
+	  constructor: { value: MouseEvent, writable: true, configurable: true },
 	  initMouseEvent: { value: function(type, bubbles, cancelable,
 	    view, detail,
 	    screenX, screenY, clientX, clientY,
 	    ctrlKey, altKey, shiftKey, metaKey,
 	    button, relatedTarget) {
 
-	    this.initEvent(type, bubbles, cancelable, view, detail);
+	    this.initEvent(type, bubbles, cancelable);
+	    if (this._dispatching) return;
+	    this.view = view;
+	    this.detail = detail;
 	    this.screenX = screenX;
 	    this.screenY = screenY;
 	    this.clientX = clientX;
@@ -162,7 +200,127 @@ function requireMouseEvent () {
 	    }
 	  }}
 	});
+	if (Object.setPrototypeOf) {
+	  Object.setPrototypeOf(MouseEvent, UIEvent);
+	}
 	return MouseEvent_1;
+}
+
+var KeyboardEvent_1;
+var hasRequiredKeyboardEvent;
+
+function requireKeyboardEvent () {
+	if (hasRequiredKeyboardEvent) return KeyboardEvent_1;
+	hasRequiredKeyboardEvent = 1;
+	var UIEvent = requireUIEvent();
+	var Event = typeof globalThis !== 'undefined' && globalThis.Event ? globalThis.Event : requireEvent();
+
+	KeyboardEvent_1 = KeyboardEvent;
+
+	function KeyboardEvent(type, dictionary) {
+	  var self;
+	  if (typeof Reflect !== 'undefined' && Reflect.construct) {
+	    try {
+	      self = Reflect.construct(Event, [type || '', dictionary], new.target || KeyboardEvent);
+	    } catch (e) {
+	      UIEvent.call(this, type, dictionary);
+	      self = this;
+	    }
+	  } else {
+	    UIEvent.call(this, type, dictionary);
+	    self = this;
+	  }
+
+	  self.view = (dictionary && dictionary.view) || null;
+	  self.detail = (dictionary && dictionary.detail) || 0;
+	  self.key = (dictionary && dictionary.key) || '';
+	  self.code = (dictionary && dictionary.code) || '';
+	  self.location = (dictionary && dictionary.location) || 0;
+	  self.ctrlKey = !!(dictionary && dictionary.ctrlKey);
+	  self.shiftKey = !!(dictionary && dictionary.shiftKey);
+	  self.altKey = !!(dictionary && dictionary.altKey);
+	  self.metaKey = !!(dictionary && dictionary.metaKey);
+	  self.repeat = !!(dictionary && dictionary.repeat);
+	  self.isComposing = !!(dictionary && dictionary.isComposing);
+	  self.charCode = (dictionary && dictionary.charCode) || 0;
+	  self.keyCode = (dictionary && dictionary.keyCode) || 0;
+	  self.which = (dictionary && dictionary.which) || 0;
+	  return self;
+	}
+	KeyboardEvent.DOM_KEY_LOCATION_STANDARD = 0;
+	KeyboardEvent.DOM_KEY_LOCATION_LEFT = 1;
+	KeyboardEvent.DOM_KEY_LOCATION_RIGHT = 2;
+	KeyboardEvent.DOM_KEY_LOCATION_NUMPAD = 3;
+
+	KeyboardEvent.prototype = Object.create(UIEvent.prototype, {
+	  constructor: { value: KeyboardEvent, writable: true, configurable: true },
+	  DOM_KEY_LOCATION_STANDARD: { value: 0 },
+	  DOM_KEY_LOCATION_LEFT: { value: 1 },
+	  DOM_KEY_LOCATION_RIGHT: { value: 2 },
+	  DOM_KEY_LOCATION_NUMPAD: { value: 3 },
+	  initKeyboardEvent: { value: function(type, bubbles, cancelable,
+	    view, key, location, ctrlKey, altKey, shiftKey, metaKey) {
+	    this.initEvent(type, bubbles, cancelable);
+	    if (this._dispatching) return;
+	    this.view = view || null;
+	    this.key = key || '';
+	    this.location = location || 0;
+	    this.ctrlKey = !!ctrlKey;
+	    this.altKey = !!altKey;
+	    this.shiftKey = !!shiftKey;
+	    this.metaKey = !!metaKey;
+	  }},
+
+	  getModifierState: { value: function(key) {
+	    switch(key) {
+	    case "Alt": return this.altKey;
+	    case "Control": return this.ctrlKey;
+	    case "Shift": return this.shiftKey;
+	    case "Meta": return this.metaKey;
+	    default: return false;
+	    }
+	  }}
+	});
+	if (Object.setPrototypeOf) {
+	  Object.setPrototypeOf(KeyboardEvent, UIEvent);
+	}
+	return KeyboardEvent_1;
+}
+
+var CustomEvent_1;
+var hasRequiredCustomEvent;
+
+function requireCustomEvent () {
+	if (hasRequiredCustomEvent) return CustomEvent_1;
+	hasRequiredCustomEvent = 1;
+	CustomEvent_1 = CustomEvent;
+
+	var Event = requireEvent();
+
+	function CustomEvent(type, dictionary) {
+	  // Just use the superclass constructor to initialize
+	  Event.call(this, type, dictionary);
+	}
+	CustomEvent.prototype = Object.create(Event.prototype, {
+	  constructor: { value: CustomEvent }
+	});
+	return CustomEvent_1;
+}
+
+var events;
+var hasRequiredEvents;
+
+function requireEvents () {
+	if (hasRequiredEvents) return events;
+	hasRequiredEvents = 1;
+	events = {
+	  Event: typeof globalThis !== 'undefined' && globalThis.Event ? globalThis.Event : requireEvent(),
+	  UIEvent: typeof globalThis !== 'undefined' && globalThis.UIEvent ? globalThis.UIEvent : requireUIEvent(),
+	  MouseEvent: typeof globalThis !== 'undefined' && globalThis.MouseEvent ? globalThis.MouseEvent : requireMouseEvent(),
+	  KeyboardEvent: typeof globalThis !== 'undefined' && globalThis.KeyboardEvent ? globalThis.KeyboardEvent : requireKeyboardEvent(),
+	  CustomEvent: typeof globalThis !== 'undefined' && globalThis.CustomEvent ? globalThis.CustomEvent : requireCustomEvent()
+	};
+	return events;
 }
 
 var utils = {};
@@ -355,9 +513,29 @@ var hasRequiredEventTarget;
 function requireEventTarget () {
 	if (hasRequiredEventTarget) return EventTarget_1;
 	hasRequiredEventTarget = 1;
-	var Event = requireEvent();
-	var MouseEvent = requireMouseEvent();
+	var events = requireEvents();
+	var Event = events.Event;
+	var MouseEvent = events.MouseEvent;
 	var utils = requireUtils();
+
+	function setEventProperty(event, prop, value) {
+	  if (Object.prototype.hasOwnProperty.call(event, prop)) {
+	    try {
+	      event[prop] = value;
+	      return;
+	    } catch (e) {}
+	  } else if (event[prop] === value) {
+	    return;
+	  }
+	  try {
+	    Object.defineProperty(event, prop, {
+	      value: value,
+	      configurable: true,
+	      enumerable: true,
+	      writable: true
+	    });
+	  } catch (e) {}
+	}
 
 	EventTarget_1 = EventTarget;
 
@@ -449,7 +627,7 @@ function requireEventTarget () {
 	    if (typeof trusted !== 'boolean') trusted = false;
 	    function invoke(target, event) {
 	      var type = event.type, phase = event.eventPhase;
-	      event.currentTarget = target;
+	      setEventProperty(event, 'currentTarget', target);
 
 	      // If there was an individual handler defined, invoke it first
 	      // XXX: see comment above: this shouldn't always be first.
@@ -507,12 +685,29 @@ function requireEventTarget () {
 	      }
 	    }
 
-	    if (!event._initialized || event._dispatching) utils.InvalidStateError();
-	    event.isTrusted = trusted;
+	    if (event._initialized === false || event._dispatching) utils.InvalidStateError();
+
+	    if (!('_immediatePropagationStopped' in event) && typeof event.stopImmediatePropagation === 'function') {
+	      var origStopImmediate = event.stopImmediatePropagation;
+	      event._immediatePropagationStopped = false;
+	      try {
+	        Object.defineProperty(event, 'stopImmediatePropagation', {
+	          value: function() {
+	            this._propagationStopped = true;
+	            this._immediatePropagationStopped = true;
+	            origStopImmediate.call(this);
+	          },
+	          configurable: true,
+	          writable: true
+	        });
+	      } catch (e) {}
+	    }
+
+	    setEventProperty(event, 'isTrusted', trusted);
 
 	    // Begin dispatching the event now
 	    event._dispatching = true;
-	    event.target = this;
+	    setEventProperty(event, 'target', this);
 
 	    // Build the list of targets for the capturing and bubbling phases
 	    // XXX: we'll eventually have to add Window to this list.
@@ -520,31 +715,33 @@ function requireEventTarget () {
 	    for(var n = this.parentNode; n; n = n.parentNode)
 	      ancestors.push(n);
 
+	    function isStopped(e) {
+	      return !!(e._propagationStopped || e.cancelBubble);
+	    }
+
 	    // Capturing phase
-	    event.eventPhase = Event.CAPTURING_PHASE;
-	    for(var i = ancestors.length-1; i >= 0; i--) {
+	    setEventProperty(event, 'eventPhase', Event.CAPTURING_PHASE);
+	    for(var i = ancestors.length-1; i >= 0 && !isStopped(event); i--) {
 	      invoke(ancestors[i], event);
-	      if (event._propagationStopped) break;
 	    }
 
 	    // At target phase
-	    if (!event._propagationStopped) {
-	      event.eventPhase = Event.AT_TARGET;
+	    if (!isStopped(event)) {
+	      setEventProperty(event, 'eventPhase', Event.AT_TARGET);
 	      invoke(this, event);
 	    }
 
 	    // Bubbling phase
-	    if (event.bubbles && !event._propagationStopped) {
-	      event.eventPhase = Event.BUBBLING_PHASE;
-	      for(var ii = 0, nn = ancestors.length; ii < nn; ii++) {
+	    if (event.bubbles && !isStopped(event)) {
+	      setEventProperty(event, 'eventPhase', Event.BUBBLING_PHASE);
+	      for(var ii = 0, nn = ancestors.length; ii < nn && !isStopped(event); ii++) {
 	        invoke(ancestors[ii], event);
-	        if (event._propagationStopped) break;
 	      }
 	    }
 
 	    event._dispatching = false;
-	    event.eventPhase = Event.AT_TARGET;
-	    event.currentTarget = null;
+	    setEventProperty(event, 'eventPhase', Event.AT_TARGET);
+	    setEventProperty(event, 'currentTarget', null);
 
 	    // Deal with mouse events and figure out when
 	    // a click has happened
@@ -8689,41 +8886,6 @@ function requireNodeIterator () {
 	return NodeIterator_1;
 }
 
-var CustomEvent_1;
-var hasRequiredCustomEvent;
-
-function requireCustomEvent () {
-	if (hasRequiredCustomEvent) return CustomEvent_1;
-	hasRequiredCustomEvent = 1;
-	CustomEvent_1 = CustomEvent;
-
-	var Event = requireEvent();
-
-	function CustomEvent(type, dictionary) {
-	  // Just use the superclass constructor to initialize
-	  Event.call(this, type, dictionary);
-	}
-	CustomEvent.prototype = Object.create(Event.prototype, {
-	  constructor: { value: CustomEvent }
-	});
-	return CustomEvent_1;
-}
-
-var events;
-var hasRequiredEvents;
-
-function requireEvents () {
-	if (hasRequiredEvents) return events;
-	hasRequiredEvents = 1;
-	events = {
-	  Event: requireEvent(),
-	  UIEvent: requireUIEvent(),
-	  MouseEvent: requireMouseEvent(),
-	  CustomEvent: requireCustomEvent()
-	};
-	return events;
-}
-
 var svg = {};
 
 var hasRequiredSvg;
@@ -8825,7 +8987,8 @@ function requireDocument () {
 	var Element = requireElement();
 	var Text = requireText();
 	var Comment = requireComment();
-	var Event = requireEvent();
+	var events = requireEvents();
+	var Event = events.Event;
 	var DocumentFragment = requireDocumentFragment();
 	var ProcessingInstruction = requireProcessingInstruction();
 	var DOMImplementation = requireDOMImplementation();
@@ -8834,7 +8997,6 @@ function requireDocument () {
 	var NodeFilter = requireNodeFilter();
 	var URL = requireURL();
 	var select = requireSelect();
-	var events = requireEvents();
 	var xml = requireXmlnames();
 	var html = requireHtmlelts();
 	var svg = requireSvg();
@@ -8904,7 +9066,9 @@ function requireDocument () {
 	  event: 'Event',
 	  customevent: 'CustomEvent',
 	  uievent: 'UIEvent',
-	  mouseevent: 'MouseEvent'
+	  mouseevent: 'MouseEvent',
+	  keyboardevent: 'KeyboardEvent',
+	  keyevent: 'KeyboardEvent'
 	};
 
 	// Certain arguments to document.createEvent() must be treated specially
@@ -8913,7 +9077,8 @@ function requireDocument () {
 	  htmlevents: 'event',
 	  mouseevents: 'mouseevent',
 	  mutationevents: 'mutationevent',
-	  uievents: 'uievent'
+	  uievents: 'uievent',
+	  keyevents: 'keyboardevent'
 	};
 
 	var mirrorAttr = function(f, name, defaultValue) {
@@ -9074,7 +9239,36 @@ function requireDocument () {
 	    var constructor = events[supportedEvents[name]];
 
 	    if (constructor) {
-	      var e = new constructor();
+	      var e = new constructor('');
+	      if (!('_initialized' in e)) {
+	        var origInitEvent = e.initEvent;
+	        Object.defineProperty(e, 'initEvent', {
+	          value: function initEvent(type, bubbles, cancelable) {
+	            this._initialized = true;
+	            if (this._dispatching) return;
+	            this._propagationStopped = false;
+	            this._immediatePropagationStopped = false;
+	            if (origInitEvent) origInitEvent.call(this, type, bubbles, cancelable);
+	          },
+	          configurable: true,
+	          writable: true
+	        });
+	        if (name === 'customevent' && typeof e.initCustomEvent !== 'function') {
+	          Object.defineProperty(e, 'initCustomEvent', {
+	            value: function initCustomEvent(type, bubbles, cancelable, detail) {
+	              this.initEvent(type, bubbles, cancelable);
+	              Object.defineProperty(this, 'detail', {
+	                value: detail,
+	                configurable: true,
+	                enumerable: true,
+	                writable: true
+	              });
+	            },
+	            configurable: true,
+	            writable: true
+	          });
+	        }
+	      }
 	      e._initialized = false;
 	      return e;
 	    }

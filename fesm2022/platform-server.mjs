@@ -1,5 +1,5 @@
 /**
- * @license Angular v22.3.0+sha-bb930fe
+ * @license Angular v22.3.0+sha-6e61b2c
  * (c) 2010-2026 Google LLC. https://angular.dev/
  * License: MIT
  */
@@ -101,6 +101,9 @@ function insertEventRecordScript(appId, doc, eventTypesToReplay, nonce) {
   _stopMeasuring(measuringLabel);
 }
 async function renderInternal(platformRef, applicationRef) {
+  if (platformRef.destroyed || applicationRef.destroyed) {
+    return '';
+  }
   const platformState = platformRef.injector.get(PlatformState);
   prepareForHydration(platformState, applicationRef);
   appendServerContextInfo(applicationRef);
@@ -116,24 +119,54 @@ async function renderInternal(platformRef, applicationRef) {
           asyncCallbacks.push(callbackResult);
         }
       } catch (e) {
-        errorHandler(e);
+        if (!environmentInjector.destroyed) {
+          errorHandler(e);
+        }
       }
     }
     if (asyncCallbacks.length) {
-      for (const result of await Promise.allSettled(asyncCallbacks)) {
-        if (result.status === 'rejected') {
+      if (platformRef.destroyed || applicationRef.destroyed) {
+        void Promise.allSettled(asyncCallbacks);
+        return '';
+      }
+      const settled = await new Promise(resolve => {
+        const unregisterDestroy = applicationRef.onDestroy(() => {
+          resolve(null);
+        });
+        Promise.allSettled(asyncCallbacks).then(results => {
+          unregisterDestroy();
+          resolve(results);
+        });
+      });
+      if (settled === null) {
+        return '';
+      }
+      for (const result of settled) {
+        if (result.status === 'rejected' && !environmentInjector.destroyed) {
           errorHandler(result.reason);
         }
       }
     }
   }
+  if (platformRef.destroyed || applicationRef.destroyed) {
+    return '';
+  }
   return platformState.renderToString();
 }
 function asyncDestroyPlatform(platformRef) {
-  return new Promise(resolve => {
+  if (platformRef.destroyed) {
+    return Promise.resolve();
+  }
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      platformRef.destroy();
-      resolve();
+      try {
+        if (!platformRef.destroyed) {
+          platformRef.destroy();
+        }
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
     }, 0);
   });
 }
@@ -158,6 +191,9 @@ async function renderModule(moduleType, options) {
   });
   try {
     const moduleRef = await platformRef.bootstrapModule(moduleType);
+    if (platformRef.destroyed || moduleRef.injector.destroyed) {
+      return '';
+    }
     const applicationRef = moduleRef.injector.get(ApplicationRef);
     const measuringLabel = 'whenStable';
     _startMeasuring(measuringLabel);
@@ -185,6 +221,9 @@ async function renderApplication(bootstrap, options) {
       platformRef
     });
     _stopMeasuring(bootstrapLabel);
+    if (platformRef.destroyed || applicationRef.destroyed) {
+      return '';
+    }
     _startMeasuring(_renderLabel);
     const measuringLabel = 'whenStable';
     _startMeasuring(measuringLabel);
@@ -194,8 +233,11 @@ async function renderApplication(bootstrap, options) {
     _stopMeasuring(_renderLabel);
     return rendered;
   } finally {
-    await asyncDestroyPlatform(platformRef);
-    _stopMeasuring(renderAppLabel);
+    try {
+      await asyncDestroyPlatform(platformRef);
+    } finally {
+      _stopMeasuring(renderAppLabel);
+    }
   }
 }
 function validateAllowedHosts(url, allowedHosts) {
@@ -226,7 +268,7 @@ function isHostAllowed(hostname, allowedHosts) {
   return false;
 }
 
-const VERSION = /* @__PURE__ */new Version('22.3.0+sha-bb930fe');
+const VERSION = /* @__PURE__ */new Version('22.3.0+sha-6e61b2c');
 
 export { BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, VERSION, platformServer, provideServerRendering, renderApplication, renderModule, SERVER_CONTEXT as ɵSERVER_CONTEXT, isHostAllowed as ɵisHostAllowed, renderInternal as ɵrenderInternal };
 //# sourceMappingURL=platform-server.mjs.map
